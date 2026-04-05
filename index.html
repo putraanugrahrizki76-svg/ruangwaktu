@@ -394,11 +394,6 @@ padding: 1rem 1.75rem; border-top: 1px solid var(--border);
 display: flex; align-items: center; justify-content: space-between;
 gap: 0.75rem; flex-wrap: wrap;
 }
-.modal-footer-info {
-font-size: 0.65rem; color: var(--fg-dim);
-display: flex; align-items: center; gap: 0.4rem;
-}
-.modal-footer-actions { display: flex; gap: 0.5rem; }
 .modal-btn {
 display: inline-flex; align-items: center; gap: 0.4rem;
 padding: 0.45rem 1rem; font-size: 0.72rem; font-weight: 500;
@@ -421,10 +416,6 @@ cursor: pointer; transition: all 0.2s;
 }
 .modal-nav-btn:hover { background: rgba(255,255,255,0.06); border-color: var(--border-hover); color: var(--fg-muted); }
 .modal-nav-btn:disabled { opacity: 0.3; cursor: default; }
-.modal-nav-counter {
-font-family: var(--font-display); font-size: 0.68rem;
-color: var(--fg-dim); min-width: 50px; text-align: center;
-}
 
 .empty-state {
 grid-column: 1 / -1; background: var(--card);
@@ -666,17 +657,13 @@ transition-duration: 0.01ms !important;
 <button class="modal-nav-btn" id="modalPrev" aria-label="Sebelumnya">
 <i class="fa-solid fa-chevron-left"></i>
 </button>
-<span class="modal-nav-counter" id="modalCounter">1 / 1</span>
 <button class="modal-nav-btn" id="modalNext" aria-label="Selanjutnya">
 <i class="fa-solid fa-chevron-right"></i>
 </button>
 </div>
-<div class="modal-footer-actions">
-<div class="modal-footer-info" id="modalCharInfo"></div>
 <button class="modal-btn modal-btn-primary" id="modalCopyAll">
 <i class="fa-regular fa-copy"></i> Salin Semua
 </button>
-</div>
 </div>
 </div>
 </div>
@@ -705,8 +692,6 @@ const modalCloseBtn = document.getElementById("modalCloseBtn");
 const modalIndexEl = document.getElementById("modalIndex");
 const modalColAEl = document.getElementById("modalColA");
 const modalColBEl = document.getElementById("modalColB");
-const modalCounterEl = document.getElementById("modalCounter");
-const modalCharInfoEl = document.getElementById("modalCharInfo");
 const modalPrevBtn = document.getElementById("modalPrev");
 const modalNextBtn = document.getElementById("modalNext");
 const modalCopyAllBtn = document.getElementById("modalCopyAll");
@@ -771,11 +756,8 @@ const colBText = item.content || "";
 modalColBEl.textContent = colBText || "(Kosong)";
 modalColBEl.classList.toggle("empty-col", !colBText);
 
-modalCounterEl.textContent = `${index + 1} / ${items.length}`;
 modalPrevBtn.disabled = index === 0;
 modalNextBtn.disabled = index === items.length - 1;
-
-modalCharInfoEl.innerHTML = `<i class="fa-regular fa-file-lines"></i> ${colBText.length} karakter`;
 
 modalOverlay.querySelectorAll(".modal-copy-col").forEach(b => {
 b.classList.remove("copied");
