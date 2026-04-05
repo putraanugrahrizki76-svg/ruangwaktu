@@ -221,6 +221,10 @@ border-radius: 12px; padding: 0.6rem 1rem; transition: all 0.25s ease;
 .stat-chip:hover {
 border-color: var(--border-hover); background: var(--card-hover);
 }
+.stat-chip .stat-num {
+font-family: var(--font-display);
+font-size: 1.1rem; font-weight: 700; color: var(--fg);
+}
 .stat-chip .stat-label {
 font-size: 0.7rem; color: var(--fg-muted); font-weight: 400;
 }
@@ -749,6 +753,7 @@ border-radius: 4px 4px 0 0;
 .cards-grid { grid-template-columns: 1fr; }
 .stats-bar { gap: 0.5rem; }
 .stat-chip { padding: 0.5rem 0.75rem; }
+.stat-chip .stat-num { font-size: 0.95rem; }
 
 /* List view responsive */
 .list-row {
@@ -818,14 +823,17 @@ transition-duration: 0.01ms !important;
 <div class="stats-bar">
 <div class="stat-chip">
 <span class="stat-icon"><i class="fa-solid fa-database"></i></span>
+<span class="stat-num" id="statTotal">--</span>
 <span class="stat-label">Total Entri</span>
 </div>
 <div class="stat-chip">
 <span class="stat-icon"><i class="fa-regular fa-calendar-check"></i></span>
+<span class="stat-num" id="statJadwal">--</span>
 <span class="stat-label">Jadwal Pasaran</span>
 </div>
 <div class="stat-chip">
 <span class="stat-icon"><i class="fa-solid fa-filter"></i></span>
+<span class="stat-num" id="statFiltered">--</span>
 <span class="stat-label">Ditampilkan</span>
 </div>
 </div>
@@ -938,14 +946,17 @@ const DATA_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/
 
 let allData = [];
 let currentFilter = "all";
-let currentView = "grid";
+let currentView = "grid"; // "grid" | "list"
 let isLoading = false;
 let lastError = null;
-let modalOpenIndex = -1;
+let modalOpenIndex = -1; // indeks di data yang difilter
 
 const contentArea = document.getElementById("contentArea");
 const countAllEl = document.getElementById("countAll");
 const countJadwalEl = document.getElementById("countJadwal");
+const statTotalEl = document.getElementById("statTotal");
+const statJadwalEl = document.getElementById("statJadwal");
+const statFilteredEl = document.getElementById("statFiltered");
 const viewLabelEl = document.getElementById("viewLabel");
 
 const modalOverlay = document.getElementById("modalOverlay");
@@ -1026,20 +1037,25 @@ const num = String(index + 1).padStart(2, "0");
 modalIndexEl.textContent = `ENTRI #${num}`;
 modalTitleEl.textContent = item.title || "(Tanpa Judul)";
 
+// Kolom A
 const colAText = item.title || "";
 modalColAEl.textContent = colAText || "(Kosong)";
 modalColAEl.classList.toggle("empty-col", !colAText);
 
+// Kolom B
 const colBText = item.content || "";
 modalColBEl.textContent = colBText || "(Kosong)";
 modalColBEl.classList.toggle("empty-col", !colBText);
 
+// Navigasi
 modalCounterEl.textContent = `${index + 1} / ${items.length}`;
 modalPrevBtn.disabled = index === 0;
 modalNextBtn.disabled = index === items.length - 1;
 
+// Info karakter
 modalCharInfoEl.innerHTML = `<i class="fa-regular fa-file-lines"></i> ${colBText.length} karakter`;
 
+// Reset tombol salin kolom
 modalOverlay.querySelectorAll(".modal-copy-col").forEach(b => {
 b.classList.remove("copied");
 b.innerHTML = '<i class="fa-regular fa-copy"></i> Salin';
@@ -1061,6 +1077,7 @@ const next = modalOpenIndex + dir;
 if (next >= 0 && next < items.length) openModal(next);
 }
 
+// Event modal
 modalCloseBtn.addEventListener("click", closeModal);
 modalOverlay.addEventListener("click", e => {
 if (e.target === modalOverlay) closeModal();
@@ -1074,15 +1091,19 @@ if (e.key === "ArrowLeft") navigateModal(-1);
 if (e.key === "ArrowRight") navigateModal(1);
 });
 
+// Salin per kolom di modal
 modalOverlay.addEventListener("click", async e => {
 const btn = e.target.closest(".modal-copy-col");
 if (!btn || btn.classList.contains("copied")) return;
+
 const col = btn.dataset.copy;
 const items = getFilteredData();
 const item = items[modalOpenIndex];
 if (!item) return;
+
 const text = col === "colA" ? (item.title || "") : (item.content || "");
 if (!text.trim()) { showToast("Kolom ini kosong", "error"); return; }
+
 const ok = await copyText(text);
 if (ok) {
 btn.classList.add("copied");
@@ -1095,6 +1116,7 @@ btn.innerHTML = '<i class="fa-regular fa-copy"></i> Salin';
 } else { showToast("Gagal menyalin", "error"); }
 });
 
+// Salin semua di modal
 modalCopyAllBtn.addEventListener("click", async () => {
 const items = getFilteredData();
 const item = items[modalOpenIndex];
@@ -1110,13 +1132,16 @@ else showToast("Gagal menyalin", "error");
 KLIK KARTU / BARIS → BUKA MODAL
 ============================================= */
 function handleCardClick(e) {
+// Jangan buka modal kalau klik tombol salin
 if (e.target.closest(".copy-btn-sm")) return;
+
 const card = e.target.closest(".card");
 if (card) {
 const idx = parseInt(card.dataset.index, 10);
 if (!isNaN(idx)) openModal(idx);
 return;
 }
+
 const row = e.target.closest(".list-row");
 if (row) {
 const idx = parseInt(row.dataset.index, 10);
@@ -1130,16 +1155,19 @@ SALIN KECIL DI KARTU / LIST
 async function handleSmallCopy(e) {
 const btn = e.target.closest(".copy-btn-sm");
 if (!btn || btn.classList.contains("copied")) return;
+
 const card = btn.closest(".card");
 const row = btn.closest(".list-row");
 const parent = card || row;
 if (!parent) return;
+
 const idx = parseInt(parent.dataset.index, 10);
 const items = getFilteredData();
 const item = items[idx];
 if (!item || !item.content) {
 showToast("Tidak ada isi untuk disalin", "error"); return;
 }
+
 const ok = await copyText(item.content);
 if (ok) {
 btn.classList.add("copied");
@@ -1158,8 +1186,12 @@ STATS
 function updateStats() {
 const total = allData.length;
 const jadwal = allData.filter(isJadwal).length;
+const filtered = getFilteredData().length;
 countAllEl.textContent = total;
 countJadwalEl.textContent = jadwal;
+statTotalEl.textContent = total;
+statJadwalEl.textContent = jadwal;
+statFilteredEl.textContent = filtered;
 }
 
 /* =============================================
