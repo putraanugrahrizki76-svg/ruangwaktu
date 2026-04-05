@@ -412,7 +412,7 @@ background: rgba(126,184,138,0.06);
 }
 
 /* =============================================
-MODAL DETAIL — INTI FITUR BARU
+MODAL DETAIL
 ============================================= */
 .modal-overlay {
 position: fixed; inset: 0; z-index: 9000;
@@ -476,28 +476,6 @@ cursor: pointer; transition: all 0.2s; flex-shrink: 0;
 .modal-close:hover {
 background: rgba(255,255,255,0.08);
 border-color: var(--border-hover); color: var(--fg);
-}
-
-/* Kolom info di modal */
-.modal-columns {
-padding: 0 1.75rem;
-display: flex; gap: 0.6rem; flex-wrap: wrap;
-}
-.modal-col-tag {
-font-size: 0.62rem; font-weight: 600;
-font-family: var(--font-display);
-padding: 0.2rem 0.55rem; border-radius: 6px;
-letter-spacing: 0.04em;
-}
-.modal-col-tag.col-a {
-background: rgba(232,168,56,0.1);
-color: var(--accent);
-border: 1px solid rgba(232,168,56,0.15);
-}
-.modal-col-tag.col-b {
-background: rgba(91,164,207,0.1);
-color: var(--sky);
-border: 1px solid rgba(91,164,207,0.15);
 }
 
 /* Isi per kolom */
@@ -768,7 +746,6 @@ grid-template-columns: 36px 1fr auto;
 .modal-panel { max-height: 92vh; border-radius: 16px; }
 .modal-header { padding: 1.25rem 1.25rem 0.75rem; }
 .modal-body { padding: 1rem 1.25rem 1.25rem; }
-.modal-columns { padding: 0 1.25rem; }
 .modal-footer { padding: 0.75rem 1.25rem; }
 .modal-title { font-size: 1.15rem; }
 }
@@ -882,11 +859,6 @@ transition-duration: 0.01ms !important;
 </button>
 </div>
 
-<div class="modal-columns" id="modalColTags">
-<span class="modal-col-tag col-a"><i class="fa-solid fa-a"></i> Kolom A — Judul</span>
-<span class="modal-col-tag col-b"><i class="fa-solid fa-b"></i> Kolom B — Isi</span>
-</div>
-
 <div class="modal-body">
 <!-- Kolom A -->
 <div class="modal-section">
@@ -946,10 +918,10 @@ const DATA_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/
 
 let allData = [];
 let currentFilter = "all";
-let currentView = "grid"; // "grid" | "list"
+let currentView = "grid";
 let isLoading = false;
 let lastError = null;
-let modalOpenIndex = -1; // indeks di data yang difilter
+let modalOpenIndex = -1;
 
 const contentArea = document.getElementById("contentArea");
 const countAllEl = document.getElementById("countAll");
@@ -1037,25 +1009,20 @@ const num = String(index + 1).padStart(2, "0");
 modalIndexEl.textContent = `ENTRI #${num}`;
 modalTitleEl.textContent = item.title || "(Tanpa Judul)";
 
-// Kolom A
 const colAText = item.title || "";
 modalColAEl.textContent = colAText || "(Kosong)";
 modalColAEl.classList.toggle("empty-col", !colAText);
 
-// Kolom B
 const colBText = item.content || "";
 modalColBEl.textContent = colBText || "(Kosong)";
 modalColBEl.classList.toggle("empty-col", !colBText);
 
-// Navigasi
 modalCounterEl.textContent = `${index + 1} / ${items.length}`;
 modalPrevBtn.disabled = index === 0;
 modalNextBtn.disabled = index === items.length - 1;
 
-// Info karakter
 modalCharInfoEl.innerHTML = `<i class="fa-regular fa-file-lines"></i> ${colBText.length} karakter`;
 
-// Reset tombol salin kolom
 modalOverlay.querySelectorAll(".modal-copy-col").forEach(b => {
 b.classList.remove("copied");
 b.innerHTML = '<i class="fa-regular fa-copy"></i> Salin';
@@ -1077,7 +1044,6 @@ const next = modalOpenIndex + dir;
 if (next >= 0 && next < items.length) openModal(next);
 }
 
-// Event modal
 modalCloseBtn.addEventListener("click", closeModal);
 modalOverlay.addEventListener("click", e => {
 if (e.target === modalOverlay) closeModal();
@@ -1132,7 +1098,6 @@ else showToast("Gagal menyalin", "error");
 KLIK KARTU / BARIS → BUKA MODAL
 ============================================= */
 function handleCardClick(e) {
-// Jangan buka modal kalau klik tombol salin
 if (e.target.closest(".copy-btn-sm")) return;
 
 const card = e.target.closest(".card");
@@ -1387,4 +1352,4 @@ initViewToggle();
 </script>
 
 </body>
-</html
+</html>
