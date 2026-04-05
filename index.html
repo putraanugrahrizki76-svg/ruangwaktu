@@ -34,7 +34,6 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
 
         body {
@@ -46,69 +45,47 @@
             overflow-x: hidden;
         }
 
-        /* === BACKGROUND ATMOSPHERE === */
+        /* === BACKGROUND === */
         .bg-atmosphere {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
+            position: fixed; inset: 0; z-index: 0;
+            pointer-events: none; overflow: hidden;
         }
-
         .bg-atmosphere .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.4;
+            position: absolute; border-radius: 50%;
+            filter: blur(120px); opacity: 0.4;
             animation: orbFloat 20s ease-in-out infinite alternate;
         }
-
         .bg-atmosphere .orb-1 {
             width: 500px; height: 500px;
             background: radial-gradient(circle, rgba(232,168,56,0.18), transparent 70%);
-            top: -10%; left: -5%;
-            animation-duration: 25s;
+            top: -10%; left: -5%; animation-duration: 25s;
         }
-
         .bg-atmosphere .orb-2 {
             width: 400px; height: 400px;
             background: radial-gradient(circle, rgba(240,104,88,0.12), transparent 70%);
-            bottom: -15%; right: -5%;
-            animation-duration: 30s;
-            animation-delay: -5s;
+            bottom: -15%; right: -5%; animation-duration: 30s; animation-delay: -5s;
         }
-
         .bg-atmosphere .orb-3 {
             width: 350px; height: 350px;
             background: radial-gradient(circle, rgba(126,184,138,0.1), transparent 70%);
-            top: 40%; left: 50%;
-            animation-duration: 22s;
-            animation-delay: -10s;
+            top: 40%; left: 50%; animation-duration: 22s; animation-delay: -10s;
         }
-
         @keyframes orbFloat {
             0% { transform: translate(0, 0) scale(1); }
             33% { transform: translate(30px, -40px) scale(1.05); }
             66% { transform: translate(-20px, 20px) scale(0.95); }
             100% { transform: translate(15px, -15px) scale(1.02); }
         }
-
-        /* Grain overlay */
         .bg-atmosphere::after {
-            content: '';
-            position: absolute;
-            inset: 0;
+            content: ''; position: absolute; inset: 0;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-            background-size: 128px;
-            opacity: 0.5;
+            background-size: 128px; opacity: 0.5;
         }
 
         /* === LAYOUT === */
         .app-layout {
-            display: flex;
-            min-height: 100vh;
-            position: relative;
-            z-index: 1;
+            display: flex; min-height: 100vh;
+            position: relative; z-index: 1;
         }
 
         /* === SIDEBAR === */
@@ -116,285 +93,252 @@
             width: var(--sidebar-w);
             background: var(--bg-elevated);
             border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            padding: 2rem 1rem;
-            gap: 0.5rem;
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            flex-shrink: 0;
+            display: flex; flex-direction: column;
+            padding: 2rem 1rem; gap: 0.5rem;
+            position: sticky; top: 0; height: 100vh; flex-shrink: 0;
         }
-
         .sidebar-brand {
             font-family: var(--font-display);
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--fg-muted);
-            padding: 0 0.85rem;
+            font-size: 0.7rem; font-weight: 600;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--fg-muted); padding: 0 0.85rem;
             margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            display: flex; align-items: center; gap: 0.5rem;
         }
-
         .sidebar-brand .dot {
             width: 6px; height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
+            background: var(--accent); border-radius: 50%;
             box-shadow: 0 0 8px var(--accent-glow);
             animation: pulse 2s ease-in-out infinite;
         }
-
         @keyframes pulse {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.5; transform: scale(0.8); }
         }
-
         .sidebar-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 0.85rem;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            position: relative;
-            border: 1px solid transparent;
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.75rem 0.85rem; border-radius: 12px;
+            cursor: pointer; transition: all 0.25s ease;
+            position: relative; border: 1px solid transparent;
         }
-
         .sidebar-item .icon-wrap {
-            width: 34px; height: 34px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            background: rgba(255,255,255,0.04);
-            color: var(--fg-muted);
-            transition: all 0.25s ease;
-            flex-shrink: 0;
+            width: 34px; height: 34px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.8rem; background: rgba(255,255,255,0.04);
+            color: var(--fg-muted); transition: all 0.25s ease; flex-shrink: 0;
         }
-
         .sidebar-item .label {
             font-family: var(--font-display);
-            font-size: 0.82rem;
-            font-weight: 500;
-            color: var(--fg-muted);
-            transition: color 0.25s ease;
+            font-size: 0.82rem; font-weight: 500;
+            color: var(--fg-muted); transition: color 0.25s ease;
             white-space: nowrap;
         }
-
         .sidebar-item .count {
-            margin-left: auto;
-            font-size: 0.65rem;
-            font-weight: 600;
-            color: var(--fg-dim);
-            background: rgba(255,255,255,0.04);
-            padding: 0.15rem 0.5rem;
-            border-radius: 20px;
-            transition: all 0.25s ease;
-            min-width: 24px;
-            text-align: center;
+            margin-left: auto; font-size: 0.65rem; font-weight: 600;
+            color: var(--fg-dim); background: rgba(255,255,255,0.04);
+            padding: 0.15rem 0.5rem; border-radius: 20px;
+            transition: all 0.25s ease; min-width: 24px; text-align: center;
         }
-
         .sidebar-item:hover {
-            background: rgba(255,255,255,0.03);
-            border-color: var(--border);
+            background: rgba(255,255,255,0.03); border-color: var(--border);
         }
-
         .sidebar-item:hover .label { color: var(--fg); }
         .sidebar-item:hover .icon-wrap {
-            background: rgba(255,255,255,0.06);
-            color: var(--fg);
+            background: rgba(255,255,255,0.06); color: var(--fg);
         }
-
         .sidebar-item.active {
             background: var(--accent-glow);
             border-color: rgba(232,168,56,0.2);
         }
-
         .sidebar-item.active .label { color: var(--accent); }
         .sidebar-item.active .icon-wrap {
-            background: rgba(232,168,56,0.15);
-            color: var(--accent);
+            background: rgba(232,168,56,0.15); color: var(--accent);
         }
-
         .sidebar-item.active .count {
-            background: rgba(232,168,56,0.15);
-            color: var(--accent);
+            background: rgba(232,168,56,0.15); color: var(--accent);
         }
-
         .sidebar-item.active::before {
-            content: '';
-            position: absolute;
-            left: -1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 3px;
-            height: 20px;
-            background: var(--accent);
-            border-radius: 0 4px 4px 0;
+            content: ''; position: absolute; left: -1rem; top: 50%;
+            transform: translateY(-50%); width: 3px; height: 20px;
+            background: var(--accent); border-radius: 0 4px 4px 0;
         }
-
         .sidebar-footer {
-            margin-top: auto;
-            padding: 1rem 0.85rem 0;
+            margin-top: auto; padding: 1rem 0.85rem 0;
             border-top: 1px solid var(--border);
         }
-
         .sidebar-footer-text {
-            font-size: 0.65rem;
-            color: var(--fg-dim);
-            line-height: 1.5;
+            font-size: 0.65rem; color: var(--fg-dim); line-height: 1.5;
         }
 
         /* === MAIN === */
         .main-content {
-            flex: 1;
-            padding: 2.5rem 3rem;
-            min-width: 0;
+            flex: 1; padding: 2.5rem 3rem; min-width: 0;
         }
-
         .dashboard-container {
-            max-width: 1280px;
-            margin: 0 auto;
+            max-width: 1280px; margin: 0 auto;
         }
 
         /* Header */
         .page-header {
-            margin-bottom: 2.5rem;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 1rem;
-            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            display: flex; align-items: flex-end;
+            justify-content: space-between; gap: 1rem; flex-wrap: wrap;
         }
-
-        .page-header-left {}
-
         .page-title {
             font-family: var(--font-display);
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--fg);
-            letter-spacing: -0.03em;
-            line-height: 1.2;
+            font-size: 2rem; font-weight: 700;
+            color: var(--fg); letter-spacing: -0.03em; line-height: 1.2;
         }
-
-        .page-title .accent-word {
-            color: var(--accent);
-        }
-
+        .page-title .accent-word { color: var(--accent); }
         .page-subtitle {
-            margin-top: 0.4rem;
-            font-size: 0.85rem;
-            color: var(--fg-muted);
-            font-weight: 400;
+            margin-top: 0.4rem; font-size: 0.85rem;
+            color: var(--fg-muted); font-weight: 400;
         }
-
         .page-header-right {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            display: flex; align-items: center; gap: 0.5rem;
         }
-
         .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: var(--sage);
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            font-size: 0.7rem; font-weight: 500; color: var(--sage);
             background: rgba(126,184,138,0.08);
             border: 1px solid rgba(126,184,138,0.15);
-            padding: 0.35rem 0.75rem;
-            border-radius: 20px;
+            padding: 0.35rem 0.75rem; border-radius: 20px;
         }
-
         .status-badge .live-dot {
-            width: 5px; height: 5px;
-            background: var(--sage);
-            border-radius: 50%;
-            animation: pulse 1.5s ease-in-out infinite;
+            width: 5px; height: 5px; background: var(--sage);
+            border-radius: 50%; animation: pulse 1.5s ease-in-out infinite;
         }
 
         /* Stats bar */
         .stats-bar {
-            display: flex;
-            gap: 0.75rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
+            display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap;
         }
-
         .stat-chip {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 0.6rem 1rem;
-            transition: all 0.25s ease;
+            display: flex; align-items: center; gap: 0.5rem;
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 0.6rem 1rem; transition: all 0.25s ease;
         }
-
         .stat-chip:hover {
-            border-color: var(--border-hover);
-            background: var(--card-hover);
+            border-color: var(--border-hover); background: var(--card-hover);
         }
-
         .stat-chip .stat-num {
             font-family: var(--font-display);
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--fg);
+            font-size: 1.1rem; font-weight: 700; color: var(--fg);
         }
-
         .stat-chip .stat-label {
-            font-size: 0.7rem;
-            color: var(--fg-muted);
-            font-weight: 400;
+            font-size: 0.7rem; color: var(--fg-muted); font-weight: 400;
         }
-
         .stat-chip .stat-icon {
-            font-size: 0.75rem;
-            color: var(--fg-dim);
+            font-size: 0.75rem; color: var(--fg-dim);
         }
 
-        /* === CARDS GRID === */
+        /* === VIEW TOGGLE === */
+        .toolbar {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap;
+        }
+        .toolbar-left {
+            font-family: var(--font-display);
+            font-size: 0.78rem; color: var(--fg-muted);
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .view-toggle {
+            display: flex; background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border); border-radius: 10px;
+            overflow: hidden;
+        }
+        .view-toggle-btn {
+            padding: 0.45rem 0.85rem; font-size: 0.72rem;
+            font-family: var(--font-display); font-weight: 500;
+            color: var(--fg-dim); background: transparent;
+            border: none; cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; gap: 0.35rem;
+        }
+        .view-toggle-btn:hover { color: var(--fg-muted); }
+        .view-toggle-btn.active {
+            background: rgba(255,255,255,0.06); color: var(--fg);
+        }
+
+        /* === GRID VIEW === */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 1.25rem;
         }
 
-        /* === CARD === */
-        .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
+        /* === LIST VIEW === */
+        .cards-list {
+            display: flex; flex-direction: column; gap: 0.6rem;
+        }
+        .list-row {
+            display: grid;
+            grid-template-columns: 48px 1fr 2fr auto;
+            align-items: start; gap: 1rem;
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 1rem 1.25rem;
+            cursor: pointer; transition: all 0.25s ease;
+            animation: rowIn 0.35s ease backwards;
+        }
+        @keyframes rowIn {
+            from { opacity: 0; transform: translateX(-12px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .list-row:hover {
+            background: var(--card-hover);
+            border-color: var(--border-hover);
+        }
+        .list-row .row-index {
+            font-family: var(--font-display);
+            font-size: 0.65rem; font-weight: 600;
+            color: var(--fg-dim); letter-spacing: 0.08em;
+            padding-top: 0.2rem;
+        }
+        .list-row .row-title {
+            font-family: var(--font-display);
+            font-size: 0.9rem; font-weight: 600; color: var(--fg);
+            line-height: 1.35;
+        }
+        .list-row .row-content {
+            font-size: 0.82rem; color: var(--fg-muted);
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            animation: cardIn 0.5s ease backwards;
+        }
+        .list-row .row-actions {
+            display: flex; align-items: center; gap: 0.4rem;
+            padding-top: 0.15rem;
+        }
+        .list-row .row-action-btn {
+            width: 32px; height: 32px; border-radius: 8px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            color: var(--fg-dim); font-size: 0.7rem;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .list-row .row-action-btn:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: var(--border-hover); color: var(--fg-muted);
         }
 
+        /* === CARD (Grid) === */
+        .card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); overflow: hidden;
+            display: flex; flex-direction: column;
+            transition: all 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+            position: relative; animation: cardIn 0.5s ease backwards;
+            cursor: pointer;
+        }
         @keyframes cardIn {
             from { opacity: 0; transform: translateY(20px) scale(0.98); }
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
-
-        /* Warna aksen strip atas tiap kartu */
         .card .accent-strip {
-            height: 3px;
-            width: 100%;
-            flex-shrink: 0;
+            height: 3px; width: 100%; flex-shrink: 0;
         }
-
         .card:nth-child(8n+1) .accent-strip { background: linear-gradient(90deg, var(--accent), rgba(232,168,56,0.2)); }
         .card:nth-child(8n+2) .accent-strip { background: linear-gradient(90deg, var(--coral), rgba(240,104,88,0.2)); }
         .card:nth-child(8n+3) .accent-strip { background: linear-gradient(90deg, var(--sage), rgba(126,184,138,0.2)); }
@@ -403,361 +347,432 @@
         .card:nth-child(8n+6) .accent-strip { background: linear-gradient(90deg, var(--rose), rgba(244,114,182,0.2)); }
         .card:nth-child(8n+7) .accent-strip { background: linear-gradient(90deg, var(--teal), rgba(45,212,191,0.2)); }
         .card:nth-child(8n) .accent-strip { background: linear-gradient(90deg, var(--accent), var(--coral)); }
-
         .card:hover {
-            border-color: var(--border-hover);
-            background: var(--card-hover);
+            border-color: var(--border-hover); background: var(--card-hover);
             transform: translateY(-4px);
             box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
         }
-
         .card-inner {
             padding: 1.25rem 1.4rem 1.4rem;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            gap: 0.75rem;
+            display: flex; flex-direction: column; flex: 1; gap: 0.75rem;
         }
-
         .card-top {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 0.75rem;
+            display: flex; align-items: flex-start;
+            justify-content: space-between; gap: 0.75rem;
         }
-
         .card-index {
             font-family: var(--font-display);
-            font-size: 0.6rem;
-            font-weight: 600;
-            color: var(--fg-dim);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            flex-shrink: 0;
-            margin-top: 0.15rem;
+            font-size: 0.6rem; font-weight: 600;
+            color: var(--fg-dim); letter-spacing: 0.1em;
+            text-transform: uppercase; margin-top: 0.15rem;
         }
-
         .card-title {
             font-family: var(--font-display);
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--fg);
-            letter-spacing: -0.01em;
-            line-height: 1.35;
-            flex: 1;
+            font-size: 1.05rem; font-weight: 600;
+            color: var(--fg); letter-spacing: -0.01em; line-height: 1.35; flex: 1;
         }
-
         .card-content {
-            font-size: 0.84rem;
-            color: var(--fg-muted);
+            font-size: 0.84rem; color: var(--fg-muted);
             line-height: 1.65;
-            display: -webkit-box;
-            -webkit-line-clamp: 4;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            word-break: break-word;
+            display: -webkit-box; -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical; overflow: hidden; word-break: break-word;
         }
-
         .card-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: auto;
-            padding-top: 0.75rem;
+            display: flex; align-items: center; justify-content: space-between;
+            margin-top: auto; padding-top: 0.75rem;
             border-top: 1px solid var(--border);
         }
-
         .card-meta {
-            font-size: 0.65rem;
-            color: var(--fg-dim);
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
+            font-size: 0.65rem; color: var(--fg-dim);
+            display: flex; align-items: center; gap: 0.35rem;
+        }
+        .card-open-hint {
+            font-size: 0.62rem; color: var(--fg-dim);
+            display: flex; align-items: center; gap: 0.3rem;
+            opacity: 0.6; transition: opacity 0.2s;
+        }
+        .card:hover .card-open-hint { opacity: 1; }
+
+        /* Copy button kecil di card */
+        .copy-btn-sm {
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            padding: 0.3rem 0.65rem; font-size: 0.65rem; font-weight: 500;
+            font-family: var(--font-display); color: var(--fg-dim);
+            background: transparent; border: 1px solid transparent;
+            border-radius: 6px; cursor: pointer; transition: all 0.2s;
+        }
+        .copy-btn-sm:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: var(--border); color: var(--fg-muted);
+        }
+        .copy-btn-sm:active { transform: scale(0.95); }
+        .copy-btn-sm.copied {
+            color: var(--sage); border-color: rgba(126,184,138,0.2);
+            background: rgba(126,184,138,0.06);
         }
 
-        /* === COPY BUTTON === */
-        .copy-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            padding: 0.3rem 0.75rem;
-            font-size: 0.68rem;
-            font-weight: 500;
+        /* =============================================
+           MODAL DETAIL — INTI FITUR BARU
+           ============================================= */
+        .modal-overlay {
+            position: fixed; inset: 0; z-index: 9000;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            padding: 1.5rem;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1; visibility: visible;
+        }
+        .modal-panel {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            width: 100%; max-width: 680px;
+            max-height: 85vh;
+            display: flex; flex-direction: column;
+            transform: translateY(16px) scale(0.97);
+            transition: transform 0.35s cubic-bezier(0.2,0.9,0.3,1);
+            box-shadow: 0 32px 64px -16px rgba(0,0,0,0.6);
+            overflow: hidden;
+        }
+        .modal-overlay.open .modal-panel {
+            transform: translateY(0) scale(1);
+        }
+
+        /* Modal header strip */
+        .modal-accent {
+            height: 4px; width: 100%; flex-shrink: 0;
+            background: linear-gradient(90deg, var(--accent), var(--coral), var(--lavender));
+        }
+
+        .modal-header {
+            display: flex; align-items: flex-start; justify-content: space-between;
+            padding: 1.5rem 1.75rem 1rem; gap: 1rem;
+        }
+        .modal-header-left { flex: 1; min-width: 0; }
+        .modal-index {
             font-family: var(--font-display);
-            color: var(--fg-muted);
+            font-size: 0.65rem; font-weight: 600;
+            color: var(--fg-dim); letter-spacing: 0.12em;
+            text-transform: uppercase; margin-bottom: 0.4rem;
+        }
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: 1.35rem; font-weight: 700;
+            color: var(--fg); letter-spacing: -0.02em;
+            line-height: 1.3; word-break: break-word;
+        }
+        .modal-close {
+            width: 36px; height: 36px; border-radius: 10px;
             background: rgba(255,255,255,0.04);
             border: 1px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            letter-spacing: 0.02em;
+            color: var(--fg-muted); font-size: 0.85rem;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.2s; flex-shrink: 0;
         }
-
-        .copy-btn i { font-size: 0.65rem; }
-
-        .copy-btn:hover {
+        .modal-close:hover {
             background: rgba(255,255,255,0.08);
-            border-color: var(--border-hover);
-            color: var(--fg);
+            border-color: var(--border-hover); color: var(--fg);
         }
 
-        .copy-btn:active {
-            transform: scale(0.95);
+        /* Kolom info di modal */
+        .modal-columns {
+            padding: 0 1.75rem;
+            display: flex; gap: 0.6rem; flex-wrap: wrap;
+        }
+        .modal-col-tag {
+            font-size: 0.62rem; font-weight: 600;
+            font-family: var(--font-display);
+            padding: 0.2rem 0.55rem; border-radius: 6px;
+            letter-spacing: 0.04em;
+        }
+        .modal-col-tag.col-a {
+            background: rgba(232,168,56,0.1);
+            color: var(--accent);
+            border: 1px solid rgba(232,168,56,0.15);
+        }
+        .modal-col-tag.col-b {
+            background: rgba(91,164,207,0.1);
+            color: var(--sky);
+            border: 1px solid rgba(91,164,207,0.15);
         }
 
-        .copy-btn.copied {
-            background: rgba(126,184,138,0.1);
-            border-color: rgba(126,184,138,0.25);
-            color: var(--sage);
+        /* Isi per kolom */
+        .modal-body {
+            padding: 1.25rem 1.75rem 1.75rem;
+            overflow-y: auto; flex: 1;
+            display: flex; flex-direction: column; gap: 1.25rem;
         }
 
-        /* === EMPTY STATE === */
-        .empty-state {
-            grid-column: 1 / -1;
-            background: var(--card);
-            border: 1px dashed var(--border);
-            border-radius: var(--radius-lg);
-            padding: 4rem 2rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
+        .modal-section {
+            display: flex; flex-direction: column; gap: 0.5rem;
+        }
+        .modal-section-header {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 0.5rem;
+        }
+        .modal-section-label {
+            font-family: var(--font-display);
+            font-size: 0.7rem; font-weight: 600;
+            color: var(--fg-dim); letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: flex; align-items: center; gap: 0.4rem;
+        }
+        .modal-section-label .section-dot {
+            width: 5px; height: 5px; border-radius: 50%;
+        }
+        .modal-section-label .section-dot.dot-amber { background: var(--accent); }
+        .modal-section-label .section-dot.dot-blue { background: var(--sky); }
+
+        .modal-copy-col {
+            font-size: 0.62rem; font-weight: 500;
+            font-family: var(--font-display);
+            color: var(--fg-dim); background: transparent;
+            border: 1px solid var(--border); border-radius: 6px;
+            padding: 0.2rem 0.5rem; cursor: pointer;
+            transition: all 0.2s; display: flex;
+            align-items: center; gap: 0.25rem;
+        }
+        .modal-copy-col:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: var(--border-hover); color: var(--fg-muted);
+        }
+        .modal-copy-col.copied {
+            color: var(--sage); border-color: rgba(126,184,138,0.2);
+            background: rgba(126,184,138,0.06);
         }
 
-        .empty-state .empty-icon {
-            width: 56px; height: 56px;
-            border-radius: 16px;
+        .modal-section-content {
+            font-size: 0.9rem; color: var(--fg);
+            line-height: 1.75;
+            word-break: break-word;
+            white-space: pre-wrap;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem 1.15rem;
+        }
+        .modal-section-content.empty-col {
+            color: var(--fg-dim); font-style: italic;
+        }
+
+        .modal-divider {
+            height: 1px; background: var(--border); margin: 0.25rem 0;
+        }
+
+        /* Modal footer */
+        .modal-footer {
+            padding: 1rem 1.75rem;
+            border-top: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 0.75rem; flex-wrap: wrap;
+        }
+        .modal-footer-info {
+            font-size: 0.65rem; color: var(--fg-dim);
+            display: flex; align-items: center; gap: 0.4rem;
+        }
+        .modal-footer-actions {
+            display: flex; gap: 0.5rem;
+        }
+        .modal-btn {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.45rem 1rem; font-size: 0.72rem; font-weight: 500;
+            font-family: var(--font-display); border-radius: 10px;
+            cursor: pointer; transition: all 0.2s; border: 1px solid;
+        }
+        .modal-btn-secondary {
+            background: rgba(255,255,255,0.04);
+            border-color: var(--border); color: var(--fg-muted);
+        }
+        .modal-btn-secondary:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: var(--border-hover); color: var(--fg);
+        }
+        .modal-btn-primary {
+            background: rgba(232,168,56,0.12);
+            border-color: rgba(232,168,56,0.25); color: var(--accent);
+        }
+        .modal-btn-primary:hover {
+            background: rgba(232,168,56,0.2);
+        }
+
+        /* Navigasi prev/next di modal */
+        .modal-nav {
+            display: flex; align-items: center; gap: 0.4rem;
+        }
+        .modal-nav-btn {
+            width: 32px; height: 32px; border-radius: 8px;
             background: rgba(255,255,255,0.03);
             border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: var(--fg-dim);
+            color: var(--fg-dim); font-size: 0.7rem;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .modal-nav-btn:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: var(--border-hover); color: var(--fg-muted);
+        }
+        .modal-nav-btn:disabled {
+            opacity: 0.3; cursor: default;
+        }
+        .modal-nav-counter {
+            font-family: var(--font-display);
+            font-size: 0.68rem; color: var(--fg-dim);
+            min-width: 50px; text-align: center;
         }
 
+        /* === EMPTY / LOADING / ERROR === */
+        .empty-state {
+            grid-column: 1 / -1; background: var(--card);
+            border: 1px dashed var(--border); border-radius: var(--radius-lg);
+            padding: 4rem 2rem; text-align: center;
+            display: flex; flex-direction: column;
+            align-items: center; gap: 1rem;
+        }
+        .empty-state .empty-icon {
+            width: 56px; height: 56px; border-radius: 16px;
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; color: var(--fg-dim);
+        }
         .empty-state .empty-title {
             font-family: var(--font-display);
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--fg-muted);
+            font-size: 1rem; font-weight: 600; color: var(--fg-muted);
         }
-
         .empty-state .empty-desc {
-            font-size: 0.8rem;
-            color: var(--fg-dim);
-            max-width: 300px;
+            font-size: 0.8rem; color: var(--fg-dim); max-width: 300px;
         }
-
-        /* === LOADING === */
         .loading-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1.25rem;
-            padding: 5rem 2rem;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            gap: 1.25rem; padding: 5rem 2rem;
         }
-
         .loader-ring {
             width: 36px; height: 36px;
             border: 2px solid var(--border);
-            border-top-color: var(--accent);
-            border-radius: 50%;
+            border-top-color: var(--accent); border-radius: 50%;
             animation: spin 0.7s linear infinite;
         }
-
         @keyframes spin { to { transform: rotate(360deg); } }
-
-        .loading-state span {
-            font-size: 0.8rem;
-            color: var(--fg-muted);
-        }
-
-        /* === ERROR === */
+        .loading-state span { font-size: 0.8rem; color: var(--fg-muted); }
         .error-state {
             background: rgba(240,104,88,0.05);
             border: 1px solid rgba(240,104,88,0.15);
-            border-radius: var(--radius);
-            padding: 1.25rem 1.5rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
+            border-radius: var(--radius); padding: 1.25rem 1.5rem;
+            display: flex; align-items: flex-start; gap: 0.75rem;
         }
-
-        .error-state i {
-            color: var(--coral);
-            margin-top: 0.15rem;
-            flex-shrink: 0;
-        }
-
+        .error-state i { color: var(--coral); margin-top: 0.15rem; flex-shrink: 0; }
         .error-state .error-text {
-            font-size: 0.82rem;
-            color: rgba(240,180,170,0.9);
-            line-height: 1.5;
+            font-size: 0.82rem; color: rgba(240,180,170,0.9); line-height: 1.5;
         }
-
         .error-state .retry-btn {
-            margin-top: 0.6rem;
-            background: rgba(240,104,88,0.1);
-            border: 1px solid rgba(240,104,88,0.2);
-            color: var(--coral);
-            font-size: 0.72rem;
-            font-weight: 500;
-            font-family: var(--font-display);
-            padding: 0.35rem 0.85rem;
-            border-radius: 8px;
-            cursor: pointer;
+            margin-top: 0.6rem; background: rgba(240,104,88,0.1);
+            border: 1px solid rgba(240,104,88,0.2); color: var(--coral);
+            font-size: 0.72rem; font-weight: 500; font-family: var(--font-display);
+            padding: 0.35rem 0.85rem; border-radius: 8px; cursor: pointer;
             transition: all 0.2s;
         }
+        .error-state .retry-btn:hover { background: rgba(240,104,88,0.18); }
 
-        .error-state .retry-btn:hover {
-            background: rgba(240,104,88,0.18);
-        }
-
-        /* === TOAST === */
+        /* Toast */
         .toast {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            background: var(--bg-elevated);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 0.7rem 1.1rem;
-            font-size: 0.78rem;
-            font-weight: 500;
-            color: var(--fg);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            position: fixed; bottom: 1.5rem; right: 1.5rem;
+            background: var(--bg-elevated); border: 1px solid var(--border);
+            border-radius: 12px; padding: 0.7rem 1.1rem;
+            font-size: 0.78rem; font-weight: 500; color: var(--fg);
+            z-index: 9999; display: flex; align-items: center; gap: 0.5rem;
             box-shadow: 0 12px 40px -10px rgba(0,0,0,0.6);
             animation: toastIn 0.3s ease, toastOut 0.3s ease 1.2s forwards;
             pointer-events: none;
         }
-
         .toast .toast-icon {
-            width: 22px; height: 22px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.6rem;
-            flex-shrink: 0;
+            width: 22px; height: 22px; border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.6rem; flex-shrink: 0;
         }
-
         .toast.success .toast-icon {
-            background: rgba(126,184,138,0.15);
-            color: var(--sage);
+            background: rgba(126,184,138,0.15); color: var(--sage);
         }
-
         .toast.error .toast-icon {
-            background: rgba(240,104,88,0.15);
-            color: var(--coral);
+            background: rgba(240,104,88,0.15); color: var(--coral);
         }
-
         @keyframes toastIn {
             from { opacity: 0; transform: translateY(12px) scale(0.95); }
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
-
         @keyframes toastOut {
             from { opacity: 1; transform: translateY(0) scale(1); }
             to { opacity: 0; transform: translateY(-8px) scale(0.95); }
         }
 
-        /* === FOOTER === */
+        /* Footer */
         .page-footer {
-            margin-top: 3.5rem;
-            padding-top: 1.5rem;
+            margin-top: 3.5rem; padding-top: 1.5rem;
             border-top: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            flex-wrap: wrap;
+            display: flex; align-items: center;
+            justify-content: space-between; gap: 1rem; flex-wrap: wrap;
         }
+        .page-footer span { font-size: 0.68rem; color: var(--fg-dim); }
 
-        .page-footer span {
-            font-size: 0.68rem;
-            color: var(--fg-dim);
-        }
-
-        .page-footer .footer-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .page-footer .footer-links a {
-            font-size: 0.68rem;
-            color: var(--fg-dim);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .page-footer .footer-links a:hover {
-            color: var(--fg-muted);
+        /* Scrollbar modal */
+        .modal-body::-webkit-scrollbar { width: 4px; }
+        .modal-body::-webkit-scrollbar-track { background: transparent; }
+        .modal-body::-webkit-scrollbar-thumb {
+            background: var(--fg-dim); border-radius: 4px;
         }
 
         /* === RESPONSIVE === */
         @media (max-width: 900px) {
             .app-layout { flex-direction: column; }
-
             .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                flex-direction: row;
-                padding: 0.75rem 1rem;
-                gap: 0.5rem;
-                border-right: none;
+                width: 100%; height: auto; position: relative;
+                flex-direction: row; padding: 0.75rem 1rem;
+                gap: 0.5rem; border-right: none;
                 border-bottom: 1px solid var(--border);
                 overflow-x: auto;
             }
-
-            .sidebar-brand { display: none; }
-            .sidebar-footer { display: none; }
-
+            .sidebar-brand, .sidebar-footer { display: none; }
             .sidebar-item {
-                flex-shrink: 0;
-                padding: 0.55rem 0.75rem;
-                gap: 0.5rem;
+                flex-shrink: 0; padding: 0.55rem 0.75rem; gap: 0.5rem;
             }
-
             .sidebar-item .icon-wrap {
-                width: 30px; height: 30px;
-                border-radius: 8px;
-                font-size: 0.7rem;
+                width: 30px; height: 30px; border-radius: 8px; font-size: 0.7rem;
             }
-
             .sidebar-item .label { font-size: 0.75rem; }
             .sidebar-item .count { display: none; }
-
             .sidebar-item.active::before {
-                left: 0;
-                top: auto;
-                bottom: -0.75rem;
-                transform: none;
-                width: 20px;
-                height: 3px;
+                left: 0; top: auto; bottom: -0.75rem;
+                transform: none; width: 20px; height: 3px;
                 border-radius: 4px 4px 0 0;
             }
-
             .main-content { padding: 1.5rem 1.25rem; }
             .page-title { font-size: 1.5rem; }
             .cards-grid { grid-template-columns: 1fr; }
             .stats-bar { gap: 0.5rem; }
             .stat-chip { padding: 0.5rem 0.75rem; }
             .stat-chip .stat-num { font-size: 0.95rem; }
+
+            /* List view responsive */
+            .list-row {
+                grid-template-columns: 36px 1fr auto;
+            }
+            .list-row .row-content { display: none; }
         }
 
         @media (max-width: 480px) {
             .main-content { padding: 1rem; }
             .page-header { flex-direction: column; align-items: flex-start; }
+            .modal-panel { max-height: 92vh; border-radius: 16px; }
+            .modal-header { padding: 1.25rem 1.25rem 0.75rem; }
+            .modal-body { padding: 1rem 1.25rem 1.25rem; }
+            .modal-columns { padding: 0 1.25rem; }
+            .modal-footer { padding: 0.75rem 1.25rem; }
+            .modal-title { font-size: 1.15rem; }
         }
 
-        /* prefers-reduced-motion */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -769,7 +784,6 @@
 </head>
 <body>
 
-<!-- Atmosfer latar belakang -->
 <div class="bg-atmosphere" aria-hidden="true">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
@@ -777,53 +791,36 @@
 </div>
 
 <div class="app-layout">
-
-    <!-- Sidebar Navigasi -->
     <aside class="sidebar" role="navigation" aria-label="Filter navigasi">
-        <div class="sidebar-brand">
-            <span class="dot"></span>
-            Ruang Waktu
-        </div>
-
-        <div class="sidebar-item active" data-filter="all" role="button" tabindex="0" aria-label="Tampilkan semua data">
+        <div class="sidebar-brand"><span class="dot"></span> Ruang Waktu</div>
+        <div class="sidebar-item active" data-filter="all" role="button" tabindex="0">
             <div class="icon-wrap"><i class="fa-solid fa-layer-group"></i></div>
             <span class="label">Semua Data</span>
             <span class="count" id="countAll">--</span>
         </div>
-
-        <div class="sidebar-item" data-filter="jadwal" role="button" tabindex="0" aria-label="Filter jadwal pasaran">
+        <div class="sidebar-item" data-filter="jadwal" role="button" tabindex="0">
             <div class="icon-wrap"><i class="fa-regular fa-calendar"></i></div>
             <span class="label">Jadwal Pasaran</span>
             <span class="count" id="countJadwal">--</span>
         </div>
-
         <div class="sidebar-footer">
-            <div class="sidebar-footer-text">
-                Data bersumber dari<br>Google Sheets (realtime)
-            </div>
+            <div class="sidebar-footer-text">Data bersumber dari<br>Google Sheets (realtime)</div>
         </div>
     </aside>
 
-    <!-- Konten Utama -->
     <main class="main-content">
         <div class="dashboard-container">
-
-            <!-- Header Halaman -->
             <header class="page-header">
-                <div class="page-header-left">
+                <div>
                     <h1 class="page-title">Ruang <span class="accent-word">Waktu</span></h1>
                     <p class="page-subtitle">Pusat informasi jadwal dan data terkini</p>
                 </div>
                 <div class="page-header-right">
-                    <div class="status-badge">
-                        <span class="live-dot"></span>
-                        Live sync
-                    </div>
+                    <div class="status-badge"><span class="live-dot"></span> Live sync</div>
                 </div>
             </header>
 
-            <!-- Statistik Ringkas -->
-            <div class="stats-bar" id="statsBar">
+            <div class="stats-bar">
                 <div class="stat-chip">
                     <span class="stat-icon"><i class="fa-solid fa-database"></i></span>
                     <span class="stat-num" id="statTotal">--</span>
@@ -841,7 +838,22 @@
                 </div>
             </div>
 
-            <!-- Area Konten Dinamis -->
+            <!-- Toolbar: toggle view -->
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <i class="fa-solid fa-eye"></i>
+                    <span id="viewLabel">Tampilan Grid</span>
+                </div>
+                <div class="view-toggle">
+                    <button class="view-toggle-btn active" data-view="grid" aria-label="Tampilan grid">
+                        <i class="fa-solid fa-grip"></i> Grid
+                    </button>
+                    <button class="view-toggle-btn" data-view="list" aria-label="Tampilan list">
+                        <i class="fa-solid fa-list"></i> List
+                    </button>
+                </div>
+            </div>
+
             <section id="contentArea" aria-live="polite">
                 <div class="loading-state">
                     <div class="loader-ring"></div>
@@ -849,16 +861,80 @@
                 </div>
             </section>
 
-            <!-- Footer -->
             <footer class="page-footer">
-                <span>Ruang Waktu &mdash; Data realtime dari Google Sheets</span>
-                <div class="footer-links">
-                    <a href="#" onclick="loadData(); return false;">Refresh</a>
-                </div>
+                <span>Ruang Waktu &mdash; Klik kartu untuk lihat isi lengkap</span>
             </footer>
-
         </div>
     </main>
+</div>
+
+<!-- Modal Detail -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Detail entri">
+    <div class="modal-panel">
+        <div class="modal-accent"></div>
+        <div class="modal-header">
+            <div class="modal-header-left">
+                <div class="modal-index" id="modalIndex"></div>
+                <h2 class="modal-title" id="modalTitle"></h2>
+            </div>
+            <button class="modal-close" id="modalCloseBtn" aria-label="Tutup">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="modal-columns" id="modalColTags">
+            <span class="modal-col-tag col-a"><i class="fa-solid fa-a"></i> Kolom A — Judul</span>
+            <span class="modal-col-tag col-b"><i class="fa-solid fa-b"></i> Kolom B — Isi</span>
+        </div>
+
+        <div class="modal-body">
+            <!-- Kolom A -->
+            <div class="modal-section">
+                <div class="modal-section-header">
+                    <div class="modal-section-label">
+                        <span class="section-dot dot-amber"></span> Kolom A — Judul
+                    </div>
+                    <button class="modal-copy-col" data-copy="colA" aria-label="Salin kolom A">
+                        <i class="fa-regular fa-copy"></i> Salin
+                    </button>
+                </div>
+                <div class="modal-section-content" id="modalColA"></div>
+            </div>
+
+            <div class="modal-divider"></div>
+
+            <!-- Kolom B -->
+            <div class="modal-section">
+                <div class="modal-section-header">
+                    <div class="modal-section-label">
+                        <span class="section-dot dot-blue"></span> Kolom B — Isi
+                    </div>
+                    <button class="modal-copy-col" data-copy="colB" aria-label="Salin kolom B">
+                        <i class="fa-regular fa-copy"></i> Salin
+                    </button>
+                </div>
+                <div class="modal-section-content" id="modalColB"></div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div class="modal-nav">
+                <button class="modal-nav-btn" id="modalPrev" aria-label="Sebelumnya">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <span class="modal-nav-counter" id="modalCounter">1 / 1</span>
+                <button class="modal-nav-btn" id="modalNext" aria-label="Selanjutnya">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="modal-footer-actions">
+                <div class="modal-footer-info" id="modalCharInfo"></div>
+                <button class="modal-btn modal-btn-primary" id="modalCopyAll">
+                    <i class="fa-regular fa-copy"></i> Salin Semua
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -870,8 +946,10 @@
 
     let allData = [];
     let currentFilter = "all";
+    let currentView = "grid"; // "grid" | "list"
     let isLoading = false;
     let lastError = null;
+    let modalOpenIndex = -1; // indeks di data yang difilter
 
     const contentArea = document.getElementById("contentArea");
     const countAllEl = document.getElementById("countAll");
@@ -879,27 +957,34 @@
     const statTotalEl = document.getElementById("statTotal");
     const statJadwalEl = document.getElementById("statJadwal");
     const statFilteredEl = document.getElementById("statFiltered");
+    const viewLabelEl = document.getElementById("viewLabel");
+
+    const modalOverlay = document.getElementById("modalOverlay");
+    const modalCloseBtn = document.getElementById("modalCloseBtn");
+    const modalIndexEl = document.getElementById("modalIndex");
+    const modalTitleEl = document.getElementById("modalTitle");
+    const modalColAEl = document.getElementById("modalColA");
+    const modalColBEl = document.getElementById("modalColB");
+    const modalCounterEl = document.getElementById("modalCounter");
+    const modalCharInfoEl = document.getElementById("modalCharInfo");
+    const modalPrevBtn = document.getElementById("modalPrev");
+    const modalNextBtn = document.getElementById("modalNext");
+    const modalCopyAllBtn = document.getElementById("modalCopyAll");
 
     /* =============================================
        UTILITAS
        ============================================= */
     function escapeHtml(str) {
         if (!str) return "";
-        return str
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#39;");
+        return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
     }
 
     function parseGvizResponse(text) {
-        const start = text.indexOf("{");
-        const end = text.lastIndexOf("}");
-        if (start === -1 || end === -1) throw new Error("Format respons tidak valid");
-        const parsed = JSON.parse(text.substring(start, end + 1));
-        if (!parsed.table || !parsed.table.rows) throw new Error("Tidak ada data baris");
-        return parsed.table;
+        const s = text.indexOf("{"), e = text.lastIndexOf("}");
+        if (s === -1 || e === -1) throw new Error("Format respons tidak valid");
+        const p = JSON.parse(text.substring(s, e + 1));
+        if (!p.table || !p.table.rows) throw new Error("Tidak ada data baris");
+        return p.table;
     }
 
     function isJadwal(item) {
@@ -907,102 +992,214 @@
     }
 
     function getFilteredData() {
-        if (currentFilter === "all") return allData;
-        return allData.filter(isJadwal);
+        return currentFilter === "all" ? allData : allData.filter(isJadwal);
     }
 
     /* =============================================
-       TOAST NOTIFIKASI
+       TOAST
        ============================================= */
     function showToast(message, type) {
         const prev = document.querySelector(".toast");
         if (prev) prev.remove();
-
-        const toast = document.createElement("div");
-        toast.className = `toast ${type || "success"}`;
-        const iconClass = type === "error"
-            ? "fa-solid fa-xmark"
-            : "fa-solid fa-check";
-        toast.innerHTML = `
-            <span class="toast-icon"><i class="${iconClass}"></i></span>
-            <span>${escapeHtml(message)}</span>
-        `;
-        document.body.appendChild(toast);
-        setTimeout(() => { if (toast.parentNode) toast.remove(); }, 1600);
+        const t = document.createElement("div");
+        t.className = `toast ${type || "success"}`;
+        const ic = type === "error" ? "fa-solid fa-xmark" : "fa-solid fa-check";
+        t.innerHTML = `<span class="toast-icon"><i class="${ic}"></i></span><span>${escapeHtml(message)}</span>`;
+        document.body.appendChild(t);
+        setTimeout(() => { if (t.parentNode) t.remove(); }, 1600);
     }
 
     /* =============================================
-       SALIN KE CLIPBOARD
+       CLIPBOARD
        ============================================= */
-    async function copyToClipboard(text) {
-        try {
-            await navigator.clipboard.writeText(text);
-            return true;
-        } catch {
-            /* Fallback untuk browser lama */
+    async function copyText(text) {
+        try { await navigator.clipboard.writeText(text); return true; } catch {
             try {
                 const ta = document.createElement("textarea");
-                ta.value = text;
-                ta.style.position = "fixed";
-                ta.style.opacity = "0";
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand("copy");
-                document.body.removeChild(ta);
+                ta.value = text; ta.style.cssText = "position:fixed;opacity:0";
+                document.body.appendChild(ta); ta.select();
+                document.execCommand("copy"); document.body.removeChild(ta);
                 return true;
-            } catch {
-                return false;
-            }
+            } catch { return false; }
         }
     }
 
-    function handleCopyClick(e) {
-        const btn = e.target.closest(".copy-btn");
+    /* =============================================
+       MODAL
+       ============================================= */
+    function openModal(index) {
+        const items = getFilteredData();
+        if (index < 0 || index >= items.length) return;
+        modalOpenIndex = index;
+        const item = items[index];
+        const num = String(index + 1).padStart(2, "0");
+
+        modalIndexEl.textContent = `ENTRI #${num}`;
+        modalTitleEl.textContent = item.title || "(Tanpa Judul)";
+
+        // Kolom A
+        const colAText = item.title || "";
+        modalColAEl.textContent = colAText || "(Kosong)";
+        modalColAEl.classList.toggle("empty-col", !colAText);
+
+        // Kolom B
+        const colBText = item.content || "";
+        modalColBEl.textContent = colBText || "(Kosong)";
+        modalColBEl.classList.toggle("empty-col", !colBText);
+
+        // Navigasi
+        modalCounterEl.textContent = `${index + 1} / ${items.length}`;
+        modalPrevBtn.disabled = index === 0;
+        modalNextBtn.disabled = index === items.length - 1;
+
+        // Info karakter
+        modalCharInfoEl.innerHTML = `<i class="fa-regular fa-file-lines"></i> ${colBText.length} karakter`;
+
+        // Reset tombol salin kolom
+        modalOverlay.querySelectorAll(".modal-copy-col").forEach(b => {
+            b.classList.remove("copied");
+            b.innerHTML = '<i class="fa-regular fa-copy"></i> Salin';
+        });
+
+        modalOverlay.classList.add("open");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+        modalOverlay.classList.remove("open");
+        document.body.style.overflow = "";
+        modalOpenIndex = -1;
+    }
+
+    function navigateModal(dir) {
+        const items = getFilteredData();
+        const next = modalOpenIndex + dir;
+        if (next >= 0 && next < items.length) openModal(next);
+    }
+
+    // Event modal
+    modalCloseBtn.addEventListener("click", closeModal);
+    modalOverlay.addEventListener("click", e => {
+        if (e.target === modalOverlay) closeModal();
+    });
+    modalPrevBtn.addEventListener("click", () => navigateModal(-1));
+    modalNextBtn.addEventListener("click", () => navigateModal(1));
+    document.addEventListener("keydown", e => {
+        if (!modalOverlay.classList.contains("open")) return;
+        if (e.key === "Escape") closeModal();
+        if (e.key === "ArrowLeft") navigateModal(-1);
+        if (e.key === "ArrowRight") navigateModal(1);
+    });
+
+    // Salin per kolom di modal
+    modalOverlay.addEventListener("click", async e => {
+        const btn = e.target.closest(".modal-copy-col");
         if (!btn || btn.classList.contains("copied")) return;
 
-        const card = btn.closest(".card");
-        if (!card) return;
-        const contentEl = card.querySelector(".card-content");
-        const text = contentEl ? contentEl.textContent : "";
-        if (!text.trim()) {
-            showToast("Tidak ada teks untuk disalin", "error");
+        const col = btn.dataset.copy;
+        const items = getFilteredData();
+        const item = items[modalOpenIndex];
+        if (!item) return;
+
+        const text = col === "colA" ? (item.title || "") : (item.content || "");
+        if (!text.trim()) { showToast("Kolom ini kosong", "error"); return; }
+
+        const ok = await copyText(text);
+        if (ok) {
+            btn.classList.add("copied");
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Tersalin';
+            showToast("Kolom berhasil disalin", "success");
+            setTimeout(() => {
+                btn.classList.remove("copied");
+                btn.innerHTML = '<i class="fa-regular fa-copy"></i> Salin';
+            }, 1800);
+        } else { showToast("Gagal menyalin", "error"); }
+    });
+
+    // Salin semua di modal
+    modalCopyAllBtn.addEventListener("click", async () => {
+        const items = getFilteredData();
+        const item = items[modalOpenIndex];
+        if (!item) return;
+        const all = `${item.title || ""}\n${item.content || ""}`.trim();
+        if (!all) { showToast("Tidak ada data untuk disalin", "error"); return; }
+        const ok = await copyText(all);
+        if (ok) showToast("Semua isi berhasil disalin", "success");
+        else showToast("Gagal menyalin", "error");
+    });
+
+    /* =============================================
+       KLIK KARTU / BARIS → BUKA MODAL
+       ============================================= */
+    function handleCardClick(e) {
+        // Jangan buka modal kalau klik tombol salin
+        if (e.target.closest(".copy-btn-sm")) return;
+
+        const card = e.target.closest(".card");
+        if (card) {
+            const idx = parseInt(card.dataset.index, 10);
+            if (!isNaN(idx)) openModal(idx);
             return;
         }
 
-        copyToClipboard(text).then(ok => {
-            if (ok) {
-                btn.classList.add("copied");
-                btn.innerHTML = '<i class="fa-solid fa-check"></i> Tersalin';
-                showToast("Isi berhasil disalin", "success");
-                setTimeout(() => {
-                    btn.classList.remove("copied");
-                    btn.innerHTML = '<i class="fa-regular fa-copy"></i> Salin';
-                }, 1800);
-            } else {
-                showToast("Gagal menyalin teks", "error");
-            }
-        });
+        const row = e.target.closest(".list-row");
+        if (row) {
+            const idx = parseInt(row.dataset.index, 10);
+            if (!isNaN(idx)) openModal(idx);
+        }
     }
 
     /* =============================================
-       RENDER UI
+       SALIN KECIL DI KARTU / LIST
+       ============================================= */
+    async function handleSmallCopy(e) {
+        const btn = e.target.closest(".copy-btn-sm");
+        if (!btn || btn.classList.contains("copied")) return;
+
+        const card = btn.closest(".card");
+        const row = btn.closest(".list-row");
+        const parent = card || row;
+        if (!parent) return;
+
+        const idx = parseInt(parent.dataset.index, 10);
+        const items = getFilteredData();
+        const item = items[idx];
+        if (!item || !item.content) {
+            showToast("Tidak ada isi untuk disalin", "error"); return;
+        }
+
+        const ok = await copyText(item.content);
+        if (ok) {
+            btn.classList.add("copied");
+            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+            showToast("Isi berhasil disalin", "success");
+            setTimeout(() => {
+                btn.classList.remove("copied");
+                btn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+            }, 1800);
+        } else { showToast("Gagal menyalin", "error"); }
+    }
+
+    /* =============================================
+       STATS
        ============================================= */
     function updateStats() {
         const total = allData.length;
-        const jadwalCount = allData.filter(isJadwal).length;
+        const jadwal = allData.filter(isJadwal).length;
         const filtered = getFilteredData().length;
-
         countAllEl.textContent = total;
-        countJadwalEl.textContent = jadwalCount;
+        countJadwalEl.textContent = jadwal;
         statTotalEl.textContent = total;
-        statJadwalEl.textContent = jadwalCount;
+        statJadwalEl.textContent = jadwal;
         statFilteredEl.textContent = filtered;
     }
 
+    /* =============================================
+       RENDER
+       ============================================= */
     function renderContent() {
         if (!contentArea) return;
 
-        /* Error state */
         if (lastError) {
             contentArea.innerHTML = `
                 <div class="error-state">
@@ -1011,149 +1208,182 @@
                         <div class="error-text">${escapeHtml(lastError)}</div>
                         <button class="retry-btn" onclick="loadData()">Coba Lagi</button>
                     </div>
-                </div>
-            `;
+                </div>`;
             return;
         }
 
-        /* Loading state */
         if (isLoading) {
             contentArea.innerHTML = `
                 <div class="loading-state">
                     <div class="loader-ring"></div>
                     <span>Mengambil data dari Google Sheets...</span>
-                </div>
-            `;
+                </div>`;
             return;
         }
 
         const items = getFilteredData();
         updateStats();
 
-        /* Empty state */
         if (items.length === 0) {
             contentArea.innerHTML = `
                 <div class="cards-grid">
                     <div class="empty-state">
                         <div class="empty-icon"><i class="fa-regular fa-folder-open"></i></div>
                         <div class="empty-title">Tidak ada data ditemukan</div>
-                        <div class="empty-desc">
-                            ${currentFilter === "all"
-                                ? "Belum ada entri di Google Sheets, atau sheet masih kosong."
-                                : "Tidak ada data yang cocok dengan filter Jadwal Pasaran."}
-                        </div>
+                        <div class="empty-desc">${currentFilter === "all"
+                            ? "Belum ada entri di Google Sheets."
+                            : "Tidak ada data yang cocok dengan filter Jadwal Pasaran."}</div>
                     </div>
-                </div>
-            `;
+                </div>`;
             return;
         }
 
-        /* Render kartu */
+        if (currentView === "grid") {
+            renderGridView(items);
+        } else {
+            renderListView(items);
+        }
+    }
+
+    function renderGridView(items) {
         let html = '<div class="cards-grid">';
         for (let i = 0; i < items.length; i++) {
-            const item = items[i];
-            const title = escapeHtml(item.title) || "Tanpa Judul";
-            const content = escapeHtml(item.content) || "Kosong";
+            const it = items[i];
+            const title = escapeHtml(it.title) || "Tanpa Judul";
+            const content = escapeHtml(it.content) || "Kosong";
             const delay = Math.min(i, 15) * 0.04;
-            const index = String(i + 1).padStart(2, "0");
-
+            const idx = String(i + 1).padStart(2, "0");
             html += `
-                <article class="card" style="animation-delay:${delay}s">
+                <article class="card" data-index="${i}" style="animation-delay:${delay}s">
                     <div class="accent-strip"></div>
                     <div class="card-inner">
                         <div class="card-top">
                             <div>
-                                <div class="card-index">${index}</div>
+                                <div class="card-index">${idx}</div>
                                 <h2 class="card-title">${title}</h2>
                             </div>
+                            <button class="copy-btn-sm" title="Salin isi" aria-label="Salin isi ${title}">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
                         </div>
                         <div class="card-content">${content}</div>
                         <div class="card-footer">
                             <div class="card-meta">
-                                <i class="fa-regular fa-file-lines"></i>
-                                ${content.length} karakter
+                                <i class="fa-regular fa-file-lines"></i> ${it.content ? it.content.length : 0} karakter
                             </div>
-                            <button class="copy-btn" aria-label="Salin isi kartu ${title}">
-                                <i class="fa-regular fa-copy"></i> Salin
-                            </button>
+                            <div class="card-open-hint">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka detail
+                            </div>
                         </div>
                     </div>
-                </article>
-            `;
+                </article>`;
+        }
+        html += "</div>";
+        contentArea.innerHTML = html;
+    }
+
+    function renderListView(items) {
+        let html = '<div class="cards-list">';
+        for (let i = 0; i < items.length; i++) {
+            const it = items[i];
+            const title = escapeHtml(it.title) || "Tanpa Judul";
+            const content = escapeHtml(it.content) || "Kosong";
+            const idx = String(i + 1).padStart(2, "0");
+            const delay = Math.min(i, 15) * 0.03;
+            html += `
+                <div class="list-row" data-index="${i}" style="animation-delay:${delay}s">
+                    <div class="row-index">${idx}</div>
+                    <div class="row-title">${title}</div>
+                    <div class="row-content">${content}</div>
+                    <div class="row-actions">
+                        <button class="row-action-btn copy-btn-sm" title="Salin isi" aria-label="Salin isi">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                        <button class="row-action-btn" title="Buka detail" aria-label="Buka detail">
+                            <i class="fa-solid fa-expand"></i>
+                        </button>
+                    </div>
+                </div>`;
         }
         html += "</div>";
         contentArea.innerHTML = html;
     }
 
     /* =============================================
-       DATA FETCHING
+       VIEW TOGGLE
        ============================================= */
-    async function fetchSheetData() {
-        const response = await fetch(DATA_URL);
-        if (!response.ok) throw new Error(`HTTP ${response.status} — Pastikan spreadsheet bersifat publik.`);
-        const text = await response.text();
-        const table = parseGvizResponse(text);
-        const rows = table.rows || [];
-        return rows.map(row => {
-            const cells = row.c || [];
-            return {
-                title: cells[0] ? String(cells[0].v) : "",
-                content: cells[1] ? String(cells[1].v) : ""
-            };
+    function initViewToggle() {
+        const btns = document.querySelectorAll(".view-toggle-btn");
+        btns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                btns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                currentView = btn.dataset.view;
+                viewLabelEl.textContent = currentView === "grid" ? "Tampilan Grid" : "Tampilan List";
+                renderContent();
+            });
         });
     }
 
-    async function loadData() {
-        isLoading = true;
-        lastError = null;
-        renderContent();
-
-        try {
-            allData = await fetchSheetData();
-        } catch (err) {
-            lastError = err.message || "Gagal memuat data. Periksa koneksi internet Anda.";
-            allData = [];
-        } finally {
-            isLoading = false;
-            renderContent();
-        }
-    }
-
     /* =============================================
-       SIDEBAR INTERAKSI
+       SIDEBAR
        ============================================= */
     function initSidebar() {
         const items = document.querySelectorAll(".sidebar-item[data-filter]");
-
         function setActive(target) {
             items.forEach(el => el.classList.remove("active"));
             target.classList.add("active");
         }
-
         items.forEach(item => {
             function activate() {
                 currentFilter = item.dataset.filter;
                 setActive(item);
                 renderContent();
             }
-
             item.addEventListener("click", activate);
             item.addEventListener("keydown", e => {
-                if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    activate();
-                }
+                if (e.key === "Enter" || e.key === " ") { e.preventDefault(); activate(); }
             });
         });
     }
 
     /* =============================================
-       EVENT DELEGATION & INISIALISASI
+       DATA FETCHING
        ============================================= */
-    document.addEventListener("click", handleCopyClick);
+    async function fetchSheetData() {
+        const res = await fetch(DATA_URL);
+        if (!res.ok) throw new Error(`HTTP ${res.status} — Pastikan spreadsheet bersifat publik.`);
+        const text = await res.text();
+        const table = parseGvizResponse(text);
+        return (table.rows || []).map(r => {
+            const c = r.c || [];
+            return { title: c[0] ? String(c[0].v) : "", content: c[1] ? String(c[1].v) : "" };
+        });
+    }
 
-    /* Mulai */
-    loadData().then(() => initSidebar());
+    async function loadData() {
+        isLoading = true; lastError = null;
+        renderContent();
+        try { allData = await fetchSheetData(); }
+        catch (err) { lastError = err.message || "Gagal memuat data."; allData = []; }
+        finally { isLoading = false; renderContent(); }
+    }
+
+    /* =============================================
+       EVENT DELEGATION
+       ============================================= */
+    contentArea.addEventListener("click", e => {
+        handleSmallCopy(e);
+        handleCardClick(e);
+    });
+
+    /* =============================================
+       INIT
+       ============================================= */
+    loadData().then(() => {
+        initSidebar();
+        initViewToggle();
+    });
 </script>
 
 </body>
