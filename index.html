@@ -348,11 +348,7 @@ background: linear-gradient(90deg, var(--accent), var(--coral), var(--lavender))
 }
 .modal-header {
 display: flex; align-items: center; justify-content: flex-end;
-padding: 1rem 1.5rem; gap: 1rem;
-}
-.modal-counter-small {
-font-family: var(--font-display); font-size: 0.65rem; font-weight: 600;
-color: var(--fg-dim); letter-spacing: 0.12em; text-transform: uppercase; flex: 1;
+padding: 1rem 1.5rem;
 }
 .modal-close {
 width: 36px; height: 36px; border-radius: 10px;
@@ -376,22 +372,6 @@ background: rgba(255,255,255,0.02); border: 1px solid var(--border);
 border-radius: 12px; padding: 1rem 1.15rem;
 }
 .modal-section-content.empty-col { color: var(--fg-dim); font-style: italic; }
-
-.modal-footer {
-padding: 1rem 1.75rem; border-top: 1px solid var(--border);
-display: flex; align-items: center; justify-content: space-between;
-gap: 0.75rem; flex-wrap: wrap;
-}
-.modal-nav { display: flex; align-items: center; gap: 0.4rem; }
-.modal-nav-btn {
-width: 32px; height: 32px; border-radius: 8px;
-background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-color: var(--fg-dim); font-size: 0.7rem;
-display: flex; align-items: center; justify-content: center;
-cursor: pointer; transition: all 0.2s;
-}
-.modal-nav-btn:hover { background: rgba(255,255,255,0.06); border-color: var(--border-hover); color: var(--fg-muted); }
-.modal-nav-btn:disabled { opacity: 0.3; cursor: default; }
 
 .empty-state {
 grid-column: 1 / -1; background: var(--card);
@@ -504,7 +484,6 @@ transform: none; width: 20px; height: 3px; border-radius: 4px 4px 0 0;
 .modal-panel { max-height: 92vh; border-radius: 16px; }
 .modal-header { padding: 0.75rem 1.25rem; }
 .modal-body { padding: 0 1.25rem 1.25rem; }
-.modal-footer { padding: 0.75rem 1.25rem; }
 }
 @media (prefers-reduced-motion: reduce) {
 *, *::before, *::after {
@@ -605,7 +584,6 @@ transition-duration: 0.01ms !important;
 <div class="modal-panel">
 <div class="modal-accent"></div>
 <div class="modal-header">
-<div class="modal-counter-small" id="modalIndex"></div>
 <button class="modal-close" id="modalCloseBtn" aria-label="Tutup">
 <i class="fa-solid fa-xmark"></i>
 </button>
@@ -616,16 +594,6 @@ transition-duration: 0.01ms !important;
 </div>
 <div class="modal-section">
 <div class="modal-section-content" id="modalColB"></div>
-</div>
-</div>
-<div class="modal-footer">
-<div class="modal-nav">
-<button class="modal-nav-btn" id="modalPrev" aria-label="Sebelumnya">
-<i class="fa-solid fa-chevron-left"></i>
-</button>
-<button class="modal-nav-btn" id="modalNext" aria-label="Selanjutnya">
-<i class="fa-solid fa-chevron-right"></i>
-</button>
 </div>
 </div>
 </div>
@@ -652,11 +620,8 @@ const viewLabelEl = document.getElementById("viewLabel");
 
 const modalOverlay = document.getElementById("modalOverlay");
 const modalCloseBtn = document.getElementById("modalCloseBtn");
-const modalIndexEl = document.getElementById("modalIndex");
 const modalColAEl = document.getElementById("modalColA");
 const modalColBEl = document.getElementById("modalColB");
-const modalPrevBtn = document.getElementById("modalPrev");
-const modalNextBtn = document.getElementById("modalNext");
 
 function escapeHtml(str) {
 if (!str) return "";
@@ -696,8 +661,6 @@ if (index < 0 || index >= items.length) return;
 modalOpenIndex = index;
 const item = items[index];
 
-modalIndexEl.textContent = `${index + 1} / ${items.length}`;
-
 const colAText = item.title || "";
 modalColAEl.textContent = colAText || "(Kosong)";
 modalColAEl.classList.toggle("empty-col", !colAText);
@@ -705,9 +668,6 @@ modalColAEl.classList.toggle("empty-col", !colAText);
 const colBText = item.content || "";
 modalColBEl.textContent = colBText || "(Kosong)";
 modalColBEl.classList.toggle("empty-col", !colBText);
-
-modalPrevBtn.disabled = index === 0;
-modalNextBtn.disabled = index === items.length - 1;
 
 modalOverlay.classList.add("open");
 document.body.style.overflow = "hidden";
@@ -719,21 +679,11 @@ document.body.style.overflow = "";
 modalOpenIndex = -1;
 }
 
-function navigateModal(dir) {
-const items = getFilteredData();
-const next = modalOpenIndex + dir;
-if (next >= 0 && next < items.length) openModal(next);
-}
-
 modalCloseBtn.addEventListener("click", closeModal);
 modalOverlay.addEventListener("click", e => { if (e.target === modalOverlay) closeModal(); });
-modalPrevBtn.addEventListener("click", () => navigateModal(-1));
-modalNextBtn.addEventListener("click", () => navigateModal(1));
 document.addEventListener("keydown", e => {
 if (!modalOverlay.classList.contains("open")) return;
 if (e.key === "Escape") closeModal();
-if (e.key === "ArrowLeft") navigateModal(-1);
-if (e.key === "ArrowRight") navigateModal(1);
 });
 
 function handleCardClick(e) {
