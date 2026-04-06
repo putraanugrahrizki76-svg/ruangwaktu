@@ -106,6 +106,16 @@ animation: pulse 2s ease-in-out infinite;
 0%, 100% { opacity: 1; transform: scale(1); }
 50% { opacity: 0.5; transform: scale(0.8); }
 }
+.sidebar-divider {
+height: 1px; background: var(--border);
+margin: 0.5rem 0.85rem;
+}
+.sidebar-section-label {
+font-family: var(--font-display);
+font-size: 0.58rem; font-weight: 600;
+color: var(--fg-dim); letter-spacing: 0.14em;
+text-transform: uppercase; padding: 0.4rem 0.85rem 0.2rem;
+}
 .sidebar-item {
 display: flex; align-items: center; gap: 0.75rem;
 padding: 0.75rem 0.85rem; border-radius: 12px;
@@ -229,17 +239,13 @@ border: 1px solid var(--border);
 border-radius: var(--radius);
 outline: none; transition: all 0.3s ease;
 }
-.search-bar .search-input::placeholder {
-color: var(--fg-dim); font-size: 0.84rem;
-}
+.search-bar .search-input::placeholder { color: var(--fg-dim); font-size: 0.84rem; }
 .search-bar .search-input:focus {
 border-color: rgba(232,168,56,0.35);
 background: rgba(255,255,255,0.04);
 box-shadow: 0 0 0 3px rgba(232,168,56,0.06), 0 8px 32px -8px rgba(0,0,0,0.3);
 }
-.search-bar .search-input:focus ~ .search-icon {
-color: var(--accent);
-}
+.search-bar .search-input:focus ~ .search-icon { color: var(--accent); }
 .search-bar .search-clear {
 position: absolute; right: 0.75rem; top: 50%;
 transform: translateY(-50%);
@@ -249,9 +255,7 @@ color: var(--fg-dim); font-size: 0.7rem;
 display: none; align-items: center; justify-content: center;
 cursor: pointer; transition: all 0.2s ease;
 }
-.search-bar .search-clear.visible {
-display: flex;
-}
+.search-bar .search-clear.visible { display: flex; }
 .search-bar .search-clear:hover {
 background: rgba(255,255,255,0.06);
 border-color: var(--border); color: var(--fg-muted);
@@ -273,8 +277,7 @@ transition: opacity 0.2s ease;
 margin-top: 0.4rem; font-size: 0.7rem;
 font-family: var(--font-display); font-weight: 500;
 color: var(--fg-dim); padding-left: 0.15rem;
-min-height: 1rem;
-transition: opacity 0.2s ease;
+min-height: 1rem; transition: opacity 0.2s ease;
 }
 .search-bar .search-result-count span { color: var(--accent); font-weight: 600; }
 
@@ -469,7 +472,6 @@ display: flex; align-items: center; justify-content: center;
 cursor: pointer; transition: all 0.2s; flex-shrink: 0;
 }
 .modal-close:hover { background: rgba(255,255,255,0.08); border-color: var(--border-hover); color: var(--fg); }
-
 .modal-body {
 padding: 0 1.75rem 1.75rem; overflow-y: auto; flex: 1;
 display: flex; flex-direction: column; gap: 1rem;
@@ -486,9 +488,7 @@ background: rgba(255,255,255,0.02); border: 1px solid var(--border);
 border-radius: 12px; padding: 1rem 1.15rem;
 }
 .modal-section-content.empty-col { color: var(--fg-dim); font-style: italic; }
-.modal-section-content.modal-content-text {
-color: var(--content-color);
-}
+.modal-section-content.modal-content-text { color: var(--content-color); }
 
 .empty-state {
 grid-column: 1 / -1; background: var(--card);
@@ -583,10 +583,11 @@ flex-direction: row; padding: 0.75rem 1rem;
 gap: 0.5rem; border-right: none;
 border-bottom: 1px solid var(--border); overflow-x: auto;
 }
-.sidebar-brand, .sidebar-footer, .sidebar-refresh-info { display: none; }
+.sidebar-brand, .sidebar-footer, .sidebar-refresh-info,
+.sidebar-divider, .sidebar-section-label { display: none; }
 .sidebar-item { flex-shrink: 0; padding: 0.55rem 0.75rem; gap: 0.5rem; }
 .sidebar-item .icon-wrap { width: 30px; height: 30px; border-radius: 8px; font-size: 0.7rem; }
-.sidebar-item .label { font-size: 0.75rem; }
+.sidebar-item .label { font-size: 0.72rem; }
 .sidebar-item .count { display: none; }
 .sidebar-item.active::before {
 left: 0; top: auto; bottom: -0.75rem;
@@ -626,16 +627,19 @@ transition-duration: 0.01ms !important;
 <div class="app-layout">
 <aside class="sidebar" role="navigation" aria-label="Filter navigasi">
 <div class="sidebar-brand"><span class="dot"></span> Ruang Waktu</div>
-<div class="sidebar-item active" data-filter="all" role="button" tabindex="0">
+
+<div class="sidebar-section-label">Data Sheet</div>
+<div class="sidebar-item active" data-filter="gid0" role="button" tabindex="0">
 <div class="icon-wrap"><i class="fa-solid fa-layer-group"></i></div>
 <span class="label">ALL PK</span>
-<span class="count" id="countAll">--</span>
+<span class="count" id="countGid0">--</span>
 </div>
 <div class="sidebar-item" data-filter="gid5" role="button" tabindex="0">
 <div class="icon-wrap"><i class="fa-solid fa-database"></i></div>
-<span class="label">Data Tambahan</span>
+<span class="label">JADWAL PASARAN TOGEL</span>
 <span class="count" id="countGid5">--</span>
 </div>
+
 <div class="sidebar-footer">
 <div class="sidebar-footer-text">Data bersumber dari<br>Google Sheets (realtime)</div>
 <div class="sidebar-refresh-info">
@@ -728,14 +732,13 @@ transition-duration: 0.01ms !important;
 <script>
 const SPREADSHEET_ID = "1VO91WJb1w2Pi4V_GO12hDl8KPkkmHkOUFxtqEmCvygM";
 const GID_TAMBAHAN = "575827072";
-const DATA_URL_DEFAULT = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
+const DATA_URL_GID0 = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
 const DATA_URL_GID5 = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_TAMBAHAN}`;
 const REFRESH_INTERVAL = 30000;
 
-let defaultData = [];
+let gid0Data = [];
 let gid5Data = [];
-let allData = [];
-let currentFilter = "all";
+let currentFilter = "gid0";
 let currentView = "grid";
 let searchQuery = "";
 let isLoading = false;
@@ -746,7 +749,7 @@ let isSyncing = false;
 let lastSyncTime = null;
 
 const contentArea = document.getElementById("contentArea");
-const countAllEl = document.getElementById("countAll");
+const countGid0El = document.getElementById("countGid0");
 const countGid5El = document.getElementById("countGid5");
 const viewLabelEl = document.getElementById("viewLabel");
 const searchInput = document.getElementById("searchInput");
@@ -785,9 +788,13 @@ if (!p.table || !p.table.rows) throw new Error("Tidak ada data baris");
 return p.table;
 }
 
+function isJadwal(item) {
+return /jadwal|pasaran/i.test(item.title) || /jadwal|pasaran/i.test(item.content);
+}
+
 async function fetchFromUrl(url) {
 const res = await fetch(url);
-if (!res.ok) throw new Error(`HTTP ${res.status} — Pastikan spreadsheet bersifat publik.`);
+if (!res.ok) throw new Error(`HTTP ${res.status}`);
 const text = await res.text();
 const table = parseGvizResponse(text);
 return (table.rows || []).map(r => {
@@ -796,31 +803,28 @@ return { title: c[0] ? String(c[0].v) : "", content: c[1] ? String(c[1].v) : "" 
 });
 }
 
-/* Deteksi entri jadwal pasaran — hanya untuk difilter dari sheet default */
-function isJadwal(item) {
-return /jadwal|pasaran/i.test(item.title) || /jadwal|pasaran/i.test(item.content);
-}
-
 async function fetchSheetData() {
-const [r1, r2] = await Promise.allSettled([
-fetchFromUrl(DATA_URL_DEFAULT),
+const [r0, r5] = await Promise.allSettled([
+fetchFromUrl(DATA_URL_GID0),
 fetchFromUrl(DATA_URL_GID5)
 ]);
-const rawDefault = r1.status === "fulfilled" ? r1.value : [];
-const rawGid5 = r2.status === "fulfilled" ? r2.value : [];
-if (r1.status === "rejected" && r2.status === "rejected") {
-throw new Error(r1.reason?.message || r2.reason?.message || "Gagal memuat data dari kedua sheet.");
+const raw0 = r0.status === "fulfilled" ? r0.value : [];
+const raw5 = r5.status === "fulfilled" ? r5.value : [];
+if (r0.status === "rejected" && r5.status === "rejected") {
+throw new Error(r0.reason?.message || r5.reason?.message || "Gagal memuat data dari kedua sheet.");
 }
-/* Hapus entri jadwal/pasaran dari sheet default (gid=0) saja */
-const defFiltered = rawDefault.filter(item => !isJadwal(item));
-return { defaultData: defFiltered, gid5Data: rawGid5, allData: [...defFiltered, ...rawGid5] };
+const filtered0 = raw0.filter(item => !isJadwal(item));
+return { gid0: filtered0, gid5: raw5 };
+}
+
+function getActiveData() {
+if (currentFilter === "gid0") return gid0Data;
+if (currentFilter === "gid5") return gid5Data;
+return [];
 }
 
 function getFilteredData() {
-let data;
-if (currentFilter === "all") data = allData;
-else if (currentFilter === "gid5") data = gid5Data;
-else data = allData;
+let data = getActiveData();
 if (searchQuery.trim()) {
 const q = searchQuery.trim().toLowerCase();
 data = data.filter(item =>
@@ -859,10 +863,7 @@ const secs = Math.floor((Date.now() - lastSyncTime) / 1000);
 let text;
 if (secs < 5) text = "Baru saja diperbarui";
 else if (secs < 60) text = `Diperbarui ${secs}d lalu`;
-else {
-const mins = Math.floor(secs / 60);
-text = `Diperbarui ${mins}m lalu`;
-}
+else { const mins = Math.floor(secs / 60); text = `Diperbarui ${mins}m lalu`; }
 footerSyncText.textContent = text;
 }
 
@@ -871,26 +872,19 @@ if (isSyncing || isLoading) return;
 setSyncingUI(true);
 try {
 const result = await fetchSheetData();
-const oldJson = JSON.stringify(allData);
-const newJson = JSON.stringify(result.allData);
-if (oldJson !== newJson) {
-defaultData = result.defaultData;
-gid5Data = result.gid5Data;
-allData = result.allData;
+const old0 = JSON.stringify(gid0Data);
+const old5 = JSON.stringify(gid5Data);
+const new0 = JSON.stringify(result.gid0);
+const new5 = JSON.stringify(result.gid5);
+if (old0 !== new0 || old5 !== new5) {
+gid0Data = result.gid0;
+gid5Data = result.gid5;
 lastSyncTime = Date.now();
-if (!modalOverlay.classList.contains("open")) {
-renderContent();
-}
+if (!modalOverlay.classList.contains("open")) renderContent();
 showToast("Data diperbarui otomatis", "info");
-} else {
-lastSyncTime = Date.now();
-}
-} catch (err) {
-console.warn("Background refresh gagal:", err.message);
-} finally {
-setSyncingUI(false);
-updateLastSyncTime();
-}
+} else { lastSyncTime = Date.now(); }
+} catch (err) { console.warn("Background refresh gagal:", err.message); }
+finally { setSyncingUI(false); updateLastSyncTime(); }
 }
 
 function startAutoRefresh() {
@@ -898,10 +892,7 @@ stopAutoRefresh();
 refreshTimer = setInterval(backgroundRefresh, REFRESH_INTERVAL);
 setInterval(updateLastSyncTime, 5000);
 }
-
-function stopAutoRefresh() {
-if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null; }
-}
+function stopAutoRefresh() { if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null; } }
 
 function openModal(index) {
 const items = getFilteredData();
@@ -937,12 +928,10 @@ const hasQuery = searchInput.value.length > 0;
 searchClear.classList.toggle("visible", hasQuery);
 searchHint.classList.toggle("hidden", hasQuery || document.activeElement === searchInput);
 const items = getFilteredData();
-const total = currentFilter === "gid5" ? gid5Data.length : allData.length;
-if (hasQuery) {
-searchResultCount.innerHTML = `Ditemukan <span>${items.length}</span> dari ${total} data`;
-} else {
-searchResultCount.innerHTML = "";
-}
+const total = getActiveData().length;
+searchResultCount.innerHTML = hasQuery
+? `Ditemukan <span>${items.length}</span> dari ${total} data`
+: "";
 }
 
 searchInput.addEventListener("input", () => { searchQuery = searchInput.value; updateSearchUI(); renderContent(); });
@@ -980,7 +969,7 @@ setTimeout(() => { btn.classList.remove("copied"); btn.innerHTML = '<i class="fa
 }
 
 function updateSidebarCounts() {
-countAllEl.textContent = allData.length;
+countGid0El.textContent = gid0Data.length;
 countGid5El.textContent = gid5Data.length;
 }
 
@@ -1000,13 +989,10 @@ const items = getFilteredData();
 if (items.length === 0) {
 const isSearching = searchQuery.trim().length > 0;
 let emptyMsg;
-if (isSearching) {
-emptyMsg = `Tidak ditemukan data yang cocok dengan "<strong>${escapeHtml(searchQuery.trim())}</strong>"`;
-} else if (currentFilter === "gid5") {
-emptyMsg = "Belum ada data di sheet tambahan.";
-} else {
-emptyMsg = "Belum ada entri di Google Sheets.";
-}
+if (isSearching) emptyMsg = `Tidak ditemukan data yang cocok dengan "<strong>${escapeHtml(searchQuery.trim())}</strong>"`;
+else if (currentFilter === "gid0") emptyMsg = "Belum ada data di sheet utama.";
+else if (currentFilter === "gid5") emptyMsg = "Belum ada data di sheet tambahan.";
+else emptyMsg = "Tidak ada data ditemukan.";
 const emptyDesc = isSearching ? "Coba gunakan kata kunci lain atau hapus pencarian." : "";
 contentArea.innerHTML = `<div class="cards-grid"><div class="empty-state"><div class="empty-icon"><i class="${isSearching ? 'fa-solid fa-magnifying-glass' : 'fa-regular fa-folder-open'}"></i></div><div class="empty-title">${isSearching ? 'Tidak ada hasil' : 'Tidak ada data ditemukan'}</div><div class="empty-desc">${emptyMsg}${emptyDesc ? '<br>' + emptyDesc : ''}</div></div></div>`;
 return;
@@ -1061,7 +1047,14 @@ function initSidebar() {
 const items = document.querySelectorAll(".sidebar-item[data-filter]");
 function setActive(target) { items.forEach(el => el.classList.remove("active")); target.classList.add("active"); }
 items.forEach(item => {
-function activate() { currentFilter = item.dataset.filter; setActive(item); renderContent(); }
+function activate() {
+currentFilter = item.dataset.filter;
+setActive(item);
+searchQuery = "";
+searchInput.value = "";
+updateSearchUI();
+renderContent();
+}
 item.addEventListener("click", activate);
 item.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); activate(); } });
 });
@@ -1071,15 +1064,13 @@ async function loadData() {
 isLoading = true; lastError = null; renderContent();
 try {
 const result = await fetchSheetData();
-defaultData = result.defaultData;
-gid5Data = result.gid5Data;
-allData = result.allData;
+gid0Data = result.gid0;
+gid5Data = result.gid5;
 lastSyncTime = Date.now();
 startAutoRefresh();
 } catch (err) {
 lastError = err.message || "Gagal memuat data.";
-allData = [];
-defaultData = [];
+gid0Data = [];
 gid5Data = [];
 } finally {
 isLoading = false;
