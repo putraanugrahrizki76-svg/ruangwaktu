@@ -144,6 +144,24 @@ background: var(--accent); border-radius: 0 4px 4px 0;
 }
 .sidebar-footer { margin-top: auto; padding: 1rem 0.85rem 0; border-top: 1px solid var(--border); }
 .sidebar-footer-text { font-size: 0.65rem; color: var(--fg-dim); line-height: 1.5; }
+.sidebar-refresh-info {
+margin-top: 0.6rem; padding-top: 0.6rem;
+border-top: 1px solid var(--border);
+display: flex; align-items: center; gap: 0.4rem;
+}
+.sidebar-refresh-info i {
+font-size: 0.6rem; color: var(--fg-dim);
+transition: color 0.3s ease;
+}
+.sidebar-refresh-info i.syncing {
+color: var(--accent);
+animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.sidebar-refresh-info span {
+font-size: 0.6rem; color: var(--fg-dim);
+font-family: var(--font-display);
+}
 
 .main-content { flex: 1; padding: 2.5rem 3rem; min-width: 0; }
 .dashboard-container { max-width: 1280px; margin: 0 auto; }
@@ -166,14 +184,35 @@ font-size: 0.7rem; font-weight: 500; color: var(--sage);
 background: rgba(126,184,138,0.08);
 border: 1px solid rgba(126,184,138,0.15);
 padding: 0.35rem 0.75rem; border-radius: 20px;
+transition: all 0.3s ease;
+}
+.status-badge.syncing {
+color: var(--accent);
+background: rgba(232,168,56,0.08);
+border-color: rgba(232,168,56,0.2);
 }
 .status-badge .live-dot {
 width: 5px; height: 5px; background: var(--sage);
 border-radius: 50%; animation: pulse 1.5s ease-in-out infinite;
+transition: background 0.3s ease;
+}
+.status-badge.syncing .live-dot { background: var(--accent); }
+
+.sticky-top {
+position: sticky;
+top: 0;
+z-index: 100;
+padding: 0.65rem 0 0.5rem;
+margin-bottom: 1.25rem;
+background: var(--bg);
+border-bottom: 1px solid var(--border);
+box-shadow: 0 12px 32px -10px rgba(0,0,0,0.5);
+transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .search-bar {
-position: relative; margin-bottom: 1.5rem;
+position: relative;
+margin-bottom: 0.75rem;
 }
 .search-bar .search-icon {
 position: absolute; left: 1rem; top: 50%;
@@ -231,7 +270,7 @@ transition: opacity 0.2s ease;
 }
 .search-bar .search-hint.hidden { opacity: 0; }
 .search-bar .search-result-count {
-margin-top: 0.5rem; font-size: 0.7rem;
+margin-top: 0.4rem; font-size: 0.7rem;
 font-family: var(--font-display); font-weight: 500;
 color: var(--fg-dim); padding-left: 0.15rem;
 min-height: 1rem;
@@ -241,7 +280,7 @@ transition: opacity 0.2s ease;
 
 .toolbar {
 display: flex; align-items: center; justify-content: space-between;
-margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap;
+margin-bottom: 0; gap: 1rem; flex-wrap: wrap;
 }
 .toolbar-left {
 font-family: var(--font-display); font-size: 0.78rem;
@@ -475,7 +514,6 @@ width: 36px; height: 36px; border: 2px solid var(--border);
 border-top-color: var(--accent); border-radius: 50%;
 animation: spin 0.7s linear infinite;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
 .loading-state span { font-size: 0.8rem; color: var(--fg-muted); }
 
 .error-state {
@@ -510,6 +548,7 @@ font-size: 0.6rem; flex-shrink: 0;
 }
 .toast.success .toast-icon { background: rgba(126,184,138,0.15); color: var(--sage); }
 .toast.error .toast-icon { background: rgba(240,104,88,0.15); color: var(--coral); }
+.toast.info .toast-icon { background: rgba(91,164,207,0.15); color: var(--sky); }
 @keyframes toastIn {
 from { opacity: 0; transform: translateY(12px) scale(0.95); }
 to { opacity: 1; transform: translateY(0) scale(1); }
@@ -525,6 +564,12 @@ display: flex; align-items: center; justify-content: space-between;
 gap: 1rem; flex-wrap: wrap;
 }
 .page-footer span { font-size: 0.68rem; color: var(--fg-dim); }
+.page-footer .footer-sync {
+display: flex; align-items: center; gap: 0.35rem;
+color: var(--fg-dim); transition: color 0.3s ease;
+}
+.page-footer .footer-sync i { font-size: 0.6rem; }
+.page-footer .footer-sync i.syncing { color: var(--accent); animation: spin 0.8s linear infinite; }
 
 .modal-body::-webkit-scrollbar { width: 4px; }
 .modal-body::-webkit-scrollbar-track { background: transparent; }
@@ -538,7 +583,7 @@ flex-direction: row; padding: 0.75rem 1rem;
 gap: 0.5rem; border-right: none;
 border-bottom: 1px solid var(--border); overflow-x: auto;
 }
-.sidebar-brand, .sidebar-footer { display: none; }
+.sidebar-brand, .sidebar-footer, .sidebar-refresh-info { display: none; }
 .sidebar-item { flex-shrink: 0; padding: 0.55rem 0.75rem; gap: 0.5rem; }
 .sidebar-item .icon-wrap { width: 30px; height: 30px; border-radius: 8px; font-size: 0.7rem; }
 .sidebar-item .label { font-size: 0.75rem; }
@@ -552,6 +597,7 @@ transform: none; width: 20px; height: 3px; border-radius: 4px 4px 0 0;
 .cards-grid { grid-template-columns: 1fr; }
 .list-row { grid-template-columns: 36px 1fr auto; }
 .list-row .row-content { display: none; }
+.sticky-top { padding: 0.5rem 0 0.4rem; }
 }
 @media (max-width: 480px) {
 .main-content { padding: 1rem; }
@@ -592,6 +638,10 @@ transition-duration: 0.01ms !important;
 </div>
 <div class="sidebar-footer">
 <div class="sidebar-footer-text">Data bersumber dari<br>Google Sheets (realtime)</div>
+<div class="sidebar-refresh-info">
+<i class="fa-solid fa-arrows-rotate" id="sidebarSyncIcon"></i>
+<span id="sidebarSyncText">Auto-sync 30d</span>
+</div>
 </div>
 </aside>
 
@@ -603,10 +653,14 @@ transition-duration: 0.01ms !important;
 <p class="page-subtitle">Pusat informasi jadwal dan data terkini</p>
 </div>
 <div class="page-header-right">
-<div class="status-badge"><span class="live-dot"></span> Live sync</div>
+<div class="status-badge" id="statusBadge">
+<span class="live-dot"></span>
+<span id="syncStatusText">Live sync</span>
+</div>
 </div>
 </header>
 
+<div class="sticky-top">
 <div class="search-bar">
 <i class="fa-solid fa-magnifying-glass search-icon"></i>
 <input type="text" class="search-input" id="searchInput" placeholder="Cari judul atau isi data..." autocomplete="off" spellcheck="false">
@@ -616,7 +670,6 @@ transition-duration: 0.01ms !important;
 </button>
 <div class="search-result-count" id="searchResultCount"></div>
 </div>
-
 <div class="toolbar">
 <div class="toolbar-left">
 <i class="fa-solid fa-eye"></i>
@@ -631,6 +684,7 @@ transition-duration: 0.01ms !important;
 </button>
 </div>
 </div>
+</div>
 
 <section id="contentArea" aria-live="polite">
 <div class="loading-state">
@@ -641,6 +695,10 @@ transition-duration: 0.01ms !important;
 
 <footer class="page-footer">
 <span>Ruang Waktu &mdash; Klik kartu untuk lihat isi lengkap</span>
+<div class="footer-sync">
+<i class="fa-solid fa-arrows-rotate" id="footerSyncIcon"></i>
+<span id="footerSyncText">Refresh otomatis aktif</span>
+</div>
 </footer>
 </div>
 </main>
@@ -670,6 +728,7 @@ transition-duration: 0.01ms !important;
 <script>
 const SPREADSHEET_ID = "1VO91WJb1w2Pi4V_GO12hDl8KPkkmHkOUFxtqEmCvygM";
 const DATA_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
+const REFRESH_INTERVAL = 30000; /* 30 detik */
 
 let allData = [];
 let currentFilter = "all";
@@ -678,21 +737,28 @@ let searchQuery = "";
 let isLoading = false;
 let lastError = null;
 let modalOpenIndex = -1;
+let refreshTimer = null;
+let isSyncing = false;
+let lastSyncTime = null;
 
 const contentArea = document.getElementById("contentArea");
 const countAllEl = document.getElementById("countAll");
 const countJadwalEl = document.getElementById("countJadwal");
 const viewLabelEl = document.getElementById("viewLabel");
-
 const searchInput = document.getElementById("searchInput");
 const searchClear = document.getElementById("searchClear");
 const searchHint = document.getElementById("searchHint");
 const searchResultCount = document.getElementById("searchResultCount");
-
 const modalOverlay = document.getElementById("modalOverlay");
 const modalCloseBtn = document.getElementById("modalCloseBtn");
 const modalColAEl = document.getElementById("modalColA");
 const modalColBEl = document.getElementById("modalColB");
+const statusBadge = document.getElementById("statusBadge");
+const syncStatusText = document.getElementById("syncStatusText");
+const sidebarSyncIcon = document.getElementById("sidebarSyncIcon");
+const sidebarSyncText = document.getElementById("sidebarSyncText");
+const footerSyncIcon = document.getElementById("footerSyncIcon");
+const footerSyncText = document.getElementById("footerSyncText");
 
 function escapeHtml(str) {
 if (!str) return "";
@@ -736,26 +802,88 @@ const prev = document.querySelector(".toast");
 if (prev) prev.remove();
 const t = document.createElement("div");
 t.className = `toast ${type || "success"}`;
-const ic = type === "error" ? "fa-solid fa-xmark" : "fa-solid fa-check";
+const iconMap = { success: "fa-solid fa-check", error: "fa-solid fa-xmark", info: "fa-solid fa-info" };
+const ic = iconMap[type] || iconMap.success;
 t.innerHTML = `<span class="toast-icon"><i class="${ic}"></i></span><span>${escapeHtml(message)}</span>`;
 document.body.appendChild(t);
 setTimeout(() => { if (t.parentNode) t.remove(); }, 1600);
 }
 
+/* === Sync UI feedback === */
+function setSyncingUI(syncing) {
+isSyncing = syncing;
+statusBadge.classList.toggle("syncing", syncing);
+syncStatusText.textContent = syncing ? "Memperbarui..." : "Live sync";
+sidebarSyncIcon.classList.toggle("syncing", syncing);
+sidebarSyncText.textContent = syncing ? "Syncing..." : "Auto-sync 30d";
+footerSyncIcon.classList.toggle("syncing", syncing);
+footerSyncText.textContent = syncing ? "Memperbarui data..." : "Refresh otomatis aktif";
+}
+
+function updateLastSyncTime() {
+if (!lastSyncTime) return;
+const secs = Math.floor((Date.now() - lastSyncTime) / 1000);
+let text;
+if (secs < 5) text = "Baru saja diperbarui";
+else if (secs < 60) text = `Diperbarui ${secs}d lalu`;
+else {
+const mins = Math.floor(secs / 60);
+text = `Diperbarui ${mins}m lalu`;
+}
+footerSyncText.textContent = text;
+}
+
+/* === Auto refresh di latar belakang === */
+async function backgroundRefresh() {
+if (isSyncing || isLoading) return;
+setSyncingUI(true);
+try {
+const newData = await fetchSheetData();
+const oldJson = JSON.stringify(allData);
+const newJson = JSON.stringify(newData);
+if (oldJson !== newJson) {
+allData = newData;
+lastSyncTime = Date.now();
+/* Jangan re-render jika modal sedang terbuka, biar tidak ganggu */
+if (!modalOverlay.classList.contains("open")) {
+renderContent();
+}
+showToast("Data diperbarui otomatis", "info");
+} else {
+lastSyncTime = Date.now();
+}
+} catch (err) {
+/* Gagal diam-diam, jangan ganggu pengguna */
+console.warn("Background refresh gagal:", err.message);
+} finally {
+setSyncingUI(false);
+updateLastSyncTime();
+}
+}
+
+function startAutoRefresh() {
+stopAutoRefresh();
+refreshTimer = setInterval(backgroundRefresh, REFRESH_INTERVAL);
+/* Update teks waktu setiap 5 detik */
+setInterval(updateLastSyncTime, 5000);
+}
+
+function stopAutoRefresh() {
+if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null; }
+}
+
+/* === Modal === */
 function openModal(index) {
 const items = getFilteredData();
 if (index < 0 || index >= items.length) return;
 modalOpenIndex = index;
 const item = items[index];
-
 const colAText = item.title || "";
 modalColAEl.textContent = colAText || "(Kosong)";
 modalColAEl.classList.toggle("empty-col", !colAText);
-
 const colBText = item.content || "";
 modalColBEl.textContent = colBText || "(Kosong)";
 modalColBEl.classList.toggle("empty-col", !colBText);
-
 modalOverlay.classList.add("open");
 document.body.style.overflow = "hidden";
 }
@@ -769,23 +897,18 @@ modalOpenIndex = -1;
 modalCloseBtn.addEventListener("click", closeModal);
 modalOverlay.addEventListener("click", e => { if (e.target === modalOverlay) closeModal(); });
 document.addEventListener("keydown", e => {
-if ((e.ctrlKey || e.metaKey) && e.key === "k") {
-e.preventDefault();
-searchInput.focus();
-return;
-}
+if ((e.ctrlKey || e.metaKey) && e.key === "k") { e.preventDefault(); searchInput.focus(); return; }
 if (!modalOverlay.classList.contains("open")) return;
 if (e.key === "Escape") closeModal();
 });
 
+/* === Search === */
 function updateSearchUI() {
 const hasQuery = searchInput.value.length > 0;
 searchClear.classList.toggle("visible", hasQuery);
 searchHint.classList.toggle("hidden", hasQuery || document.activeElement === searchInput);
-
 const items = getFilteredData();
 const total = currentFilter === "all" ? allData.length : allData.filter(isJadwal).length;
-
 if (hasQuery) {
 searchResultCount.innerHTML = `Ditemukan <span>${items.length}</span> dari ${total} data`;
 } else {
@@ -793,28 +916,12 @@ searchResultCount.innerHTML = "";
 }
 }
 
-searchInput.addEventListener("input", () => {
-searchQuery = searchInput.value;
-updateSearchUI();
-renderContent();
-});
+searchInput.addEventListener("input", () => { searchQuery = searchInput.value; updateSearchUI(); renderContent(); });
+searchInput.addEventListener("focus", () => { searchHint.classList.add("hidden"); });
+searchInput.addEventListener("blur", () => { if (!searchInput.value) searchHint.classList.remove("hidden"); });
+searchClear.addEventListener("click", () => { searchInput.value = ""; searchQuery = ""; searchInput.focus(); updateSearchUI(); renderContent(); });
 
-searchInput.addEventListener("focus", () => {
-searchHint.classList.add("hidden");
-});
-
-searchInput.addEventListener("blur", () => {
-if (!searchInput.value) searchHint.classList.remove("hidden");
-});
-
-searchClear.addEventListener("click", () => {
-searchInput.value = "";
-searchQuery = "";
-searchInput.focus();
-updateSearchUI();
-renderContent();
-});
-
+/* === Card / Row click === */
 function handleCardClick(e) {
 if (e.target.closest(".copy-btn-sm")) return;
 const card = e.target.closest(".card");
@@ -845,10 +952,8 @@ setTimeout(() => { btn.classList.remove("copied"); btn.innerHTML = '<i class="fa
 }
 
 function updateSidebarCounts() {
-const total = allData.length;
-const jadwal = allData.filter(isJadwal).length;
-countAllEl.textContent = total;
-countJadwalEl.textContent = jadwal;
+countAllEl.textContent = allData.length;
+countJadwalEl.textContent = allData.filter(isJadwal).length;
 }
 
 function renderContent() {
@@ -863,9 +968,7 @@ return;
 }
 updateSidebarCounts();
 updateSearchUI();
-
 const items = getFilteredData();
-
 if (items.length === 0) {
 const isSearching = searchQuery.trim().length > 0;
 const emptyMsg = isSearching
@@ -944,9 +1047,18 @@ return { title: c[0] ? String(c[0].v) : "", content: c[1] ? String(c[1].v) : "" 
 
 async function loadData() {
 isLoading = true; lastError = null; renderContent();
-try { allData = await fetchSheetData(); }
-catch (err) { lastError = err.message || "Gagal memuat data."; allData = []; }
-finally { isLoading = false; renderContent(); }
+try {
+allData = await fetchSheetData();
+lastSyncTime = Date.now();
+startAutoRefresh();
+} catch (err) {
+lastError = err.message || "Gagal memuat data.";
+allData = [];
+} finally {
+isLoading = false;
+renderContent();
+updateLastSyncTime();
+}
 }
 
 contentArea.addEventListener("click", e => { handleSmallCopy(e); handleCardClick(e); });
