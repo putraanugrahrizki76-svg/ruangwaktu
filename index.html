@@ -44,7 +44,6 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 .app{display:flex;min-height:100vh;position:relative;z-index:1;animation:appIn .6s ease}
 @keyframes appIn{from{opacity:0}to{opacity:1}}
 
-/* === Sidebar === */
 .sb{width:var(--sb-w);background:var(--bg-el);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
   border-right:1px solid var(--bdr);display:flex;flex-direction:column;padding:2.2rem .9rem .9rem;gap:.35rem;
   position:sticky;top:0;height:100vh;flex-shrink:0}
@@ -70,50 +69,17 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 .sb-item.active .ct{background:rgba(218,160,50,.12);color:var(--accent)}
 .sb-item.active::before{content:'';position:absolute;left:-.9rem;top:50%;transform:translateY(-50%);width:2.5px;height:18px;
   background:var(--accent);border-radius:0 4px 4px 0}
+.sb-foot{margin-top:auto;padding:.85rem .85rem 0;border-top:1px solid var(--bdr)}
+.sb-foot span{font-size:.56rem;color:var(--fg-d);line-height:1.5;opacity:.7}
 
-/* Sync panel di sidebar */
-.sb-sync{margin-top:auto;padding:.85rem;border-top:1px solid var(--bdr);display:flex;flex-direction:column;gap:.55rem}
-.sb-sync-title{font-family:var(--font-d);font-size:.56rem;font-weight:600;color:var(--fg-d);letter-spacing:.12em;text-transform:uppercase;
-  display:flex;align-items:center;gap:.4rem}
-.sb-sync-title .sync-dot{width:5px;height:5px;border-radius:50%;background:var(--sage);position:relative}
-.sb-sync-title .sync-dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--sage);animation:liveRing 2.2s ease-out infinite}
-.sb-sync-title.syncing .sync-dot{background:var(--accent);animation:dotPulse .8s ease-in-out infinite}
-.sb-sync-title.syncing .sync-dot::after{border-color:var(--accent);animation:none;display:none}
-.sb-sync-title.sync-error .sync-dot{background:var(--coral)}
-.sb-sync-title.sync-error .sync-dot::after{border-color:var(--coral);animation:none;display:none}
-@keyframes liveRing{0%{transform:scale(.7);opacity:.7}100%{transform:scale(2.2);opacity:0}}
-.sb-sync-row{display:flex;justify-content:space-between;align-items:center}
-.sb-sync-label{font-size:.58rem;color:var(--fg-d)}
-.sb-sync-val{font-size:.58rem;color:var(--fg-m);font-family:var(--font-d);font-weight:500}
-.sb-sync-bar{height:2px;background:rgba(255,255,255,.04);border-radius:2px;overflow:hidden}
-.sb-sync-bar-fill{height:100%;background:var(--accent);border-radius:2px;transition:width 1s linear;width:0%}
-.sb-sync-bar-fill.reset{transition:none;width:0%}
-.sb-changes{font-size:.56rem;color:var(--sage);display:flex;align-items:center;gap:.3rem;
-  animation:changeIn .4s ease}
-@keyframes changeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-
-/* === Main === */
 .mc{flex:1;padding:2.5rem 2.8rem 2rem;min-width:0}
 .dc{max-width:1260px;margin:0 auto}
 
-/* === Header === */
 .ph{margin-bottom:2rem;display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 .pt{font-family:var(--font-d);font-size:2.2rem;font-weight:700;color:var(--fg);letter-spacing:-.035em;line-height:1.15}
 .pt .aw{background:linear-gradient(135deg,var(--accent),#f0c060);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .ps{margin-top:.3rem;font-size:.82rem;color:var(--fg-m);font-weight:400}
-.ph-r{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
-.live{display:inline-flex;align-items:center;gap:.4rem;font-size:.63rem;font-weight:500;color:var(--sage);
-  background:rgba(95,173,112,.06);border:1px solid rgba(95,173,112,.12);padding:.28rem .65rem;border-radius:20px;
-  transition:all .3s}
-.live.syncing{color:var(--accent);border-color:rgba(218,160,50,.2);background:rgba(218,160,50,.06)}
-.live.sync-error{color:var(--coral);border-color:rgba(224,90,72,.15);background:rgba(224,90,72,.05)}
-.live .ld{width:5px;height:5px;border-radius:50%;background:currentColor;position:relative}
-.live .ld::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid currentColor;animation:liveRing 2s ease-out infinite}
-.live.syncing .ld::after,.live.sync-error .ld::after{animation:none;display:none}
-.live .ld.sync-spin{animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
 
-/* === Search === */
 .search{position:relative;margin-bottom:1.3rem}
 .search .si{position:absolute;left:1rem;top:50%;transform:translateY(-50%);font-size:.82rem;color:var(--fg-d);pointer-events:none;transition:color .25s}
 .search input{width:100%;padding:.72rem 3rem .72rem 2.75rem;font-family:var(--font-b);font-size:.85rem;color:var(--fg);
@@ -135,7 +101,6 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 .search .src{margin-top:.4rem;font-size:.64rem;font-family:var(--font-d);font-weight:500;color:var(--fg-d);padding-left:.1rem;min-height:.85rem}
 .search .src b{color:var(--accent);font-weight:600}
 
-/* === Toolbar === */
 .tb{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;gap:1rem;flex-wrap:wrap}
 .tb-l{font-family:var(--font-d);font-size:.7rem;color:var(--fg-m);display:flex;align-items:center;gap:.4rem}
 .vt{display:flex;background:rgba(255,255,255,.025);border:1px solid var(--bdr);border-radius:10px;padding:3px;gap:2px}
@@ -144,10 +109,8 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 .vt-b:hover{color:var(--fg-m)}
 .vt-b.on{background:rgba(255,255,255,.07);color:var(--fg);box-shadow:0 1px 4px rgba(0,0,0,.2)}
 
-/* === Content Area === */
 #contentArea{transition:opacity .18s ease,transform .18s ease}
 
-/* === Grid Cards === */
 .cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.1rem}
 .card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--radius-lg);overflow:hidden;
   display:flex;flex-direction:column;position:relative;cursor:pointer;
@@ -168,8 +131,6 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 .card:nth-child(8n) .strip{background:linear-gradient(90deg,var(--accent),var(--coral))}
 .card:hover{border-color:var(--bdr-h);background:var(--card-h);transform:translateY(-3px);
   box-shadow:0 16px 40px -12px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.03)}
-
-/* Highlight animasi untuk data baru */
 .card.is-new{animation:cNew .8s ease}
 @keyframes cNew{0%{box-shadow:0 0 0 0 rgba(218,160,50,.3);border-color:rgba(218,160,50,.3)}
   50%{box-shadow:0 0 20px 4px rgba(218,160,50,.12);border-color:rgba(218,160,50,.25)}
@@ -178,7 +139,6 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 @keyframes cChanged{0%{box-shadow:0 0 0 0 rgba(78,146,190,.3);border-color:rgba(78,146,190,.3)}
   50%{box-shadow:0 0 20px 4px rgba(78,146,190,.1);border-color:rgba(78,146,190,.22)}
   100%{box-shadow:none;border-color:var(--bdr)}}
-
 .ci{padding:1.15rem 1.3rem 1.3rem;display:flex;flex-direction:column;flex:1;gap:.6rem;position:relative;z-index:1}
 .ct2{display:flex;align-items:flex-start;justify-content:space-between;gap:.7rem}
 .c-idx{font-family:var(--font-d);font-size:.54rem;font-weight:600;color:var(--fg-d);letter-spacing:.12em;text-transform:uppercase;margin-top:.1rem}
@@ -193,7 +153,6 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 .c-badge{font-size:.5rem;font-weight:600;font-family:var(--font-d);padding:.12rem .4rem;border-radius:4px;letter-spacing:.05em;text-transform:uppercase}
 .c-badge.badge-new{background:rgba(218,160,50,.12);color:var(--accent)}
 .c-badge.badge-changed{background:rgba(78,146,190,.12);color:var(--sky)}
-
 .cpbtn{display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .55rem;font-size:.58rem;font-weight:500;
   font-family:var(--font-d);color:var(--fg-d);background:transparent;border:1px solid transparent;
   border-radius:6px;cursor:pointer;transition:all .2s;flex-shrink:0}
@@ -201,7 +160,6 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 .cpbtn:active{transform:scale(.92)}
 .cpbtn.ok{color:var(--sage);border-color:rgba(95,173,112,.18);background:rgba(95,173,112,.05)}
 
-/* === List View === */
 .cl{display:flex;flex-direction:column;gap:.5rem}
 .lr{display:grid;grid-template-columns:44px 1fr 2fr auto;align-items:start;gap:.9rem;
   background:var(--card);border:1px solid var(--bdr);border-radius:var(--radius);padding:.85rem 1.1rem;
@@ -226,7 +184,6 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
   color:var(--fg-d);font-size:.6rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s}
 .lr .rab:hover{background:rgba(255,255,255,.05);border-color:var(--bdr-h);color:var(--fg-m)}
 
-/* === Empty / Loading / Error === */
 .empty{grid-column:1/-1;background:var(--card);border:1px dashed rgba(255,255,255,.06);border-radius:var(--radius-lg);
   padding:3.5rem 2rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.85rem}
 .empty .ei{width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,.025);border:1px solid var(--bdr);
@@ -235,6 +192,7 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 .empty .ed{font-size:.73rem;color:var(--fg-d);max-width:280px;line-height:1.5}
 .ldg{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.1rem;padding:4.5rem 2rem}
 .ldg .ring{width:32px;height:32px;border:2px solid var(--bdr);border-top-color:var(--accent);border-radius:50%;animation:spin .65s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 .ldg span{font-size:.73rem;color:var(--fg-m)}
 .err{background:rgba(224,90,72,.04);border:1px solid rgba(224,90,72,.12);border-radius:var(--radius);padding:1.1rem 1.3rem;
   display:flex;align-items:flex-start;gap:.7rem}
@@ -244,7 +202,6 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
   font-size:.66rem;font-weight:500;font-family:var(--font-d);padding:.28rem .7rem;border-radius:7px;cursor:pointer;transition:all .2s}
 .err .rbtn:hover{background:rgba(224,90,72,.15)}
 
-/* === Modal === */
 .mo{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
 .mo.open{opacity:1;visibility:visible}
@@ -277,7 +234,6 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 .m-cp:active{transform:scale(.96)}
 .m-cp.ok{color:var(--sage);border-color:rgba(95,173,112,.2);background:rgba(95,173,112,.06)}
 
-/* === Toast === */
 .toast{position:fixed;bottom:1.3rem;right:1.3rem;background:rgba(11,11,17,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border:1px solid var(--bdr);border-radius:11px;padding:.55rem .9rem;font-size:.72rem;font-weight:500;color:var(--fg);
   z-index:9999;display:flex;align-items:center;gap:.4rem;box-shadow:0 12px 36px -10px rgba(0,0,0,.6);
@@ -300,7 +256,7 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
   .app{flex-direction:column}
   .sb{width:100%;height:auto;position:relative;flex-direction:row;padding:.6rem .7rem;gap:.35rem;
     border-right:none;border-bottom:1px solid var(--bdr);overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .sb-brand,.sb-sync{display:none}
+  .sb-brand,.sb-foot{display:none}
   .sb-item{flex-shrink:0;padding:.45rem .6rem;gap:.4rem}
   .sb-item .iw{width:26px;height:26px;border-radius:7px;font-size:.63rem}
   .sb-item .lb{font-size:.68rem}
@@ -349,23 +305,7 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
       <span class="lb">Jadwal Pasaran</span>
       <span class="ct" id="countJadwal">--</span>
     </div>
-
-    <!-- Panel sync live -->
-    <div class="sb-sync">
-      <div class="sb-sync-title" id="syncTitle">
-        <span class="sync-dot"></span> Live Monitoring
-      </div>
-      <div class="sb-sync-row">
-        <span class="sb-sync-label">Terakhir sync</span>
-        <span class="sb-sync-val" id="syncLast">--:--:--</span>
-      </div>
-      <div class="sb-sync-row">
-        <span class="sb-sync-label">Sync berikutnya</span>
-        <span class="sb-sync-val" id="syncNext">--d</span>
-      </div>
-      <div class="sb-sync-bar"><div class="sb-sync-bar-fill" id="syncBar"></div></div>
-      <div id="syncChanges"></div>
-    </div>
+    <div class="sb-foot"><span>Data bersumber dari<br>Google Sheets (realtime)</span></div>
   </aside>
 
   <main class="mc">
@@ -374,12 +314,6 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
         <div>
           <h1 class="pt">Ruang <span class="aw">Waktu</span></h1>
           <p class="ps">Pusat informasi jadwal dan data terkini</p>
-        </div>
-        <div class="ph-r">
-          <div class="live" id="liveBadge">
-            <span class="ld" id="liveDot"></span>
-            <span id="liveText">Live sync</span>
-          </div>
         </div>
       </header>
 
@@ -404,14 +338,13 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
       </section>
 
       <footer class="pf">
-        <span>Ruang Waktu &mdash; Auto-refresh setiap 15 detik</span>
+        <span>Ruang Waktu</span>
         <span id="footerTotal"></span>
       </footer>
     </div>
   </main>
 </div>
 
-<!-- Modal -->
 <div class="mo" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Detail entri">
   <div class="mp">
     <div class="mbar"></div>
@@ -439,34 +372,21 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 </div>
 
 <script>
-/* =====================================================
-   KONFIGURASI LIVE MONITORING
-   ===================================================== */
-const SYNC_INTERVAL = 15; // detik antar auto-sync
+const SYNC_INTERVAL = 15;
 const SPREADSHEET_ID = "1VO91WJb1w2Pi4V_GO12hDl8KPkkmHkOUFxtqEmCvygM";
 const DATA_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
 
-/* =====================================================
-   STATE
-   ===================================================== */
 let allData = [], prevData = [], curFilter = "all", curView = "grid";
 let sQuery = "", loading = false, lastErr = null, modalIdx = -1, firstRender = true;
 let syncTimer = null, countdown = SYNC_INTERVAL;
-let changeLog = []; // {index, type: 'new'|'changed'}
+let changeLog = [];
 
-/* =====================================================
-   DOM REFS
-   ===================================================== */
 const $ = id => document.getElementById(id);
 const area = $("contentArea"), cAll = $("countAll"), cJad = $("countJadwal"), vLbl = $("viewLabel");
 const sIn = $("searchInput"), sClr = $("searchClear"), sHnt = $("searchHint"), sRC = $("searchResultCount");
 const mOv = $("modalOverlay"), mCl = $("modalCloseBtn"), mCA = $("modalColA"), mCB = $("modalColB"), mTi = $("modalTitle"), mIx = $("modalIdx"), mCp = $("modalCopyBtn");
-const syncTitle = $("syncTitle"), syncLast = $("syncLast"), syncNext = $("syncNext"), syncBar = $("syncBar"), syncChanges = $("syncChanges");
-const liveBadge = $("liveBadge"), liveDot = $("liveDot"), liveText = $("liveText"), footerTotal = $("footerTotal");
+const footerTotal = $("footerTotal");
 
-/* =====================================================
-   UTILITAS
-   ===================================================== */
 function esc(s){ return s ? s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;") : "" }
 function hl(t, q){
   if(!t||!q) return esc(t);
@@ -489,11 +409,7 @@ function filtered(){
   }
   return d;
 }
-function timeStr(){ return new Date().toLocaleTimeString("id-ID",{hour:"2-digit",minute:"2-digit",second:"2-digit"}) }
 
-/* =====================================================
-   TOAST
-   ===================================================== */
 function toast(msg, type){
   document.querySelectorAll(".toast").forEach(t=>t.remove());
   const t=document.createElement("div");
@@ -504,9 +420,6 @@ function toast(msg, type){
   setTimeout(()=>{ if(t.parentNode) t.remove() }, 1900);
 }
 
-/* =====================================================
-   CLIPBOARD
-   ===================================================== */
 async function copyText(text, btn){
   if(!text){ toast("Tidak ada isi untuk disalin","no"); return }
   try{ await navigator.clipboard.writeText(text) } catch{
@@ -523,9 +436,6 @@ async function copyText(text, btn){
   setTimeout(()=>{ btn.classList.remove("ok"); btn.innerHTML = origHTML }, 1800);
 }
 
-/* =====================================================
-   MODAL
-   ===================================================== */
 function openModal(i){
   const items=filtered(); if(i<0||i>=items.length) return;
   modalIdx=i; const it=items[i];
@@ -539,18 +449,13 @@ function openModal(i){
 function closeModal(){ mOv.classList.remove("open"); document.body.style.overflow=""; modalIdx=-1 }
 mCl.addEventListener("click", closeModal);
 mOv.addEventListener("click", e=>{ if(e.target===mOv) closeModal() });
-mCp.addEventListener("click", ()=>{
-  const it=filtered()[modalIdx]; if(it) copyText(it.content, mCp);
-});
+mCp.addEventListener("click", ()=>{ const it=filtered()[modalIdx]; if(it) copyText(it.content, mCp); });
 document.addEventListener("keydown", e=>{
   if((e.ctrlKey||e.metaKey)&&e.key==="k"){ e.preventDefault(); sIn.focus(); return }
   if(!mOv.classList.contains("open")) return;
   if(e.key==="Escape") closeModal();
 });
 
-/* =====================================================
-   SEARCH
-   ===================================================== */
 function updSearch(){
   const has=sIn.value.length>0;
   sClr.classList.toggle("vis", has);
@@ -563,18 +468,13 @@ sIn.addEventListener("focus", ()=> sHnt.classList.add("hid"));
 sIn.addEventListener("blur", ()=>{ if(!sIn.value) sHnt.classList.remove("hid") });
 sClr.addEventListener("click", ()=>{ sIn.value=""; sQuery=""; sIn.focus(); updSearch(); render() });
 
-/* =====================================================
-   DIFF ENGINE — mendeteksi data baru / berubah
-   ===================================================== */
 function computeDiff(oldArr, newArr){
   const changes = [];
   const oldMap = new Map();
   oldArr.forEach((item, i) => oldMap.set(item.title + "|||" + item.content, i));
-
   for(let i = 0; i < newArr.length; i++){
     const key = newArr[i].title + "|||" + newArr[i].content;
     if(!oldMap.has(key)){
-      // Cek apakah judulnya pernah ada (berubah) atau benar-benar baru
       const titleExists = oldArr.some(o => o.title === newArr[i].title);
       changes.push({ index: i, type: titleExists ? "changed" : "new" });
     }
@@ -582,13 +482,10 @@ function computeDiff(oldArr, newArr){
   return changes;
 }
 
-/* =====================================================
-   RENDER
-   ===================================================== */
 function updCounts(){
   cAll.textContent = allData.length;
   cJad.textContent = allData.filter(isJad).length;
-  footerTotal.textContent = `${allData.length} entri total`;
+  footerTotal.textContent = allData.length + " entri";
 }
 
 function render(){
@@ -604,7 +501,6 @@ function render(){
   }
   updCounts(); updSearch();
   const items = filtered();
-
   if(items.length===0){
     const sq=sQuery.trim();
     const em = sq
@@ -614,15 +510,11 @@ function render(){
     area.innerHTML=`<div class="cg"><div class="empty"><div class="ei"><i class="fa-solid fa-${sq?"magnifying-glass":"folder-open"}"></i></div><div class="et">${sq?"Tidak ada hasil":"Tidak ada data"}</div><div class="ed">${em}${sq?"<br>Coba kata kunci lain.":""}</div></div></div>`;
     return;
   }
-
   if(firstRender){
-    firstRender = false;
-    changeLog = [];
+    firstRender = false; changeLog = [];
     curView==="grid" ? renderGrid(items) : renderList(items);
     return;
   }
-
-  // Smooth transition saat data berubah
   area.style.opacity="0"; area.style.transform="translateY(4px)";
   setTimeout(()=>{
     curView==="grid" ? renderGrid(items) : renderList(items);
@@ -631,7 +523,6 @@ function render(){
 }
 
 function getChangeClass(dataIndex){
-  // Cek apakah index ini ada di changeLog (berdasarkan posisi di filtered data)
   const fItems = filtered();
   if(dataIndex >= fItems.length) return "";
   const realItem = fItems[dataIndex];
@@ -643,8 +534,7 @@ function getChangeClass(dataIndex){
 }
 
 function renderGrid(items){
-  const q=sQuery.trim();
-  let h='<div class="cg">';
+  const q=sQuery.trim(); let h='<div class="cg">';
   for(let i=0;i<items.length;i++){
     const it=items[i];
     const t = q ? hl(it.title,q) : (esc(it.title)||"Tanpa Judul");
@@ -659,8 +549,7 @@ function renderGrid(items){
 }
 
 function renderList(items){
-  const q=sQuery.trim();
-  let h='<div class="cl">';
+  const q=sQuery.trim(); let h='<div class="cl">';
   for(let i=0;i<items.length;i++){
     const it=items[i];
     const t = q ? hl(it.title,q) : (esc(it.title)||"Tanpa Judul");
@@ -674,17 +563,11 @@ function renderList(items){
   h+="</div>"; area.innerHTML=h;
 }
 
-/* =====================================================
-   MOUSE GLOW PADA KARTU
-   ===================================================== */
 area.addEventListener("mousemove", e=>{
   const card=e.target.closest(".card");
   if(card){ const r=card.getBoundingClientRect(); card.style.setProperty("--mx",`${e.clientX-r.left}px`); card.style.setProperty("--my",`${e.clientY-r.top}px`) }
 });
 
-/* =====================================================
-   DELEGASI KLIK
-   ===================================================== */
 area.addEventListener("click", e=>{
   if(e.target.closest(".cpbtn")){
     const p=e.target.closest(".card")||e.target.closest(".lr");
@@ -697,19 +580,13 @@ area.addEventListener("click", e=>{
   if(row) openModal(parseInt(row.dataset.index,10));
 });
 
-/* =====================================================
-   VIEW TOGGLE
-   ===================================================== */
 document.querySelectorAll(".vt-b").forEach(b=>b.addEventListener("click",()=>{
   document.querySelectorAll(".vt-b").forEach(x=>x.classList.remove("on"));
   b.classList.add("on"); curView=b.dataset.view;
   vLbl.textContent=curView==="grid"?"Tampilan Grid":"Tampilan List";
-  firstRender=true; render(); // force re-render tanpa fade
+  firstRender=true; render();
 }));
 
-/* =====================================================
-   SIDEBAR FILTER
-   ===================================================== */
 document.querySelectorAll(".sb-item[data-filter]").forEach(el=>{
   const act=()=>{
     document.querySelectorAll(".sb-item[data-filter]").forEach(x=>x.classList.remove("active"));
@@ -720,62 +597,19 @@ document.querySelectorAll(".sb-item[data-filter]").forEach(el=>{
   el.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); act() }});
 });
 
-/* =====================================================
-   SYNC UI HELPERS
-   ===================================================== */
-function setSyncState(state){
-  syncTitle.className = "sb-sync-title" + (state!=="idle" ? " "+state : "");
-  liveBadge.className = "live" + (state!=="idle" ? " "+state : "");
-  liveDot.className = "ld" + (state==="syncing" ? " sync-spin" : "");
-  const labels = { idle:"Live sync", syncing:"Menyinkronkan...", "sync-error":"Sync gagal" };
-  liveText.textContent = labels[state] || "Live sync";
-}
-
-function updateSyncUI(){
-  syncLast.textContent = timeStr();
-  syncNext.textContent = countdown + "d";
-  const pct = ((SYNC_INTERVAL - countdown) / SYNC_INTERVAL) * 100;
-  syncBar.style.width = pct + "%";
-}
-
-function showChangeLog(changes){
-  if(!changes.length){ syncChanges.innerHTML=""; return }
-  const newCount = changes.filter(c=>c.type==="new").length;
-  const chgCount = changes.filter(c=>c.type==="changed").length;
-  let parts = [];
-  if(newCount) parts.push(`${newCount} data baru`);
-  if(chgCount) parts.push(`${chgCount} diubah`);
-  syncChanges.innerHTML = `<div class="sb-changes"><i class="fa-solid fa-bolt"></i> ${parts.join(", ")}</div>`;
-  toast(parts.join(", "), "info");
-}
-
-/* =====================================================
-   COUNTDOWN TIMER
-   ===================================================== */
+/* === Background sync — tanpa UI sama sekali === */
 function startCountdown(){
   countdown = SYNC_INTERVAL;
-  syncBar.classList.add("reset");
-  syncBar.style.width = "0%";
-  requestAnimationFrame(()=>{ syncBar.classList.remove("reset") });
-
   if(syncTimer) clearInterval(syncTimer);
   syncTimer = setInterval(()=>{
     countdown--;
     if(countdown <= 0){
       clearInterval(syncTimer);
-      syncNext.textContent = "0d";
-      syncBar.style.width = "100%";
-      loadData(false); // auto-sync tanpa loading state penuh
-    } else {
-      updateSyncUI();
+      loadData(false);
     }
   }, 1000);
-  updateSyncUI();
 }
 
-/* =====================================================
-   FETCH DATA
-   ===================================================== */
 async function fetchSheetData(){
   const r = await fetch(DATA_URL);
   if(!r.ok) throw new Error(`HTTP ${r.status} — Pastikan spreadsheet bersifat publik.`);
@@ -787,78 +621,45 @@ async function fetchSheetData(){
 async function loadData(isManual){
   if(isManual){
     loading=true; lastErr=null; render();
-  } else {
-    setSyncState("syncing");
   }
-
   try{
     const newData = await fetchSheetData();
-
     if(allData.length > 0 && !isManual){
-      // Auto-sync: hitung diff
       changeLog = computeDiff(allData, newData);
-      if(changeLog.length > 0) showChangeLog(changeLog);
-      else changeLog = [];
-    } else if(isManual){
-      changeLog = [];
-    }
-
+      if(changeLog.length > 0){
+        const newCount = changeLog.filter(c=>c.type==="new").length;
+        const chgCount = changeLog.filter(c=>c.type==="changed").length;
+        let parts = [];
+        if(newCount) parts.push(newCount + " data baru");
+        if(chgCount) parts.push(chgCount + " diubah");
+        toast(parts.join(", "), "info");
+      } else { changeLog = []; }
+    } else { changeLog = []; }
     prevData = [...allData];
     allData = newData;
     lastErr = null;
-    setSyncState("idle");
     render();
     startCountdown();
-
   } catch(err){
     lastErr = err.message || "Gagal memuat data.";
     if(!isManual){
-      setSyncState("sync-error");
-      toast("Sync gagal, coba lagi nanti","no");
-      // Tetap restart countdown
       startCountdown();
-    } else {
-      loading = false;
-      render();
-    }
+    } else { loading = false; render(); }
   }
-
   if(isManual) loading = false;
 }
 
-/* =====================================================
-   VISIBILITY API — pause sync saat tab tidak aktif
-   ===================================================== */
 document.addEventListener("visibilitychange", ()=>{
-  if(document.hidden){
-    // Tab tidak aktif: pause countdown
-    if(syncTimer) clearInterval(syncTimer);
-  } else {
-    // Tab aktif kembali: langsung sync
-    loadData(false);
-  }
+  if(!document.hidden) loadData(false);
+  else if(syncTimer) clearInterval(syncTimer);
 });
 
-/* =====================================================
-   ONLINE/OFFLINE DETECTION
-   ===================================================== */
 window.addEventListener("offline", ()=>{
-  setSyncState("sync-error");
-  liveText.textContent = "Offline";
   if(syncTimer) clearInterval(syncTimer);
-  toast("Koneksi terputus","no");
 });
-window.addEventListener("online", ()=>{
-  toast("Koneksi kembali, menyinkronkan...","info");
-  loadData(false);
-});
+window.addEventListener("online", ()=>{ loadData(false); });
 
-/* =====================================================
-   INIT
-   ===================================================== */
-loadData(true).then(()=>{
-  startCountdown();
-});
+loadData(true).then(()=>{ startCountdown(); });
 </script>
 </body>
 </html>
