@@ -631,11 +631,7 @@ transition-duration: 0.01ms !important;
 <span class="label">ALL PK</span>
 <span class="count" id="countAll">--</span>
 </div>
-<div class="sidebar-item" data-filter="jadwal" role="button" tabindex="0">
-<div class="icon-wrap"><i class="fa-regular fa-calendar"></i></div>
-<span class="label">Jadwal Pasaran</span>
-<span class="count" id="countJadwal">--</span>
-</div>
+<!-- Sidebar Jadwal Pasaran dihapus -->
 <div class="sidebar-footer">
 <div class="sidebar-footer-text">Data bersumber dari<br>Google Sheets (realtime)</div>
 <div class="sidebar-refresh-info">
@@ -728,10 +724,9 @@ transition-duration: 0.01ms !important;
 <script>
 const SPREADSHEET_ID = "1VO91WJb1w2Pi4V_GO12hDl8KPkkmHkOUFxtqEmCvygM";
 const DATA_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
-const REFRESH_INTERVAL = 30000; /* 30 detik */
+const REFRESH_INTERVAL = 30000;
 
 let allData = [];
-let currentFilter = "all";
 let currentView = "grid";
 let searchQuery = "";
 let isLoading = false;
@@ -743,7 +738,6 @@ let lastSyncTime = null;
 
 const contentArea = document.getElementById("contentArea");
 const countAllEl = document.getElementById("countAll");
-const countJadwalEl = document.getElementById("countJadwal");
 const viewLabelEl = document.getElementById("viewLabel");
 const searchInput = document.getElementById("searchInput");
 const searchClear = document.getElementById("searchClear");
@@ -781,12 +775,14 @@ if (!p.table || !p.table.rows) throw new Error("Tidak ada data baris");
 return p.table;
 }
 
+/* Deteksi apakah item termasuk kategori Jadwal Pasaran */
 function isJadwal(item) {
 return /jadwal|pasaran/i.test(item.title) || /jadwal|pasaran/i.test(item.content);
 }
 
 function getFilteredData() {
-let data = currentFilter === "all" ? allData : allData.filter(isJadwal);
+/* allData sudah difilter (jadwal pasaran dihapus) saat fetch */
+let data = allData;
 if (searchQuery.trim()) {
 const q = searchQuery.trim().toLowerCase();
 data = data.filter(item =>
@@ -809,7 +805,6 @@ document.body.appendChild(t);
 setTimeout(() => { if (t.parentNode) t.remove(); }, 1600);
 }
 
-/* === Sync UI feedback === */
 function setSyncingUI(syncing) {
 isSyncing = syncing;
 statusBadge.classList.toggle("syncing", syncing);
@@ -833,7 +828,6 @@ text = `Diperbarui ${mins}m lalu`;
 footerSyncText.textContent = text;
 }
 
-/* === Auto refresh di latar belakang === */
 async function backgroundRefresh() {
 if (isSyncing || isLoading) return;
 setSyncingUI(true);
@@ -844,7 +838,6 @@ const newJson = JSON.stringify(newData);
 if (oldJson !== newJson) {
 allData = newData;
 lastSyncTime = Date.now();
-/* Jangan re-render jika modal sedang terbuka, biar tidak ganggu */
 if (!modalOverlay.classList.contains("open")) {
 renderContent();
 }
@@ -853,7 +846,6 @@ showToast("Data diperbarui otomatis", "info");
 lastSyncTime = Date.now();
 }
 } catch (err) {
-/* Gagal diam-diam, jangan ganggu pengguna */
 console.warn("Background refresh gagal:", err.message);
 } finally {
 setSyncingUI(false);
@@ -864,7 +856,6 @@ updateLastSyncTime();
 function startAutoRefresh() {
 stopAutoRefresh();
 refreshTimer = setInterval(backgroundRefresh, REFRESH_INTERVAL);
-/* Update teks waktu setiap 5 detik */
 setInterval(updateLastSyncTime, 5000);
 }
 
@@ -872,7 +863,6 @@ function stopAutoRefresh() {
 if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null; }
 }
 
-/* === Modal === */
 function openModal(index) {
 const items = getFilteredData();
 if (index < 0 || index >= items.length) return;
@@ -902,13 +892,12 @@ if (!modalOverlay.classList.contains("open")) return;
 if (e.key === "Escape") closeModal();
 });
 
-/* === Search === */
 function updateSearchUI() {
 const hasQuery = searchInput.value.length > 0;
 searchClear.classList.toggle("visible", hasQuery);
 searchHint.classList.toggle("hidden", hasQuery || document.activeElement === searchInput);
 const items = getFilteredData();
-const total = currentFilter === "all" ? allData.length : allData.filter(isJadwal).length;
+const total = allData.length;
 if (hasQuery) {
 searchResultCount.innerHTML = `Ditemukan <span>${items.length}</span> dari ${total} data`;
 } else {
@@ -921,7 +910,6 @@ searchInput.addEventListener("focus", () => { searchHint.classList.add("hidden")
 searchInput.addEventListener("blur", () => { if (!searchInput.value) searchHint.classList.remove("hidden"); });
 searchClear.addEventListener("click", () => { searchInput.value = ""; searchQuery = ""; searchInput.focus(); updateSearchUI(); renderContent(); });
 
-/* === Card / Row click === */
 function handleCardClick(e) {
 if (e.target.closest(".copy-btn-sm")) return;
 const card = e.target.closest(".card");
@@ -953,7 +941,6 @@ setTimeout(() => { btn.classList.remove("copied"); btn.innerHTML = '<i class="fa
 
 function updateSidebarCounts() {
 countAllEl.textContent = allData.length;
-countJadwalEl.textContent = allData.filter(isJadwal).length;
 }
 
 function renderContent() {
@@ -973,7 +960,7 @@ if (items.length === 0) {
 const isSearching = searchQuery.trim().length > 0;
 const emptyMsg = isSearching
 ? `Tidak ditemukan data yang cocok dengan "<strong>${escapeHtml(searchQuery.trim())}</strong>"`
-: (currentFilter === "all" ? "Belum ada entri di Google Sheets." : "Tidak ada data yang cocok dengan filter Jadwal Pasaran.");
+: "Belum ada entri di Google Sheets.";
 const emptyDesc = isSearching ? "Coba gunakan kata kunci lain atau hapus pencarian." : "";
 contentArea.innerHTML = `<div class="cards-grid"><div class="empty-state"><div class="empty-icon"><i class="${isSearching ? 'fa-solid fa-magnifying-glass' : 'fa-regular fa-folder-open'}"></i></div><div class="empty-title">${isSearching ? 'Tidak ada hasil' : 'Tidak ada data ditemukan'}</div><div class="empty-desc">${emptyMsg}${emptyDesc ? '<br>' + emptyDesc : ''}</div></div></div>`;
 return;
@@ -1024,25 +1011,18 @@ renderContent();
 });
 }
 
-function initSidebar() {
-const items = document.querySelectorAll(".sidebar-item[data-filter]");
-function setActive(target) { items.forEach(el => el.classList.remove("active")); target.classList.add("active"); }
-items.forEach(item => {
-function activate() { currentFilter = item.dataset.filter; setActive(item); renderContent(); }
-item.addEventListener("click", activate);
-item.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); activate(); } });
-});
-}
-
 async function fetchSheetData() {
 const res = await fetch(DATA_URL);
 if (!res.ok) throw new Error(`HTTP ${res.status} — Pastikan spreadsheet bersifat publik.`);
 const text = await res.text();
 const table = parseGvizResponse(text);
-return (table.rows || []).map(r => {
+/* Parsing mentah dari spreadsheet */
+const raw = (table.rows || []).map(r => {
 const c = r.c || [];
 return { title: c[0] ? String(c[0].v) : "", content: c[1] ? String(c[1].v) : "" };
 });
+/* Hapus data yang termasuk kategori Jadwal Pasaran */
+return raw.filter(item => !isJadwal(item));
 }
 
 async function loadData() {
@@ -1063,7 +1043,7 @@ updateLastSyncTime();
 
 contentArea.addEventListener("click", e => { handleSmallCopy(e); handleCardClick(e); });
 
-loadData().then(() => { initSidebar(); initViewToggle(); });
+loadData().then(() => { initViewToggle(); });
 </script>
 
 </body>
