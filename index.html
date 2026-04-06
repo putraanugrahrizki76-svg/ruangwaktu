@@ -70,8 +70,27 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 .sb-item.active .ct{background:rgba(218,160,50,.12);color:var(--accent)}
 .sb-item.active::before{content:'';position:absolute;left:-.9rem;top:50%;transform:translateY(-50%);width:2.5px;height:18px;
   background:var(--accent);border-radius:0 4px 4px 0}
-.sb-foot{margin-top:auto;padding:.85rem .85rem 0;border-top:1px solid var(--bdr)}
-.sb-foot span{font-size:.56rem;color:var(--fg-d);line-height:1.5;opacity:.7}
+
+/* Sync panel di sidebar */
+.sb-sync{margin-top:auto;padding:.85rem;border-top:1px solid var(--bdr);display:flex;flex-direction:column;gap:.55rem}
+.sb-sync-title{font-family:var(--font-d);font-size:.56rem;font-weight:600;color:var(--fg-d);letter-spacing:.12em;text-transform:uppercase;
+  display:flex;align-items:center;gap:.4rem}
+.sb-sync-title .sync-dot{width:5px;height:5px;border-radius:50%;background:var(--sage);position:relative}
+.sb-sync-title .sync-dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--sage);animation:liveRing 2.2s ease-out infinite}
+.sb-sync-title.syncing .sync-dot{background:var(--accent);animation:dotPulse .8s ease-in-out infinite}
+.sb-sync-title.syncing .sync-dot::after{border-color:var(--accent);animation:none;display:none}
+.sb-sync-title.sync-error .sync-dot{background:var(--coral)}
+.sb-sync-title.sync-error .sync-dot::after{border-color:var(--coral);animation:none;display:none}
+@keyframes liveRing{0%{transform:scale(.7);opacity:.7}100%{transform:scale(2.2);opacity:0}}
+.sb-sync-row{display:flex;justify-content:space-between;align-items:center}
+.sb-sync-label{font-size:.58rem;color:var(--fg-d)}
+.sb-sync-val{font-size:.58rem;color:var(--fg-m);font-family:var(--font-d);font-weight:500}
+.sb-sync-bar{height:2px;background:rgba(255,255,255,.04);border-radius:2px;overflow:hidden}
+.sb-sync-bar-fill{height:100%;background:var(--accent);border-radius:2px;transition:width 1s linear;width:0%}
+.sb-sync-bar-fill.reset{transition:none;width:0%}
+.sb-changes{font-size:.56rem;color:var(--sage);display:flex;align-items:center;gap:.3rem;
+  animation:changeIn .4s ease}
+@keyframes changeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 
 /* === Main === */
 .mc{flex:1;padding:2.5rem 2.8rem 2rem;min-width:0}
@@ -83,40 +102,16 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 .pt .aw{background:linear-gradient(135deg,var(--accent),#f0c060);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .ps{margin-top:.3rem;font-size:.82rem;color:var(--fg-m);font-weight:400}
 .ph-r{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
-
-/* Live badge header — now carries more info */
 .live{display:inline-flex;align-items:center;gap:.4rem;font-size:.63rem;font-weight:500;color:var(--sage);
   background:rgba(95,173,112,.06);border:1px solid rgba(95,173,112,.12);padding:.28rem .65rem;border-radius:20px;
-  transition:all .3s;cursor:default;position:relative}
+  transition:all .3s}
 .live.syncing{color:var(--accent);border-color:rgba(218,160,50,.2);background:rgba(218,160,50,.06)}
 .live.sync-error{color:var(--coral);border-color:rgba(224,90,72,.15);background:rgba(224,90,72,.05)}
-.live .ld{width:5px;height:5px;border-radius:50%;background:currentColor;position:relative;flex-shrink:0}
+.live .ld{width:5px;height:5px;border-radius:50%;background:currentColor;position:relative}
 .live .ld::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid currentColor;animation:liveRing 2s ease-out infinite}
 .live.syncing .ld::after,.live.sync-error .ld::after{animation:none;display:none}
 .live .ld.sync-spin{animation:spin .7s linear infinite}
-@keyframes liveRing{0%{transform:scale(.7);opacity:.7}100%{transform:scale(2.2);opacity:0}}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* Tooltip pada live badge */
-.live-tip{position:absolute;bottom:calc(100% + 8px);right:0;background:rgba(11,11,17,.95);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border:1px solid var(--bdr);border-radius:10px;padding:.7rem .85rem;
-  min-width:185px;opacity:0;visibility:hidden;transform:translateY(4px);
-  transition:all .25s ease;pointer-events:none;z-index:50;
-  box-shadow:0 12px 32px -8px rgba(0,0,0,.5)}
-.live:hover .live-tip{opacity:1;visibility:visible;transform:translateY(0)}
-.live-tip::after{content:'';position:absolute;bottom:-5px;right:16px;width:8px;height:8px;
-  background:rgba(11,11,17,.95);border-right:1px solid var(--bdr);border-bottom:1px solid var(--bdr);
-  transform:rotate(45deg)}
-.live-tip-row{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.18rem 0}
-.live-tip-label{font-size:.58rem;color:var(--fg-d)}
-.live-tip-val{font-size:.58rem;color:var(--fg-m);font-family:var(--font-d);font-weight:500}
-.live-tip-bar{height:2px;background:rgba(255,255,255,.04);border-radius:2px;overflow:hidden;margin-top:.35rem}
-.live-tip-bar-fill{height:100%;background:var(--accent);border-radius:2px;transition:width 1s linear;width:0%}
-.live-tip-bar-fill.reset{transition:none;width:0%}
-.live-tip-changes{font-size:.55rem;color:var(--sage);display:flex;align-items:center;gap:.25rem;margin-top:.35rem;
-  animation:tipChangeIn .35s ease}
-@keyframes tipChangeIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
 
 /* === Search === */
 .search{position:relative;margin-bottom:1.3rem}
@@ -173,6 +168,8 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 .card:nth-child(8n) .strip{background:linear-gradient(90deg,var(--accent),var(--coral))}
 .card:hover{border-color:var(--bdr-h);background:var(--card-h);transform:translateY(-3px);
   box-shadow:0 16px 40px -12px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.03)}
+
+/* Highlight animasi untuk data baru */
 .card.is-new{animation:cNew .8s ease}
 @keyframes cNew{0%{box-shadow:0 0 0 0 rgba(218,160,50,.3);border-color:rgba(218,160,50,.3)}
   50%{box-shadow:0 0 20px 4px rgba(218,160,50,.12);border-color:rgba(218,160,50,.25)}
@@ -181,6 +178,7 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 @keyframes cChanged{0%{box-shadow:0 0 0 0 rgba(78,146,190,.3);border-color:rgba(78,146,190,.3)}
   50%{box-shadow:0 0 20px 4px rgba(78,146,190,.1);border-color:rgba(78,146,190,.22)}
   100%{box-shadow:none;border-color:var(--bdr)}}
+
 .ci{padding:1.15rem 1.3rem 1.3rem;display:flex;flex-direction:column;flex:1;gap:.6rem;position:relative;z-index:1}
 .ct2{display:flex;align-items:flex-start;justify-content:space-between;gap:.7rem}
 .c-idx{font-family:var(--font-d);font-size:.54rem;font-weight:600;color:var(--fg-d);letter-spacing:.12em;text-transform:uppercase;margin-top:.1rem}
@@ -195,6 +193,7 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 .c-badge{font-size:.5rem;font-weight:600;font-family:var(--font-d);padding:.12rem .4rem;border-radius:4px;letter-spacing:.05em;text-transform:uppercase}
 .c-badge.badge-new{background:rgba(218,160,50,.12);color:var(--accent)}
 .c-badge.badge-changed{background:rgba(78,146,190,.12);color:var(--sky)}
+
 .cpbtn{display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .55rem;font-size:.58rem;font-weight:500;
   font-family:var(--font-d);color:var(--fg-d);background:transparent;border:1px solid transparent;
   border-radius:6px;cursor:pointer;transition:all .2s;flex-shrink:0}
@@ -301,7 +300,7 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
   .app{flex-direction:column}
   .sb{width:100%;height:auto;position:relative;flex-direction:row;padding:.6rem .7rem;gap:.35rem;
     border-right:none;border-bottom:1px solid var(--bdr);overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .sb-brand,.sb-foot{display:none}
+  .sb-brand,.sb-sync{display:none}
   .sb-item{flex-shrink:0;padding:.45rem .6rem;gap:.4rem}
   .sb-item .iw{width:26px;height:26px;border-radius:7px;font-size:.63rem}
   .sb-item .lb{font-size:.68rem}
@@ -312,9 +311,6 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
   .cg{grid-template-columns:1fr}
   .lr{grid-template-columns:34px 1fr auto}
   .lr .rc{display:none}
-  .live-tip{right:auto;left:50%;transform:translateX(-50%) translateY(4px)}
-  .live:hover .live-tip{transform:translateX(-50%) translateY(0)}
-  .live-tip::after{right:auto;left:50%;margin-left:-4px}
 }
 @media(max-width:480px){
   .mc{padding:.85rem}
@@ -353,7 +349,23 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
       <span class="lb">Jadwal Pasaran</span>
       <span class="ct" id="countJadwal">--</span>
     </div>
-    <div class="sb-foot"><span>Data bersumber dari<br>Google Sheets (realtime)</span></div>
+
+    <!-- Panel sync live -->
+    <div class="sb-sync">
+      <div class="sb-sync-title" id="syncTitle">
+        <span class="sync-dot"></span> Live Monitoring
+      </div>
+      <div class="sb-sync-row">
+        <span class="sb-sync-label">Terakhir sync</span>
+        <span class="sb-sync-val" id="syncLast">--:--:--</span>
+      </div>
+      <div class="sb-sync-row">
+        <span class="sb-sync-label">Sync berikutnya</span>
+        <span class="sb-sync-val" id="syncNext">--d</span>
+      </div>
+      <div class="sb-sync-bar"><div class="sb-sync-bar-fill" id="syncBar"></div></div>
+      <div id="syncChanges"></div>
+    </div>
   </aside>
 
   <main class="mc">
@@ -364,23 +376,9 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
           <p class="ps">Pusat informasi jadwal dan data terkini</p>
         </div>
         <div class="ph-r">
-          <!-- Live badge dengan tooltip tersembunyi -->
           <div class="live" id="liveBadge">
             <span class="ld" id="liveDot"></span>
             <span id="liveText">Live sync</span>
-            <!-- Tooltip: muncul saat hover -->
-            <div class="live-tip">
-              <div class="live-tip-row">
-                <span class="live-tip-label">Terakhir sync</span>
-                <span class="live-tip-val" id="tipLast">--:--:--</span>
-              </div>
-              <div class="live-tip-row">
-                <span class="live-tip-label">Sync berikutnya</span>
-                <span class="live-tip-val" id="tipNext">--d</span>
-              </div>
-              <div class="live-tip-bar"><div class="live-tip-bar-fill" id="tipBar"></div></div>
-              <div id="tipChanges"></div>
-            </div>
           </div>
         </div>
       </header>
@@ -444,7 +442,7 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-b);color:var(-
 /* =====================================================
    KONFIGURASI LIVE MONITORING
    ===================================================== */
-const SYNC_INTERVAL = 15;
+const SYNC_INTERVAL = 15; // detik antar auto-sync
 const SPREADSHEET_ID = "1VO91WJb1w2Pi4V_GO12hDl8KPkkmHkOUFxtqEmCvygM";
 const DATA_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
 
@@ -454,7 +452,7 @@ const DATA_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/
 let allData = [], prevData = [], curFilter = "all", curView = "grid";
 let sQuery = "", loading = false, lastErr = null, modalIdx = -1, firstRender = true;
 let syncTimer = null, countdown = SYNC_INTERVAL;
-let changeLog = [];
+let changeLog = []; // {index, type: 'new'|'changed'}
 
 /* =====================================================
    DOM REFS
@@ -463,9 +461,8 @@ const $ = id => document.getElementById(id);
 const area = $("contentArea"), cAll = $("countAll"), cJad = $("countJadwal"), vLbl = $("viewLabel");
 const sIn = $("searchInput"), sClr = $("searchClear"), sHnt = $("searchHint"), sRC = $("searchResultCount");
 const mOv = $("modalOverlay"), mCl = $("modalCloseBtn"), mCA = $("modalColA"), mCB = $("modalColB"), mTi = $("modalTitle"), mIx = $("modalIdx"), mCp = $("modalCopyBtn");
+const syncTitle = $("syncTitle"), syncLast = $("syncLast"), syncNext = $("syncNext"), syncBar = $("syncBar"), syncChanges = $("syncChanges");
 const liveBadge = $("liveBadge"), liveDot = $("liveDot"), liveText = $("liveText"), footerTotal = $("footerTotal");
-// Tooltip refs
-const tipLast = $("tipLast"), tipNext = $("tipNext"), tipBar = $("tipBar"), tipChanges = $("tipChanges");
 
 /* =====================================================
    UTILITAS
@@ -567,15 +564,17 @@ sIn.addEventListener("blur", ()=>{ if(!sIn.value) sHnt.classList.remove("hid") }
 sClr.addEventListener("click", ()=>{ sIn.value=""; sQuery=""; sIn.focus(); updSearch(); render() });
 
 /* =====================================================
-   DIFF ENGINE
+   DIFF ENGINE — mendeteksi data baru / berubah
    ===================================================== */
 function computeDiff(oldArr, newArr){
   const changes = [];
   const oldMap = new Map();
   oldArr.forEach((item, i) => oldMap.set(item.title + "|||" + item.content, i));
+
   for(let i = 0; i < newArr.length; i++){
     const key = newArr[i].title + "|||" + newArr[i].content;
     if(!oldMap.has(key)){
+      // Cek apakah judulnya pernah ada (berubah) atau benar-benar baru
       const titleExists = oldArr.some(o => o.title === newArr[i].title);
       changes.push({ index: i, type: titleExists ? "changed" : "new" });
     }
@@ -589,7 +588,7 @@ function computeDiff(oldArr, newArr){
 function updCounts(){
   cAll.textContent = allData.length;
   cJad.textContent = allData.filter(isJad).length;
-  footerTotal.textContent = allData.length + " entri total";
+  footerTotal.textContent = `${allData.length} entri total`;
 }
 
 function render(){
@@ -605,6 +604,7 @@ function render(){
   }
   updCounts(); updSearch();
   const items = filtered();
+
   if(items.length===0){
     const sq=sQuery.trim();
     const em = sq
@@ -614,11 +614,15 @@ function render(){
     area.innerHTML=`<div class="cg"><div class="empty"><div class="ei"><i class="fa-solid fa-${sq?"magnifying-glass":"folder-open"}"></i></div><div class="et">${sq?"Tidak ada hasil":"Tidak ada data"}</div><div class="ed">${em}${sq?"<br>Coba kata kunci lain.":""}</div></div></div>`;
     return;
   }
+
   if(firstRender){
-    firstRender = false; changeLog = [];
+    firstRender = false;
+    changeLog = [];
     curView==="grid" ? renderGrid(items) : renderList(items);
     return;
   }
+
+  // Smooth transition saat data berubah
   area.style.opacity="0"; area.style.transform="translateY(4px)";
   setTimeout(()=>{
     curView==="grid" ? renderGrid(items) : renderList(items);
@@ -627,6 +631,7 @@ function render(){
 }
 
 function getChangeClass(dataIndex){
+  // Cek apakah index ini ada di changeLog (berdasarkan posisi di filtered data)
   const fItems = filtered();
   if(dataIndex >= fItems.length) return "";
   const realItem = fItems[dataIndex];
@@ -638,7 +643,8 @@ function getChangeClass(dataIndex){
 }
 
 function renderGrid(items){
-  const q=sQuery.trim(); let h='<div class="cg">';
+  const q=sQuery.trim();
+  let h='<div class="cg">';
   for(let i=0;i<items.length;i++){
     const it=items[i];
     const t = q ? hl(it.title,q) : (esc(it.title)||"Tanpa Judul");
@@ -653,7 +659,8 @@ function renderGrid(items){
 }
 
 function renderList(items){
-  const q=sQuery.trim(); let h='<div class="cl">';
+  const q=sQuery.trim();
+  let h='<div class="cl">';
   for(let i=0;i<items.length;i++){
     const it=items[i];
     const t = q ? hl(it.title,q) : (esc(it.title)||"Tanpa Judul");
@@ -668,7 +675,7 @@ function renderList(items){
 }
 
 /* =====================================================
-   MOUSE GLOW
+   MOUSE GLOW PADA KARTU
    ===================================================== */
 area.addEventListener("mousemove", e=>{
   const card=e.target.closest(".card");
@@ -697,7 +704,7 @@ document.querySelectorAll(".vt-b").forEach(b=>b.addEventListener("click",()=>{
   document.querySelectorAll(".vt-b").forEach(x=>x.classList.remove("on"));
   b.classList.add("on"); curView=b.dataset.view;
   vLbl.textContent=curView==="grid"?"Tampilan Grid":"Tampilan List";
-  firstRender=true; render();
+  firstRender=true; render(); // force re-render tanpa fade
 }));
 
 /* =====================================================
@@ -714,9 +721,10 @@ document.querySelectorAll(".sb-item[data-filter]").forEach(el=>{
 });
 
 /* =====================================================
-   SYNC UI — semua info ada di tooltip badge header
+   SYNC UI HELPERS
    ===================================================== */
 function setSyncState(state){
+  syncTitle.className = "sb-sync-title" + (state!=="idle" ? " "+state : "");
   liveBadge.className = "live" + (state!=="idle" ? " "+state : "");
   liveDot.className = "ld" + (state==="syncing" ? " sync-spin" : "");
   const labels = { idle:"Live sync", syncing:"Menyinkronkan...", "sync-error":"Sync gagal" };
@@ -724,20 +732,20 @@ function setSyncState(state){
 }
 
 function updateSyncUI(){
-  tipLast.textContent = timeStr();
-  tipNext.textContent = countdown + "d";
+  syncLast.textContent = timeStr();
+  syncNext.textContent = countdown + "d";
   const pct = ((SYNC_INTERVAL - countdown) / SYNC_INTERVAL) * 100;
-  tipBar.style.width = pct + "%";
+  syncBar.style.width = pct + "%";
 }
 
 function showChangeLog(changes){
-  if(!changes.length){ tipChanges.innerHTML=""; return }
+  if(!changes.length){ syncChanges.innerHTML=""; return }
   const newCount = changes.filter(c=>c.type==="new").length;
   const chgCount = changes.filter(c=>c.type==="changed").length;
   let parts = [];
-  if(newCount) parts.push(newCount + " data baru");
-  if(chgCount) parts.push(chgCount + " diubah");
-  tipChanges.innerHTML = `<div class="live-tip-changes"><i class="fa-solid fa-bolt"></i> ${parts.join(", ")}</div>`;
+  if(newCount) parts.push(`${newCount} data baru`);
+  if(chgCount) parts.push(`${chgCount} diubah`);
+  syncChanges.innerHTML = `<div class="sb-changes"><i class="fa-solid fa-bolt"></i> ${parts.join(", ")}</div>`;
   toast(parts.join(", "), "info");
 }
 
@@ -746,17 +754,18 @@ function showChangeLog(changes){
    ===================================================== */
 function startCountdown(){
   countdown = SYNC_INTERVAL;
-  tipBar.classList.add("reset");
-  tipBar.style.width = "0%";
-  requestAnimationFrame(()=>{ tipBar.classList.remove("reset") });
+  syncBar.classList.add("reset");
+  syncBar.style.width = "0%";
+  requestAnimationFrame(()=>{ syncBar.classList.remove("reset") });
+
   if(syncTimer) clearInterval(syncTimer);
   syncTimer = setInterval(()=>{
     countdown--;
     if(countdown <= 0){
       clearInterval(syncTimer);
-      tipNext.textContent = "0d";
-      tipBar.style.width = "100%";
-      loadData(false);
+      syncNext.textContent = "0d";
+      syncBar.style.width = "100%";
+      loadData(false); // auto-sync tanpa loading state penuh
     } else {
       updateSyncUI();
     }
@@ -781,43 +790,57 @@ async function loadData(isManual){
   } else {
     setSyncState("syncing");
   }
+
   try{
     const newData = await fetchSheetData();
+
     if(allData.length > 0 && !isManual){
+      // Auto-sync: hitung diff
       changeLog = computeDiff(allData, newData);
       if(changeLog.length > 0) showChangeLog(changeLog);
       else changeLog = [];
-    } else { changeLog = []; }
+    } else if(isManual){
+      changeLog = [];
+    }
+
     prevData = [...allData];
     allData = newData;
     lastErr = null;
     setSyncState("idle");
     render();
     startCountdown();
+
   } catch(err){
     lastErr = err.message || "Gagal memuat data.";
     if(!isManual){
       setSyncState("sync-error");
       toast("Sync gagal, coba lagi nanti","no");
+      // Tetap restart countdown
       startCountdown();
-    } else { loading = false; render(); }
+    } else {
+      loading = false;
+      render();
+    }
   }
+
   if(isManual) loading = false;
 }
 
 /* =====================================================
-   VISIBILITY API
+   VISIBILITY API — pause sync saat tab tidak aktif
    ===================================================== */
 document.addEventListener("visibilitychange", ()=>{
   if(document.hidden){
+    // Tab tidak aktif: pause countdown
     if(syncTimer) clearInterval(syncTimer);
   } else {
+    // Tab aktif kembali: langsung sync
     loadData(false);
   }
 });
 
 /* =====================================================
-   ONLINE / OFFLINE
+   ONLINE/OFFLINE DETECTION
    ===================================================== */
 window.addEventListener("offline", ()=>{
   setSyncState("sync-error");
@@ -833,7 +856,9 @@ window.addEventListener("online", ()=>{
 /* =====================================================
    INIT
    ===================================================== */
-loadData(true).then(()=>{ startCountdown(); });
+loadData(true).then(()=>{
+  startCountdown();
+});
 </script>
 </body>
 </html>
