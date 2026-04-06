@@ -640,7 +640,7 @@ transition-duration: 0.01ms !important;
 <div class="sidebar-footer-text">Data bersumber dari<br>Google Sheets (realtime)</div>
 <div class="sidebar-refresh-info">
 <i class="fa-solid fa-arrows-rotate" id="sidebarSyncIcon"></i>
-<span id="sidebarSyncText">Auto-sync 30d</span>
+<span id="sidebarSyncText">Auto-sync 15d</span>
 </div>
 </div>
 </aside>
@@ -815,7 +815,7 @@ isSyncing = syncing;
 statusBadge.classList.toggle("syncing", syncing);
 syncStatusText.textContent = syncing ? "Memperbarui..." : "Live sync";
 sidebarSyncIcon.classList.toggle("syncing", syncing);
-sidebarSyncText.textContent = syncing ? "Syncing..." : "Auto-sync 30d";
+sidebarSyncText.textContent = syncing ? "Syncing..." : "Auto-sync 15d";
 footerSyncIcon.classList.toggle("syncing", syncing);
 footerSyncText.textContent = syncing ? "Memperbarui data..." : "Refresh otomatis aktif";
 }
