@@ -171,15 +171,73 @@ width: 5px; height: 5px; background: var(--sage);
 border-radius: 50%; animation: pulse 1.5s ease-in-out infinite;
 }
 
-.stats-bar { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-.stat-chip {
-display: flex; align-items: center; gap: 0.5rem;
-background: var(--card); border: 1px solid var(--border);
-border-radius: 12px; padding: 0.6rem 1rem; transition: all 0.25s ease;
+/* === SEARCH BAR === */
+.search-bar {
+position: relative; margin-bottom: 1.5rem;
 }
-.stat-chip:hover { border-color: var(--border-hover); background: var(--card-hover); }
-.stat-chip .stat-num { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--fg); }
-.stat-chip .stat-icon { font-size: 0.75rem; color: var(--fg-dim); }
+.search-bar .search-icon {
+position: absolute; left: 1rem; top: 50%;
+transform: translateY(-50%);
+font-size: 0.85rem; color: var(--fg-dim);
+pointer-events: none;
+transition: color 0.25s ease;
+}
+.search-bar .search-input {
+width: 100%; padding: 0.8rem 3rem 0.8rem 2.85rem;
+font-family: var(--font-body); font-size: 0.88rem;
+color: var(--fg); background: var(--card);
+border: 1px solid var(--border);
+border-radius: var(--radius);
+outline: none; transition: all 0.3s ease;
+}
+.search-bar .search-input::placeholder {
+color: var(--fg-dim); font-size: 0.84rem;
+}
+.search-bar .search-input:focus {
+border-color: rgba(232,168,56,0.35);
+background: rgba(255,255,255,0.04);
+box-shadow: 0 0 0 3px rgba(232,168,56,0.06), 0 8px 32px -8px rgba(0,0,0,0.3);
+}
+.search-bar .search-input:focus ~ .search-icon {
+color: var(--accent);
+}
+.search-bar .search-clear {
+position: absolute; right: 0.75rem; top: 50%;
+transform: translateY(-50%);
+width: 28px; height: 28px; border-radius: 8px;
+background: transparent; border: 1px solid transparent;
+color: var(--fg-dim); font-size: 0.7rem;
+display: none; align-items: center; justify-content: center;
+cursor: pointer; transition: all 0.2s ease;
+}
+.search-bar .search-clear.visible {
+display: flex;
+}
+.search-bar .search-clear:hover {
+background: rgba(255,255,255,0.06);
+border-color: var(--border); color: var(--fg-muted);
+}
+.search-bar .search-clear:active { transform: translateY(-50%) scale(0.9); }
+.search-bar .search-hint {
+position: absolute; right: 0.75rem; top: 50%;
+transform: translateY(-50%);
+font-size: 0.6rem; font-family: var(--font-display);
+font-weight: 500; color: var(--fg-dim);
+background: rgba(255,255,255,0.03);
+border: 1px solid var(--border);
+padding: 0.2rem 0.5rem; border-radius: 6px;
+pointer-events: none;
+transition: opacity 0.2s ease;
+}
+.search-bar .search-hint.hidden { opacity: 0; }
+.search-bar .search-result-count {
+margin-top: 0.5rem; font-size: 0.7rem;
+font-family: var(--font-display); font-weight: 500;
+color: var(--fg-dim); padding-left: 0.15rem;
+min-height: 1rem;
+transition: opacity 0.2s ease;
+}
+.search-bar .search-result-count span { color: var(--accent); font-weight: 600; }
 
 .toolbar {
 display: flex; align-items: center; justify-content: space-between;
@@ -230,10 +288,18 @@ color: var(--fg-dim); letter-spacing: 0.08em; padding-top: 0.2rem;
 font-family: var(--font-display); font-size: 0.9rem; font-weight: 600;
 color: var(--fg); line-height: 1.35;
 }
+.list-row .row-title mark {
+background: rgba(232,168,56,0.2); color: var(--accent);
+border-radius: 2px; padding: 0 1px;
+}
 .list-row .row-content {
 font-size: 0.82rem; color: var(--fg-muted); line-height: 1.6;
 display: -webkit-box; -webkit-line-clamp: 2;
 -webkit-box-orient: vertical; overflow: hidden;
+}
+.list-row .row-content mark {
+background: rgba(232,168,56,0.15); color: var(--accent);
+border-radius: 2px; padding: 0 1px;
 }
 .list-row .row-actions {
 display: flex; align-items: center; gap: 0.4rem; padding-top: 0.15rem;
@@ -292,10 +358,18 @@ text-transform: uppercase; margin-top: 0.15rem;
 font-family: var(--font-display); font-size: 1.05rem; font-weight: 600;
 color: var(--fg); letter-spacing: -0.01em; line-height: 1.35; flex: 1;
 }
+.card-title mark {
+background: rgba(232,168,56,0.2); color: var(--accent);
+border-radius: 2px; padding: 0 1px;
+}
 .card-content {
 font-size: 0.84rem; color: var(--fg-muted); line-height: 1.65;
 display: -webkit-box; -webkit-line-clamp: 3;
 -webkit-box-orient: vertical; overflow: hidden; word-break: break-word;
+}
+.card-content mark {
+background: rgba(232,168,56,0.15); color: var(--accent);
+border-radius: 2px; padding: 0 1px;
 }
 .card-footer {
 display: flex; align-items: center; justify-content: space-between;
@@ -363,7 +437,6 @@ padding: 0 1.75rem 1.75rem; overflow-y: auto; flex: 1;
 display: flex; flex-direction: column; gap: 1rem;
 }
 .modal-section { display: flex; flex-direction: column; gap: 0.5rem; }
-
 .modal-section-content {
 font-size: 0.9rem; color: var(--fg); line-height: 1.75;
 word-break: break-word; white-space: pre-wrap;
@@ -471,9 +544,6 @@ transform: none; width: 20px; height: 3px; border-radius: 4px 4px 0 0;
 .main-content { padding: 1.5rem 1.25rem; }
 .page-title { font-size: 1.5rem; }
 .cards-grid { grid-template-columns: 1fr; }
-.stats-bar { gap: 0.5rem; }
-.stat-chip { padding: 0.5rem 0.75rem; }
-.stat-chip .stat-num { font-size: 0.95rem; }
 .list-row { grid-template-columns: 36px 1fr auto; }
 .list-row .row-content { display: none; }
 }
@@ -531,19 +601,15 @@ transition-duration: 0.01ms !important;
 </div>
 </header>
 
-<div class="stats-bar">
-<div class="stat-chip">
-<span class="stat-icon"><i class="fa-solid fa-database"></i></span>
-<span class="stat-num" id="statTotal">--</span>
-</div>
-<div class="stat-chip">
-<span class="stat-icon"><i class="fa-regular fa-calendar-check"></i></span>
-<span class="stat-num" id="statJadwal">--</span>
-</div>
-<div class="stat-chip">
-<span class="stat-icon"><i class="fa-solid fa-filter"></i></span>
-<span class="stat-num" id="statFiltered">--</span>
-</div>
+<!-- SEARCH BAR (menggantikan stats-bar) -->
+<div class="search-bar">
+<i class="fa-solid fa-magnifying-glass search-icon"></i>
+<input type="text" class="search-input" id="searchInput" placeholder="Cari judul atau isi data..." autocomplete="off" spellcheck="false">
+<span class="search-hint" id="searchHint">Ctrl+K</span>
+<button class="search-clear" id="searchClear" aria-label="Hapus pencarian">
+<i class="fa-solid fa-xmark"></i>
+</button>
+<div class="search-result-count" id="searchResultCount"></div>
 </div>
 
 <div class="toolbar">
@@ -602,6 +668,7 @@ const DATA_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/
 let allData = [];
 let currentFilter = "all";
 let currentView = "grid";
+let searchQuery = "";
 let isLoading = false;
 let lastError = null;
 let modalOpenIndex = -1;
@@ -609,10 +676,12 @@ let modalOpenIndex = -1;
 const contentArea = document.getElementById("contentArea");
 const countAllEl = document.getElementById("countAll");
 const countJadwalEl = document.getElementById("countJadwal");
-const statTotalEl = document.getElementById("statTotal");
-const statJadwalEl = document.getElementById("statJadwal");
-const statFilteredEl = document.getElementById("statFiltered");
 const viewLabelEl = document.getElementById("viewLabel");
+
+const searchInput = document.getElementById("searchInput");
+const searchClear = document.getElementById("searchClear");
+const searchHint = document.getElementById("searchHint");
+const searchResultCount = document.getElementById("searchResultCount");
 
 const modalOverlay = document.getElementById("modalOverlay");
 const modalCloseBtn = document.getElementById("modalCloseBtn");
@@ -622,6 +691,15 @@ const modalColBEl = document.getElementById("modalColB");
 function escapeHtml(str) {
 if (!str) return "";
 return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+/* Highlight teks yang cocok dengan query */
+function highlightText(text, query) {
+if (!text || !query) return escapeHtml(text);
+const escaped = escapeHtml(text);
+const escapedQuery = escapeHtml(query);
+const regex = new RegExp(`(${escapedQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+return escaped.replace(regex, '<mark>$1</mark>');
 }
 
 function parseGvizResponse(text) {
@@ -637,7 +715,15 @@ return /jadwal|pasaran/i.test(item.title) || /jadwal|pasaran/i.test(item.content
 }
 
 function getFilteredData() {
-return currentFilter === "all" ? allData : allData.filter(isJadwal);
+let data = currentFilter === "all" ? allData : allData.filter(isJadwal);
+if (searchQuery.trim()) {
+const q = searchQuery.trim().toLowerCase();
+data = data.filter(item =>
+(item.title && item.title.toLowerCase().includes(q)) ||
+(item.content && item.content.toLowerCase().includes(q))
+);
+}
+return data;
 }
 
 function showToast(message, type) {
@@ -678,8 +764,52 @@ modalOpenIndex = -1;
 modalCloseBtn.addEventListener("click", closeModal);
 modalOverlay.addEventListener("click", e => { if (e.target === modalOverlay) closeModal(); });
 document.addEventListener("keydown", e => {
+/* Ctrl+K / Cmd+K untuk fokus search */
+if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+e.preventDefault();
+searchInput.focus();
+return;
+}
 if (!modalOverlay.classList.contains("open")) return;
 if (e.key === "Escape") closeModal();
+});
+
+/* === SEARCH LOGIC === */
+function updateSearchUI() {
+const hasQuery = searchInput.value.length > 0;
+searchClear.classList.toggle("visible", hasQuery);
+searchHint.classList.toggle("hidden", hasQuery || document.activeElement === searchInput);
+
+const items = getFilteredData();
+const total = currentFilter === "all" ? allData.length : allData.filter(isJadwal).length;
+
+if (hasQuery) {
+searchResultCount.innerHTML = `Ditemukan <span>${items.length}</span> dari ${total} data`;
+} else {
+searchResultCount.innerHTML = "";
+}
+}
+
+searchInput.addEventListener("input", () => {
+searchQuery = searchInput.value;
+updateSearchUI();
+renderContent();
+});
+
+searchInput.addEventListener("focus", () => {
+searchHint.classList.add("hidden");
+});
+
+searchInput.addEventListener("blur", () => {
+if (!searchInput.value) searchHint.classList.remove("hidden");
+});
+
+searchClear.addEventListener("click", () => {
+searchInput.value = "";
+searchQuery = "";
+searchInput.focus();
+updateSearchUI();
+renderContent();
 });
 
 function handleCardClick(e) {
@@ -711,12 +841,11 @@ showToast("Isi berhasil disalin", "success");
 setTimeout(() => { btn.classList.remove("copied"); btn.innerHTML = '<i class="fa-regular fa-copy"></i>'; }, 1800);
 }
 
-function updateStats() {
+function updateSidebarCounts() {
 const total = allData.length;
 const jadwal = allData.filter(isJadwal).length;
-countAllEl.textContent = total; countJadwalEl.textContent = jadwal;
-statTotalEl.textContent = total; statJadwalEl.textContent = jadwal;
-statFilteredEl.textContent = getFilteredData().length;
+countAllEl.textContent = total;
+countJadwalEl.textContent = jadwal;
 }
 
 function renderContent() {
@@ -729,21 +858,30 @@ if (isLoading) {
 contentArea.innerHTML = `<div class="loading-state"><div class="loader-ring"></div><span>Mengambil data dari Google Sheets...</span></div>`;
 return;
 }
+updateSidebarCounts();
+updateSearchUI();
+
 const items = getFilteredData();
-updateStats();
+
 if (items.length === 0) {
-contentArea.innerHTML = `<div class="cards-grid"><div class="empty-state"><div class="empty-icon"><i class="fa-regular fa-folder-open"></i></div><div class="empty-title">Tidak ada data ditemukan</div><div class="empty-desc">${currentFilter === "all" ? "Belum ada entri di Google Sheets." : "Tidak ada data yang cocok dengan filter Jadwal Pasaran."}</div></div></div>`;
+const isSearching = searchQuery.trim().length > 0;
+const emptyMsg = isSearching
+? `Tidak ditemukan data yang cocok dengan "<strong>${escapeHtml(searchQuery.trim())}</strong>"`
+: (currentFilter === "all" ? "Belum ada entri di Google Sheets." : "Tidak ada data yang cocok dengan filter Jadwal Pasaran.");
+const emptyDesc = isSearching ? "Coba gunakan kata kunci lain atau hapus pencarian." : "";
+contentArea.innerHTML = `<div class="cards-grid"><div class="empty-state"><div class="empty-icon"><i class="${isSearching ? 'fa-solid fa-magnifying-glass' : 'fa-regular fa-folder-open'}"></i></div><div class="empty-title">${isSearching ? 'Tidak ada hasil' : 'Tidak ada data ditemukan'}</div><div class="empty-desc">${emptyMsg}${emptyDesc ? '<br>' + emptyDesc : ''}</div></div></div>`;
 return;
 }
 currentView === "grid" ? renderGridView(items) : renderListView(items);
 }
 
 function renderGridView(items) {
+const q = searchQuery.trim();
 let html = '<div class="cards-grid">';
 for (let i = 0; i < items.length; i++) {
 const it = items[i];
-const title = escapeHtml(it.title) || "Tanpa Judul";
-const content = escapeHtml(it.content) || "Kosong";
+const title = q ? highlightText(it.title, q) : (escapeHtml(it.title) || "Tanpa Judul");
+const content = q ? highlightText(it.content, q) : (escapeHtml(it.content) || "Kosong");
 const delay = Math.min(i, 15) * 0.04;
 const idx = String(i + 1).padStart(2, "0");
 html += `<article class="card" data-index="${i}" style="animation-delay:${delay}s"><div class="accent-strip"></div><div class="card-inner"><div class="card-top"><div><div class="card-index">${idx}</div><h2 class="card-title">${title}</h2></div><button class="copy-btn-sm" title="Salin isi" aria-label="Salin isi"><i class="fa-regular fa-copy"></i></button></div><div class="card-content">${content}</div><div class="card-footer"><div class="card-meta"><i class="fa-regular fa-file-lines"></i> ${it.content ? it.content.length : 0} karakter</div><div class="card-open-hint"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka detail</div></div></div></article>`;
@@ -753,11 +891,12 @@ contentArea.innerHTML = html;
 }
 
 function renderListView(items) {
+const q = searchQuery.trim();
 let html = '<div class="cards-list">';
 for (let i = 0; i < items.length; i++) {
 const it = items[i];
-const title = escapeHtml(it.title) || "Tanpa Judul";
-const content = escapeHtml(it.content) || "Kosong";
+const title = q ? highlightText(it.title, q) : (escapeHtml(it.title) || "Tanpa Judul");
+const content = q ? highlightText(it.content, q) : (escapeHtml(it.content) || "Kosong");
 const idx = String(i + 1).padStart(2, "0");
 const delay = Math.min(i, 15) * 0.03;
 html += `<div class="list-row" data-index="${i}" style="animation-delay:${delay}s"><div class="row-index">${idx}</div><div class="row-title">${title}</div><div class="row-content">${content}</div><div class="row-actions"><button class="row-action-btn copy-btn-sm" title="Salin isi" aria-label="Salin isi"><i class="fa-regular fa-copy"></i></button><button class="row-action-btn" title="Buka detail" aria-label="Buka detail"><i class="fa-solid fa-expand"></i></button></div></div>`;
