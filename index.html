@@ -3,463 +3,448 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>RUANG WAKTU · QRIS Payment Gallery</title>
+<title>RUANG WAKTU · Data Center</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 :root {
---bg: #08080c;
---bg-elevated: #111118;
---card: rgba(255,255,255,0.03);
---card-hover: rgba(255,255,255,0.06);
---border: rgba(255,255,255,0.06);
---border-hover: rgba(255,255,255,0.12);
---fg: #e8e6e3;
---fg-muted: #6e7181;
---fg-dim: #3d3f4a;
---accent: #e8a838;
---accent-glow: rgba(232,168,56,0.15);
---accent-soft: rgba(232,168,56,0.08);
---coral: #f06858;
---sage: #7eb88a;
---sky: #5ba4cf;
---lavender: #a78bfa;
---rose: #f472b6;
---teal: #2dd4bf;
---content-color: #7dd3e8;
---qris-primary: #4fc3f7;
---qris-glow: rgba(79,195,247,0.12);
---qris-soft: rgba(79,195,247,0.06);
---radius: 16px;
---radius-lg: 22px;
---sidebar-w: 260px;
---font-display: 'Space Grotesk', system-ui, sans-serif;
---font-body: 'DM Sans', system-ui, sans-serif;
+--bg:#08080c;--bg-elevated:#111118;--card:rgba(255,255,255,0.03);--card-hover:rgba(255,255,255,0.06);
+--border:rgba(255,255,255,0.06);--border-hover:rgba(255,255,255,0.12);
+--fg:#e8e6e3;--fg-muted:#6e7181;--fg-dim:#3d3f4a;
+--accent:#e8a838;--accent-soft:rgba(232,168,56,0.08);
+--coral:#f06858;--sage:#7eb88a;--lavender:#a78bfa;
+--content-color:#7dd3e8;
+--qris-primary:#4fc3f7;--qris-soft:rgba(79,195,247,0.06);
+--qris-card-bg:rgba(79,195,247,0.05);--qris-card-border:rgba(79,195,247,0.12);
+--qris-card-active-bg:rgba(79,195,247,0.13);--qris-card-active-border:rgba(79,195,247,0.38);
+--qris-card-active-shadow:rgba(79,195,247,0.18);
+--radius:16px;--radius-lg:22px;--sidebar-w:260px;
+--font-display:'Space Grotesk',system-ui,sans-serif;--font-body:'DM Sans',system-ui,sans-serif;
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-min-height: 100vh; background: var(--bg);
-font-family: var(--font-body); color: var(--fg);
-line-height: 1.6; overflow-x: hidden;
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:var(--fg);line-height:1.6;overflow-x:hidden;}
+
+.bg-atmosphere{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.bg-atmosphere .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.4;animation:orbFloat 20s ease-in-out infinite alternate;}
+.bg-atmosphere .orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(232,168,56,0.18),transparent 70%);top:-10%;left:-5%;animation-duration:25s;}
+.bg-atmosphere .orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(240,104,88,0.12),transparent 70%);bottom:-15%;right:-5%;animation-duration:30s;animation-delay:-5s;}
+.bg-atmosphere .orb-3{width:350px;height:350px;background:radial-gradient(circle,rgba(126,184,138,0.1),transparent 70%);top:40%;left:50%;animation-duration:22s;animation-delay:-10s;}
+.bg-atmosphere .orb-4{width:300px;height:300px;background:radial-gradient(circle,rgba(79,195,247,0.08),transparent 70%);top:10%;right:20%;animation-duration:28s;animation-delay:-8s;}
+@keyframes orbFloat{0%{transform:translate(0,0) scale(1);}33%{transform:translate(30px,-40px) scale(1.05);}66%{transform:translate(-20px,20px) scale(0.95);}100%{transform:translate(15px,-15px) scale(1.02);}}
+.bg-atmosphere::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");background-size:128px;opacity:0.5;}
+
+.app-layout{display:flex;min-height:100vh;position:relative;z-index:1;}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+width:var(--sidebar-w);
+background:linear-gradient(180deg,rgba(17,17,24,0.95),rgba(8,8,12,0.98));
+backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+border-right:1px solid var(--border);
+display:flex;flex-direction:column;position:sticky;top:0;height:100vh;flex-shrink:0;overflow-y:auto;overflow-x:hidden;
+}
+.sidebar::-webkit-scrollbar{width:0;}
+.sidebar::before{content:'';position:absolute;top:0;right:0;width:1px;height:100%;background:linear-gradient(180deg,transparent,rgba(232,168,56,0.08) 30%,rgba(232,168,56,0.15) 50%,rgba(232,168,56,0.08) 70%,transparent);pointer-events:none;}
+.sidebar-glow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:200px;height:120px;background:radial-gradient(ellipse,rgba(232,168,56,0.06),transparent 70%);pointer-events:none;filter:blur(30px);}
+
+.sidebar-header{padding:1.75rem 1.5rem 1.5rem;position:relative;}
+.sidebar-brand{font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.04em;color:var(--fg);display:flex;align-items:center;gap:0.7rem;}
+.sidebar-brand-icon{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--accent),rgba(232,168,56,0.6));display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:#08080c;box-shadow:0 4px 16px rgba(232,168,56,0.2);}
+.sidebar-brand-sub{font-size:0.6rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--fg-dim);margin-top:0.35rem;}
+
+.sidebar-nav{flex:1;padding:0.5rem 1rem;display:flex;flex-direction:column;gap:0.35rem;}
+.sidebar-section-label{font-family:var(--font-display);font-size:0.58rem;font-weight:600;color:var(--fg-dim);letter-spacing:0.16em;text-transform:uppercase;padding:1rem 0.85rem 0.55rem;display:flex;align-items:center;gap:0.6rem;}
+.sidebar-section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent);}
+
+.sidebar-item{display:flex;align-items:center;gap:0.8rem;padding:0.8rem 0.85rem;border-radius:14px;cursor:pointer;transition:all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;border:1px solid transparent;overflow:hidden;}
+.sidebar-item .icon-wrap{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:0.82rem;background:rgba(255,255,255,0.03);color:var(--fg-dim);transition:all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);flex-shrink:0;border:1px solid rgba(255,255,255,0.03);}
+.sidebar-item .label{font-family:var(--font-display);font-size:0.82rem;font-weight:500;color:var(--fg-muted);transition:all 0.3s ease;white-space:nowrap;flex:1;}
+.sidebar-item .qris-chevron{font-size:0.6rem;color:var(--fg-dim);transition:transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);flex-shrink:0;}
+.sidebar-item.expanded .qris-chevron{transform:rotate(180deg);}
+.sidebar-item.active{background:linear-gradient(135deg,var(--accent-soft),rgba(232,168,56,0.02));border-color:rgba(232,168,56,0.15);box-shadow:0 4px 20px -6px rgba(232,168,56,0.1);}
+.sidebar-item.active .label{color:var(--fg);font-weight:600;}
+.sidebar-item.active .icon-wrap{background:linear-gradient(135deg,rgba(232,168,56,0.2),rgba(232,168,56,0.08));color:var(--accent);border-color:rgba(232,168,56,0.18);}
+.sidebar-item.active::after{content:'';position:absolute;left:0;top:20%;width:3px;height:60%;background:var(--accent);border-radius:0 4px 4px 0;box-shadow:0 0 12px rgba(232,168,56,0.4);}
+.sidebar-item.active.qris-item{background:linear-gradient(135deg,var(--qris-soft),rgba(79,195,247,0.02));border-color:rgba(79,195,247,0.15);box-shadow:0 4px 20px -6px rgba(79,195,247,0.1);}
+.sidebar-item.active.qris-item .icon-wrap{background:linear-gradient(135deg,rgba(79,195,247,0.2),rgba(79,195,247,0.08));color:var(--qris-primary);border-color:rgba(79,195,247,0.18);}
+.sidebar-item.active.qris-item::after{background:var(--qris-primary);box-shadow:0 0 12px rgba(79,195,247,0.4);}
+
+/* ===== QRIS SUBMENU — KARTU KECIL DI SIDEBAR ===== */
+.qris-submenu{
+display:grid;grid-template-columns:1fr 1fr;gap:0.55rem;
+padding:0.35rem 0.4rem 0.4rem;
+max-height:0;overflow:hidden;opacity:0;
+transition:max-height 0.45s cubic-bezier(0.25,0.46,0.45,0.94),opacity 0.35s ease,margin 0.45s ease,padding 0.45s ease;
+margin-top:0;
+}
+.qris-submenu.open{max-height:200px;opacity:1;margin-top:0.55rem;padding:0.35rem 0.4rem 0.5rem;}
+
+.qris-sub-item{
+display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.55rem;
+padding:1rem 0.4rem 0.85rem;
+border-radius:16px;
+background:rgba(14,14,20,0.7);
+border:1.5px solid rgba(79,195,247,0.1);
+cursor:pointer;
+transition:all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+position:relative;overflow:hidden;
+}
+.qris-sub-item::before{
+content:'';position:absolute;top:-1px;left:-1px;right:-1px;bottom:-1px;
+border-radius:inherit;
+background:radial-gradient(ellipse at 50% 0%,rgba(79,195,247,0.06),transparent 65%);
+opacity:0;transition:opacity 0.35s ease;pointer-events:none;
+}
+.qris-sub-item::after{
+content:'';position:absolute;bottom:0;left:20%;right:20%;height:2px;
+border-radius:2px 2px 0 0;
+background:linear-gradient(90deg,transparent,rgba(79,195,247,0.25),transparent);
+opacity:0;transition:opacity 0.3s ease,transform 0.3s ease;
+transform:scaleX(0.6);
+}
+.qris-sub-item:hover{
+background:rgba(79,195,247,0.06);
+border-color:rgba(79,195,247,0.22);
+transform:translateY(-1px);
+box-shadow:0 6px 20px -4px rgba(0,0,0,0.4);
+}
+.qris-sub-item:hover::before{opacity:1;}
+.qris-sub-item:hover::after{opacity:1;transform:scaleX(1);}
+.qris-sub-item:active{transform:translateY(0) scale(0.98);}
+
+.qris-sub-item.active{
+background:var(--qris-card-active-bg);
+border-color:var(--qris-card-active-border);
+box-shadow:0 6px 28px -4px var(--qris-card-active-shadow),inset 0 1px 0 rgba(255,255,255,0.05);
+}
+.qris-sub-item.active::before{opacity:1;}
+.qris-sub-item.active::after{
+opacity:1;transform:scaleX(1);
+background:linear-gradient(90deg,transparent,var(--qris-primary),transparent);
+height:2.5px;left:15%;right:15%;
 }
 
-/* background atmosphere */
-.bg-atmosphere {
-position: fixed; inset: 0; z-index: 0;
-pointer-events: none; overflow: hidden;
+.qris-sub-icon{
+width:44px;height:44px;border-radius:14px;
+display:flex;align-items:center;justify-content:center;font-size:1.15rem;
+background:rgba(79,195,247,0.07);color:rgba(79,195,247,0.55);
+border:1.5px solid rgba(79,195,247,0.1);
+transition:all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;
 }
-.bg-atmosphere .orb {
-position: absolute; border-radius: 50%;
-filter: blur(120px); opacity: 0.4;
-animation: orbFloat 20s ease-in-out infinite alternate;
+.qris-sub-item:hover .qris-sub-icon{
+background:rgba(79,195,247,0.12);color:rgba(79,195,247,0.8);
+border-color:rgba(79,195,247,0.22);box-shadow:0 0 16px rgba(79,195,247,0.08);
 }
-.bg-atmosphere .orb-1 {
-width: 500px; height: 500px;
-background: radial-gradient(circle, rgba(232,168,56,0.18), transparent 70%);
-top: -10%; left: -5%; animation-duration: 25s;
+.qris-sub-item.active .qris-sub-icon{
+background:linear-gradient(145deg,rgba(79,195,247,0.22),rgba(79,195,247,0.1));
+color:var(--qris-primary);border-color:rgba(79,195,247,0.3);
+box-shadow:0 0 20px rgba(79,195,247,0.15),inset 0 1px 0 rgba(255,255,255,0.06);
+transform:scale(1.04);
 }
-.bg-atmosphere .orb-2 {
-width: 400px; height: 400px;
-background: radial-gradient(circle, rgba(240,104,88,0.12), transparent 70%);
-bottom: -15%; right: -5%; animation-duration: 30s; animation-delay: -5s;
+.qris-sub-item.active .qris-sub-icon::after{
+content:'';position:absolute;inset:-4px;border-radius:18px;
+border:1.5px solid rgba(79,195,247,0.15);
+animation:iconPulseRing 2.5s ease-in-out infinite;pointer-events:none;
 }
-.bg-atmosphere .orb-3 {
-width: 350px; height: 350px;
-background: radial-gradient(circle, rgba(126,184,138,0.1), transparent 70%);
-top: 40%; left: 50%; animation-duration: 22s; animation-delay: -10s;
-}
-.bg-atmosphere .orb-4 {
-width: 300px; height: 300px;
-background: radial-gradient(circle, rgba(79,195,247,0.08), transparent 70%);
-top: 10%; right: 20%; animation-duration: 28s; animation-delay: -8s;
-}
-@keyframes orbFloat {
-0% { transform: translate(0, 0) scale(1); }
-33% { transform: translate(30px, -40px) scale(1.05); }
-66% { transform: translate(-20px, 20px) scale(0.95); }
-100% { transform: translate(15px, -15px) scale(1.02); }
-}
-.bg-atmosphere::after {
-content: ''; position: absolute; inset: 0;
-background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-background-size: 128px; opacity: 0.5;
+@keyframes iconPulseRing{
+0%,100%{opacity:0.4;transform:scale(1);}
+50%{opacity:0;transform:scale(1.15);}
 }
 
-.app-layout {
-display: flex; min-height: 100vh;
-position: relative; z-index: 1;
+.qris-sub-label{
+font-family:var(--font-display);font-size:0.68rem;font-weight:600;
+color:var(--fg-dim);letter-spacing:0.04em;
+transition:all 0.25s ease;text-align:center;line-height:1.2;
+}
+.qris-sub-item:hover .qris-sub-label{color:var(--fg-muted);}
+.qris-sub-item.active .qris-sub-label{color:var(--qris-primary);font-weight:700;}
+
+.qris-sub-count{
+font-size:0.52rem;font-weight:600;color:var(--fg-dim);
+background:rgba(255,255,255,0.03);
+padding:0.15rem 0.45rem;border-radius:6px;
+margin-top:-0.2rem;border:1px solid rgba(255,255,255,0.03);
+transition:all 0.25s ease;min-width:20px;text-align:center;
+}
+.qris-sub-item.active .qris-sub-count{
+color:var(--qris-primary);background:rgba(79,195,247,0.08);
+border-color:rgba(79,195,247,0.15);
 }
 
-/* sidebar (sama seperti sebelumnya, tidak diubah) */
-.sidebar {
-width: var(--sidebar-w); 
-background: linear-gradient(180deg, rgba(17,17,24,0.95) 0%, rgba(8,8,12,0.98) 100%);
-backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-border-right: 1px solid var(--border);
-display: flex; flex-direction: column;
-padding: 0; 
-position: sticky; top: 0; height: 100vh; flex-shrink: 0;
-overflow: hidden;
-}
-.sidebar::before {
-content: ''; position: absolute; top: 0; right: 0;
-width: 1px; height: 100%;
-background: linear-gradient(180deg, transparent 0%, rgba(232,168,56,0.08) 30%, rgba(232,168,56,0.15) 50%, rgba(232,168,56,0.08) 70%, transparent 100%);
-pointer-events: none;
-}
-.sidebar-glow {
-position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
-width: 200px; height: 120px;
-background: radial-gradient(ellipse, rgba(232,168,56,0.06), transparent 70%);
-pointer-events: none; filter: blur(30px);
-}
-.sidebar-header { padding: 1.75rem 1.5rem 1.5rem; position: relative; }
-.sidebar-brand {
-font-family: var(--font-display);
-font-size: 1.05rem; font-weight: 700;
-letter-spacing: 0.04em;
-color: var(--fg);
-display: flex; align-items: center; gap: 0.7rem;
-}
-.sidebar-brand-icon {
-width: 36px; height: 36px; border-radius: 12px;
-background: linear-gradient(135deg, var(--accent), rgba(232,168,56,0.6));
-display: flex; align-items: center; justify-content: center;
-font-size: 0.85rem; color: #08080c;
-box-shadow: 0 4px 16px rgba(232,168,56,0.2);
-}
-.sidebar-brand-sub {
-font-size: 0.6rem; font-weight: 500;
-letter-spacing: 0.12em; text-transform: uppercase;
-color: var(--fg-dim); margin-top: 0.35rem;
-}
-.sidebar-nav {
-flex: 1; padding: 0.5rem 1rem;
-display: flex; flex-direction: column; gap: 0.35rem;
-overflow-y: auto;
-}
-.sidebar-section-label {
-font-family: var(--font-display);
-font-size: 0.58rem; font-weight: 600;
-color: var(--fg-dim); letter-spacing: 0.16em;
-text-transform: uppercase; padding: 1rem 0.85rem 0.55rem;
-display: flex; align-items: center; gap: 0.6rem;
-}
-.sidebar-section-label::after {
-content: ''; flex: 1; height: 1px;
-background: linear-gradient(90deg, var(--border), transparent);
-}
-.sidebar-item {
-display: flex; align-items: center; gap: 0.8rem;
-padding: 0.8rem 0.85rem; border-radius: 14px;
-cursor: pointer; transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
-position: relative; border: 1px solid transparent;
-overflow: hidden;
-}
-.sidebar-item .icon-wrap {
-width: 38px; height: 38px; border-radius: 11px;
-display: flex; align-items: center; justify-content: center;
-font-size: 0.82rem; 
-background: rgba(255,255,255,0.03);
-color: var(--fg-dim); 
-transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94); 
-flex-shrink: 0;
-border: 1px solid rgba(255,255,255,0.03);
-}
-.sidebar-item .label {
-font-family: var(--font-display);
-font-size: 0.82rem; font-weight: 500;
-color: var(--fg-muted); transition: all 0.3s ease;
-white-space: nowrap;
-}
-.sidebar-item.active.qris-item { 
-background: linear-gradient(135deg, var(--qris-soft), rgba(79,195,247,0.02)); 
-border-color: rgba(79,195,247,0.15);
-box-shadow: 0 4px 20px -6px rgba(79,195,247,0.1);
-}
-.sidebar-item.active.qris-item .label { color: var(--fg); font-weight: 600; }
-.sidebar-item.active.qris-item .icon-wrap { 
-background: linear-gradient(135deg, rgba(79,195,247,0.2), rgba(79,195,247,0.08)); 
-color: var(--qris-primary); 
-border-color: rgba(79,195,247,0.18);
-}
-.sidebar-item.active.qris-item::after {
-content: ''; position: absolute; left: 0; top: 20%; 
-width: 3px; height: 60%;
-background: var(--qris-primary); border-radius: 0 4px 4px 0;
-box-shadow: 0 0 12px rgba(79,195,247,0.4);
-}
-.sidebar-footer {
-padding: 1.25rem 1.25rem 1.5rem;
-border-top: 1px solid var(--border);
-}
-/* main content */
-.main-content { flex: 1; padding: 2.5rem 3rem; min-width: 0; }
-.dashboard-container { max-width: 1280px; margin: 0 auto; }
-.page-header {
-margin-bottom: 2rem; display: flex; align-items: flex-end;
-justify-content: space-between; gap: 1rem; flex-wrap: wrap;
-}
-.page-title {
-font-family: var(--font-display);
-font-size: 2rem; font-weight: 700;
-color: var(--fg); letter-spacing: -0.03em; line-height: 1.2;
-}
-.page-title .accent-word { color: var(--accent); }
-.page-title .qris-word { color: var(--qris-primary); }
-.page-subtitle { margin-top: 0.4rem; font-size: 0.85rem; color: var(--fg-muted); }
-.sticky-top {
-position: sticky;
-top: 0;
-z-index: 100;
-padding: 0.65rem 0 0.5rem;
-margin-bottom: 1.25rem;
-background: var(--bg);
-border-bottom: 1px solid var(--border);
-}
-.search-bar {
-position: relative;
-margin-bottom: 0.75rem;
-}
-.search-bar .search-input {
-width: 100%; padding: 0.8rem 3rem 0.8rem 2.85rem;
-font-family: var(--font-body); font-size: 0.88rem;
-color: var(--fg); background: var(--card);
-border: 1px solid var(--border);
-border-radius: var(--radius);
-outline: none;
-}
-.search-bar .search-input:focus {
-border-color: rgba(232,168,56,0.35);
-background: rgba(255,255,255,0.04);
-}
-.search-bar .search-clear {
-position: absolute; right: 0.75rem; top: 50%;
-transform: translateY(-50%);
-width: 28px; height: 28px; border-radius: 8px;
-display: none; align-items: center; justify-content: center;
-cursor: pointer;
-}
-.search-bar .search-clear.visible { display: flex; }
-.search-bar .search-result-count {
-margin-top: 0.4rem; font-size: 0.7rem;
-color: var(--fg-dim);
-}
-.toolbar {
-display: flex; align-items: center; justify-content: space-between;
-margin-bottom: 0; gap: 1rem; flex-wrap: wrap;
-}
-.view-toggle {
-display: flex; background: rgba(255,255,255,0.03);
-border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
-}
-.view-toggle-btn {
-padding: 0.45rem 0.85rem; font-size: 0.72rem;
-font-family: var(--font-display); font-weight: 500;
-color: var(--fg-dim); background: transparent;
-border: none; cursor: pointer;
-}
-.view-toggle-btn.active { background: rgba(255,255,255,0.06); color: var(--fg); }
+/* ===== SIDEBAR FOOTER ===== */
+.sidebar-footer{padding:1.25rem 1.25rem 1.5rem;border-top:1px solid var(--border);}
+.sidebar-status-card{display:flex;flex-direction:column;gap:0.6rem;}
+.sidebar-status-row{display:flex;align-items:center;gap:0.5rem;}
+.sidebar-status-dot{width:7px;height:7px;border-radius:50%;background:var(--sage);box-shadow:0 0 8px rgba(126,184,138,0.5);animation:dotPulse 2.5s ease-in-out infinite;transition:all 0.3s ease;}
+@keyframes dotPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.85);}}
+.sidebar-status-text{font-size:0.72rem;color:var(--fg-dim);}
+.sidebar-timer{display:flex;flex-direction:column;gap:0.5rem;}
+.timer-row{display:flex;align-items:center;justify-content:space-between;}
+.timer-label{font-family:var(--font-display);font-size:0.6rem;font-weight:600;color:var(--fg-dim);letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:0.4rem;}
+.timer-dot{width:5px;height:5px;border-radius:50%;background:var(--sage);box-shadow:0 0 6px rgba(126,184,138,0.4);transition:all 0.3s ease;}
+.timer-dot.active{background:var(--accent);box-shadow:0 0 8px rgba(232,168,56,0.5);animation:fastPulse 0.6s ease-in-out infinite;}
+@keyframes fastPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.3;transform:scale(0.7);}}
+.timer-bar-track{width:100%;height:2px;border-radius:2px;background:rgba(255,255,255,0.04);overflow:hidden;}
+.timer-bar-fill{height:100%;border-radius:2px;background:var(--sage);transition:width 1s linear;will-change:width;}
+.timer-bar-fill.refreshing{animation:barPulse 0.5s ease-in-out infinite;background:var(--accent);}
+@keyframes barPulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.timer-last-update{font-size:0.58rem;color:var(--fg-dim);display:flex;align-items:center;gap:0.35rem;transition:opacity 0.3s ease;}
 
-/* QRIS card & tombol aksi */
-.cards-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-gap: 1.25rem;
+/* ===== MAIN CONTENT ===== */
+.main-content{flex:1;padding:2.5rem 3rem;min-width:0;}
+.dashboard-container{max-width:1280px;margin:0 auto;}
+.page-header{margin-bottom:2rem;display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.page-title{font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--fg);letter-spacing:-0.03em;line-height:1.2;}
+.page-title .accent-word{color:var(--accent);}
+.page-title .qris-word{color:var(--qris-primary);}
+.page-header-right{display:flex;align-items:center;gap:0.6rem;}
+.status-badge{display:inline-flex;align-items:center;gap:0.4rem;padding:0.35rem 0.8rem;border-radius:20px;background:rgba(126,184,138,0.06);border:1px solid rgba(126,184,138,0.15);font-family:var(--font-display);font-size:0.68rem;font-weight:500;color:var(--sage);}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--sage);box-shadow:0 0 6px rgba(126,184,138,0.6);animation:dotPulse 2s ease-in-out infinite;transition:all 0.3s ease;}
+.live-dot.refreshing{background:var(--accent);box-shadow:0 0 8px rgba(232,168,56,0.6);animation:fastPulse 0.5s ease-in-out infinite;}
+.refresh-btn{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--fg-dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.75rem;transition:all 0.2s ease;}
+.refresh-btn:hover{background:rgba(255,255,255,0.08);color:var(--fg-muted);border-color:var(--border-hover);}
+.refresh-btn:active{transform:scale(0.93);}
+.refresh-btn.spinning i{animation:spin 0.7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* Tombol Kembali untuk QRIS */
+.back-btn {
+    display: none; /* Hidden by default */
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--fg-muted);
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
-.card {
-background: var(--card); border: 1px solid var(--border);
-border-radius: var(--radius-lg); overflow: hidden;
-transition: all 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
-cursor: pointer;
+.back-btn:hover { background: rgba(255,255,255,0.08); color: var(--fg); border-color: var(--border-hover); }
+.back-btn.visible { display: inline-flex; }
+
+.sticky-top{position:sticky;top:0;z-index:100;padding:0.65rem 0 0.5rem;margin-bottom:1.25rem;background:var(--bg);border-bottom:1px solid var(--border);}
+.search-bar{position:relative;margin-bottom:0.75rem;}
+.search-bar .search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--fg-dim);font-size:0.82rem;pointer-events:none;}
+.search-bar .search-input{width:100%;padding:0.8rem 3rem 0.8rem 2.85rem;font-family:var(--font-body);font-size:0.88rem;color:var(--fg);background:var(--card);border:1px solid var(--border);border-radius:var(--radius);outline:none;transition:border-color 0.2s ease,background 0.2s ease;}
+.search-bar .search-input::placeholder{color:var(--fg-dim);}
+.search-bar .search-input:focus{border-color:rgba(232,168,56,0.35);background:rgba(255,255,255,0.04);}
+.search-bar .search-clear{position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:8px;display:none;align-items:center;justify-content:center;cursor:pointer;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--fg-dim);font-size:0.7rem;transition:all 0.15s ease;}
+.search-bar .search-clear.visible{display:flex;}
+.search-bar .search-clear:hover{background:rgba(255,255,255,0.08);color:var(--fg-muted);}
+.search-bar .search-result-count{margin-top:0.4rem;font-size:0.7rem;color:var(--fg-dim);}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.toolbar-left{display:flex;align-items:center;gap:0.5rem;font-size:0.75rem;color:var(--fg-dim);}
+.toolbar-left i{font-size:0.7rem;}
+.toolbar-right{display:flex;align-items:center;}
+.view-toggle{display:flex;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.view-toggle-btn{padding:0.45rem 0.85rem;font-size:0.72rem;font-family:var(--font-display);font-weight:500;color:var(--fg-dim);background:transparent;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:0.35rem;transition:all 0.2s ease;}
+.view-toggle-btn.active{background:rgba(255,255,255,0.06);color:var(--fg);}
+.view-toggle-btn:hover:not(.active){color:var(--fg-muted);}
+
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:all 0.35s cubic-bezier(0.25,0.46,0.45,0.94);cursor:pointer;}
+.card:hover{border-color:var(--border-hover);box-shadow:0 20px 40px -15px rgba(0,0,0,0.5);transform:translateY(-2px);}
+.card .accent-strip{height:3px;width:100%;}
+.card-inner{padding:1.25rem 1.4rem 1.4rem;display:flex;flex-direction:column;flex:1;gap:0.75rem;}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:0.75rem;}
+.card-title{font-family:var(--font-display);font-size:1.05rem;font-weight:600;color:var(--fg);line-height:1.35;flex:1;}
+.card-content{font-size:0.84rem;color:var(--content-color);line-height:1.65;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.qris-image-preview{margin-top:0.5rem;border-radius:12px;overflow:hidden;background:rgba(0,0,0,0.2);text-align:center;}
+.qris-image-preview img{max-width:100%;max-height:140px;object-fit:contain;transition:opacity 0.3s ease;}
+.qris-actions{display:flex;gap:0.5rem;margin-top:0.5rem;justify-content:flex-end;flex-wrap:wrap;}
+.btn-action{display:inline-flex;align-items:center;gap:0.4rem;padding:0.35rem 0.75rem;border-radius:20px;font-size:0.7rem;font-weight:500;font-family:var(--font-display);cursor:pointer;transition:all 0.2s ease;border:1px solid;}
+.btn-action:hover{transform:translateY(-1px);}
+.btn-action:active{transform:translateY(0);}
+.btn-action i{font-size:0.7rem;}
+.btn-accent-text{background:var(--accent-soft);border-color:rgba(232,168,56,0.2);color:var(--accent);}
+.btn-accent-text:hover{background:rgba(232,168,56,0.16);border-color:rgba(232,168,56,0.4);}
+.btn-accent-img{background:rgba(125,211,232,0.06);border-color:rgba(125,211,232,0.2);color:var(--content-color);}
+.btn-accent-img:hover{background:rgba(125,211,232,0.14);border-color:rgba(125,211,232,0.4);}
+
+.cards-list{display:flex;flex-direction:column;gap:0.6rem;}
+.list-row{display:grid;grid-template-columns:1fr 2fr auto;align-items:start;gap:1rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;cursor:pointer;transition:all 0.25s ease;}
+.list-row:hover{border-color:var(--border-hover);background:var(--card-hover);}
+.list-row .row-title{font-family:var(--font-display);font-size:0.9rem;font-weight:600;color:var(--fg);}
+.list-row .row-content{font-size:0.82rem;color:var(--content-color);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.row-actions{display:flex;align-items:center;gap:0.4rem;}
+.row-action-btn{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.03);border:1px solid var(--border);color:var(--fg-dim);font-size:0.7rem;cursor:pointer;transition:all 0.15s ease;display:flex;align-items:center;justify-content:center;}
+.row-action-btn:hover{background:rgba(255,255,255,0.08);color:var(--fg-muted);}
+
+/* ===== QRIS DASHBOARD SELECTION (MENU VIEW) ===== */
+.qris-selection-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    padding: 2rem 0;
+    gap: 2rem;
+    animation: fadeIn 0.5s ease;
 }
-.card.qris-card:hover {
-border-color: rgba(79,195,247,0.2);
-box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.qris-cards-wrapper {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 900px;
 }
-.card .accent-strip { height: 3px; width: 100%; background: linear-gradient(90deg, var(--qris-primary), rgba(79,195,247,0.2)); }
-.card-inner {
-padding: 1.25rem 1.4rem 1.4rem;
-display: flex; flex-direction: column; flex: 1; gap: 0.75rem;
+
+.qris-select-card {
+    flex: 1;
+    min-width: 280px;
+    max-width: 400px;
+    padding: 3rem 2rem;
+    background: rgba(20, 20, 28, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
 }
-.card-top {
-display: flex; align-items: flex-start;
-justify-content: space-between; gap: 0.75rem;
+
+/* Glow effect inside card */
+.qris-select-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(79,195,247,0.08) 0%, transparent 60%);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
 }
-.card-title {
-font-family: var(--font-display); font-size: 1.05rem; font-weight: 600;
-color: var(--fg); line-height: 1.35; flex: 1;
+
+.qris-select-card:hover {
+    background: rgba(30, 30, 40, 0.8);
+    border-color: var(--qris-primary);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5), 0 0 20px rgba(79,195,247,0.1);
 }
-.card-content {
-font-size: 0.84rem; color: var(--content-color); line-height: 1.65;
-display: -webkit-box; -webkit-line-clamp: 3;
--webkit-box-orient: vertical; overflow: hidden;
+.qris-select-card:hover::before {
+    opacity: 1;
+    transform: scale(1);
 }
-.qris-image-preview {
-margin-top: 0.5rem;
-border-radius: 12px;
-overflow: hidden;
-background: rgba(0,0,0,0.2);
-text-align: center;
+
+.qris-select-icon-box {
+    width: 80px;
+    height: 80px;
+    border-radius: 24px;
+    background: rgba(79,195,247,0.05);
+    border: 1px solid rgba(79,195,247,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    color: var(--qris-primary);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
-.qris-image-preview img {
-max-width: 100%;
-max-height: 140px;
-object-fit: contain;
+
+.qris-select-card:hover .qris-select-icon-box {
+    background: var(--qris-primary);
+    color: #08080c;
+    box-shadow: 0 0 20px rgba(79,195,247,0.4);
 }
-/* Tombol aksi khusus QRIS */
-.qris-actions {
-display: flex;
-gap: 0.5rem;
-margin-top: 0.5rem;
-justify-content: flex-end;
+
+.qris-select-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 0;
 }
-.btn-qris {
-display: inline-flex;
-align-items: center;
-gap: 0.4rem;
-padding: 0.35rem 0.75rem;
-border-radius: 20px;
-font-size: 0.7rem;
-font-weight: 500;
-font-family: var(--font-display);
-background: rgba(79,195,247,0.08);
-border: 1px solid rgba(79,195,247,0.2);
-color: var(--qris-primary);
-cursor: pointer;
-transition: all 0.2s ease;
+
+.qris-select-count {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    color: var(--fg-dim);
+    background: rgba(255,255,255,0.05);
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.05);
 }
-.btn-qris:hover {
-background: rgba(79,195,247,0.16);
-border-color: rgba(79,195,247,0.4);
-transform: translateY(-1px);
+
+.qris-select-arrow {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--fg-dim);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
 }
-.btn-qris:active { transform: translateY(0); }
-.btn-qris i { font-size: 0.7rem; }
-.btn-qris.disabled, .btn-qris:disabled {
-opacity: 0.5;
-cursor: not-allowed;
-pointer-events: none;
+.qris-select-card:hover .qris-select-arrow {
+    opacity: 1;
+    transform: translateX(0);
 }
-/* list view actions */
-.cards-list {
-display: flex; flex-direction: column; gap: 0.6rem;
-}
-.list-row {
-display: grid; grid-template-columns: 1fr 2fr auto;
-align-items: start; gap: 1rem;
-background: var(--card); border: 1px solid var(--border);
-border-radius: var(--radius); padding: 1rem 1.25rem;
-cursor: pointer;
-}
-.list-row .row-title {
-font-family: var(--font-display); font-size: 0.9rem; font-weight: 600;
-color: var(--fg);
-}
-.list-row .row-content {
-font-size: 0.82rem; color: var(--content-color);
-display: -webkit-box; -webkit-line-clamp: 2;
--webkit-box-orient: vertical; overflow: hidden;
-}
-.row-actions {
-display: flex;
-align-items: center;
-gap: 0.4rem;
-}
-.row-action-btn {
-width: 32px; height: 32px; border-radius: 8px;
-background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-color: var(--fg-dim); font-size: 0.7rem;
-cursor: pointer;
-}
-/* modal */
-.modal-overlay {
-position: fixed; inset: 0; z-index: 9000;
-background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
-display: flex; align-items: center; justify-content: center;
-padding: 1.5rem; opacity: 0; visibility: hidden;
-transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-.modal-overlay.open { opacity: 1; visibility: visible; }
-.modal-panel {
-background: var(--bg-elevated); border: 1px solid var(--border);
-border-radius: var(--radius-lg); width: 100%; max-width: 680px;
-max-height: 85vh; display: flex; flex-direction: column;
-transform: translateY(16px) scale(0.97);
-transition: transform 0.35s cubic-bezier(0.2,0.9,0.3,1);
-overflow: hidden;
-}
-.modal-overlay.open .modal-panel { transform: translateY(0) scale(1); }
-.modal-accent {
-height: 4px; width: 100%;
-background: linear-gradient(90deg, var(--qris-primary), rgba(79,195,247,0.3));
-}
-.modal-header {
-display: flex; align-items: center; justify-content: flex-end;
-padding: 1rem 1.5rem;
-}
-.modal-close {
-width: 36px; height: 36px; border-radius: 10px;
-background: rgba(255,255,255,0.04); border: 1px solid var(--border);
-color: var(--fg-muted); cursor: pointer;
-}
-.modal-body {
-padding: 0 1.75rem 1.75rem;
-overflow-y: auto;
-flex: 1;
-display: flex;
-flex-direction: column;
-gap: 1rem;
-}
-.modal-section-content {
-font-size: 0.9rem; color: var(--fg); line-height: 1.75;
-word-break: break-word;
-background: rgba(255,255,255,0.02);
-border: 1px solid var(--border);
-border-radius: 12px;
-padding: 1rem 1.15rem;
-}
-.modal-qris-image {
-margin-top: 0.5rem;
-border-radius: 16px;
-overflow: hidden;
-text-align: center;
-}
-.modal-qris-image img {
-max-width: 100%;
-max-height: 280px;
-object-fit: contain;
-}
-.modal-actions {
-display: flex;
-justify-content: flex-end;
-gap: 0.75rem;
-margin-top: 0.5rem;
-}
-.toast {
-position: fixed; bottom: 1.5rem; right: 1.5rem;
-background: var(--bg-elevated); border: 1px solid var(--border);
-border-radius: 12px; padding: 0.7rem 1.1rem;
-font-size: 0.78rem; color: var(--fg);
-z-index: 9999; display: flex; align-items: center; gap: 0.5rem;
-animation: toastIn 0.3s ease, toastOut 0.3s ease 1.2s forwards;
-}
-@keyframes toastIn {
-from { opacity: 0; transform: translateY(12px); }
-to { opacity: 1; transform: translateY(0); }
-}
-@keyframes toastOut {
-to { opacity: 0; transform: translateY(-8px); }
-}
-@media (max-width: 900px) {
-.app-layout { flex-direction: column; }
-.sidebar { width: 100%; height: auto; position: relative; }
-.main-content { padding: 1.5rem 1.25rem; }
-.cards-grid { grid-template-columns: 1fr; }
-.list-row { grid-template-columns: 1fr auto; }
-.list-row .row-content { display: none; }
+
+/* ===== MODAL ===== */
+.modal-overlay{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;visibility:hidden;transition:opacity 0.3s ease,visibility 0.3s ease;}
+.modal-overlay.open{opacity:1;visibility:visible;}
+.modal-panel{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);width:100%;max-width:680px;max-height:85vh;display:flex;flex-direction:column;transform:translateY(16px) scale(0.97);transition:transform 0.35s cubic-bezier(0.2,0.9,0.3,1);overflow:hidden;}
+.modal-overlay.open .modal-panel{transform:translateY(0) scale(1);}
+.modal-accent{height:4px;width:100%;}
+.modal-header{display:flex;align-items:center;justify-content:flex-end;padding:1rem 1.5rem;}
+.modal-close{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--fg-muted);cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;transition:all 0.15s ease;}
+.modal-close:hover{background:rgba(255,255,255,0.08);color:var(--fg);}
+.modal-body{padding:0 1.75rem 1.75rem;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:1rem;}
+.modal-section-label{font-family:var(--font-display);font-size:0.65rem;font-weight:600;color:var(--fg-dim);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem;}
+.modal-section-content{font-size:0.9rem;color:var(--fg);line-height:1.75;word-break:break-word;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;padding:1rem 1.15rem;}
+.modal-qris-image{margin-top:0.5rem;border-radius:16px;overflow:hidden;text-align:center;}
+.modal-qris-image img{max-width:100%;max-height:280px;object-fit:contain;transition:opacity 0.3s ease;}
+.modal-actions{display:flex;justify-content:flex-end;gap:0.75rem;margin-top:0.5rem;flex-wrap:wrap;}
+
+.loading-state,.empty-state,.error-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 2rem;text-align:center;gap:1rem;}
+.loader-ring{width:40px;height:40px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--accent);animation:spin 0.8s linear infinite;}
+.loading-state span{font-size:0.85rem;color:var(--fg-muted);}
+.empty-icon{width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,0.03);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--fg-dim);}
+.empty-title{font-family:var(--font-display);font-size:0.95rem;font-weight:600;color:var(--fg-muted);}
+.empty-sub{font-size:0.78rem;color:var(--fg-dim);}
+.error-state{color:var(--coral);}
+.error-state i{font-size:1.5rem;}
+.error-state span{font-size:0.85rem;}
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--bg-elevated);border:1px solid var(--border);border-radius:12px;padding:0.7rem 1.1rem;font-size:0.78rem;color:var(--fg);z-index:9999;display:flex;align-items:center;gap:0.5rem;animation:toastIn 0.3s ease,toastOut 0.3s ease 1.2s forwards;box-shadow:0 8px 24px rgba(0,0,0,0.4);}
+@keyframes toastIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+@keyframes toastOut{to{opacity:0;transform:translateY(-8px);}}
+.page-footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);font-size:0.72rem;color:var(--fg-dim);text-align:center;}
+
+@media(max-width:900px){
+.app-layout{flex-direction:column;}
+.sidebar{width:100%;height:auto;position:relative;border-right:none;border-bottom:1px solid var(--border);}
+.sidebar-nav{flex-direction:row;flex-wrap:wrap;padding:0.5rem;}
+.sidebar-section-label{display:none;}
+.sidebar-item{flex:0 0 auto;padding:0.6rem 0.85rem;}
+.sidebar-item .qris-chevron{display:none;}
+.qris-submenu{grid-template-columns:1fr 1fr;gap:0.5rem;padding:0 0.5rem 0.5rem;}
+.qris-submenu.open{max-height:none;}
+.qris-sub-item{padding:0.75rem 0.4rem 0.65rem;}
+.qris-sub-icon{width:38px;height:38px;font-size:1rem;border-radius:12px;}
+.sidebar-footer{display:none;}
+.main-content{padding:1.5rem 1.25rem;}
+.cards-grid{grid-template-columns:1fr;}
+.list-row{grid-template-columns:1fr auto;}
+.list-row .row-content{display:none;}
+.page-title{font-size:1.5rem;}
+.qris-cards-wrapper{flex-direction:column;align-items:center;}
+.qris-select-card{width:100%;max-width:none;}
 }
 </style>
 </head>
@@ -467,94 +452,321 @@ to { opacity: 0; transform: translateY(-8px); }
 <div class="bg-atmosphere" aria-hidden="true"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div><div class="orb orb-4"></div></div>
 <div class="app-layout">
 <aside class="sidebar">
-<div class="sidebar-header"><div class="sidebar-brand"><div class="sidebar-brand-icon"><i class="fa-solid fa-clock-rotate-left"></i></div><div><div>Ruang Waktu</div><div class="sidebar-brand-sub">Data Center</div></div></div></div>
+<div class="sidebar-glow"></div>
+<div class="sidebar-header">
+<div class="sidebar-brand">
+<div class="sidebar-brand-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+<div><div>Ruang Waktu</div><div class="sidebar-brand-sub">Data Center</div></div>
+</div>
+</div>
 <nav class="sidebar-nav">
 <div class="sidebar-section-label">Data Sheet</div>
-<div class="sidebar-item" data-filter="gid0"><div class="icon-wrap"><i class="fa-solid fa-layer-group"></i></div><div class="label">ALL PK</div></div>
-<div class="sidebar-item" data-filter="gid5"><div class="icon-wrap"><i class="fa-solid fa-database"></i></div><div class="label">JADWAL PASARAN</div></div>
-<div class="sidebar-item" data-filter="gid473"><div class="icon-wrap"><i class="fa-solid fa-trophy"></i></div><div class="label">HADIAH TOGEL</div></div>
-<div class="sidebar-item qris-item active" data-filter="gidQris"><div class="icon-wrap"><i class="fa-solid fa-qrcode"></i></div><div class="label">QRIS PAYMENT</div></div>
+<div class="sidebar-item" data-filter="gid0">
+<div class="icon-wrap"><i class="fa-solid fa-layer-group"></i></div>
+<div class="label">ALL PK</div>
+</div>
+<div class="sidebar-item" data-filter="gid5">
+<div class="icon-wrap"><i class="fa-solid fa-database"></i></div>
+<div class="label">JADWAL PASARAN</div>
+</div>
+<div class="sidebar-item" data-filter="gid473">
+<div class="icon-wrap"><i class="fa-solid fa-trophy"></i></div>
+<div class="label">HADIAH TOGEL</div>
+</div>
+<div class="sidebar-item qris-item active expanded" data-filter="gidQris">
+<div class="icon-wrap"><i class="fa-solid fa-qrcode"></i></div>
+<div class="label">QRIS PAYMENT</div>
+<i class="fa-solid fa-chevron-down qris-chevron"></i>
+</div>
+<div class="qris-submenu open" id="qrisSubmenu">
+<div class="qris-sub-item active" data-qris-filter="ewallet">
+<div class="qris-sub-icon"><i class="fa-solid fa-wallet"></i></div>
+<div class="qris-sub-label">E-Wallet</div>
+<div class="qris-sub-count" id="countEwallet">0</div>
+</div>
+<div class="qris-sub-item" data-qris-filter="mbanking">
+<div class="qris-sub-icon"><i class="fa-solid fa-building-columns"></i></div>
+<div class="qris-sub-label">Mobile Banking</div>
+<div class="qris-sub-count" id="countMbanking">0</div>
+</div>
+</div>
 </nav>
-<div class="sidebar-footer"><div class="sidebar-status-card"><div class="sidebar-status-row"><div class="sidebar-status-dot" id="sidebarStatusDot"></div><div class="sidebar-status-text">Terhubung</div></div></div></div>
+<div class="sidebar-footer">
+<div class="sidebar-status-card">
+<div class="sidebar-status-row">
+<div class="sidebar-status-dot" id="sidebarStatusDot"></div>
+<div class="sidebar-status-text">Terhubung</div>
+</div>
+<div class="sidebar-timer">
+<div class="timer-row">
+<span class="timer-label"><span class="timer-dot" id="timerDot"></span>Auto Refresh</span>
+</div>
+<div class="timer-bar-track">
+<div class="timer-bar-fill" id="timerBarFill" style="width:100%"></div>
+</div>
+<div class="timer-last-update" id="timerLastUpdate">
+<i class="fa-regular fa-clock"></i>
+<span>Menunggu data...</span>
+</div>
+</div>
+</div>
+</div>
 </aside>
-<main class="main-content"><div class="dashboard-container">
-<header class="page-header"><div><h1 class="page-title" id="pageTitle"><span class="qris-word">QRIS</span> Payment Gallery</h1><p class="page-subtitle" id="pageSubtitle">Informasi metode pembayaran QRIS + gambar kode QR</p></div><div class="page-header-right"><div class="status-badge" id="statusBadge"><span class="live-dot"></span><span>Live sync</span></div></div></header>
-<div class="sticky-top"><div class="search-bar"><i class="fa-solid fa-magnifying-glass search-icon"></i><input type="text" class="search-input" id="searchInput" placeholder="Cari judul atau isi data..." autocomplete="off"><button class="search-clear" id="searchClear"><i class="fa-solid fa-xmark"></i></button><div class="search-result-count" id="searchResultCount"></div></div><div class="toolbar"><div class="toolbar-left"><i class="fa-solid fa-eye"></i><span id="viewLabel">Tampilan Grid</span></div><div class="toolbar-right"><div class="view-toggle"><button class="view-toggle-btn active" data-view="grid"><i class="fa-solid fa-grip"></i> Grid</button><button class="view-toggle-btn" data-view="list"><i class="fa-solid fa-list"></i> List</button></div></div></div></div>
-<section id="contentArea" aria-live="polite"><div class="loading-state"><div class="loader-ring"></div><span>Mengambil data dari Google Sheets...</span></div></section>
-<footer class="page-footer"><span>Ruang Waktu &mdash; Klik kartu untuk lihat detail, gunakan tombol copy teks/gambar</span></footer>
-</div></main>
+
+<main class="main-content">
+<div class="dashboard-container">
+<header class="page-header">
+<div>
+<h1 class="page-title" id="pageTitle"><span class="qris-word">QRIS Payment</span></h1>
+</div>
+<div class="page-header-right">
+<!-- Tombol Kembali -->
+<button class="back-btn" id="backBtn">
+    <i class="fa-solid fa-arrow-left"></i> Kembali
+</button>
+
+<div class="status-badge"><span class="live-dot" id="liveDot"></span><span>Live sync</span></div>
+<button class="refresh-btn" id="refreshBtn" title="Refresh sekarang"><i class="fa-solid fa-rotate-right"></i></button>
+</div>
+</header>
+
+<div class="sticky-top" id="stickyTools">
+<div class="search-bar">
+<i class="fa-solid fa-magnifying-glass search-icon"></i>
+<input type="text" class="search-input" id="searchInput" placeholder="Cari data..." autocomplete="off">
+<button class="search-clear" id="searchClear"><i class="fa-solid fa-xmark"></i></button>
+<div class="search-result-count" id="searchResultCount"></div>
+</div>
+<div class="toolbar">
+<div class="toolbar-left"><i class="fa-solid fa-eye"></i><span id="viewLabel">Tampilan Grid</span></div>
+<div class="toolbar-right">
+<div class="view-toggle">
+<button class="view-toggle-btn active" data-view="grid"><i class="fa-solid fa-grip"></i> Grid</button>
+<button class="view-toggle-btn" data-view="list"><i class="fa-solid fa-list"></i> List</button>
+</div>
+</div>
+</div>
 </div>
 
-<div class="modal-overlay" id="modalOverlay"><div class="modal-panel"><div class="modal-accent" id="modalAccent"></div><div class="modal-header"><button class="modal-close" id="modalCloseBtn"><i class="fa-solid fa-xmark"></i></button></div><div class="modal-body"><div class="modal-section"><div class="modal-section-content" id="modalColA"></div></div><div class="modal-section"><div class="modal-section-content modal-content-text" id="modalColB"></div></div><div class="modal-actions" id="modalActions"></div></div></div></div>
+<section id="contentArea" aria-live="polite">
+<div class="loading-state"><div class="loader-ring"></div><span>Mengambil data dari Google Sheets...</span></div>
+</section>
+
+<footer class="page-footer"><span>Ruang Waktu &mdash; Data di-refresh otomatis di latar belakang</span></footer>
+</div>
+</main>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+<div class="modal-panel">
+<div class="modal-accent" id="modalAccent"></div>
+<div class="modal-header"><button class="modal-close" id="modalCloseBtn"><i class="fa-solid fa-xmark"></i></button></div>
+<div class="modal-body">
+<div class="modal-section">
+<div class="modal-section-label">Judul</div>
+<div class="modal-section-content" id="modalColA"></div>
+</div>
+<div class="modal-section">
+<div class="modal-section-label">Detail</div>
+<div class="modal-section-content modal-content-text" id="modalColB"></div>
+</div>
+<div class="modal-actions" id="modalActions"></div>
+</div>
+</div>
+</div>
 
 <script>
+/* ===== KONFIGURASI ===== */
+const REFRESH_INTERVAL = 30;
+
+const PAGE_CONFIG = {
+    gid0: {
+        titleHTML: '<span class="accent-word">ALL</span> PK',
+        stripGradient: 'linear-gradient(90deg, #e8a838, rgba(232,168,56,0.2))',
+        modalGradient: 'linear-gradient(90deg, #e8a838, rgba(232,168,56,0.3))',
+        emptyIcon: 'fa-layer-group',
+        emptyTitle: 'Tidak ada data PK',
+        emptySub: 'Data belum tersedia dari Google Sheets',
+        searchPlaceholder: 'Cari data PK...'
+    },
+    gid5: {
+        titleHTML: 'Jadwal <span class="accent-word">PASARAN</span>',
+        stripGradient: 'linear-gradient(90deg, #f06858, rgba(240,104,88,0.2))',
+        modalGradient: 'linear-gradient(90deg, #f06858, rgba(240,104,88,0.3))',
+        emptyIcon: 'fa-calendar-days',
+        emptyTitle: 'Tidak ada jadwal pasaran',
+        emptySub: 'Jadwal belum tersedia saat ini',
+        searchPlaceholder: 'Cari jadwal pasaran...'
+    },
+    gid473: {
+        titleHTML: 'Hadiah <span class="accent-word">TOGEL</span>',
+        stripGradient: 'linear-gradient(90deg, #a78bfa, rgba(167,139,250,0.2))',
+        modalGradient: 'linear-gradient(90deg, #a78bfa, rgba(167,139,250,0.3))',
+        emptyIcon: 'fa-trophy',
+        emptyTitle: 'Tidak ada data hadiah',
+        emptySub: 'Data hadiah togel belum tersedia',
+        searchPlaceholder: 'Cari hadiah togel...'
+    },
+    qrisEwallet: {
+        titleHTML: '<span class="qris-word">E-Wallet</span>',
+        stripGradient: 'linear-gradient(90deg, #4fc3f7, rgba(79,195,247,0.2))',
+        modalGradient: 'linear-gradient(90deg, #4fc3f7, rgba(79,195,247,0.3))',
+        emptyIcon: 'fa-wallet',
+        emptyTitle: 'Tidak ada data E-Wallet',
+        emptySub: 'Data E-Wallet belum tersedia',
+        searchPlaceholder: 'Cari data E-Wallet...'
+    },
+    qrisMbanks: {
+        titleHTML: '<span class="qris-word">Mobile</span> Banking',
+        stripGradient: 'linear-gradient(90deg, #4fc3f7, rgba(79,195,247,0.2))',
+        modalGradient: 'linear-gradient(90deg, #4fc3f7, rgba(79,195,247,0.3))',
+        emptyIcon: 'fa-building-columns',
+        emptyTitle: 'Tidak ada data Mobile Banking',
+        emptySub: 'Data Mobile Banking belum tersedia',
+        searchPlaceholder: 'Cari data Mobile Banking...'
+    }
+};
+
+/* ===== KEYWORD KATEGORISASI ===== */
+const EWALLET_KEYWORDS = ['gopay','ovo','dana','shopeepay','linkaja','e-wallet','ewallet','dompet digital','paylater','sakuku','doku','isaku','octocash','brizzi','emoney','flazz','taps','kartu elektronik','digi cash','ovo pay','gopay pay','dana pay','shopee pay','link aja','qrise wallet','nagad','bkash','grabpay','mcash','finpay'];
+const MBANKING_KEYWORDS = ['bca','bri','bni','mandiri','bsi','btn','banking','m-banking','mbanking','mobile banking','bukopin','cimb','danamon','permata','bank syariah','bank rakyat','bank negara','bank mega','bank sinarmas','livin','bca mobile','bri mobile','bni mobile','m-bca','m-bri','m-bni','bsi mobile','ibank','internet banking','sms banking','jakone','dplk','jago','neo commerce','sea bank','allobank','blu bca','brimo','bni direct','jenius','digibank','octo mobile','my bsi'];
+function categorizeQris(item) {
+    const text = ((item.title || '') + ' ' + (item.content || '')).toLowerCase();
+    const hasEw = EWALLET_KEYWORDS.some(kw => text.includes(kw));
+    const hasMb = MBANKING_KEYWORDS.some(kw => text.includes(kw));
+    if (hasMb && !hasEw) return 'mbanking';
+    return 'ewallet';
+}
+
+/* ===== GOOGLE SHEETS ===== */
 const SPREADSHEET_ID = "1VO91WJb1w2Pi4V_GO12hDl8KPkkmHkOUFxtqEmCvygM";
 const GID_TAMBAHAN = "575827072";
-const GID_HADIAH = "473202279";
-const GID_QRIS = "58319050";
-const DATA_URL_GID0 = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
-const DATA_URL_GID5 = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_TAMBAHAN}`;
+const GID_HADIAH   = "473202279";
+const GID_QRIS     = "58319050";
+const DATA_URL_GID0   = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
+const DATA_URL_GID5   = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_TAMBAHAN}`;
 const DATA_URL_GID473 = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_HADIAH}`;
-const DATA_URL_GID_QRIS = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_QRIS}`;
+const DATA_URL_QRIS   = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_QRIS}`;
 
+/* ===== STATE ===== */
 let gid0Data = [], gid5Data = [], gid473Data = [], gidQrisData = [];
+let qrisEwalletData = [], qrisMbanksData = [];
 let currentFilter = "gidQris";
+let qrisSubFilter = ""; // Default kosong untuk menampilkan menu pilihan
 let currentView = "grid";
 let searchQuery = "";
 let isLoading = false;
 let lastError = null;
-
-const contentArea = document.getElementById("contentArea");
-const searchInput = document.getElementById("searchInput");
-const searchClear = document.getElementById("searchClear");
-const searchResultCount = document.getElementById("searchResultCount");
-const modalOverlay = document.getElementById("modalOverlay");
-const modalCloseBtn = document.getElementById("modalCloseBtn");
-const modalColAEl = document.getElementById("modalColA");
-const modalColBEl = document.getElementById("modalColB");
-const modalActions = document.getElementById("modalActions");
-const modalAccentEl = document.getElementById("modalAccent");
-
 let currentModalItem = null;
+let isSilentRefresh = false;
+let lastRefreshTime = null;
+let timerRemaining = REFRESH_INTERVAL;
+let timerInterval = null;
 
-function escapeHtml(str) { if (!str) return ""; return str.replace(/[&<>]/g, function(m) { if(m === '&') return '&amp;'; if(m === '<') return '&lt;'; if(m === '>') return '&gt;'; return m;}); }
-function highlightText(text, query) { if (!text || !query) return escapeHtml(text); const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'); return escapeHtml(text).replace(regex, '<mark style="background:rgba(79,195,247,0.2);color:var(--qris-primary);padding:0 2px;border-radius:3px;">$1</mark>'); }
-function parseGvizResponse(text) { const s = text.indexOf("{"), e = text.lastIndexOf("}"); if (s === -1 || e === -1) throw new Error("Invalid response"); return JSON.parse(text.substring(s, e + 1)).table; }
-async function fetchFromUrl(url) { const res = await fetch(url); if (!res.ok) throw new Error(`HTTP ${res.status}`); const table = parseGvizResponse(await res.text()); return (table.rows || []).map(r => ({ title: r.c[0]?.v ? String(r.c[0].v) : "", content: r.c[1]?.v ? String(r.c[1].v) : "" })); }
+/* ===== DOM ===== */
+const contentArea       = document.getElementById("contentArea");
+const searchInput       = document.getElementById("searchInput");
+const searchClear       = document.getElementById("searchClear");
+const searchResultCount = document.getElementById("searchResultCount");
+const pageTitleEl       = document.getElementById("pageTitle");
+const modalOverlay      = document.getElementById("modalOverlay");
+const modalCloseBtn     = document.getElementById("modalCloseBtn");
+const modalColAEl       = document.getElementById("modalColA");
+const modalColBEl       = document.getElementById("modalColB");
+const modalActionsEl    = document.getElementById("modalActions");
+const modalAccentEl     = document.getElementById("modalAccent");
+const qrisSubmenu       = document.getElementById("qrisSubmenu");
+const countEwalletEl    = document.getElementById("countEwallet");
+const countMbankingEl   = document.getElementById("countMbanking");
+const timerDot          = document.getElementById("timerDot");
+const timerBarFillEl    = document.getElementById("timerBarFill");
+const timerLastUpdateEl = document.getElementById("timerLastUpdate");
+const refreshBtn        = document.getElementById("refreshBtn");
+const liveDot           = document.getElementById("liveDot");
+const sidebarStatusDot  = document.getElementById("sidebarStatusDot");
+const backBtn           = document.getElementById("backBtn");
+const stickyTools       = document.getElementById("stickyTools");
+
+/* ===== UTILITAS ===== */
+function escapeHtml(str) {
+    if (!str) return "";
+    return str.replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[m]);
+}
+function highlightText(text, query) {
+    if (!text || !query) return escapeHtml(text);
+    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return escapeHtml(text).replace(regex, '<mark style="background:rgba(79,195,247,0.18);color:var(--qris-primary);padding:0 2px;border-radius:3px;">$1</mark>');
+}
+function parseGvizResponse(text) {
+    const s = text.indexOf("{"), e = text.lastIndexOf("}");
+    if (s === -1 || e === -1) throw new Error("Invalid response format");
+    return JSON.parse(text.substring(s, e + 1)).table;
+}
+function formatTime(date) {
+    return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+}
+
+/* ===== FETCH ===== */
+async function fetchFromUrl(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const table = parseGvizResponse(await res.text());
+    return (table.rows || []).map(r => ({
+        title: r.c[0]?.v != null ? String(r.c[0].v) : "",
+        content: r.c[1]?.v != null ? String(r.c[1].v) : ""
+    }));
+}
 async function fetchQrisData() {
-    const res = await fetch(DATA_URL_GID_QRIS);
+    const res = await fetch(DATA_URL_QRIS);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const table = parseGvizResponse(await res.text());
     const rows = table.rows || [];
     const items = [];
     for (let row of rows) {
         const cells = row.c || [];
-        const rawValues = cells.map(cell => cell?.v ? String(cell.v).trim() : "");
+        const rawValues = cells.map(c => c?.v != null ? String(c.v).trim() : "");
         if (rawValues.every(v => !v)) continue;
         let imageUrl = "";
         for (let val of rawValues) {
             if (val && (val.match(/\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i) || val.includes("drive.google.com/uc?id=") || val.startsWith("data:image"))) {
-                imageUrl = val;
-                break;
+                imageUrl = val; break;
             }
         }
-        items.push({ title: rawValues[0] || "Informasi QRIS", content: rawValues[1] || "", imageUrl, raw: rawValues });
+        const item = { title: rawValues[0] || "Informasi QRIS", content: rawValues[1] || "", imageUrl, raw: rawValues };
+        item._cat = categorizeQris(item);
+        items.push(item);
     }
     return items;
 }
 async function fetchSheetData() {
-    const [r0, r5, r473, rQris] = await Promise.allSettled([fetchFromUrl(DATA_URL_GID0), fetchFromUrl(DATA_URL_GID5), fetchFromUrl(DATA_URL_GID473), fetchQrisData()]);
-    if (r0.status === "fulfilled") gid0Data = r0.value;
-    if (r5.status === "fulfilled") gid5Data = r5.value;
-    if (r473.status === "fulfilled") gid473Data = r473.value;
-    if (rQris.status === "fulfilled") gidQrisData = rQris.value;
-    else throw new Error(rQris.reason?.message);
+    const [r0, r5, r473, rQris] = await Promise.allSettled([
+        fetchFromUrl(DATA_URL_GID0), fetchFromUrl(DATA_URL_GID5),
+        fetchFromUrl(DATA_URL_GID473), fetchQrisData()
+    ]);
+    if (r0.status    === "fulfilled") gid0Data = r0.value;
+    if (r5.status    === "fulfilled") gid5Data = r5.value;
+    if (r473.status  === "fulfilled") gid473Data = r473.value;
+    if (rQris.status === "fulfilled") {
+        gidQrisData = rQris.value;
+        qrisEwalletData = gidQrisData.filter(i => i._cat === 'ewallet');
+        qrisMbanksData  = gidQrisData.filter(i => i._cat === 'mbanking');
+        countEwalletEl.textContent = qrisEwalletData.length;
+        countMbankingEl.textContent = qrisMbanksData.length;
+    }
 }
+
+/* ===== DATA HELPERS ===== */
 function getActiveData() {
-    if (currentFilter === "gid0") return gid0Data;
-    if (currentFilter === "gid5") return gid5Data;
-    if (currentFilter === "gid473") return gid473Data;
-    return gidQrisData;
+    switch (currentFilter) {
+        case "gid0": return gid0Data;
+        case "gid5": return gid5Data;
+        case "gid473": return gid473Data;
+        case "gidQris":
+            if (qrisSubFilter === "ewallet") return qrisEwalletData;
+            if (qrisSubFilter === "mbanking") return qrisMbanksData;
+            return gidQrisData; // Jika tidak ada subfilter, return semua (sebagai fallback)
+        default: return gidQrisData;
+    }
 }
 function getFilteredData() {
     let data = getActiveData();
@@ -564,64 +776,104 @@ function getFilteredData() {
     }
     return data;
 }
-function showToast(msg, type = "success") {
+function getConfigKey() {
+    if (currentFilter === "gidQris") {
+        if (qrisSubFilter === "ewallet") return "qrisEwallet";
+        if (qrisSubFilter === "mbanking") return "qrisMbanks";
+    }
+    return currentFilter;
+}
+function getConfig() { return PAGE_CONFIG[getConfigKey()] || PAGE_CONFIG.qrisEwallet; }
+
+/* ===== TOAST ===== */
+function showToast(msg, type) {
     const t = document.createElement("div");
     t.className = "toast";
-    t.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle'}" style="color:${type === 'success' ? '#7eb88a' : '#f06858'}"></i> ${escapeHtml(msg)}`;
+    const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-triangle' : 'fa-circle-info';
+    const clr  = type === 'success' ? '#7eb88a' : type === 'error' ? '#f06858' : '#5ba4cf';
+    t.innerHTML = `<i class="fa-solid ${icon}" style="color:${clr}"></i> ${escapeHtml(msg)}`;
     document.body.appendChild(t);
     setTimeout(() => t.remove(), 1600);
 }
-async function copyTextToClipboard(text, label = "Teks") {
-    if (!text) { showToast("Tidak ada teks untuk disalin", "error"); return false; }
-    try {
-        await navigator.clipboard.writeText(text);
-        showToast(`${label} berhasil disalin`, "success");
-        return true;
-    } catch { showToast("Gagal menyalin teks", "error"); return false; }
+
+/* ===== CLIPBOARD ===== */
+async function copyTextToClipboard(text, label) {
+    if (!text) { showToast("Tidak ada teks untuk disalin", "error"); return; }
+    try { await navigator.clipboard.writeText(text); showToast(`${label||"Teks"} berhasil disalin`, "success"); }
+    catch { showToast("Gagal menyalin teks", "error"); }
 }
 async function copyImageToClipboard(url, title) {
     if (!url) { showToast("Tidak ada gambar untuk disalin", "error"); return; }
     showToast("Mengunduh gambar...", "info");
     try {
-        const response = await fetch(url, { mode: 'cors' });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const blob = await response.blob();
-        const mime = blob.type || 'image/png';
-        await navigator.clipboard.write([new ClipboardItem({ [mime]: blob })]);
+        const r = await fetch(url, { mode: 'cors' });
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const blob = await r.blob();
+        await navigator.clipboard.write([new ClipboardItem({ [blob.type||'image/png']: blob })]);
         showToast(`Gambar "${title}" berhasil disalin`, "success");
-    } catch (err) {
-        console.error(err);
-        showToast("Gagal menyalin gambar. CORS atau format tidak didukung.", "error");
+    } catch { showToast("Gagal menyalin gambar (CORS/format tidak didukung)", "error"); }
+}
+
+/* ===== UPDATE HEADER ===== */
+function updatePageHeader() {
+    const cfg = getConfig();
+    pageTitleEl.innerHTML   = cfg.titleHTML;
+    searchInput.placeholder = cfg.searchPlaceholder;
+    
+    // Logic tombol Kembali & Sticky Tools
+    if (currentFilter === "gidQris" && qrisSubFilter !== "") {
+        // Mode Data View
+        backBtn.classList.add("visible");
+        stickyTools.style.display = "block";
+    } else if (currentFilter === "gidQris") {
+        // Mode Menu Selection
+        backBtn.classList.remove("visible");
+        stickyTools.style.display = "none";
+    } else {
+        // Halaman lain
+        backBtn.classList.remove("visible");
+        stickyTools.style.display = "block";
     }
 }
+
+/* ===== RENDER ===== */
 function renderContent() {
-    if (lastError) { contentArea.innerHTML = `<div class="error-state">${escapeHtml(lastError)}</div>`; return; }
-    if (isLoading) { contentArea.innerHTML = `<div class="loading-state"><div class="loader-ring"></div><span>Memuat...</span></div>`; return; }
-    const items = getFilteredData();
-    const q = searchQuery.trim();
-    if (items.length === 0) {
-        contentArea.innerHTML = `<div class="cards-grid"><div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-qrcode"></i></div><div class="empty-title">Tidak ada data QRIS</div></div></div>`;
+    // Jika Error
+    if (lastError && !isSilentRefresh) {
+        contentArea.innerHTML = `<div class="error-state"><i class="fa-solid fa-triangle-exclamation"></i><span>${escapeHtml(lastError)}</span></div>`;
         return;
     }
+    // Jika Loading Awal
+    if (isLoading && !isSilentRefresh) {
+        contentArea.innerHTML = `<div class="loading-state"><div class="loader-ring"></div><span>Memuat data...</span></div>`;
+        return;
+    }
+
+    // KHUSUS LOGIKA QRIS: Jika QRIS aktif tapi belum ada subfilter, tampilkan MENU PILIHAN
+    if (currentFilter === "gidQris" && !qrisSubFilter) {
+        renderQrisSelectionMenu();
+        return;
+    }
+
+    // RENDER DATA NORMAL (Grid/List)
+    const items = getFilteredData();
+    const cfg   = getConfig();
+    const q     = searchQuery.trim();
+    searchResultCount.innerHTML = q ? `Ditemukan ${items.length} dari ${getActiveData().length} data` : "";
+    
+    if (items.length === 0) {
+        contentArea.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid ${cfg.emptyIcon}"></i></div><div class="empty-title">${cfg.emptyTitle}</div><div class="empty-sub">${cfg.emptySub}</div></div>`;
+        return;
+    }
+    
     if (currentView === "grid") {
         let html = '<div class="cards-grid">';
         for (let i = 0; i < items.length; i++) {
             const it = items[i];
-            const title = q ? highlightText(it.title, q) : escapeHtml(it.title);
+            const title   = q ? highlightText(it.title, q) : escapeHtml(it.title);
             const content = q ? highlightText(it.content, q) : escapeHtml(it.content);
-            const imgHtml = it.imageUrl ? `<div class="qris-image-preview"><img src="${escapeHtml(it.imageUrl)}" loading="lazy" alt="QR code" onerror="this.style.opacity='0.3'"></div>` : '';
-            html += `<article class="card qris-card" data-index="${i}">
-                        <div class="accent-strip"></div>
-                        <div class="card-inner">
-                            <div class="card-top"><h2 class="card-title">${title}</h2></div>
-                            <div class="card-content">${content}</div>
-                            ${imgHtml}
-                            <div class="qris-actions">
-                                <button class="btn-qris copy-text-btn" data-index="${i}" data-type="text"><i class="fa-regular fa-copy"></i> Copy Teks</button>
-                                ${it.imageUrl ? `<button class="btn-qris copy-img-btn" data-index="${i}" data-type="image"><i class="fa-regular fa-image"></i> Copy Gambar</button>` : ''}
-                            </div>
-                        </div>
-                    </article>`;
+            const imgHtml = it.imageUrl ? `<div class="qris-image-preview"><img src="${escapeHtml(it.imageUrl)}" loading="lazy" alt="Gambar" onerror="this.style.opacity='0.3'"></div>` : '';
+            html += `<article class="card" data-index="${i}"><div class="accent-strip" style="background:${cfg.stripGradient}"></div><div class="card-inner"><div class="card-top"><h2 class="card-title">${title}</h2></div>${content ? `<div class="card-content">${content}</div>` : ''}${imgHtml}<div class="qris-actions"><button class="btn-action btn-accent-text copy-text-btn" data-index="${i}"><i class="fa-regular fa-copy"></i> Copy Teks</button>${it.imageUrl ? `<button class="btn-action btn-accent-img copy-img-btn" data-index="${i}"><i class="fa-regular fa-image"></i> Copy Gambar</button>` : ''}</div></div></article>`;
         }
         html += '</div>';
         contentArea.innerHTML = html;
@@ -629,105 +881,274 @@ function renderContent() {
         let html = '<div class="cards-list">';
         for (let i = 0; i < items.length; i++) {
             const it = items[i];
-            const title = q ? highlightText(it.title, q) : escapeHtml(it.title);
+            const title   = q ? highlightText(it.title, q) : escapeHtml(it.title);
             const content = q ? highlightText(it.content, q) : escapeHtml(it.content);
-            html += `<div class="list-row" data-index="${i}">
-                        <div class="row-title">${title}</div>
-                        <div class="row-content">${content}</div>
-                        <div class="row-actions">
-                            <button class="row-action-btn copy-text-btn" data-index="${i}" title="Salin teks"><i class="fa-regular fa-copy"></i></button>
-                            ${it.imageUrl ? `<button class="row-action-btn copy-img-btn" data-index="${i}" title="Salin gambar"><i class="fa-regular fa-image"></i></button>` : ''}
-                            <button class="row-action-btn" data-index="${i}" title="Detail"><i class="fa-solid fa-expand"></i></button>
-                        </div>
-                    </div>`;
+            html += `<div class="list-row" data-index="${i}"><div class="row-title">${title}</div><div class="row-content">${content}</div><div class="row-actions"><button class="row-action-btn copy-text-btn" data-index="${i}" title="Salin teks"><i class="fa-regular fa-copy"></i></button>${it.imageUrl ? `<button class="row-action-btn copy-img-btn" data-index="${i}" title="Salin gambar"><i class="fa-regular fa-image"></i></button>` : ''}<button class="row-action-btn detail-btn" data-index="${i}" title="Lihat detail"><i class="fa-solid fa-expand"></i></button></div></div>`;
         }
         html += '</div>';
         contentArea.innerHTML = html;
     }
-    // update search result count
-    searchResultCount.innerHTML = searchQuery.trim() ? `Ditemukan ${items.length} dari ${getActiveData().length} data` : "";
 }
+
+/* ===== RENDER MENU QRIS (2 KARTU BESAR) ===== */
+function renderQrisSelectionMenu() {
+    const ewCount = qrisEwalletData.length;
+    const mbCount = qrisMbanksData.length;
+
+    const html = `
+    <div class="qris-selection-container">
+        <div class="qris-cards-wrapper">
+            <!-- Kartu E-Wallet -->
+            <div class="qris-select-card" onclick="selectQrisCategory('ewallet')">
+                <div class="qris-select-icon-box">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+                <h2 class="qris-select-title">E-Wallet</h2>
+                <div class="qris-select-count">${ewCount} Data Tersedia</div>
+                <div class="qris-select-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+
+            <!-- Kartu Mobile Banking -->
+            <div class="qris-select-card" onclick="selectQrisCategory('mbanking')">
+                <div class="qris-select-icon-box">
+                    <i class="fa-solid fa-building-columns"></i>
+                </div>
+                <h2 class="qris-select-title">Mobile Banking</h2>
+                <div class="qris-select-count">${mbCount} Data Tersedia</div>
+                <div class="qris-select-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+        </div>
+    </div>
+    `;
+    contentArea.innerHTML = html;
+}
+
+/* Fungsi Global untuk onclick HTML string */
+window.selectQrisCategory = function(cat) {
+    qrisSubFilter = cat;
+    searchQuery = ""; searchInput.value = ""; searchClear.classList.remove("visible");
+    updatePageHeader();
+    renderContent();
+}
+
+/* ===== TIMER & AUTO REFRESH ===== */
+function setRefreshingState(on) {
+    liveDot.classList.toggle("refreshing", on);
+    sidebarStatusDot.classList.toggle("refreshing", on);
+    refreshBtn.classList.toggle("spinning", on);
+    timerBarFillEl.classList.toggle("refreshing", on);
+    timerDot.classList.toggle("active", on);
+}
+function updateProgressBar() {
+    const pct = (timerRemaining / REFRESH_INTERVAL) * 100;
+    timerBarFillEl.style.width = pct + '%';
+}
+function updateLastRefresh() {
+    if (!lastRefreshTime) {
+        timerLastUpdateEl.innerHTML = '<i class="fa-regular fa-clock"></i><span>Menunggu data...</span>';
+        return;
+    }
+    timerLastUpdateEl.innerHTML = `<i class="fa-solid fa-check" style="color:var(--sage);font-size:0.55rem"></i><span>Diperbarui ${formatTime(lastRefreshTime)}</span>`;
+}
+function startTimer() {
+    stopTimer();
+    timerRemaining = REFRESH_INTERVAL;
+    updateProgressBar();
+    timerInterval = setInterval(() => {
+        timerRemaining--;
+        if (timerRemaining <= 0) {
+            silentRefresh();
+            timerRemaining = REFRESH_INTERVAL;
+        }
+        updateProgressBar();
+    }, 1000);
+}
+function stopTimer() {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+}
+function resetTimer() {
+    timerRemaining = REFRESH_INTERVAL;
+    updateProgressBar();
+}
+async function silentRefresh() {
+    if (isLoading) return;
+    isSilentRefresh = true;
+    setRefreshingState(true);
+    try {
+        await fetchSheetData();
+        lastError = null;
+        lastRefreshTime = new Date();
+        updateLastRefresh();
+        renderContent();
+    } catch (err) {
+        lastError = err.message || "Gagal refresh";
+    } finally {
+        isSilentRefresh = false;
+        setRefreshingState(false);
+    }
+}
+async function manualRefresh() {
+    if (isLoading) return;
+    isSilentRefresh = false;
+    isLoading = true;
+    lastError = null;
+    setRefreshingState(true);
+    renderContent();
+    try {
+        await fetchSheetData();
+        lastError = null;
+        lastRefreshTime = new Date();
+        updateLastRefresh();
+        showToast("Data berhasil diperbarui", "success");
+    } catch (err) {
+        lastError = err.message || "Gagal memuat data";
+        showToast("Gagal memperbarui data", "error");
+    } finally {
+        isLoading = false;
+        isSilentRefresh = false;
+        setRefreshingState(false);
+        renderContent();
+        resetTimer();
+    }
+}
+refreshBtn.addEventListener("click", manualRefresh);
+
+/* ===== MODAL ===== */
 function openModal(index) {
     const items = getFilteredData();
     if (!items[index]) return;
     currentModalItem = items[index];
-    modalAccentEl.classList.add("qris-accent");
+    const cfg = getConfig();
+    modalAccentEl.style.background = cfg.modalGradient;
     modalColAEl.innerHTML = `<strong>${escapeHtml(currentModalItem.title)}</strong>`;
     if (currentModalItem.imageUrl) {
-        modalColBEl.innerHTML = `<div>${escapeHtml(currentModalItem.content || "")}</div><div class="modal-qris-image"><img src="${escapeHtml(currentModalItem.imageUrl)}" alt="QRIS" onerror="this.style.opacity='0.5'"></div>`;
+        modalColBEl.innerHTML = `<div>${escapeHtml(currentModalItem.content || "")}</div><div class="modal-qris-image"><img src="${escapeHtml(currentModalItem.imageUrl)}" alt="Gambar" onerror="this.style.opacity='0.5'"></div>`;
     } else {
         modalColBEl.innerHTML = escapeHtml(currentModalItem.content || "(Tidak ada deskripsi)");
     }
-    modalActions.innerHTML = `
-        <button class="btn-qris" id="modalCopyTextBtn"><i class="fa-regular fa-copy"></i> Copy Teks</button>
-        ${currentModalItem.imageUrl ? '<button class="btn-qris" id="modalCopyImageBtn"><i class="fa-regular fa-image"></i> Copy Gambar</button>' : ''}
-    `;
-    modalOverlay.classList.add("open");
-    document.getElementById("modalCopyTextBtn")?.addEventListener("click", () => copyTextToClipboard(currentModalItem.content, "Teks panduan"));
+    modalActionsEl.innerHTML = `<button class="btn-action btn-accent-text" id="modalCopyTextBtn"><i class="fa-regular fa-copy"></i> Copy Teks</button>${currentModalItem.imageUrl ? '<button class="btn-action btn-accent-img" id="modalCopyImageBtn"><i class="fa-regular fa-image"></i> Copy Gambar</button>' : ''}`;
+    document.getElementById("modalCopyTextBtn")?.addEventListener("click", () => copyTextToClipboard(currentModalItem.content, "Teks"));
     document.getElementById("modalCopyImageBtn")?.addEventListener("click", () => copyImageToClipboard(currentModalItem.imageUrl, currentModalItem.title));
+    modalOverlay.classList.add("open");
 }
 function closeModal() { modalOverlay.classList.remove("open"); currentModalItem = null; }
 modalCloseBtn.addEventListener("click", closeModal);
 modalOverlay.addEventListener("click", e => { if (e.target === modalOverlay) closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+/* ===== EVENT DELEGATION ===== */
 contentArea.addEventListener("click", async (e) => {
-    const btn = e.target.closest(".copy-text-btn");
-    if (btn) {
-        e.stopPropagation();
-        const idx = parseInt(btn.dataset.index);
-        const item = getFilteredData()[idx];
-        if (item) await copyTextToClipboard(item.content, "Teks panduan");
-        return;
-    }
+    const textBtn = e.target.closest(".copy-text-btn");
+    if (textBtn) { e.stopPropagation(); const idx = parseInt(textBtn.dataset.index); const item = getFilteredData()[idx]; if (item) await copyTextToClipboard(item.content, "Teks"); return; }
     const imgBtn = e.target.closest(".copy-img-btn");
-    if (imgBtn) {
-        e.stopPropagation();
-        const idx = parseInt(imgBtn.dataset.index);
-        const item = getFilteredData()[idx];
-        if (item && item.imageUrl) await copyImageToClipboard(item.imageUrl, item.title);
-        return;
-    }
+    if (imgBtn) { e.stopPropagation(); const idx = parseInt(imgBtn.dataset.index); const item = getFilteredData()[idx]; if (item?.imageUrl) await copyImageToClipboard(item.imageUrl, item.title); return; }
+    const detailBtn = e.target.closest(".detail-btn");
+    if (detailBtn) { e.stopPropagation(); const idx = parseInt(detailBtn.dataset.index); if (!isNaN(idx)) openModal(idx); return; }
     const card = e.target.closest(".card");
     if (card) { const idx = parseInt(card.dataset.index); if (!isNaN(idx)) openModal(idx); return; }
     const row = e.target.closest(".list-row");
     if (row) { const idx = parseInt(row.dataset.index); if (!isNaN(idx)) openModal(idx); }
 });
+
+/* ===== SIDEBAR ===== */
 function initSidebar() {
-    document.querySelectorAll(".sidebar-item").forEach(item => {
+    document.querySelectorAll(".sidebar-item:not(.qris-item)").forEach(item => {
         item.addEventListener("click", () => {
-            document.querySelectorAll(".sidebar-item").forEach(i => i.classList.remove("active"));
+            document.querySelectorAll(".sidebar-item").forEach(i => { i.classList.remove("active","expanded"); });
+            document.querySelectorAll(".qris-sub-item").forEach(i => i.classList.remove("active"));
             item.classList.add("active");
             currentFilter = item.dataset.filter;
-            searchQuery = ""; searchInput.value = "";
-            renderContent();
+            qrisSubFilter = "";
+            qrisSubmenu.classList.remove("open");
+            searchQuery = ""; searchInput.value = ""; searchClear.classList.remove("visible");
+            updatePageHeader(); renderContent();
+        });
+    });
+    const qrisItem = document.querySelector(".sidebar-item.qris-item");
+    qrisItem.addEventListener("click", () => {
+        const wasActive = qrisItem.classList.contains("active");
+        document.querySelectorAll(".sidebar-item").forEach(i => { i.classList.remove("active","expanded"); });
+        qrisItem.classList.add("active","expanded");
+        currentFilter = "gidQris";
+        qrisSubmenu.classList.add("open");
+        
+        // Jika klik dari filter lain, reset ke menu pemilihan (subfilter kosong)
+        if (!wasActive) {
+            qrisSubFilter = "";
+            searchQuery = ""; searchInput.value = ""; searchClear.classList.remove("visible");
+            updatePageHeader(); renderContent();
+        } else {
+            // Jika sudah aktif dan diklik lagi, pastikan render ulang (jika perlu)
+            // Tapi biarkan subfilter tetap ada jika user sedang lihat detail
+            updatePageHeader();
+        }
+    });
+    document.querySelectorAll(".qris-sub-item").forEach(sub => {
+        sub.addEventListener("click", (e) => {
+            e.stopPropagation();
+            document.querySelectorAll(".qris-sub-item").forEach(s => s.classList.remove("active"));
+            sub.classList.add("active");
+            qrisSubFilter = sub.dataset.qrisFilter;
+            searchQuery = ""; searchInput.value = ""; searchClear.classList.remove("visible");
+            updatePageHeader(); renderContent();
         });
     });
 }
+
+/* ===== VIEW TOGGLE ===== */
 function initViewToggle() {
     document.querySelectorAll(".view-toggle-btn").forEach(btn => {
         btn.addEventListener("click", () => {
             document.querySelectorAll(".view-toggle-btn").forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
             currentView = btn.dataset.view;
-            document.getElementById("viewLabel").innerText = currentView === "grid" ? "Tampilan Grid" : "Tampilan List";
+            document.getElementById("viewLabel").textContent = currentView === "grid" ? "Tampilan Grid" : "Tampilan List";
             renderContent();
         });
     });
 }
-searchInput.addEventListener("input", () => { searchQuery = searchInput.value; renderContent(); });
-searchClear.addEventListener("click", () => { searchInput.value = ""; searchQuery = ""; renderContent(); });
-async function loadData() {
-    isLoading = true; lastError = null;
+
+/* ===== SEARCH ===== */
+searchInput.addEventListener("input", () => {
+    searchQuery = searchInput.value;
+    searchClear.classList.toggle("visible", searchQuery.length > 0);
     renderContent();
+});
+searchClear.addEventListener("click", () => {
+    searchInput.value = ""; searchQuery = "";
+    searchClear.classList.remove("visible");
+    searchInput.focus(); renderContent();
+});
+
+/* ===== BACK BUTTON ===== */
+backBtn.addEventListener("click", () => {
+    if (currentFilter === "gidQris") {
+        qrisSubFilter = ""; // Kembali ke menu pilihan
+        searchQuery = ""; searchInput.value = ""; searchClear.classList.remove("visible");
+        updatePageHeader(); renderContent();
+    }
+});
+
+/* ===== LOAD AWAL ===== */
+async function loadData() {
+    isLoading = true; lastError = false; isSilentRefresh = false;
+    setRefreshingState(true);
+    updatePageHeader(); renderContent();
     try {
         await fetchSheetData();
         lastError = null;
+        lastRefreshTime = new Date();
+        updateLastRefresh();
     } catch (err) {
-        lastError = err.message;
+        lastError = err.message || "Gagal memuat data";
     } finally {
-        isLoading = false;
+        isLoading = false; isSilentRefresh = false;
+        setRefreshingState(false);
         renderContent();
+        startTimer();
     }
 }
+
 loadData();
 initSidebar();
 initViewToggle();
