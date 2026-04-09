@@ -28,12 +28,12 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:va
     position: fixed;
     inset: 0;
     z-index: 10000;
-    background: rgba(8,8,12,0.92);
-    backdrop-filter: blur(20px);
+    background: rgba(8,8,12,0.75);
+    backdrop-filter: blur(24px);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
+    transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1), visibility 0.6s ease;
     opacity: 1;
     visibility: visible;
 }
@@ -44,28 +44,39 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:va
 }
 .login-card {
     width: 90%;
-    max-width: 420px;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: 32px;
-    padding: 2rem 1.8rem;
-    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-    backdrop-filter: blur(4px);
-    transition: transform 0.3s ease;
+    max-width: 440px;
+    background: rgba(17,17,24,0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(232,168,56,0.25);
+    border-radius: 40px;
+    padding: 2.2rem 2rem;
+    box-shadow: 0 30px 50px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(232,168,56,0.1) inset;
+    transition: transform 0.3s ease, box-shadow 0.4s ease;
+    animation: cardGlow 3s infinite alternate;
+}
+@keyframes cardGlow {
+    0% { box-shadow: 0 30px 50px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(232,168,56,0.05) inset; border-color: rgba(232,168,56,0.2); }
+    100% { box-shadow: 0 35px 55px -15px rgba(232,168,56,0.2), 0 0 0 1px rgba(232,168,56,0.25) inset; border-color: rgba(232,168,56,0.45); }
 }
 .login-icon {
     text-align: center;
-    font-size: 3rem;
+    font-size: 3.5rem;
     color: var(--accent);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    filter: drop-shadow(0 0 8px rgba(232,168,56,0.4));
+    animation: iconFloat 3s ease-in-out infinite;
+}
+@keyframes iconFloat {
+    0%,100%{ transform: translateY(0); }
+    50%{ transform: translateY(-5px); }
 }
 .login-title {
     font-family: var(--font-display);
-    font-size: 1.7rem;
+    font-size: 1.9rem;
     font-weight: 700;
     text-align: center;
     letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #fff, var(--accent));
+    background: linear-gradient(135deg, #fff 20%, var(--accent) 80%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -82,20 +93,21 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:va
     margin-bottom: 1.2rem;
     position: relative;
 }
-.input-group i {
+.input-group i:first-child {
     position: absolute;
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
     color: var(--fg-dim);
     font-size: 1rem;
+    transition: color 0.2s;
 }
 .input-group input {
     width: 100%;
     padding: 0.85rem 1rem 0.85rem 2.6rem;
     background: rgba(255,255,255,0.03);
     border: 1px solid var(--border);
-    border-radius: 24px;
+    border-radius: 28px;
     font-family: var(--font-body);
     font-size: 0.9rem;
     color: var(--fg);
@@ -105,30 +117,59 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:va
     outline: none;
     border-color: var(--accent);
     background: rgba(255,255,255,0.06);
-    box-shadow: 0 0 0 3px rgba(232,168,56,0.1);
+    box-shadow: 0 0 0 3px rgba(232,168,56,0.15);
+}
+/* Toggle password button */
+.password-toggle {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--fg-dim);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+    width: 28px;
+    height: 28px;
+    border-radius: 20px;
+}
+.password-toggle:hover {
+    color: var(--accent);
+    background: rgba(232,168,56,0.1);
 }
 .login-btn {
     width: 100%;
-    padding: 0.85rem;
-    background: linear-gradient(135deg, var(--accent), rgba(232,168,56,0.8));
+    padding: 0.9rem;
+    background: linear-gradient(135deg, var(--accent), #d4942a);
     border: none;
     border-radius: 40px;
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: #08080c;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
     margin-top: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.6rem;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 12px rgba(232,168,56,0.2);
 }
 .login-btn:hover {
     transform: translateY(-2px);
     filter: brightness(1.05);
-    box-shadow: 0 10px 20px -8px rgba(232,168,56,0.4);
+    box-shadow: 0 12px 24px -8px rgba(232,168,56,0.5);
+}
+.login-btn:active {
+    transform: translateY(1px);
 }
 .login-error {
     font-size: 0.7rem;
@@ -136,39 +177,21 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:va
     text-align: center;
     margin-top: 1rem;
     min-height: 1.5rem;
+    font-weight: 500;
 }
 .login-footer-note {
-    margin-top: 1.5rem;
+    margin-top: 1.8rem;
     text-align: center;
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     color: var(--fg-dim);
-    border-top: 1px solid var(--border);
+    border-top: 1px solid rgba(232,168,56,0.15);
     padding-top: 1rem;
 }
-
-/* logout button di header */
-.logout-header-btn {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    color: var(--fg-dim);
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    transition: all 0.2s ease;
-    margin-left: 0.5rem;
+/* efek modern tambahan */
+.glow-input:focus-within {
+    position: relative;
 }
-.logout-header-btn:hover {
-    background: rgba(232,168,56,0.12);
-    color: var(--accent);
-    border-color: rgba(232,168,56,0.3);
-}
-
-/* sisanya dari kode asli tidak diubah */
+/* sisanya dari kode asli tidak diubah (hanya sedikit modifikasi warna) */
 .bg-atmosphere{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
 .bg-atmosphere .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.4;animation:orbFloat 20s ease-in-out infinite alternate;}
 .bg-atmosphere .orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(232,168,56,0.18),transparent 70%);top:-10%;left:-5%;animation-duration:25s;}
@@ -328,14 +351,14 @@ display:flex;flex-direction:column;position:sticky;top:0;height:100vh;flex-shrin
 <body>
 <div class="bg-atmosphere" aria-hidden="true"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div><div class="orb orb-4"></div></div>
 
-<!-- MODAL LOGIN MODERN -->
+<!-- MODAL LOGIN MODERN + Toggle Password -->
 <div id="loginModal" class="login-overlay">
     <div class="login-card">
         <div class="login-icon"><i class="fa-solid fa-qrcode"></i></div>
         <div class="login-title">RUANG WAKTU</div>
         <div class="login-sub">Masukkan kredensial untuk masuk</div>
         <div class="input-group"><i class="fa-regular fa-user"></i><input type="text" id="loginUsername" placeholder="Username" autocomplete="off"></div>
-        <div class="input-group"><i class="fa-regular fa-lock"></i><input type="password" id="loginPassword" placeholder="Password"></div>
+        <div class="input-group" id="passwordGroup"><i class="fa-regular fa-lock"></i><input type="password" id="loginPassword" placeholder="Password" autocomplete="off"><button type="button" id="togglePasswordBtn" class="password-toggle"><i class="fa-regular fa-eye"></i></button></div>
         <button class="login-btn" id="loginBtn"><i class="fa-solid fa-arrow-right-to-bracket"></i> Masuk ke Data Center</button>
         <div id="loginError" class="login-error"></div>
         <div class="login-footer-note"><i class="fa-regular fa-shield"></i> Ruang Waktu · Internal Access</div>
@@ -359,7 +382,7 @@ display:flex;flex-direction:column;position:sticky;top:0;height:100vh;flex-shrin
 <div class="modal-overlay" id="modalOverlay"><div class="modal-panel"><div class="modal-accent" id="modalAccent"></div><div class="modal-header"><button class="modal-close" id="modalCloseBtn"><i class="fa-solid fa-xmark"></i></button></div><div class="modal-body"><div class="modal-section"><div class="modal-section-label">Judul</div><div class="modal-section-content" id="modalColA"></div></div><div class="modal-section"><div class="modal-section-label">Detail Lengkap</div><div class="modal-section-content modal-content-text" id="modalColB"></div></div><div class="modal-actions" id="modalActions"></div></div></div></div>
 
 <script>
-// ========== SISTEM LOGIN MODERN ==========
+// ========== SISTEM LOGIN MODERN + TOGGLE PASSWORD ==========
 const LOGIN_KEY = "ruangWaktuAuth";
 const VALID_USERNAME = "Putra28";
 const VALID_PASSWORD = "Tyaaa27";
@@ -403,17 +426,42 @@ function attemptLogin(username, password) {
     }
 }
 
+// Toggle Password Visibility
+const toggleBtn = document.getElementById("togglePasswordBtn");
+const passwordInput = document.getElementById("loginPassword");
+if (toggleBtn && passwordInput) {
+    toggleBtn.addEventListener("click", () => {
+        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+        passwordInput.setAttribute("type", type);
+        const icon = toggleBtn.querySelector("i");
+        if (icon) {
+            icon.classList.toggle("fa-eye");
+            icon.classList.toggle("fa-eye-slash");
+        }
+    });
+}
+
 // event login
 document.getElementById("loginBtn")?.addEventListener("click", () => {
     const user = document.getElementById("loginUsername").value.trim();
     const pass = document.getElementById("loginPassword").value;
-    attemptLogin(user, pass);
+    if (attemptLogin(user, pass)) {
+        loadData();
+        initSidebar();
+        initViewToggle();
+        initQrisTypeFilter();
+    }
 });
 document.getElementById("loginPassword")?.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
         const user = document.getElementById("loginUsername").value.trim();
         const pass = document.getElementById("loginPassword").value;
-        attemptLogin(user, pass);
+        if (attemptLogin(user, pass)) {
+            loadData();
+            initSidebar();
+            initViewToggle();
+            initQrisTypeFilter();
+        }
     }
 });
 
@@ -628,12 +676,9 @@ searchClear.addEventListener("click", () => { searchInput.value = ""; searchQuer
 
 async function loadData() { isLoading = true; setRefreshingState(true); updatePageHeader(); renderContent(); try { await fetchSheetData(); lastError = null; lastRefreshTime = new Date(); updateLastRefresh(); } catch (err) { lastError = err.message || "Gagal memuat data"; } finally { isLoading = false; setRefreshingState(false); renderContent(); startTimer(); } }
 
-// INIT GLOBAL: cek login, jika belum login tampilkan modal, jika sudah langsung load data
+// INIT GLOBAL: cek login
 if (!isLoggedIn()) {
     showLoginModal();
-    // jangan load data dulu sampai login berhasil
-    // setelah login, loadData dipanggil oleh attemptLogin
-    // sementara tampilkan placeholder di konten
     contentArea.innerHTML = `<div class="empty-state"><i class="fa-solid fa-lock"></i><div class="empty-title">RUANG WAKTU</div><div class="empty-sub">Silakan login untuk mengakses Data Center</div></div>`;
 } else {
     hideLoginModal();
@@ -642,27 +687,6 @@ if (!isLoggedIn()) {
     initViewToggle();
     initQrisTypeFilter();
 }
-
-// jika login berhasil, panggil loadData dan init
-const originalAttempt = attemptLogin;
-window.attemptLogin = function(u,p) {
-    if (u === VALID_USERNAME && p === VALID_PASSWORD) {
-        setLoggedIn(true);
-        hideLoginModal();
-        document.getElementById("loginError").innerText = "";
-        loadData();
-        initSidebar();
-        initViewToggle();
-        initQrisTypeFilter();
-        return true;
-    } else {
-        document.getElementById("loginError").innerText = "Username atau password salah.";
-        return false;
-    }
-};
-// override
-document.getElementById("loginBtn").onclick = () => window.attemptLogin(document.getElementById("loginUsername").value.trim(), document.getElementById("loginPassword").value);
-document.getElementById("loginPassword").onkeypress = (e) => { if(e.key==="Enter") window.attemptLogin(document.getElementById("loginUsername").value.trim(), document.getElementById("loginPassword").value); };
 </script>
 </body>
 </html>
