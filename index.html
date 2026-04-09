@@ -332,7 +332,7 @@ display:flex;flex-direction:column;position:sticky;top:0;height:100vh;flex-shrin
 <div id="loginModal" class="login-overlay">
     <div class="login-card">
         <div class="login-icon"><i class="fa-solid fa-qrcode"></i></div>
-        <div class="login-title">Akses Terbatas</div>
+        <div class="login-title">RUANG WAKTU</div>
         <div class="login-sub">Masukkan kredensial untuk masuk</div>
         <div class="input-group"><i class="fa-regular fa-user"></i><input type="text" id="loginUsername" placeholder="Username" autocomplete="off"></div>
         <div class="input-group"><i class="fa-regular fa-lock"></i><input type="password" id="loginPassword" placeholder="Password"></div>
@@ -634,7 +634,7 @@ if (!isLoggedIn()) {
     // jangan load data dulu sampai login berhasil
     // setelah login, loadData dipanggil oleh attemptLogin
     // sementara tampilkan placeholder di konten
-    contentArea.innerHTML = `<div class="empty-state"><i class="fa-solid fa-lock"></i><div class="empty-title">Akses Terbatas</div><div class="empty-sub">Silakan login untuk mengakses Data Center</div></div>`;
+    contentArea.innerHTML = `<div class="empty-state"><i class="fa-solid fa-lock"></i><div class="empty-title">RUANG WAKTU</div><div class="empty-sub">Silakan login untuk mengakses Data Center</div></div>`;
 } else {
     hideLoginModal();
     loadData();
