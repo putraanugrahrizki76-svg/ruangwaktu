@@ -23,6 +23,152 @@
 html{scroll-behavior:smooth;}
 body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:var(--fg);line-height:1.6;overflow-x:hidden;}
 
+/* ========= LOGIN MODERN OVERLAY ========= */
+.login-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(8,8,12,0.92);
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    opacity: 1;
+    visibility: visible;
+}
+.login-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+.login-card {
+    width: 90%;
+    max-width: 420px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 32px;
+    padding: 2rem 1.8rem;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    transition: transform 0.3s ease;
+}
+.login-icon {
+    text-align: center;
+    font-size: 3rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+.login-title {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fff, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0.25rem;
+}
+.login-sub {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--fg-muted);
+    margin-bottom: 2rem;
+    letter-spacing: 0.2px;
+}
+.input-group {
+    margin-bottom: 1.2rem;
+    position: relative;
+}
+.input-group i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--fg-dim);
+    font-size: 1rem;
+}
+.input-group input {
+    width: 100%;
+    padding: 0.85rem 1rem 0.85rem 2.6rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--fg);
+    transition: all 0.2s ease;
+}
+.input-group input:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(255,255,255,0.06);
+    box-shadow: 0 0 0 3px rgba(232,168,56,0.1);
+}
+.login-btn {
+    width: 100%;
+    padding: 0.85rem;
+    background: linear-gradient(135deg, var(--accent), rgba(232,168,56,0.8));
+    border: none;
+    border-radius: 40px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #08080c;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+}
+.login-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+    box-shadow: 0 10px 20px -8px rgba(232,168,56,0.4);
+}
+.login-error {
+    font-size: 0.7rem;
+    color: var(--coral);
+    text-align: center;
+    margin-top: 1rem;
+    min-height: 1.5rem;
+}
+.login-footer-note {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.6rem;
+    color: var(--fg-dim);
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+}
+
+/* logout button di header */
+.logout-header-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--fg-dim);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+    margin-left: 0.5rem;
+}
+.logout-header-btn:hover {
+    background: rgba(232,168,56,0.12);
+    color: var(--accent);
+    border-color: rgba(232,168,56,0.3);
+}
+
+/* sisanya dari kode asli tidak diubah */
 .bg-atmosphere{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
 .bg-atmosphere .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.4;animation:orbFloat 20s ease-in-out infinite alternate;}
 .bg-atmosphere .orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(232,168,56,0.18),transparent 70%);top:-10%;left:-5%;animation-duration:25s;}
@@ -181,6 +327,21 @@ display:flex;flex-direction:column;position:sticky;top:0;height:100vh;flex-shrin
 </head>
 <body>
 <div class="bg-atmosphere" aria-hidden="true"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div><div class="orb orb-4"></div></div>
+
+<!-- MODAL LOGIN MODERN -->
+<div id="loginModal" class="login-overlay">
+    <div class="login-card">
+        <div class="login-icon"><i class="fa-solid fa-qrcode"></i></div>
+        <div class="login-title">Akses Terbatas</div>
+        <div class="login-sub">Masukkan kredensial untuk masuk</div>
+        <div class="input-group"><i class="fa-regular fa-user"></i><input type="text" id="loginUsername" placeholder="Username" autocomplete="off"></div>
+        <div class="input-group"><i class="fa-regular fa-lock"></i><input type="password" id="loginPassword" placeholder="Password"></div>
+        <button class="login-btn" id="loginBtn"><i class="fa-solid fa-arrow-right-to-bracket"></i> Masuk ke Data Center</button>
+        <div id="loginError" class="login-error"></div>
+        <div class="login-footer-note"><i class="fa-regular fa-shield"></i> Ruang Waktu · Internal Access</div>
+    </div>
+</div>
+
 <div class="app-layout">
 <aside class="sidebar">
 <div class="sidebar-glow"></div>
@@ -189,15 +350,78 @@ display:flex;flex-direction:column;position:sticky;top:0;height:100vh;flex-shrin
 <div class="sidebar-footer"><div class="sidebar-status-card"><div class="sidebar-status-row"><div class="sidebar-status-dot" id="sidebarStatusDot"></div><div class="sidebar-status-text">Terhubung</div></div><div class="sidebar-timer"><div class="timer-row"><span class="timer-label"><span class="timer-dot" id="timerDot"></span>Auto Refresh</span></div><div class="timer-bar-track"><div class="timer-bar-fill" id="timerBarFill" style="width:100%"></div></div><div class="timer-last-update" id="timerLastUpdate"><i class="fa-regular fa-clock"></i><span>Menunggu data...</span></div></div></div></div>
 </aside>
 <main class="main-content"><div class="dashboard-container">
-<header class="page-header"><div><h1 class="page-title" id="pageTitle"><span class="qris-word">QRIS Payment</span></h1></div><div class="page-header-right"><div class="status-badge"><span class="live-dot" id="liveDot"></span><span>Live sync</span></div><button class="refresh-btn" id="refreshBtn" title="Refresh sekarang"><i class="fa-solid fa-rotate-right"></i></button></div></header>
+<header class="page-header"><div><h1 class="page-title" id="pageTitle"><span class="qris-word">QRIS Payment</span></h1></div><div class="page-header-right"><div class="status-badge"><span class="live-dot" id="liveDot"></span><span>Live sync</span></div><button class="refresh-btn" id="refreshBtn" title="Refresh sekarang"><i class="fa-solid fa-rotate-right"></i></button><button id="logoutHeaderBtn" class="logout-header-btn" title="Logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></button></div></header>
 <div class="sticky-top" id="stickyTools"><div class="search-bar"><i class="fa-solid fa-magnifying-glass search-icon"></i><input type="text" class="search-input" id="searchInput" placeholder="Cari QRIS..." autocomplete="off"><button class="search-clear" id="searchClear"><i class="fa-solid fa-xmark"></i></button><div class="search-result-count" id="searchResultCount"></div></div><div class="toolbar"><div class="qris-type-filter" id="qrisTypeFilterWrapper"><button class="filter-chip active" data-type="all"><i class="fa-solid fa-layer-group"></i> Semua</button><button class="filter-chip" data-type="bank"><i class="fa-solid fa-building-columns"></i> Bank</button><button class="filter-chip" data-type="ewallet"><i class="fa-solid fa-wallet"></i> E-Wallet</button></div><div class="toolbar-right"><div class="view-toggle"><button class="view-toggle-btn active" data-view="grid"><i class="fa-solid fa-grip"></i> Grid</button><button class="view-toggle-btn" data-view="list"><i class="fa-solid fa-list"></i> List</button></div></div></div></div>
 <section id="contentArea" aria-live="polite"><div class="loading-state"><div class="loader-ring"></div><span>Memuat data QRIS dari Google Sheets...</span></div></section>
 <footer class="page-footer"><span>Ruang Waktu &mdash; QRIS Payment • Data & gambar asli dari Google Sheets • Filter Bank/E-Wallet otomatis</span></footer>
 </div></main>
 </div>
 <div class="modal-overlay" id="modalOverlay"><div class="modal-panel"><div class="modal-accent" id="modalAccent"></div><div class="modal-header"><button class="modal-close" id="modalCloseBtn"><i class="fa-solid fa-xmark"></i></button></div><div class="modal-body"><div class="modal-section"><div class="modal-section-label">Judul</div><div class="modal-section-content" id="modalColA"></div></div><div class="modal-section"><div class="modal-section-label">Detail Lengkap</div><div class="modal-section-content modal-content-text" id="modalColB"></div></div><div class="modal-actions" id="modalActions"></div></div></div></div>
+
 <script>
-// ========== KONFIGURASI ==========
+// ========== SISTEM LOGIN MODERN ==========
+const LOGIN_KEY = "ruangWaktuAuth";
+const VALID_USERNAME = "Putra28";
+const VALID_PASSWORD = "Tyaaa27";
+
+function isLoggedIn() {
+    return localStorage.getItem(LOGIN_KEY) === "true";
+}
+
+function setLoggedIn(state) {
+    if (state) localStorage.setItem(LOGIN_KEY, "true");
+    else localStorage.removeItem(LOGIN_KEY);
+}
+
+function showLoginModal() {
+    const modal = document.getElementById("loginModal");
+    if (modal) modal.classList.remove("hidden");
+}
+
+function hideLoginModal() {
+    const modal = document.getElementById("loginModal");
+    if (modal) modal.classList.add("hidden");
+}
+
+function logout() {
+    setLoggedIn(false);
+    showLoginModal();
+    document.getElementById("loginUsername").value = "";
+    document.getElementById("loginPassword").value = "";
+    document.getElementById("loginError").innerText = "";
+}
+
+function attemptLogin(username, password) {
+    if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+        setLoggedIn(true);
+        hideLoginModal();
+        document.getElementById("loginError").innerText = "";
+        return true;
+    } else {
+        document.getElementById("loginError").innerText = "Username atau password salah.";
+        return false;
+    }
+}
+
+// event login
+document.getElementById("loginBtn")?.addEventListener("click", () => {
+    const user = document.getElementById("loginUsername").value.trim();
+    const pass = document.getElementById("loginPassword").value;
+    attemptLogin(user, pass);
+});
+document.getElementById("loginPassword")?.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        const user = document.getElementById("loginUsername").value.trim();
+        const pass = document.getElementById("loginPassword").value;
+        attemptLogin(user, pass);
+    }
+});
+
+// logout header
+const logoutBtn = document.getElementById("logoutHeaderBtn");
+if (logoutBtn) logoutBtn.addEventListener("click", logout);
+
+// ========== KONFIGURASI DATA (ASLI) ==========
 const REFRESH_INTERVAL = 30;
 const SPREADSHEET_ID = "1VO91WJb1w2Pi4V_GO12hDl8KPkkmHkOUFxtqEmCvygM";
 const GID_TAMBAHAN = "575827072";
@@ -215,7 +439,6 @@ const PAGE_CONFIG = {
     qrisCombined: { titleHTML: '<span class="qris-word">QRIS Payment</span>', stripGradient: 'linear-gradient(90deg, #4fc3f7, rgba(79,195,247,0.2))', modalGradient: 'linear-gradient(90deg, #4fc3f7, rgba(79,195,247,0.3))', emptyIcon: 'fa-qrcode', emptyTitle: 'Tidak ada data QRIS', emptySub: 'Data dari Google Sheets (gambar asli)', searchPlaceholder: 'Cari QRIS (bank / e-wallet)...' }
 };
 
-// ========== STATE ==========
 let gid0Data = [], gid5Data = [], gid473Data = [], gidQrisData = [];
 let currentFilter = "gidQris";
 let currentView = "grid";
@@ -227,9 +450,8 @@ let isSilentRefresh = false;
 let lastRefreshTime = null;
 let timerRemaining = REFRESH_INTERVAL;
 let timerInterval = null;
-let qrisTypeFilter = "all"; // all, bank, ewallet
+let qrisTypeFilter = "all";
 
-// ========== DOM ==========
 const contentArea = document.getElementById("contentArea");
 const searchInput = document.getElementById("searchInput");
 const searchClear = document.getElementById("searchClear");
@@ -248,13 +470,11 @@ const refreshBtn = document.getElementById("refreshBtn");
 const liveDot = document.getElementById("liveDot");
 const sidebarStatusDot = document.getElementById("sidebarStatusDot");
 
-// ========== UTILITIES ==========
 function escapeHtml(str) { if (!str) return ""; return str.replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[m]); }
 function highlightText(text, query) { if (!text || !query) return escapeHtml(text); const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'); return escapeHtml(text).replace(regex, '<mark style="background:rgba(79,195,247,0.18);color:var(--qris-primary);padding:0 2px;border-radius:3px;">$1</mark>'); }
 function parseGvizResponse(text) { const s = text.indexOf("{"), e = text.lastIndexOf("}"); if (s === -1 || e === -1) throw new Error("Invalid response"); return JSON.parse(text.substring(s, e + 1)).table; }
 function formatTime(date) { return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }); }
 
-// fetch original QRIS data (gambar asli dari sheet)
 async function fetchQrisData() {
     const res = await fetch(DATA_URL_QRIS);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -271,12 +491,7 @@ async function fetchQrisData() {
                 imageUrl = val; break;
             }
         }
-        const item = { 
-            title: rawValues[0] || "Informasi QRIS", 
-            content: rawValues[1] || "", 
-            imageUrl, 
-            raw: rawValues 
-        };
+        const item = { title: rawValues[0] || "Informasi QRIS", content: rawValues[1] || "", imageUrl, raw: rawValues };
         items.push(item);
     }
     return items;
@@ -300,7 +515,6 @@ async function fetchSheetData() {
     if (rQris.status === "fulfilled") gidQrisData = rQris.value;
 }
 
-// Mendeteksi jenis (bank / ewallet) berdasarkan title & content
 function detectQrisType(item) {
     const text = (item.title + " " + item.content).toLowerCase();
     const bankKeywords = ['bca', 'mandiri', 'bri', 'bni', 'cimb', 'permata', 'bsi', 'bank', 'syariah', 'danamon', 'ocbc', 'maybank'];
@@ -318,9 +532,7 @@ function getActiveData() {
         return [];
     }
     let data = [...gidQrisData];
-    if (qrisTypeFilter !== "all") {
-        data = data.filter(item => detectQrisType(item) === qrisTypeFilter);
-    }
+    if (qrisTypeFilter !== "all") data = data.filter(item => detectQrisType(item) === qrisTypeFilter);
     return data;
 }
 
@@ -336,7 +548,7 @@ function getFilteredData() {
 function getConfigKey() { return (currentFilter === "gidQris") ? "qrisCombined" : currentFilter; }
 function getConfig() { return PAGE_CONFIG[getConfigKey()] || PAGE_CONFIG.qrisCombined; }
 
-function showToast(msg, type) { /* sama seperti sebelumnya */ 
+function showToast(msg, type) { 
     const t = document.createElement("div"); t.className = "toast";
     const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-triangle' : 'fa-circle-info';
     const clr = type === 'success' ? '#7eb88a' : type === 'error' ? '#f06858' : '#5ba4cf';
@@ -387,7 +599,6 @@ function renderContent() {
     }
 }
 
-// Timer & Auto refresh (sama seperti sebelumnya)
 function setRefreshingState(on) { liveDot.classList.toggle("refreshing", on); sidebarStatusDot.classList.toggle("refreshing", on); refreshBtn.classList.toggle("spinning", on); timerBarFillEl.classList.toggle("refreshing", on); timerDot.classList.toggle("active", on); }
 function updateProgressBar() { const pct = (timerRemaining / REFRESH_INTERVAL) * 100; timerBarFillEl.style.width = pct + '%'; }
 function updateLastRefresh() { if (!lastRefreshTime) { timerLastUpdateEl.innerHTML = '<i class="fa-regular fa-clock"></i><span>Menunggu data...</span>'; return; } timerLastUpdateEl.innerHTML = `<i class="fa-solid fa-check" style="color:var(--sage);font-size:0.55rem"></i><span>Diperbarui ${formatTime(lastRefreshTime)}</span>`; }
@@ -396,12 +607,10 @@ async function silentRefresh() { if (isLoading) return; isSilentRefresh = true; 
 async function manualRefresh() { if (isLoading) return; isLoading = true; lastError = null; setRefreshingState(true); renderContent(); try { await fetchSheetData(); lastError = null; lastRefreshTime = new Date(); updateLastRefresh(); showToast("Data berhasil diperbarui", "success"); renderContent(); } catch (err) { lastError = err.message || "Gagal memuat data"; showToast("Gagal memperbarui data", "error"); renderContent(); } finally { isLoading = false; setRefreshingState(false); } }
 refreshBtn.addEventListener("click", manualRefresh);
 
-// Modal
 function openModal(index) { const items = getFilteredData(); if (!items[index]) return; currentModalItem = items[index]; const cfg = getConfig(); modalAccentEl.style.background = cfg.modalGradient; modalColAEl.innerHTML = `<strong>${escapeHtml(currentModalItem.title)}</strong>`; let contentHtml = escapeHtml(currentModalItem.content || ""); if (currentModalItem.imageUrl) { contentHtml += `<div class="modal-qris-image"><img src="${escapeHtml(currentModalItem.imageUrl)}" alt="QRIS" onerror="this.style.opacity='0.5'"></div>`; } modalColBEl.innerHTML = contentHtml; modalActionsEl.innerHTML = `<button class="btn-action btn-accent-text" id="modalCopyTextBtn"><i class="fa-regular fa-copy"></i> Copy Teks</button>${currentModalItem.imageUrl ? '<button class="btn-action btn-accent-img" id="modalCopyImageBtn"><i class="fa-regular fa-image"></i> Copy Gambar</button>' : ''}`; document.getElementById("modalCopyTextBtn")?.addEventListener("click", () => copyTextToClipboard(currentModalItem.content, "Teks")); document.getElementById("modalCopyImageBtn")?.addEventListener("click", () => copyImageToClipboard(currentModalItem.imageUrl, currentModalItem.title)); modalOverlay.classList.add("open"); }
 function closeModal() { modalOverlay.classList.remove("open"); currentModalItem = null; }
 modalCloseBtn.addEventListener("click", closeModal); modalOverlay.addEventListener("click", e => { if (e.target === modalOverlay) closeModal(); }); document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
 
-// Event delegation
 contentArea.addEventListener("click", async (e) => {
     const textBtn = e.target.closest(".copy-text-btn"); if (textBtn) { e.stopPropagation(); const idx = parseInt(textBtn.dataset.index); const item = getFilteredData()[idx]; if (item) await copyTextToClipboard(item.content, "Teks"); return; }
     const imgBtn = e.target.closest(".copy-img-btn"); if (imgBtn) { e.stopPropagation(); const idx = parseInt(imgBtn.dataset.index); const item = getFilteredData()[idx]; if (item?.imageUrl) await copyImageToClipboard(item.imageUrl, item.title); return; }
@@ -410,7 +619,6 @@ contentArea.addEventListener("click", async (e) => {
     const row = e.target.closest(".list-row"); if (row) { const idx = parseInt(row.dataset.index); if (!isNaN(idx)) openModal(idx); }
 });
 
-// Sidebar & View Toggle
 function initSidebar() { document.querySelectorAll(".sidebar-item").forEach(item => { item.addEventListener("click", () => { document.querySelectorAll(".sidebar-item").forEach(i => i.classList.remove("active")); item.classList.add("active"); currentFilter = item.dataset.filter; searchQuery = ""; searchInput.value = ""; searchClear.classList.remove("visible"); qrisTypeFilter = "all"; document.querySelectorAll(".filter-chip").forEach(chip => { if (chip.dataset.type === "all") chip.classList.add("active"); else chip.classList.remove("active"); }); updatePageHeader(); renderContent(); }); }); }
 function initViewToggle() { document.querySelectorAll(".view-toggle-btn").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll(".view-toggle-btn").forEach(b => b.classList.remove("active")); btn.classList.add("active"); currentView = btn.dataset.view; renderContent(); }); }); }
 function initQrisTypeFilter() { const chips = document.querySelectorAll(".filter-chip"); chips.forEach(chip => { chip.addEventListener("click", () => { if (currentFilter !== "gidQris") return; chips.forEach(c => c.classList.remove("active")); chip.classList.add("active"); qrisTypeFilter = chip.dataset.type; renderContent(); }); }); }
@@ -419,7 +627,42 @@ searchInput.addEventListener("input", () => { searchQuery = searchInput.value; s
 searchClear.addEventListener("click", () => { searchInput.value = ""; searchQuery = ""; searchClear.classList.remove("visible"); renderContent(); });
 
 async function loadData() { isLoading = true; setRefreshingState(true); updatePageHeader(); renderContent(); try { await fetchSheetData(); lastError = null; lastRefreshTime = new Date(); updateLastRefresh(); } catch (err) { lastError = err.message || "Gagal memuat data"; } finally { isLoading = false; setRefreshingState(false); renderContent(); startTimer(); } }
-loadData(); initSidebar(); initViewToggle(); initQrisTypeFilter();
+
+// INIT GLOBAL: cek login, jika belum login tampilkan modal, jika sudah langsung load data
+if (!isLoggedIn()) {
+    showLoginModal();
+    // jangan load data dulu sampai login berhasil
+    // setelah login, loadData dipanggil oleh attemptLogin
+    // sementara tampilkan placeholder di konten
+    contentArea.innerHTML = `<div class="empty-state"><i class="fa-solid fa-lock"></i><div class="empty-title">Akses Terbatas</div><div class="empty-sub">Silakan login untuk mengakses Data Center</div></div>`;
+} else {
+    hideLoginModal();
+    loadData();
+    initSidebar();
+    initViewToggle();
+    initQrisTypeFilter();
+}
+
+// jika login berhasil, panggil loadData dan init
+const originalAttempt = attemptLogin;
+window.attemptLogin = function(u,p) {
+    if (u === VALID_USERNAME && p === VALID_PASSWORD) {
+        setLoggedIn(true);
+        hideLoginModal();
+        document.getElementById("loginError").innerText = "";
+        loadData();
+        initSidebar();
+        initViewToggle();
+        initQrisTypeFilter();
+        return true;
+    } else {
+        document.getElementById("loginError").innerText = "Username atau password salah.";
+        return false;
+    }
+};
+// override
+document.getElementById("loginBtn").onclick = () => window.attemptLogin(document.getElementById("loginUsername").value.trim(), document.getElementById("loginPassword").value);
+document.getElementById("loginPassword").onkeypress = (e) => { if(e.key==="Enter") window.attemptLogin(document.getElementById("loginUsername").value.trim(), document.getElementById("loginPassword").value); };
 </script>
 </body>
 </html>
