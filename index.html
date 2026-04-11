@@ -23,13 +23,13 @@
 html{scroll-behavior:smooth;}
 body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:var(--fg);line-height:1.6;overflow-x:hidden;}
 
-/* ========= LOGIN MODERN OVERLAY ========= */
+/* ========= CYBERPUNK LOGIN OVERLAY ========= */
 .login-overlay {
     position: fixed;
     inset: 0;
     z-index: 10000;
-    background: rgba(8,8,12,0.75);
-    backdrop-filter: blur(24px);
+    background: linear-gradient(135deg, rgba(8,8,12,0.92), rgba(15,10,25,0.95)), url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    backdrop-filter: blur(20px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -42,154 +42,304 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:va
     visibility: hidden;
     pointer-events: none;
 }
+
+/* Corner decorations */
+.login-overlay::before,
+.login-overlay::after {
+    content: '';
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    pointer-events: none;
+    z-index: 10;
+}
+.login-overlay::before {
+    top: 20px;
+    left: 20px;
+    border-top: 2px solid #00f0ff;
+    border-left: 2px solid #00f0ff;
+}
+.login-overlay::after {
+    bottom: 20px;
+    right: 20px;
+    border-bottom: 2px solid #39ff14;
+    border-right: 2px solid #39ff14;
+}
+
 .login-card {
     width: 90%;
-    max-width: 440px;
-    background: rgba(17,17,24,0.8);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(232,168,56,0.25);
-    border-radius: 40px;
-    padding: 2.2rem 2rem;
-    box-shadow: 0 30px 50px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(232,168,56,0.1) inset;
-    transition: transform 0.3s ease, box-shadow 0.4s ease;
-    animation: cardGlow 3s infinite alternate;
+    max-width: 420px;
+    background: linear-gradient(145deg, rgba(15,15,25,0.95), rgba(8,8,15,0.98));
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 3rem 2.5rem 2.5rem;
+    position: relative;
+    box-shadow:
+        0 0 0 1px rgba(0,240,255,0.15),
+        0 0 30px -5px rgba(0,240,255,0.2),
+        0 40px 80px -20px rgba(0,0,0,0.7),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+    animation: cardFloat 6s ease-in-out infinite;
 }
-@keyframes cardGlow {
-    0% { box-shadow: 0 30px 50px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(232,168,56,0.05) inset; border-color: rgba(232,168,56,0.2); }
-    100% { box-shadow: 0 35px 55px -15px rgba(232,168,56,0.2), 0 0 0 1px rgba(232,168,56,0.25) inset; border-color: rgba(232,168,56,0.45); }
+
+@keyframes cardFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
 }
+
+/* Gradient border effect on top and bottom */
+.login-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00f0ff, #ff00e5, #39ff14, transparent);
+    border-radius: 2px;
+    box-shadow: 0 0 20px rgba(0,240,255,0.5);
+}
+
+.login-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #39ff14, #00f0ff, #ff00e5, transparent);
+    border-radius: 2px;
+    box-shadow: 0 0 20px rgba(57,255,20,0.5);
+}
+
 .login-icon {
     text-align: center;
-    font-size: 3.5rem;
-    color: var(--accent);
-    margin-bottom: 0.75rem;
-    filter: drop-shadow(0 0 8px rgba(232,168,56,0.4));
-    animation: iconFloat 3s ease-in-out infinite;
+    margin-bottom: 1.5rem;
 }
-@keyframes iconFloat {
-    0%,100%{ transform: translateY(0); }
-    50%{ transform: translateY(-5px); }
+
+.login-icon i {
+    font-size: 3rem;
+    color: #00f0ff;
+    filter: drop-shadow(0 0 20px rgba(0,240,255,0.6)) drop-shadow(0 0 40px rgba(0,240,255,0.3));
+    animation: iconGlow 2s ease-in-out infinite alternate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid rgba(0,240,255,0.3);
+    background: radial-gradient(circle, rgba(0,240,255,0.1) 0%, transparent 70%);
 }
+
+@keyframes iconGlow {
+    0% { 
+        box-shadow: 0 0 20px rgba(0,240,255,0.4), inset 0 0 20px rgba(0,240,255,0.1);
+        transform: scale(1);
+    }
+    100% { 
+        box-shadow: 0 0 35px rgba(0,240,255,0.7), inset 0 0 30px rgba(0,240,255,0.2);
+        transform: scale(1.05);
+    }
+}
+
 .login-title {
     font-family: var(--font-display);
-    font-size: 1.9rem;
+    font-size: 2.2rem;
     font-weight: 700;
     text-align: center;
-    letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #fff 20%, var(--accent) 80%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin-bottom: 0.25rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 0.3rem;
+    text-shadow: 
+        0 0 10px rgba(255,0,229,0.8),
+        0 0 20px rgba(255,0,229,0.5),
+        0 0 40px rgba(255,0,229,0.3),
+        0 0 80px rgba(255,0,229,0.2);
+    animation: titleFlicker 3s ease-in-out infinite alternate;
 }
+
+@keyframes titleFlicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.95; }
+    52% { opacity: 1; }
+    54% { opacity: 0.9; }
+    56% { opacity: 1; }
+}
+
 .login-sub {
     text-align: center;
-    font-size: 0.75rem;
-    color: var(--fg-muted);
-    margin-bottom: 2rem;
-    letter-spacing: 0.2px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #ff00e5;
+    margin-bottom: 2.5rem;
+    text-shadow: 0 0 10px rgba(255,0,229,0.5);
 }
+
 .input-group {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
     position: relative;
 }
+
+.input-label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #00f0ff;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 8px rgba(0,240,255,0.4);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.9rem 1rem 0.9rem 2.8rem;
+    background: rgba(0,240,255,0.03);
+    border: 1px solid rgba(0,240,255,0.2);
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--fg);
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.input-group input::placeholder {
+    color: rgba(110,113,129,0.6);
+    font-style: italic;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #00f0ff;
+    background: rgba(0,240,255,0.06);
+    box-shadow: 
+        0 0 0 3px rgba(0,240,255,0.1),
+        0 0 20px -5px rgba(0,240,255,0.3),
+        inset 0 2px 8px rgba(0,0,0,0.3);
+}
+
 .input-group i:first-child {
     position: absolute;
     left: 1rem;
-    top: 50%;
+    top: 2.4rem;
     transform: translateY(-50%);
-    color: var(--fg-dim);
-    font-size: 1rem;
-    transition: color 0.2s;
+    color: rgba(0,240,255,0.5);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
 }
-.input-group input {
-    width: 100%;
-    padding: 0.85rem 1rem 0.85rem 2.6rem;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--border);
-    border-radius: 28px;
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    color: var(--fg);
-    transition: all 0.2s ease;
+
+.input-group input:focus + .input-group i:first-child,
+.input-group:focus-within i:first-child {
+    color: #00f0ff;
+    text-shadow: 0 0 8px rgba(0,240,255,0.6);
 }
-.input-group input:focus {
-    outline: none;
-    border-color: var(--accent);
-    background: rgba(255,255,255,0.06);
-    box-shadow: 0 0 0 3px rgba(232,168,56,0.15);
-}
-/* Toggle password button */
+
 .password-toggle {
     position: absolute;
-    right: 1rem;
-    top: 50%;
+    right: 0.85rem;
+    top: 2.4rem;
     transform: translateY(-50%);
     background: none;
     border: none;
-    color: var(--fg-dim);
+    color: rgba(110,113,129,0.6);
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.9rem;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.2s ease;
-    width: 28px;
-    height: 28px;
-    border-radius: 20px;
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
 }
+
 .password-toggle:hover {
-    color: var(--accent);
-    background: rgba(232,168,56,0.1);
+    color: #00f0ff;
+    background: rgba(0,240,255,0.1);
+    text-shadow: 0 0 8px rgba(0,240,255,0.5);
 }
+
 .login-btn {
     width: 100%;
-    padding: 0.9rem;
-    background: linear-gradient(135deg, var(--accent), #d4942a);
-    border: none;
-    border-radius: 40px;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(0,240,255,0.1), rgba(57,255,20,0.05));
+    border: 1px solid rgba(0,240,255,0.4);
+    border-radius: 14px;
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: #08080c;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #00f0ff;
     cursor: pointer;
-    transition: all 0.25s ease;
-    margin-top: 0.5rem;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.6rem;
-    letter-spacing: 0.3px;
-    box-shadow: 0 4px 12px rgba(232,168,56,0.2);
+    gap: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0,240,255,0.5);
+    box-shadow: 
+        0 0 20px -5px rgba(0,240,255,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+    position: relative;
+    overflow: hidden;
 }
+
+.login-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0,240,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
 .login-btn:hover {
     transform: translateY(-2px);
-    filter: brightness(1.05);
-    box-shadow: 0 12px 24px -8px rgba(232,168,56,0.5);
+    border-color: #00f0ff;
+    box-shadow: 
+        0 0 30px -5px rgba(0,240,255,0.5),
+        0 10px 30px -10px rgba(0,240,255,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.1);
 }
+
+.login-btn:hover::before {
+    left: 100%;
+}
+
 .login-btn:active {
     transform: translateY(1px);
 }
+
 .login-error {
-    font-size: 0.7rem;
-    color: var(--coral);
+    font-size: 0.75rem;
+    color: #ff0055;
     text-align: center;
-    margin-top: 1rem;
+    margin-top: 1.2rem;
     min-height: 1.5rem;
     font-weight: 500;
+    text-shadow: 0 0 8px rgba(255,0,85,0.4);
 }
+
 .login-footer-note {
-    margin-top: 1.8rem;
+    margin-top: 2rem;
     text-align: center;
-    font-size: 0.65rem;
-    color: var(--fg-dim);
-    border-top: 1px solid rgba(232,168,56,0.15);
-    padding-top: 1rem;
-}
-/* efek modern tambahan */
-.glow-input:focus-within {
-    position: relative;
+    font-size: 0.62rem;
+    color: rgba(0,240,255,0.5);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(0,240,255,0.1);
 }
 /* sisanya dari kode asli tidak diubah (hanya sedikit modifikasi warna) */
 .bg-atmosphere{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
@@ -351,17 +501,26 @@ display:flex;flex-direction:column;position:sticky;top:0;height:100vh;flex-shrin
 <body>
 <div class="bg-atmosphere" aria-hidden="true"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div><div class="orb orb-4"></div></div>
 
-<!-- MODAL LOGIN MODERN + Toggle Password -->
+<!-- MODAL LOGIN CYBERPUNK -->
 <div id="loginModal" class="login-overlay">
     <div class="login-card">
-        <div class="login-icon"><i class="fa-solid fa-qrcode"></i></div>
+        <div class="login-icon"><i class="fa-solid fa-lock"></i></div>
         <div class="login-title">RUANG WAKTU</div>
-        <div class="login-sub">Masukkan kredensial untuk masuk</div>
-        <div class="input-group"><i class="fa-regular fa-user"></i><input type="text" id="loginUsername" placeholder="Username" autocomplete="off"></div>
-        <div class="input-group" id="passwordGroup"><i class="fa-regular fa-lock"></i><input type="password" id="loginPassword" placeholder="Password" autocomplete="off"><button type="button" id="togglePasswordBtn" class="password-toggle"><i class="fa-regular fa-eye"></i></button></div>
-        <button class="login-btn" id="loginBtn"><i class="fa-solid fa-arrow-right-to-bracket"></i> Masuk ke Data Center</button>
+        <div class="login-sub">Secure Access</div>
+        <div class="input-group">
+            <label class="input-label">Username</label>
+            <i class="fa-regular fa-user"></i>
+            <input type="text" id="loginUsername" placeholder="Masukkan username" autocomplete="off">
+        </div>
+        <div class="input-group" id="passwordGroup">
+            <label class="input-label">Password</label>
+            <i class="fa-regular fa-key"></i>
+            <input type="password" id="loginPassword" placeholder="Masukkan password" autocomplete="off">
+            <button type="button" id="togglePasswordBtn" class="password-toggle"><i class="fa-regular fa-eye"></i></button>
+        </div>
+        <button class="login-btn" id="loginBtn"><i class="fa-solid fa-arrow-right-to-bracket"></i> MASUK</button>
         <div id="loginError" class="login-error"></div>
-        <div class="login-footer-note"><i class="fa-regular fa-shield"></i> Ruang Waktu · Internal Access</div>
+        <div class="login-footer-note">Ruang Waktu · Secure System</div>
     </div>
 </div>
 
@@ -370,8 +529,7 @@ display:flex;flex-direction:column;position:sticky;top:0;height:100vh;flex-shrin
 <div class="sidebar-glow"></div>
 <div class="sidebar-header"><div class="sidebar-brand"><div class="sidebar-brand-icon"><i class="fa-solid fa-clock-rotate-left"></i></div><div><div>Ruang Waktu</div><div class="sidebar-brand-sub">Data Center</div></div></div></div>
 <nav class="sidebar-nav"><div class="sidebar-section-label">Data Sheet</div><div class="sidebar-item" data-filter="gid0"><div class="icon-wrap"><i class="fa-solid fa-layer-group"></i></div><div class="label">ALL PK</div></div><div class="sidebar-item" data-filter="gid5"><div class="icon-wrap"><i class="fa-solid fa-database"></i></div><div class="label">JADWAL PASARAN</div></div><div class="sidebar-item" data-filter="gid473"><div class="icon-wrap"><i class="fa-solid fa-trophy"></i></div><div class="label">HADIAH TOGEL</div></div><div class="sidebar-item qris-item active" data-filter="gidQris"><div class="icon-wrap"><i class="fa-solid fa-qrcode"></i></div><div class="label">QRIS PAYMENT</div></div></nav>
-<div class="sidebar-footer"><div class="sidebar-status-card"><div class="sidebar-status-row"><div class="sidebar-status-dot" id="sidebarStatusDot"></div><div class="sidebar-status-text">Terhubung</div></div><div class="sidebar-timer"><div class="timer-row"><span class="timer-label"><span class="timer-dot" id="timerDot"></span>Auto Refresh</span></div><div class="timer-bar-track"><div class="timer-bar-fill" id="timerBarFill" style="width:100%"></div></div><div class="timer-last-update" id="timerLastUpdate"><i class="fa-regular fa-clock"></i><span>Menunggu data...</span></div></div></div></div>
-</aside>
+<div class="sidebar-footer"><div class="sidebar-status-card"><div class="sidebar-status-row"><div class="sidebar-status-dot" id="sidebarStatusDot"></div><div class="sidebar-status-text">Terhubung</div></div><div class="sidebar-timer"><div class="timer-row"><span class="timer-label"><span class="timer-dot" id="timerDot"></span>Auto Refresh</span></div><div class="timer-bar-track"><div class="timer-bar-fill" id="timerBarFill" style="width:100%"></div></div><div class="timer-last-update" id="timerLastUpdate"><i class="fa-regular fa-clock"></i><span>Menunggu data...</span></div></div></div></div></aside>
 <main class="main-content"><div class="dashboard-container">
 <header class="page-header"><div><h1 class="page-title" id="pageTitle"><span class="qris-word">QRIS Payment</span></h1></div><div class="page-header-right"><div class="status-badge"><span class="live-dot" id="liveDot"></span><span>Live sync</span></div><button class="refresh-btn" id="refreshBtn" title="Refresh sekarang"><i class="fa-solid fa-rotate-right"></i></button><button id="logoutHeaderBtn" class="logout-header-btn" title="Logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></button></div></header>
 <div class="sticky-top" id="stickyTools"><div class="search-bar"><i class="fa-solid fa-magnifying-glass search-icon"></i><input type="text" class="search-input" id="searchInput" placeholder="Cari QRIS..." autocomplete="off"><button class="search-clear" id="searchClear"><i class="fa-solid fa-xmark"></i></button><div class="search-result-count" id="searchResultCount"></div></div><div class="toolbar"><div class="qris-type-filter" id="qrisTypeFilterWrapper"><button class="filter-chip active" data-type="all"><i class="fa-solid fa-layer-group"></i> Semua</button><button class="filter-chip" data-type="bank"><i class="fa-solid fa-building-columns"></i> Bank</button><button class="filter-chip" data-type="ewallet"><i class="fa-solid fa-wallet"></i> E-Wallet</button></div><div class="toolbar-right"><div class="view-toggle"><button class="view-toggle-btn active" data-view="grid"><i class="fa-solid fa-grip"></i> Grid</button><button class="view-toggle-btn" data-view="list"><i class="fa-solid fa-list"></i> List</button></div></div></div></div>
