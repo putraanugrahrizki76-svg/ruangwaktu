@@ -22,24 +22,17 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:var(--fg);line-height:1.6;overflow-x:hidden;}
+@keyframes spin{to{transform:rotate(360deg);}}
 
-/* ========= TOAST ========= */
 .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg-elevated);border:1px solid var(--border);border-radius:12px;padding:0.7rem 1.3rem;font-size:0.82rem;color:var(--fg);display:flex;align-items:center;gap:0.55rem;box-shadow:0 12px 40px -10px rgba(0,0,0,0.6);z-index:20000;opacity:0;animation:toastIn 0.35s ease forwards,toastOut 0.35s ease 1.2s forwards;pointer-events:none;white-space:nowrap;}
 @keyframes toastIn{to{opacity:1;transform:translateX(-50%) translateY(0);}}
 @keyframes toastOut{to{opacity:0;transform:translateX(-50%) translateY(10px);}}
 
-/* ========= CYBERPUNK LOGIN OVERLAY ========= */
-.login-overlay {
-    position: fixed; inset: 0; z-index: 10000;
-    background: linear-gradient(135deg, rgba(8,8,12,0.95), rgba(12,6,22,0.97));
-    display: flex; align-items: center; justify-content: center;
-    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s ease;
-    opacity: 1; visibility: visible;
-}
-.login-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-.login-overlay .scanlines { position: absolute; inset: 0; pointer-events: none; z-index: 1; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,240,255,0.015) 2px, rgba(0,240,255,0.015) 4px); }
-.login-overlay .grid-bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; background-image: linear-gradient(rgba(0,240,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,240,255,0.03) 1px, transparent 1px); background-size: 60px 60px; animation: gridShift 20s linear infinite; }
-@keyframes gridShift { 0%{background-position:0 0;} 100%{background-position:60px 60px;} }
+.login-overlay{position:fixed;inset:0;z-index:10000;background:linear-gradient(135deg,rgba(8,8,12,0.95),rgba(12,6,22,0.97));display:flex;align-items:center;justify-content:center;transition:opacity 0.8s cubic-bezier(0.4,0,0.2,1),visibility 0.8s ease;opacity:1;visibility:visible;}
+.login-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+.login-overlay .scanlines{position:absolute;inset:0;pointer-events:none;z-index:1;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,240,255,0.015) 2px,rgba(0,240,255,0.015) 4px);}
+.login-overlay .grid-bg{position:absolute;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(0,240,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,0.03) 1px,transparent 1px);background-size:60px 60px;animation:gridShift 20s linear infinite;}
+@keyframes gridShift{0%{background-position:0 0;}100%{background-position:60px 60px;}}
 .login-overlay .corner{position:fixed;width:50px;height:50px;pointer-events:none;z-index:2;}
 .login-overlay .corner-tl{top:16px;left:16px;border-top:2px solid #00f0ff;border-left:2px solid #00f0ff;box-shadow:0 0 15px rgba(0,240,255,0.3),inset 0 0 15px rgba(0,240,255,0.05);}
 .login-overlay .corner-tr{top:16px;right:16px;border-top:2px solid #ff00e5;border-right:2px solid #ff00e5;box-shadow:0 0 15px rgba(255,0,229,0.3),inset 0 0 15px rgba(255,0,229,0.05);}
@@ -48,53 +41,43 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:va
 .login-overlay .side-label{position:fixed;font-family:var(--font-display);font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(0,240,255,0.2);writing-mode:vertical-rl;pointer-events:none;z-index:2;}
 .login-overlay .side-label-left{left:20px;top:50%;transform:translateY(-50%);}
 .login-overlay .side-label-right{right:20px;top:50%;transform:translateY(-50%) rotate(180deg);}
-.login-card {
-    width: 90%; max-width: 420px;
-    background: linear-gradient(160deg, rgba(14,14,24,0.97), rgba(6,6,12,0.99));
-    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-    border-radius: 28px; padding: 3rem 2.5rem 2.5rem;
-    position: relative; z-index: 5;
-    box-shadow: 0 0 0 1px rgba(0,240,255,0.1), 0 0 60px -10px rgba(0,240,255,0.12), 0 60px 120px -30px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.04);
-    animation: cardFloat 6s ease-in-out infinite;
-    overflow: hidden;
-}
-.login-card .card-inner-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0,240,255,0.04) 0%, transparent 70%); }
-@keyframes cardFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
-.login-card::before { content:''; position:absolute; top:0; left:24px; right:24px; height:2px; background:linear-gradient(90deg,transparent,#00f0ff,#ff00e5,#39ff14,transparent); border-radius:2px; box-shadow:0 0 25px rgba(0,240,255,0.5),0 0 50px rgba(255,0,229,0.2); animation:topLineShimmer 3s ease-in-out infinite alternate; }
+.login-card{width:90%;max-width:420px;background:linear-gradient(160deg,rgba(14,14,24,0.97),rgba(6,6,12,0.99));backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:28px;padding:3rem 2.5rem 2.5rem;position:relative;z-index:5;box-shadow:0 0 0 1px rgba(0,240,255,0.1),0 0 60px -10px rgba(0,240,255,0.12),0 60px 120px -30px rgba(0,0,0,0.8),inset 0 1px 0 rgba(255,255,255,0.04);animation:cardFloat 6s ease-in-out infinite;overflow:hidden;}
+.login-card .card-inner-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(0,240,255,0.04) 0%,transparent 70%);}
+@keyframes cardFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.login-card::before{content:'';position:absolute;top:0;left:24px;right:24px;height:2px;background:linear-gradient(90deg,transparent,#00f0ff,#ff00e5,#39ff14,transparent);border-radius:2px;box-shadow:0 0 25px rgba(0,240,255,0.5),0 0 50px rgba(255,0,229,0.2);animation:topLineShimmer 3s ease-in-out infinite alternate;}
 @keyframes topLineShimmer{0%{opacity:0.7;}100%{opacity:1;}}
-.login-card::after { content:''; position:absolute; bottom:0; left:24px; right:24px; height:2px; background:linear-gradient(90deg,transparent,#39ff14,#00f0ff,#ff00e5,transparent); border-radius:2px; box-shadow:0 0 25px rgba(57,255,20,0.4); }
-.login-icon { text-align:center; margin-bottom:1.5rem; position:relative; z-index:2; }
-.login-icon .icon-ring { display:inline-flex; align-items:center; justify-content:center; width:84px; height:84px; border-radius:50%; position:relative; }
-.login-icon .icon-ring::before { content:''; position:absolute; inset:-3px; border-radius:50%; border:2px solid transparent; border-top-color:#00f0ff; border-right-color:#ff00e5; animation:ringRotate 4s linear infinite; }
+.login-card::after{content:'';position:absolute;bottom:0;left:24px;right:24px;height:2px;background:linear-gradient(90deg,transparent,#39ff14,#00f0ff,#ff00e5,transparent);border-radius:2px;box-shadow:0 0 25px rgba(57,255,20,0.4);}
+.login-icon{text-align:center;margin-bottom:1.5rem;position:relative;z-index:2;}
+.login-icon .icon-ring{display:inline-flex;align-items:center;justify-content:center;width:84px;height:84px;border-radius:50%;position:relative;}
+.login-icon .icon-ring::before{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid transparent;border-top-color:#00f0ff;border-right-color:#ff00e5;animation:ringRotate 4s linear infinite;}
 @keyframes ringRotate{to{transform:rotate(360deg);}}
-.login-icon .icon-ring::after { content:''; position:absolute; inset:-8px; border-radius:50%; border:1px solid transparent; border-bottom-color:rgba(57,255,20,0.3); border-left-color:rgba(0,240,255,0.2); animation:ringRotate 6s linear infinite reverse; }
-.login-icon i { font-size:2.2rem; color:#00f0ff; position:relative; z-index:1; filter:drop-shadow(0 0 18px rgba(0,240,255,0.6)) drop-shadow(0 0 40px rgba(0,240,255,0.2)); background:radial-gradient(circle,rgba(0,240,255,0.08) 0%,transparent 70%); width:84px; height:84px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; }
-.login-title { font-family:var(--font-display); font-size:2.4rem; font-weight:700; text-align:center; letter-spacing:0.1em; text-transform:uppercase; color:#fff; margin-bottom:0.25rem; position:relative; z-index:2; text-shadow:0 0 10px rgba(255,0,229,0.7),0 0 25px rgba(255,0,229,0.4),0 0 50px rgba(255,0,229,0.2),0 0 100px rgba(255,0,229,0.1); animation:titleFlicker 4s ease-in-out infinite; }
+.login-icon .icon-ring::after{content:'';position:absolute;inset:-8px;border-radius:50%;border:1px solid transparent;border-bottom-color:rgba(57,255,20,0.3);border-left-color:rgba(0,240,255,0.2);animation:ringRotate 6s linear infinite reverse;}
+.login-icon i{font-size:2.2rem;color:#00f0ff;position:relative;z-index:1;filter:drop-shadow(0 0 18px rgba(0,240,255,0.6)) drop-shadow(0 0 40px rgba(0,240,255,0.2));background:radial-gradient(circle,rgba(0,240,255,0.08) 0%,transparent 70%);width:84px;height:84px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;}
+.login-title{font-family:var(--font-display);font-size:2.4rem;font-weight:700;text-align:center;letter-spacing:0.1em;text-transform:uppercase;color:#fff;margin-bottom:0.25rem;position:relative;z-index:2;text-shadow:0 0 10px rgba(255,0,229,0.7),0 0 25px rgba(255,0,229,0.4),0 0 50px rgba(255,0,229,0.2),0 0 100px rgba(255,0,229,0.1);animation:titleFlicker 4s ease-in-out infinite;}
 @keyframes titleFlicker{0%,100%{opacity:1;}48%{opacity:1;}50%{opacity:0.92;}52%{opacity:1;}80%{opacity:1;}82%{opacity:0.95;}84%{opacity:1;}}
-.login-sub { text-align:center; font-size:0.7rem; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; color:#ff00e5; margin-bottom:2.5rem; position:relative; z-index:2; text-shadow:0 0 12px rgba(255,0,229,0.5); }
-.input-group { margin-bottom:1.5rem; position:relative; z-index:2; }
-.input-label { display:block; font-family:var(--font-display); font-size:0.68rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:#00f0ff; margin-bottom:0.5rem; text-shadow:0 0 8px rgba(0,240,255,0.35); }
-.input-group input { width:100%; padding:0.9rem 1rem 0.9rem 2.8rem; background:rgba(0,240,255,0.025); border:1px solid rgba(0,240,255,0.15); border-radius:14px; font-family:var(--font-body); font-size:0.88rem; color:var(--fg); transition:all 0.35s ease; box-shadow:inset 0 2px 10px rgba(0,0,0,0.35); }
-.input-group input:focus { outline:none; border-color:rgba(0,240,255,0.6); background:rgba(0,240,255,0.05); box-shadow:0 0 0 4px rgba(0,240,255,0.08),0 0 25px -5px rgba(0,240,255,0.25),inset 0 2px 10px rgba(0,0,0,0.3); }
-.input-group .input-icon { position:absolute; left:1rem; top:2.4rem; transform:translateY(-50%); color:rgba(0,240,255,0.4); font-size:0.9rem; transition:all 0.35s ease; pointer-events:none; }
-.password-toggle { position:absolute; right:0.85rem; top:2.4rem; transform:translateY(-50%); background:none; border:none; color:rgba(110,113,129,0.5); cursor:pointer; font-size:0.88rem; padding:0; display:flex; align-items:center; justify-content:center; transition:all 0.25s ease; width:34px; height:34px; border-radius:10px; }
-.password-toggle:hover { color:#00f0ff; background:rgba(0,240,255,0.08); text-shadow:0 0 8px rgba(0,240,255,0.5); }
-.login-btn { width:100%; padding:1.05rem; position:relative; z-index:2; background:linear-gradient(135deg,rgba(0,240,255,0.08),rgba(57,255,20,0.03)); border:1px solid rgba(0,240,255,0.35); border-radius:16px; font-family:var(--font-display); font-weight:700; font-size:1rem; color:#00f0ff; cursor:pointer; transition:all 0.35s ease; margin-top:1rem; display:flex; align-items:center; justify-content:center; gap:0.7rem; letter-spacing:0.18em; text-transform:uppercase; text-shadow:0 0 12px rgba(0,240,255,0.5); box-shadow:0 0 25px -5px rgba(0,240,255,0.25),inset 0 1px 0 rgba(255,255,255,0.04); overflow:hidden; }
-.login-btn::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(0,240,255,0.15),transparent); transition:left 0.6s ease; }
-.login-btn:hover { transform:translateY(-3px); border-color:rgba(0,240,255,0.7); box-shadow:0 0 40px -5px rgba(0,240,255,0.4),0 12px 35px -10px rgba(0,240,255,0.25),inset 0 1px 0 rgba(255,255,255,0.08); }
-.login-btn:hover::before { left:100%; }
-.login-btn:active { transform:translateY(1px); }
-.login-btn.success-flash { border-color:rgba(57,255,20,0.7); color:#39ff14; text-shadow:0 0 12px rgba(57,255,20,0.6); box-shadow:0 0 40px -5px rgba(57,255,20,0.4),inset 0 0 30px rgba(57,255,20,0.08); }
-.login-error { font-size:0.75rem; color:#ff0055; text-align:center; margin-top:1.2rem; min-height:1.5rem; font-weight:500; text-shadow:0 0 8px rgba(255,0,85,0.4); position:relative; z-index:2; animation:shakeError 0.4s ease; }
+.login-sub{text-align:center;font-size:0.7rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:#ff00e5;margin-bottom:2.5rem;position:relative;z-index:2;text-shadow:0 0 12px rgba(255,0,229,0.5);}
+.input-group{margin-bottom:1.5rem;position:relative;z-index:2;}
+.input-label{display:block;font-family:var(--font-display);font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#00f0ff;margin-bottom:0.5rem;text-shadow:0 0 8px rgba(0,240,255,0.35);}
+.input-group input{width:100%;padding:0.9rem 1rem 0.9rem 2.8rem;background:rgba(0,240,255,0.025);border:1px solid rgba(0,240,255,0.15);border-radius:14px;font-family:var(--font-body);font-size:0.88rem;color:var(--fg);transition:all 0.35s ease;box-shadow:inset 0 2px 10px rgba(0,0,0,0.35);}
+.input-group input:focus{outline:none;border-color:rgba(0,240,255,0.6);background:rgba(0,240,255,0.05);box-shadow:0 0 0 4px rgba(0,240,255,0.08),0 0 25px -5px rgba(0,240,255,0.25),inset 0 2px 10px rgba(0,0,0,0.3);}
+.input-group .input-icon{position:absolute;left:1rem;top:2.4rem;transform:translateY(-50%);color:rgba(0,240,255,0.4);font-size:0.9rem;transition:all 0.35s ease;pointer-events:none;}
+.password-toggle{position:absolute;right:0.85rem;top:2.4rem;transform:translateY(-50%);background:none;border:none;color:rgba(110,113,129,0.5);cursor:pointer;font-size:0.88rem;padding:0;display:flex;align-items:center;justify-content:center;transition:all 0.25s ease;width:34px;height:34px;border-radius:10px;}
+.password-toggle:hover{color:#00f0ff;background:rgba(0,240,255,0.08);text-shadow:0 0 8px rgba(0,240,255,0.5);}
+.login-btn{width:100%;padding:1.05rem;position:relative;z-index:2;background:linear-gradient(135deg,rgba(0,240,255,0.08),rgba(57,255,20,0.03));border:1px solid rgba(0,240,255,0.35);border-radius:16px;font-family:var(--font-display);font-weight:700;font-size:1rem;color:#00f0ff;cursor:pointer;transition:all 0.35s ease;margin-top:1rem;display:flex;align-items:center;justify-content:center;gap:0.7rem;letter-spacing:0.18em;text-transform:uppercase;text-shadow:0 0 12px rgba(0,240,255,0.5);box-shadow:0 0 25px -5px rgba(0,240,255,0.25),inset 0 1px 0 rgba(255,255,255,0.04);overflow:hidden;}
+.login-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,240,255,0.15),transparent);transition:left 0.6s ease;}
+.login-btn:hover{transform:translateY(-3px);border-color:rgba(0,240,255,0.7);box-shadow:0 0 40px -5px rgba(0,240,255,0.4),0 12px 35px -10px rgba(0,240,255,0.25),inset 0 1px 0 rgba(255,255,255,0.08);}
+.login-btn:hover::before{left:100%;}
+.login-btn:active{transform:translateY(1px);}
+.login-btn.success-flash{border-color:rgba(57,255,20,0.7);color:#39ff14;text-shadow:0 0 12px rgba(57,255,20,0.6);box-shadow:0 0 40px -5px rgba(57,255,20,0.4),inset 0 0 30px rgba(57,255,20,0.08);}
+.login-error{font-size:0.75rem;color:#ff0055;text-align:center;margin-top:1.2rem;min-height:1.5rem;font-weight:500;text-shadow:0 0 8px rgba(255,0,85,0.4);position:relative;z-index:2;animation:shakeError 0.4s ease;}
 @keyframes shakeError{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}50%{transform:translateX(6px);}75%{transform:translateX(-3px);}}
-.login-footer-note { margin-top:2rem; text-align:center; font-size:0.6rem; color:rgba(0,240,255,0.35); letter-spacing:0.25em; text-transform:uppercase; padding-top:1.2rem; border-top:1px solid rgba(0,240,255,0.08); position:relative; z-index:2; }
+.login-footer-note{margin-top:2rem;text-align:center;font-size:0.6rem;color:rgba(0,240,255,0.35);letter-spacing:0.25em;text-transform:uppercase;padding-top:1.2rem;border-top:1px solid rgba(0,240,255,0.08);position:relative;z-index:2;}
 
-/* ========= DASHBOARD ENTRANCE & SIDEBAR ========= */
-.app-layout { display:flex; min-height:100vh; position:relative; z-index:1; }
-.app-layout.entering .sidebar { animation:slideInLeft 0.7s cubic-bezier(0.16,1,0.3,1) both; }
-.app-layout.entering .main-content { animation:fadeInUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s both; }
-@keyframes slideInLeft { from{opacity:0;transform:translateX(-40px);} to{opacity:1;transform:translateX(0);} }
-@keyframes fadeInUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+.app-layout{display:flex;min-height:100vh;position:relative;z-index:1;}
+.app-layout.entering .sidebar{animation:slideInLeft 0.7s cubic-bezier(0.16,1,0.3,1) both;}
+.app-layout.entering .main-content{animation:fadeInUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s both;}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-40px);}to{opacity:1;transform:translateX(0);}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
 
 .bg-atmosphere{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
 .bg-atmosphere .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.4;animation:orbFloat 20s ease-in-out infinite alternate;}
@@ -104,7 +87,7 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:va
 .bg-atmosphere .orb-4{width:300px;height:300px;background:radial-gradient(circle,rgba(79,195,247,0.08),transparent 70%);top:10%;right:20%;}
 @keyframes orbFloat{0%{transform:translate(0,0) scale(1);}33%{transform:translate(30px,-40px) scale(1.05);}66%{transform:translate(-20px,20px) scale(0.95);}100%{transform:translate(15px,-15px) scale(1.02);}}
 
-.sidebar { width:var(--sidebar-w); background:linear-gradient(180deg,rgba(17,17,24,0.96),rgba(8,8,12,0.98)); backdrop-filter:blur(20px); border-right:1px solid var(--border); display:flex; flex-direction:column; position:sticky; top:0; height:100vh; flex-shrink:0; overflow-y:auto; }
+.sidebar{width:var(--sidebar-w);background:linear-gradient(180deg,rgba(17,17,24,0.96),rgba(8,8,12,0.98));backdrop-filter:blur(20px);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;flex-shrink:0;overflow-y:auto;}
 .sidebar-header{padding:1.75rem 1.5rem 1.5rem;}
 .sidebar-brand{font-family:var(--font-display);font-size:1.05rem;font-weight:700;display:flex;align-items:center;gap:0.7rem;}
 .sidebar-brand-icon{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--accent),rgba(232,168,56,0.6));display:flex;align-items:center;justify-content:center;color:#08080c;}
@@ -124,41 +107,77 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:va
 
 .main-content{flex:1;padding:2.5rem 3rem;}
 .dashboard-container{max-width:1280px;margin:0 auto;}
-.page-header{margin-bottom:2rem;display:flex;justify-content:space-between;flex-wrap:wrap;}
+.page-header{margin-bottom:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;}
 .page-title{font-family:var(--font-display);font-size:2rem;font-weight:700;}
 .accent-word{color:var(--accent);}
 .qris-word{color:var(--qris-primary);}
+.header-actions{display:flex;align-items:center;gap:0.6rem;}
 .status-badge{display:inline-flex;align-items:center;gap:0.4rem;padding:0.35rem 0.8rem;border-radius:20px;background:rgba(126,184,138,0.06);border:1px solid rgba(126,184,138,0.15);font-size:0.68rem;color:var(--sage);}
 .live-dot{width:6px;height:6px;border-radius:50%;background:var(--sage);animation:dotPulse 2s infinite;}
 @keyframes dotPulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
-.refresh-btn,.logout-header-btn{width:36px;height:36px;border-radius:11px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--fg-dim);cursor:pointer;}
+.refresh-btn,.logout-header-btn{width:36px;height:36px;border-radius:11px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--fg-dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.85rem;transition:all 0.25s;}
+.refresh-btn:hover,.logout-header-btn:hover{background:rgba(255,255,255,0.07);color:var(--fg-muted);}
+.refresh-btn.spinning i{animation:spin 0.7s linear infinite;}
+.sticky-top{position:sticky;top:0;z-index:10;background:var(--bg);padding:0.5rem 0;margin-bottom:1rem;}
 .search-bar{position:relative;margin-bottom:0.75rem;}
-.search-input{width:100%;padding:0.8rem 3rem 0.8rem 2.85rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);color:var(--fg);}
+.search-input{width:100%;padding:0.8rem 3rem 0.8rem 2.85rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);color:var(--fg);font-family:var(--font-body);font-size:0.85rem;transition:all 0.25s;}
 .search-input:focus{border-color:rgba(232,168,56,0.35);outline:none;}
-.search-clear{position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:8px;display:none;cursor:pointer;}
+.search-clear{position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:8px;display:none;align-items:center;justify-content:center;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--fg-dim);font-size:0.75rem;transition:all 0.2s;}
 .search-clear.visible{display:flex;}
+.search-clear:hover{background:rgba(255,255,255,0.1);color:var(--fg);}
+.toolbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;}
 .qris-type-filter{display:flex;gap:0.5rem;background:rgba(0,0,0,0.2);padding:0.2rem;border-radius:40px;border:1px solid var(--border);}
-.filter-chip{background:transparent;border:none;padding:0.4rem 1rem;border-radius:32px;font-size:0.7rem;font-weight:500;color:var(--fg-muted);cursor:pointer;}
-.filter-chip.active{background:var(--qris-primary);color:#08080c;}
+.filter-chip{background:transparent;border:none;padding:0.4rem 1rem;border-radius:32px;font-size:0.7rem;font-weight:500;color:var(--fg-muted);cursor:pointer;transition:all 0.25s;font-family:var(--font-body);}
+.filter-chip.active{background:var(--qris-primary);color:#08080c;font-weight:600;}
+.view-toggle{display:flex;gap:0.25rem;background:rgba(0,0,0,0.2);padding:0.2rem;border-radius:40px;border:1px solid var(--border);}
+.view-toggle-btn{background:transparent;border:none;padding:0.4rem 0.85rem;border-radius:32px;font-size:0.7rem;font-weight:500;color:var(--fg-muted);cursor:pointer;transition:all 0.25s;font-family:var(--font-body);}
+.view-toggle-btn.active{background:rgba(255,255,255,0.08);color:var(--fg);font-weight:600;}
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem;}
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);cursor:pointer;transition:all 0.3s;}
-.card:hover{border-color:var(--border-hover);transform:translateY(-4px);}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);cursor:pointer;transition:all 0.3s;overflow:hidden;}
+.card:hover{border-color:var(--border-hover);transform:translateY(-4px);box-shadow:0 16px 48px -12px rgba(0,0,0,0.5);}
+.accent-strip{height:3px;}
 .card-inner{padding:1.25rem 1.4rem 1.4rem;}
 .card-title{font-family:var(--font-display);font-size:1.05rem;font-weight:600;}
-.card-content{font-size:0.84rem;color:var(--content-color);margin-top:0.5rem;}
-.qris-image-preview{margin-top:0.75rem;border-radius:14px;overflow:hidden;text-align:center;background:rgba(0,0,0,0.2);}
-.qris-image-preview img{max-width:100%;max-height:180px;object-fit:contain;transition:transform 0.3s;}
+.card-content{font-size:0.84rem;color:var(--content-color);margin-top:0.5rem;white-space:pre-wrap;word-break:break-word;}
+.qris-image-preview{margin-top:0.75rem;border-radius:14px;overflow:hidden;text-align:center;background:rgba(0,0,0,0.25);border:1px solid var(--border);}
+.qris-image-preview img{max-width:100%;max-height:200px;object-fit:contain;transition:transform 0.3s;display:block;margin:0 auto;padding:0.5rem;}
 .card:hover .qris-image-preview img{transform:scale(1.02);}
-.btn-action{display:inline-flex;align-items:center;gap:0.4rem;padding:0.38rem 0.8rem;border-radius:22px;font-size:0.7rem;font-weight:500;cursor:pointer;border:1px solid;background:var(--accent-soft);border-color:rgba(232,168,56,0.18);color:var(--accent);}
+.qris-actions{margin-top:0.8rem;display:flex;gap:0.5rem;flex-wrap:wrap;}
+.btn-action{display:inline-flex;align-items:center;gap:0.4rem;padding:0.38rem 0.8rem;border-radius:22px;font-size:0.7rem;font-weight:500;cursor:pointer;border:1px solid;background:var(--accent-soft);border-color:rgba(232,168,56,0.18);color:var(--accent);transition:all 0.25s;font-family:var(--font-body);}
+.btn-action:hover{background:rgba(232,168,56,0.15);border-color:rgba(232,168,56,0.3);}
+.list-row{display:grid;grid-template-columns:1fr 2fr auto;gap:1rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;margin-bottom:0.6rem;transition:all 0.25s;cursor:pointer;align-items:center;}
+.list-row:hover{border-color:var(--border-hover);background:var(--card-hover);}
+.row-title{font-family:var(--font-display);font-size:0.9rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.row-content{font-size:0.82rem;color:var(--content-color);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.row-actions{display:flex;gap:0.4rem;flex-shrink:0;}
+.row-action-btn{background:transparent;border:1px solid var(--border);padding:0.4rem 0.6rem;border-radius:8px;cursor:pointer;color:var(--fg-dim);font-size:0.78rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.row-action-btn:hover{background:rgba(255,255,255,0.06);color:var(--fg-muted);border-color:var(--border-hover);}
 .modal-overlay{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all 0.35s;}
 .modal-overlay.open{opacity:1;visibility:visible;}
-.modal-panel{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);max-width:680px;width:100%;max-height:85vh;overflow:auto;}
+.modal-panel{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);max-width:680px;width:92%;max-height:85vh;overflow:auto;animation:modalSlide 0.35s cubic-bezier(0.16,1,0.3,1);}
+@keyframes modalSlide{from{opacity:0;transform:translateY(20px) scale(0.97);}to{opacity:1;transform:translateY(0) scale(1);}}
 .modal-header{display:flex;justify-content:flex-end;padding:1rem 1.5rem;}
+.modal-close{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--fg-dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;transition:all 0.2s;}
+.modal-close:hover{background:rgba(255,0,85,0.1);border-color:rgba(255,0,85,0.3);color:var(--coral);}
 .modal-body{padding:0 1.75rem 1.75rem;}
-.modal-qris-image{text-align:center;margin-top:1rem;}
-.modal-qris-image img{max-width:100%;max-height:280px;border-radius:12px;}
-.loading-state,.empty-state{display:flex;flex-direction:column;align-items:center;padding:4rem 2rem;gap:1rem;}
-@media(max-width:900px){.sidebar{width:100%;height:auto;position:relative;}.main-content{padding:1.5rem;}}
+.modal-section{margin-bottom:1.25rem;}
+.modal-section-label{font-family:var(--font-display);font-size:0.6rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--fg-dim);margin-bottom:0.4rem;}
+.modal-section-content{font-size:0.9rem;line-height:1.7;white-space:pre-wrap;word-break:break-word;}
+.modal-section-content strong{color:var(--fg);font-weight:600;}
+.modal-qris-image{text-align:center;margin-top:1rem;border-radius:14px;overflow:hidden;background:rgba(0,0,0,0.3);border:1px solid var(--border);padding:0.75rem;}
+.modal-qris-image img{max-width:100%;max-height:320px;object-fit:contain;border-radius:10px;}
+.modal-actions{display:flex;gap:0.6rem;margin-top:1.25rem;flex-wrap:wrap;}
+.empty-state,.error-state,.loading-state{display:flex;flex-direction:column;align-items:center;padding:4rem 2rem;gap:1rem;text-align:center;}
+.empty-icon,.error-icon{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.03);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--fg-dim);}
+.empty-title{font-family:var(--font-display);font-size:1rem;font-weight:600;color:var(--fg-muted);}
+.error-state .error-icon{color:var(--coral);border-color:rgba(240,104,88,0.2);background:rgba(240,104,88,0.05);}
+.error-state span{color:var(--coral);font-size:0.85rem;}
+.loading-state span{color:var(--fg-dim);font-size:0.85rem;}
+.loader-ring{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;}
+mark{background:rgba(79,195,247,0.2);color:var(--qris-primary);border-radius:3px;padding:0 2px;}
+.search-result-count{font-size:0.7rem;margin-top:0.3rem;color:var(--fg-dim);}
+@media(max-width:900px){.sidebar{width:100%;height:auto;position:relative;}.main-content{padding:1.5rem;}.cards-grid{grid-template-columns:1fr;}.list-row{grid-template-columns:1fr;gap:0.5rem;}.row-content{white-space:pre-wrap;overflow:visible;}}
+@media(max-width:500px){.page-title{font-size:1.4rem;}.main-content{padding:1rem;}}
 </style>
 </head>
 <body>
@@ -167,188 +186,637 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:va
 <div id="loginModal" class="login-overlay">
     <div class="scanlines"></div><div class="grid-bg"></div>
     <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
+    <div class="side-label side-label-left">RUANG WAKTU · SECURE ACCESS</div>
+    <div class="side-label side-label-right">DATA CENTER v2.0</div>
     <div class="login-card">
+        <div class="card-inner-glow"></div>
         <div class="login-icon"><div class="icon-ring"><i class="fa-solid fa-lock"></i></div></div>
-        <div class="login-title">RUANG WAKTU</div><div class="login-sub">Secure Access</div>
-        <div class="input-group"><label class="input-label">Username</label><i class="fa-regular fa-user input-icon"></i><input type="text" id="loginUsername"></div>
-        <div class="input-group"><label class="input-label">Password</label><i class="fa-regular fa-key input-icon"></i><input type="password" id="loginPassword"><button type="button" id="togglePasswordBtn" class="password-toggle"><i class="fa-regular fa-eye"></i></button></div>
+        <div class="login-title">RUANG WAKTU</div>
+        <div class="login-sub">Secure Access</div>
+        <div class="input-group">
+            <label class="input-label">Username</label>
+            <i class="fa-regular fa-user input-icon"></i>
+            <input type="text" id="loginUsername" autocomplete="off">
+        </div>
+        <div class="input-group">
+            <label class="input-label">Password</label>
+            <i class="fa-regular fa-key input-icon"></i>
+            <input type="password" id="loginPassword" autocomplete="off">
+            <button type="button" id="togglePasswordBtn" class="password-toggle"><i class="fa-regular fa-eye"></i></button>
+        </div>
         <button class="login-btn" id="loginBtn"><i class="fa-solid fa-arrow-right-to-bracket"></i> MASUK</button>
-        <div id="loginError" class="login-error"></div><div class="login-footer-note">Ruang Waktu · Data Center</div>
+        <div id="loginError" class="login-error"></div>
+        <div class="login-footer-note">Ruang Waktu · Data Center</div>
     </div>
 </div>
 
 <div class="app-layout" id="appLayout">
 <aside class="sidebar">
-<div class="sidebar-header"><div class="sidebar-brand"><div class="sidebar-brand-icon"><i class="fa-solid fa-clock-rotate-left"></i></div><div><div>Ruang Waktu</div><div class="sidebar-brand-sub">Data Center</div></div></div></div>
-<nav class="sidebar-nav">
-    <div class="sidebar-section-label">Data Sheet</div>
-    <div class="sidebar-item" data-filter="gid0"><div class="icon-wrap"><i class="fa-solid fa-layer-group"></i></div><div class="label">ALL PK</div></div>
-    <div class="sidebar-item" data-filter="gid5"><div class="icon-wrap"><i class="fa-solid fa-database"></i></div><div class="label">JADWAL PASARAN</div></div>
-    <div class="sidebar-item" data-filter="gid473"><div class="icon-wrap"><i class="fa-solid fa-trophy"></i></div><div class="label">HADIAH TOGEL</div></div>
-    <div class="sidebar-item" data-filter="gidQris"><div class="icon-wrap"><i class="fa-solid fa-qrcode"></i></div><div class="label">QRIS PAYMENT</div></div>
-    <div class="sidebar-item" data-filter="gidProfile"><div class="icon-wrap"><i class="fa-solid fa-building-columns"></i></div><div class="label">PROFILE BANK & E-WALLET</div></div>
-</nav>
-<div class="sidebar-footer"><div class="timer-bar-track"><div class="timer-bar-fill" id="timerBarFill"></div></div><div id="timerLastUpdate" style="font-size:0.6rem;margin-top:0.5rem;color:var(--fg-dim);"><i class="fa-regular fa-clock"></i> Menunggu</div></div>
+    <div class="sidebar-header">
+        <div class="sidebar-brand">
+            <div class="sidebar-brand-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+            <div><div>Ruang Waktu</div><div class="sidebar-brand-sub">Data Center</div></div>
+        </div>
+    </div>
+    <nav class="sidebar-nav">
+        <div class="sidebar-section-label">Data Sheet</div>
+        <div class="sidebar-item" data-filter="gid0"><div class="icon-wrap"><i class="fa-solid fa-layer-group"></i></div><div class="label">ALL PK</div></div>
+        <div class="sidebar-item" data-filter="gid5"><div class="icon-wrap"><i class="fa-solid fa-database"></i></div><div class="label">JADWAL PASARAN</div></div>
+        <div class="sidebar-item" data-filter="gid473"><div class="icon-wrap"><i class="fa-solid fa-trophy"></i></div><div class="label">HADIAH TOGEL</div></div>
+        <div class="sidebar-item active" data-filter="gidQris"><div class="icon-wrap"><i class="fa-solid fa-qrcode"></i></div><div class="label">QRIS PAYMENT</div></div>
+        <div class="sidebar-item" data-filter="gidProfile"><div class="icon-wrap"><i class="fa-solid fa-building-columns"></i></div><div class="label">PROFILE BANK & E-WALLET</div></div>
+    </nav>
+    <div class="sidebar-footer">
+        <div class="timer-bar-track"><div class="timer-bar-fill" id="timerBarFill" style="width:100%;"></div></div>
+        <div id="timerLastUpdate" style="font-size:0.6rem;margin-top:0.5rem;color:var(--fg-dim);"><i class="fa-regular fa-clock"></i> Menunggu</div>
+    </div>
 </aside>
-<main class="main-content"><div class="dashboard-container">
-<header class="page-header"><div><h1 class="page-title" id="pageTitle"><span class="qris-word">QRIS Payment</span></h1></div><div><div class="status-badge"><span class="live-dot" id="liveDot"></span><span>Live</span></div><button class="refresh-btn" id="refreshBtn"><i class="fa-solid fa-rotate-right"></i></button><button id="logoutHeaderBtn" class="logout-header-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i></button></div></header>
-<div class="sticky-top"><div class="search-bar"><i class="fa-solid fa-magnifying-glass" style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--fg-dim);"></i><input type="text" class="search-input" id="searchInput" placeholder="Cari..."><button class="search-clear" id="searchClear"><i class="fa-solid fa-xmark"></i></button><div class="search-result-count" id="searchResultCount" style="font-size:0.7rem;margin-top:0.3rem;"></div></div><div class="toolbar"><div class="qris-type-filter" id="qrisTypeFilterWrapper"><button class="filter-chip active" data-type="all"> Semua</button><button class="filter-chip" data-type="bank"> Bank</button><button class="filter-chip" data-type="ewallet"> E-Wallet</button></div><div class="view-toggle"><button class="view-toggle-btn active" data-view="grid"><i class="fa-solid fa-grip"></i> Grid</button><button class="view-toggle-btn" data-view="list"><i class="fa-solid fa-list"></i> List</button></div></div></div>
-<section id="contentArea"><div class="loading-state"><div class="loader-ring" style="width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;"></div><span>Memuat data...</span></div></section>
-<footer class="page-footer" style="margin-top:2rem;text-align:center;font-size:0.7rem;color:var(--fg-dim);">Ruang Waktu — Data Center</footer>
-</div></main>
+<main class="main-content">
+<div class="dashboard-container">
+    <header class="page-header">
+        <div><h1 class="page-title" id="pageTitle"><span class="qris-word">QRIS Payment</span></h1></div>
+        <div class="header-actions">
+            <div class="status-badge"><span class="live-dot" id="liveDot"></span><span>Live</span></div>
+            <button class="refresh-btn" id="refreshBtn" title="Refresh data"><i class="fa-solid fa-rotate-right"></i></button>
+            <button id="logoutHeaderBtn" class="logout-header-btn" title="Keluar"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        </div>
+    </header>
+    <div class="sticky-top">
+        <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass" style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--fg-dim);font-size:0.85rem;"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Cari QRIS (bank/ewallet)...">
+            <button class="search-clear" id="searchClear"><i class="fa-solid fa-xmark"></i></button>
+            <div class="search-result-count" id="searchResultCount"></div>
+        </div>
+        <div class="toolbar">
+            <div class="qris-type-filter" id="qrisTypeFilterWrapper">
+                <button class="filter-chip active" data-type="all">Semua</button>
+                <button class="filter-chip" data-type="bank">Bank</button>
+                <button class="filter-chip" data-type="ewallet">E-Wallet</button>
+            </div>
+            <div class="view-toggle">
+                <button class="view-toggle-btn active" data-view="grid"><i class="fa-solid fa-grip"></i> Grid</button>
+                <button class="view-toggle-btn" data-view="list"><i class="fa-solid fa-list"></i> List</button>
+            </div>
+        </div>
+    </div>
+    <section id="contentArea">
+        <div class="loading-state">
+            <div class="loader-ring"></div>
+            <span>Memuat data...</span>
+        </div>
+    </section>
+    <footer style="margin-top:2.5rem;text-align:center;font-size:0.7rem;color:var(--fg-dim);padding-top:1.5rem;border-top:1px solid var(--border);">Ruang Waktu — Data Center</footer>
 </div>
-<div class="modal-overlay" id="modalOverlay"><div class="modal-panel"><div class="modal-accent" id="modalAccent" style="height:4px;"></div><div class="modal-header"><button class="modal-close" id="modalCloseBtn"><i class="fa-solid fa-xmark"></i></button></div><div class="modal-body"><div class="modal-section"><div class="modal-section-label">Judul</div><div class="modal-section-content" id="modalColA"></div></div><div class="modal-section"><div class="modal-section-label">Detail</div><div class="modal-section-content" id="modalColB"></div></div><div class="modal-actions" id="modalActions"></div></div></div></div>
+</main>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-panel">
+        <div class="accent-strip" id="modalAccent" style="height:4px;"></div>
+        <div class="modal-header"><button class="modal-close" id="modalCloseBtn"><i class="fa-solid fa-xmark"></i></button></div>
+        <div class="modal-body">
+            <div class="modal-section">
+                <div class="modal-section-label">Judul</div>
+                <div class="modal-section-content" id="modalColA"></div>
+            </div>
+            <div class="modal-section">
+                <div class="modal-section-label">Detail</div>
+                <div class="modal-section-content" id="modalColB"></div>
+            </div>
+            <div class="modal-actions" id="modalActions"></div>
+        </div>
+    </div>
+</div>
 
 <script>
+/* ============================================================
+   KONFIGURASI & STATE
+   ============================================================ */
 const LOGIN_KEY = "ruangWaktuAuth";
-const VALID_USERNAME = "Putra28";
-const VALID_PASSWORD = "Tyaaa27";
-function isLoggedIn() { return localStorage.getItem(LOGIN_KEY) === "true"; }
-function setLoggedIn(state) { if (state) localStorage.setItem(LOGIN_KEY, "true"); else localStorage.removeItem(LOGIN_KEY); }
-function showLoginModal() { document.getElementById("loginModal").classList.remove("hidden"); }
-function hideLoginModal() { document.getElementById("loginModal").classList.add("hidden"); }
-function logout() { setLoggedIn(false); showLoginModal(); document.getElementById("appLayout").classList.remove("entering"); }
-function attemptLogin(username, password) { if (username === VALID_USERNAME && password === VALID_PASSWORD) { setLoggedIn(true); hideLoginModal(); document.getElementById("appLayout").classList.add("entering"); loadData(); initSidebar(); initViewToggle(); initQrisTypeFilter(); return true; } else { document.getElementById("loginError").innerText = "Username atau password salah."; return false; } }
-document.getElementById("loginBtn")?.addEventListener("click", () => attemptLogin(document.getElementById("loginUsername").value.trim(), document.getElementById("loginPassword").value));
-document.getElementById("logoutHeaderBtn")?.addEventListener("click", logout);
-document.getElementById("togglePasswordBtn")?.addEventListener("click", () => { let p = document.getElementById("loginPassword"); p.type = p.type === "password" ? "text" : "password"; });
+const VALID_USER = "Putra28";
+const VALID_PASS = "Tyaaa27";
 
-// Konfigurasi Spreadsheet
 const SPREADSHEET_ID = "1VO91WJb1w2Pi4V_GO12hDl8KPkkmHkOUFxtqEmCvygM";
 const GID_TAMBAHAN = "575827072";
 const GID_HADIAH   = "473202279";
 const GID_QRIS     = "58319050";
 const GID_PROFILE  = "1187407703";
-const DATA_URL_GID0   = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
-const DATA_URL_GID5   = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_TAMBAHAN}`;
-const DATA_URL_GID473 = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_HADIAH}`;
-const DATA_URL_QRIS   = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_QRIS}`;
-const DATA_URL_PROFILE = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_PROFILE}`;
+
+const URL_GID0     = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
+const URL_GID5     = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_TAMBAHAN}`;
+const URL_GID473   = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_HADIAH}`;
+const URL_GID_QRIS = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_QRIS}`;
+const URL_GID_PROF = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_PROFILE}`;
 
 let gid0Data = [], gid5Data = [], gid473Data = [], gidQrisData = [], gidProfileData = [];
-let currentFilter = "gidQris", currentView = "grid", searchQuery = "", isLoading = false, lastError = null, qrisTypeFilter = "all";
+let currentFilter = "gidQris", currentView = "grid", searchQuery = "", qrisTypeFilter = "all";
+let isLoading = false, lastError = null;
 let lastRefreshTime = null, timerRemaining = 30, timerInterval = null;
-const contentArea = document.getElementById("contentArea"), searchInput = document.getElementById("searchInput"), searchClear = document.getElementById("searchClear");
-const pageTitleEl = document.getElementById("pageTitle"), refreshBtn = document.getElementById("refreshBtn"), liveDot = document.getElementById("liveDot");
-const timerBarFillEl = document.getElementById("timerBarFill"), timerLastUpdateEl = document.getElementById("timerLastUpdate");
 
-function escapeHtml(str) { if (!str) return ""; return str.replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[m]); }
-function parseGvizResponse(text) { const s = text.indexOf("{"), e = text.lastIndexOf("}"); if (s === -1 || e === -1) throw new Error("Invalid"); return JSON.parse(text.substring(s, e + 1)).table; }
-function formatTime(date) { return date.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit', second:'2-digit' }); }
+const contentArea       = document.getElementById("contentArea");
+const searchInput       = document.getElementById("searchInput");
+const searchClear       = document.getElementById("searchClear");
+const pageTitleEl       = document.getElementById("pageTitle");
+const refreshBtn        = document.getElementById("refreshBtn");
+const liveDot           = document.getElementById("liveDot");
+const timerBarFillEl    = document.getElementById("timerBarFill");
+const timerLastUpdateEl = document.getElementById("timerLastUpdate");
 
-// Fetch data dengan deteksi gambar otomatis (untuk QRIS dan Profile)
-async function fetchRichData(url) {
-    const res = await fetch(url); if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const table = parseGvizResponse(await res.text());
+/* ============================================================
+   UTILITAS
+   ============================================================ */
+function escapeHtml(s) {
+    if (!s) return "";
+    return String(s).replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[m]);
+}
+
+function parseGviz(text) {
+    const s = text.indexOf("{"), e = text.lastIndexOf("}");
+    if (s === -1 || e === -1) throw new Error("Format data tidak valid");
+    return JSON.parse(text.substring(s, e + 1)).table;
+}
+
+function formatTime(d) {
+    return d.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+}
+
+function isImageUrl(val) {
+    if (!val || typeof val !== "string") return false;
+    return /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i.test(val) ||
+           val.includes("drive.google.com/uc?id=") ||
+           val.startsWith("data:image");
+}
+
+function detectQrisType(item) {
+    const text = ((item.title || "") + " " + (item.content || "")).toLowerCase();
+    if (["bca","mandiri","bri","bni","cimb","permata","bsi","bank","danamon","ocbc","maybank","btn","mega","panin","bukopin"].some(k => text.includes(k))) return "bank";
+    if (["ovo","gopay","dana","linkaja","shopeepay","spay","ewallet","dompet digital","paylater","doku","sakuku"].some(k => text.includes(k))) return "ewallet";
+    return "all";
+}
+
+/* Apakah tab ini menyembunyikan tombol Copy Teks */
+function hideCopyTextBtn() { return currentFilter === "gidProfile"; }
+
+/* ============================================================
+   AUTH
+   ============================================================ */
+function isLoggedIn() { return localStorage.getItem(LOGIN_KEY) === "true"; }
+function setLoggedIn(v) { v ? localStorage.setItem(LOGIN_KEY, "true") : localStorage.removeItem(LOGIN_KEY); }
+function showLogin() { document.getElementById("loginModal").classList.remove("hidden"); }
+function hideLogin() { document.getElementById("loginModal").classList.add("hidden"); }
+function logout() { setLoggedIn(false); showLogin(); document.getElementById("appLayout").classList.remove("entering"); }
+
+function attemptLogin(u, p) {
+    if (u === VALID_USER && p === VALID_PASS) {
+        setLoggedIn(true); hideLogin();
+        document.getElementById("appLayout").classList.add("entering");
+        bootstrapApp(); return true;
+    }
+    const errEl = document.getElementById("loginError");
+    errEl.innerText = "Username atau password salah.";
+    errEl.style.animation = "none"; void errEl.offsetWidth; errEl.style.animation = "";
+    return false;
+}
+
+/* ============================================================
+   FETCH DATA
+   ============================================================ */
+async function fetchSimple(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const table = parseGviz(await res.text());
+    return (table.rows || []).map(r => ({
+        title: r.c[0]?.v != null ? String(r.c[0].v).trim() : "",
+        content: r.c[1]?.v != null ? String(r.c[1].v).trim() : "",
+        imageUrl: "",
+        raw: (r.c || []).map(c => c?.v != null ? String(c.v).trim() : "")
+    }));
+}
+
+async function fetchRich(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const table = parseGviz(await res.text());
     const rows = table.rows || [];
     const items = [];
-    for (let row of rows) {
+    for (const row of rows) {
         const cells = row.c || [];
-        const rawValues = cells.map(c => c?.v != null ? String(c.v).trim() : "");
-        if (rawValues.every(v => !v)) continue;
+        const raw = cells.map(c => c?.v != null ? String(c.v).trim() : "");
+        if (raw.every(v => !v)) continue;
         let imageUrl = "";
-        for (let val of rawValues) {
-            if (val && (val.match(/\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i) || val.includes("drive.google.com/uc?id=") || val.startsWith("data:image"))) {
-                imageUrl = val; break;
-            }
+        const textParts = [];
+        for (const val of raw) {
+            if (isImageUrl(val)) { if (!imageUrl) imageUrl = val; }
+            else if (val) { textParts.push(val); }
         }
-        items.push({ title: rawValues[0] || "Informasi", content: rawValues[1] || "", imageUrl, raw: rawValues });
+        items.push({ title: textParts[0] || "Informasi", content: textParts.slice(1).join("\n"), imageUrl, raw });
     }
     return items;
 }
-async function fetchSimpleData(url) { const res = await fetch(url); const table = parseGvizResponse(await res.text()); return (table.rows || []).map(r => ({ title: r.c[0]?.v != null ? String(r.c[0].v) : "", content: r.c[1]?.v != null ? String(r.c[1].v) : "" })); }
 
 async function fetchSheetData() {
-    const [r0, r5, r473, rQris, rProfile] = await Promise.allSettled([
-        fetchSimpleData(DATA_URL_GID0), fetchSimpleData(DATA_URL_GID5), fetchSimpleData(DATA_URL_GID473),
-        fetchRichData(DATA_URL_QRIS), fetchRichData(DATA_URL_PROFILE)
+    const [r0, r5, r473, rQris, rProf] = await Promise.allSettled([
+        fetchSimple(URL_GID0), fetchSimple(URL_GID5), fetchSimple(URL_GID473),
+        fetchRich(URL_GID_QRIS), fetchRich(URL_GID_PROF)
     ]);
-    if (r0.status === "fulfilled") gid0Data = r0.value;
-    if (r5.status === "fulfilled") gid5Data = r5.value;
-    if (r473.status === "fulfilled") gid473Data = r473.value;
-    if (rQris.status === "fulfilled") gidQrisData = rQris.value;
-    if (rProfile.status === "fulfilled") gidProfileData = rProfile.value;
+    if (r0.status === "fulfilled")      gid0Data = r0.value;
+    if (r5.status === "fulfilled")      gid5Data = r5.value;
+    if (r473.status === "fulfilled")    gid473Data = r473.value;
+    if (rQris.status === "fulfilled")   gidQrisData = rQris.value;
+    if (rProf.status === "fulfilled")   gidProfileData = rProf.value;
 }
 
-function detectQrisType(item) { const text = (item.title + " " + item.content).toLowerCase(); if (['bca','mandiri','bri','bni','cimb','permata','bsi','bank','danamon','ocbc','maybank'].some(k=>text.includes(k))) return "bank"; if (['ovo','gopay','dana','linkaja','shopeepay','spay','ewallet','dompet digital','paylater'].some(k=>text.includes(k))) return "ewallet"; return "all"; }
+/* ============================================================
+   PENCOCOKAN GAMBAR QRIS ← PROFILE (gid=1187407703)
+   ============================================================ */
+function buildProfileImageMap() {
+    const map = new Map();
+    for (const p of gidProfileData) {
+        if (p.imageUrl) map.set(p.title.toLowerCase().trim(), p.imageUrl);
+    }
+    return map;
+}
+
+function findProfileImage(qrisTitle, profileMap) {
+    if (!qrisTitle) return "";
+    const key = qrisTitle.toLowerCase().trim();
+    if (profileMap.has(key)) return profileMap.get(key);
+    let bestMatch = "", bestLen = Infinity;
+    for (const [pKey, pImg] of profileMap) {
+        if (key.includes(pKey) && pKey.length < bestLen && pKey.length >= 2) {
+            bestMatch = pImg; bestLen = pKey.length;
+        }
+    }
+    if (bestMatch) return bestMatch;
+    bestMatch = ""; bestLen = Infinity;
+    for (const [pKey, pImg] of profileMap) {
+        if (pKey.includes(key) && key.length >= 2) { bestMatch = pImg; bestLen = pKey.length; }
+    }
+    return bestMatch;
+}
+
+/* ============================================================
+   DATA YANG DITAMPILKAN
+   ============================================================ */
 function getActiveData() {
-    if (currentFilter === "gid0") return gid0Data;
-    if (currentFilter === "gid5") return gid5Data;
-    if (currentFilter === "gid473") return gid473Data;
-    if (currentFilter === "gidProfile") return gidProfileData;
-    let data = [...gidQrisData];
-    if (qrisTypeFilter !== "all") data = data.filter(item => detectQrisType(item) === qrisTypeFilter);
-    return data;
-}
-function getFilteredData() { let data = getActiveData(); if (searchQuery.trim()) { const q = searchQuery.trim().toLowerCase(); data = data.filter(item => (item.title?.toLowerCase().includes(q) || item.content?.toLowerCase().includes(q))); } return data; }
-function getConfigKey() { if (currentFilter === "gidProfile") return "gidProfile"; if (currentFilter === "gidQris") return "qrisCombined"; return currentFilter; }
-function getConfig() {
-    const map = {
-        gid0: { titleHTML: '<span class="accent-word">ALL</span> PK', stripGradient: 'linear-gradient(90deg, #e8a838, rgba(232,168,56,0.2))', emptyIcon:'fa-layer-group', emptyTitle:'Tidak ada data PK', searchPlaceholder:'Cari data PK...' },
-        gid5: { titleHTML: 'Jadwal <span class="accent-word">PASARAN</span>', stripGradient: 'linear-gradient(90deg, #f06858, rgba(240,104,88,0.2))', emptyIcon:'fa-calendar-days', emptyTitle:'Tidak ada jadwal', searchPlaceholder:'Cari jadwal...' },
-        gid473: { titleHTML: 'Hadiah <span class="accent-word">TOGEL</span>', stripGradient: 'linear-gradient(90deg, #a78bfa, rgba(167,139,250,0.2))', emptyIcon:'fa-trophy', emptyTitle:'Tidak ada hadiah', searchPlaceholder:'Cari hadiah...' },
-        qrisCombined: { titleHTML: '<span class="qris-word">QRIS Payment</span>', stripGradient: 'linear-gradient(90deg, #4fc3f7, rgba(79,195,247,0.2))', emptyIcon:'fa-qrcode', emptyTitle:'Tidak ada QRIS', searchPlaceholder:'Cari QRIS (bank/ewallet)...' },
-        gidProfile: { titleHTML: '<span class="accent-word">PROFILE BANK & E-WALLET</span>', stripGradient: 'linear-gradient(90deg, #36d1dc, rgba(54,209,220,0.2))', emptyIcon:'fa-building-columns', emptyTitle:'Belum ada data profile', searchPlaceholder:'Cari profile bank / e-wallet...' }
-    };
-    return map[getConfigKey()] || map.qrisCombined;
-}
-function updatePageHeader() { const cfg = getConfig(); pageTitleEl.innerHTML = cfg.titleHTML; searchInput.placeholder = cfg.searchPlaceholder; document.getElementById("qrisTypeFilterWrapper").style.display = currentFilter === "gidQris" ? "flex" : "none"; }
-function showToast(msg) { const t = document.createElement("div"); t.className = "toast"; t.innerHTML = `<i class="fa-solid fa-check-circle"></i> ${escapeHtml(msg)}`; document.body.appendChild(t); setTimeout(()=>t.remove(),1800); }
-async function copyTextToClipboard(text,label){ if(!text) return; try{ await navigator.clipboard.writeText(text); showToast(`${label||"Teks"} disalin`); } catch(e){} }
-async function copyImageToClipboard(url,title){ if(!url) return; try{ const r=await fetch(url); const blob=await r.blob(); await navigator.clipboard.write([new ClipboardItem({[blob.type]:blob})]); showToast(`Gambar ${title} disalin`); } catch(e){} }
-
-function renderContent() {
-    if (lastError && !isLoading) { contentArea.innerHTML = `<div class="error-state"><i class="fa-solid fa-triangle-exclamation"></i><span>${escapeHtml(lastError)}</span></div>`; return; }
-    if (isLoading) { contentArea.innerHTML = `<div class="loading-state"><div class="loader-ring" style="width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;"></div><span>Memuat...</span></div>`; return; }
-    const items = getFilteredData(); const cfg = getConfig(); const q = searchQuery.trim();
-    document.getElementById("searchResultCount").innerHTML = q ? `Ditemukan ${items.length} dari ${getActiveData().length} data` : "";
-    if (items.length === 0) { contentArea.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid ${cfg.emptyIcon}"></i></div><div class="empty-title">${cfg.emptyTitle}</div></div>`; return; }
-    if (currentView === "grid") {
-        let html = '<div class="cards-grid">';
-        items.forEach((it,idx)=>{
-            const title = q ? it.title.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'),'<mark style="background:rgba(79,195,247,0.2);color:var(--qris-primary);">$1</mark>') : escapeHtml(it.title);
-            const content = q ? it.content.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'),'<mark style="background:rgba(79,195,247,0.2);color:var(--qris-primary);">$1</mark>') : escapeHtml(it.content);
-            const imgHtml = it.imageUrl ? `<div class="qris-image-preview"><img src="${escapeHtml(it.imageUrl)}" loading="lazy" alt="gambar" onerror="this.style.opacity='0.3'"></div>` : '';
-            html += `<article class="card" data-index="${idx}"><div class="accent-strip" style="background:${cfg.stripGradient};height:3px;"></div><div class="card-inner"><h2 class="card-title">${title}</h2>${content?`<div class="card-content">${content}</div>`:''}${imgHtml}<div class="qris-actions" style="margin-top:0.8rem;display:flex;gap:0.5rem;"><button class="btn-action copy-text-btn" data-index="${idx}"><i class="fa-regular fa-copy"></i> Copy Teks</button>${it.imageUrl?`<button class="btn-action copy-img-btn" data-index="${idx}"><i class="fa-regular fa-image"></i> Copy Gambar</button>`:''}</div></div></article>`;
-        });
-        html += '</div>'; contentArea.innerHTML = html;
-    } else {
-        let html = '<div class="cards-list">';
-        items.forEach((it,idx)=>{
-            const title = q ? it.title.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'),'<mark style="background:rgba(79,195,247,0.2);color:var(--qris-primary);">$1</mark>') : escapeHtml(it.title);
-            const content = q ? it.content.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'),'<mark style="background:rgba(79,195,247,0.2);color:var(--qris-primary);">$1</mark>') : escapeHtml(it.content);
-            html += `<div class="list-row" data-index="${idx}" style="display:grid;grid-template-columns:1fr 2fr auto;gap:1rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;margin-bottom:0.6rem;"><div class="row-title">${title}</div><div class="row-content">${content}</div><div class="row-actions"><button class="row-action-btn copy-text-btn" data-index="${idx}" style="background:transparent;border:1px solid var(--border);padding:0.4rem 0.7rem;border-radius:8px;"><i class="fa-regular fa-copy"></i></button>${it.imageUrl?`<button class="row-action-btn copy-img-btn" data-index="${idx}" style="background:transparent;border:1px solid var(--border);padding:0.4rem 0.7rem;border-radius:8px;"><i class="fa-regular fa-image"></i></button>`:''}<button class="row-action-btn detail-btn" data-index="${idx}" style="background:transparent;border:1px solid var(--border);padding:0.4rem 0.7rem;border-radius:8px;"><i class="fa-solid fa-expand"></i></button></div></div>`;
-        });
-        html += '</div>'; contentArea.innerHTML = html;
+    switch (currentFilter) {
+        case "gid0":       return gid0Data;
+        case "gid5":       return gid5Data;
+        case "gid473":     return gid473Data;
+        case "gidProfile": return gidProfileData;
+        case "gidQris": {
+            const profileMap = buildProfileImageMap();
+            let data = gidQrisData.map(item => {
+                const matchedImage = findProfileImage(item.title, profileMap);
+                return { ...item, imageUrl: matchedImage || item.imageUrl };
+            });
+            if (qrisTypeFilter !== "all") {
+                data = data.filter(it => detectQrisType(it) === qrisTypeFilter);
+            }
+            return data;
+        }
+        default: return [];
     }
 }
 
-function openModal(index) { const items = getFilteredData(); if(!items[index]) return; const it = items[index]; const cfg=getConfig(); document.getElementById("modalAccent").style.background=cfg.stripGradient; document.getElementById("modalColA").innerHTML=`<strong>${escapeHtml(it.title)}</strong>`; let body = escapeHtml(it.content||""); if(it.imageUrl) body += `<div class="modal-qris-image"><img src="${escapeHtml(it.imageUrl)}" alt="gambar"></div>`; document.getElementById("modalColB").innerHTML=body; const actions = document.getElementById("modalActions"); actions.innerHTML = `<button class="btn-action" id="modalCopyTextBtn"><i class="fa-regular fa-copy"></i> Copy Teks</button>${it.imageUrl?'<button class="btn-action" id="modalCopyImageBtn"><i class="fa-regular fa-image"></i> Copy Gambar</button>':''}`; document.getElementById("modalCopyTextBtn")?.addEventListener("click",()=>copyTextToClipboard(it.content,"Teks")); document.getElementById("modalCopyImageBtn")?.addEventListener("click",()=>copyImageToClipboard(it.imageUrl,it.title)); document.getElementById("modalOverlay").classList.add("open"); }
-function closeModal(){ document.getElementById("modalOverlay").classList.remove("open"); }
-document.getElementById("modalCloseBtn")?.addEventListener("click",closeModal); document.getElementById("modalOverlay")?.addEventListener("click",e=>{if(e.target===document.getElementById("modalOverlay")) closeModal();});
-contentArea.addEventListener("click", async (e) => {
-    const textBtn = e.target.closest(".copy-text-btn"); if(textBtn){ const idx=parseInt(textBtn.dataset.index); const it=getFilteredData()[idx]; if(it) await copyTextToClipboard(it.content,"Teks"); return; }
-    const imgBtn = e.target.closest(".copy-img-btn"); if(imgBtn){ const idx=parseInt(imgBtn.dataset.index); const it=getFilteredData()[idx]; if(it?.imageUrl) await copyImageToClipboard(it.imageUrl,it.title); return; }
-    const detailBtn = e.target.closest(".detail-btn"); if(detailBtn){ openModal(parseInt(detailBtn.dataset.index)); return; }
-    const card = e.target.closest(".card"); if(card){ openModal(parseInt(card.dataset.index)); return; }
-    const row = e.target.closest(".list-row"); if(row){ openModal(parseInt(row.dataset.index)); }
+function getFilteredData() {
+    let data = getActiveData();
+    if (searchQuery.trim()) {
+        const q = searchQuery.trim().toLowerCase();
+        data = data.filter(it =>
+            (it.title || "").toLowerCase().includes(q) ||
+            (it.content || "").toLowerCase().includes(q)
+        );
+    }
+    return data;
+}
+
+/* ============================================================
+   KONFIGURASI HALAMAN PER TAB
+   ============================================================ */
+function getConfigKey() {
+    if (currentFilter === "gidProfile") return "gidProfile";
+    if (currentFilter === "gidQris")   return "qrisCombined";
+    return currentFilter;
+}
+
+const PAGE_CONFIGS = {
+    gid0: {
+        titleHTML: '<span class="accent-word">ALL</span> PK',
+        stripGradient: "linear-gradient(90deg, #e8a838, rgba(232,168,56,0.2))",
+        emptyIcon: "fa-layer-group", emptyTitle: "Tidak ada data PK",
+        searchPlaceholder: "Cari data PK..."
+    },
+    gid5: {
+        titleHTML: 'Jadwal <span class="accent-word">PASARAN</span>',
+        stripGradient: "linear-gradient(90deg, #f06858, rgba(240,104,88,0.2))",
+        emptyIcon: "fa-calendar-days", emptyTitle: "Tidak ada jadwal",
+        searchPlaceholder: "Cari jadwal..."
+    },
+    gid473: {
+        titleHTML: 'Hadiah <span class="accent-word">TOGEL</span>',
+        stripGradient: "linear-gradient(90deg, #a78bfa, rgba(167,139,250,0.2))",
+        emptyIcon: "fa-trophy", emptyTitle: "Tidak ada hadiah",
+        searchPlaceholder: "Cari hadiah..."
+    },
+    qrisCombined: {
+        titleHTML: '<span class="qris-word">QRIS Payment</span>',
+        stripGradient: "linear-gradient(90deg, #4fc3f7, rgba(79,195,247,0.2))",
+        emptyIcon: "fa-qrcode", emptyTitle: "Tidak ada data QRIS",
+        searchPlaceholder: "Cari QRIS (bank/ewallet)..."
+    },
+    gidProfile: {
+        titleHTML: '<span class="accent-word">PROFILE</span> Bank & E-Wallet',
+        stripGradient: "linear-gradient(90deg, #36d1dc, rgba(54,209,220,0.2))",
+        emptyIcon: "fa-building-columns", emptyTitle: "Belum ada data profile",
+        searchPlaceholder: "Cari profile bank / e-wallet..."
+    }
+};
+
+function getCfg() { return PAGE_CONFIGS[getConfigKey()] || PAGE_CONFIGS.qrisCombined; }
+
+function updatePageHeader() {
+    const cfg = getCfg();
+    pageTitleEl.innerHTML = cfg.titleHTML;
+    searchInput.placeholder = cfg.searchPlaceholder;
+    document.getElementById("qrisTypeFilterWrapper").style.display = currentFilter === "gidQris" ? "flex" : "none";
+}
+
+/* ============================================================
+   TOAST & CLIPBOARD
+   ============================================================ */
+function showToast(msg) {
+    const t = document.createElement("div");
+    t.className = "toast";
+    t.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--sage);"></i> ${escapeHtml(msg)}`;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 1800);
+}
+
+async function copyText(text, label) {
+    if (!text) return;
+    try { await navigator.clipboard.writeText(text); showToast((label || "Teks") + " disalin"); }
+    catch (e) { showToast("Gagal menyalin"); }
+}
+
+async function copyImage(url, title) {
+    if (!url) return;
+    try {
+        const r = await fetch(url); const blob = await r.blob();
+        await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
+        showToast("Gambar " + (title || "") + " disalin");
+    } catch (e) { showToast("Gagal menyalin gambar"); }
+}
+
+/* ============================================================
+   RENDER KONTEN
+   ============================================================ */
+function highlightMatch(text, query) {
+    if (!query || !text) return escapeHtml(text);
+    const safe = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return escapeHtml(text).replace(new RegExp(`(${safe})`, "gi"), '<mark>$1</mark>');
+}
+
+function renderContent() {
+    if (isLoading && !lastRefreshTime) {
+        contentArea.innerHTML = `<div class="loading-state"><div class="loader-ring"></div><span>Memuat data...</span></div>`;
+        return;
+    }
+    if (lastError && !isLoading) {
+        contentArea.innerHTML = `<div class="error-state"><div class="error-icon"><i class="fa-solid fa-triangle-exclamation"></i></div><span>${escapeHtml(lastError)}</span></div>`;
+        return;
+    }
+
+    const items = getFilteredData();
+    const cfg = getCfg();
+    const q = searchQuery.trim();
+    const noCopyText = hideCopyTextBtn();
+    const totalActive = getActiveData().length;
+    document.getElementById("searchResultCount").innerHTML = q ? `Ditemukan <strong>${items.length}</strong> dari ${totalActive} data` : "";
+
+    if (items.length === 0) {
+        contentArea.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid ${cfg.emptyIcon}"></i></div><div class="empty-title">${cfg.emptyTitle}</div></div>`;
+        return;
+    }
+
+    if (currentView === "grid") {
+        contentArea.innerHTML = '<div class="cards-grid">' +
+            items.map((it, i) => {
+                const title = highlightMatch(it.title, q);
+                const content = highlightMatch(it.content, q);
+                const imgHtml = it.imageUrl
+                    ? `<div class="qris-image-preview"><img src="${escapeHtml(it.imageUrl)}" loading="lazy" alt="gambar" onerror="this.parentElement.style.display='none'"></div>`
+                    : "";
+                const imgBtn = it.imageUrl
+                    ? `<button class="btn-action copy-img-btn" data-index="${i}"><i class="fa-regular fa-image"></i> Copy Gambar</button>`
+                    : "";
+                /* Tombol Copy Teks disembunyikan di tab Profile */
+                const textBtn = noCopyText ? "" : `<button class="btn-action copy-text-btn" data-index="${i}"><i class="fa-regular fa-copy"></i> Copy Teks</button>`;
+                return `<article class="card" data-index="${i}">
+                    <div class="accent-strip" style="background:${cfg.stripGradient};"></div>
+                    <div class="card-inner">
+                        <h2 class="card-title">${title}</h2>
+                        ${content ? `<div class="card-content">${content}</div>` : ""}
+                        ${imgHtml}
+                        <div class="qris-actions">${textBtn}${imgBtn}</div>
+                    </div>
+                </article>`;
+            }).join("") + '</div>';
+    } else {
+        contentArea.innerHTML = '<div class="cards-list">' +
+            items.map((it, i) => {
+                const title = highlightMatch(it.title, q);
+                const content = highlightMatch(it.content, q);
+                const imgBtn = it.imageUrl
+                    ? `<button class="row-action-btn copy-img-btn" data-index="${i}" title="Copy Gambar"><i class="fa-regular fa-image"></i></button>`
+                    : "";
+                /* Tombol Copy Teks disembunyikan di tab Profile */
+                const textBtn = noCopyText ? "" : `<button class="row-action-btn copy-text-btn" data-index="${i}" title="Copy Teks"><i class="fa-regular fa-copy"></i></button>`;
+                return `<div class="list-row" data-index="${i}">
+                    <div class="row-title">${title}</div>
+                    <div class="row-content">${content || "—"}</div>
+                    <div class="row-actions">${textBtn}${imgBtn}<button class="row-action-btn detail-btn" data-index="${i}" title="Detail"><i class="fa-solid fa-expand"></i></button></div>
+                </div>`;
+            }).join("") + '</div>';
+    }
+}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+function openModal(index) {
+    const items = getFilteredData();
+    if (!items[index]) return;
+    const it = items[index];
+    const cfg = getCfg();
+    const noCopyText = hideCopyTextBtn();
+
+    document.getElementById("modalAccent").style.background = cfg.stripGradient;
+    document.getElementById("modalColA").innerHTML = `<strong>${escapeHtml(it.title)}</strong>`;
+    let body = escapeHtml(it.content || "Tidak ada detail.");
+    if (it.imageUrl) {
+        body += `<div class="modal-qris-image"><img src="${escapeHtml(it.imageUrl)}" alt="gambar" onerror="this.parentElement.style.display='none'"></div>`;
+    }
+    document.getElementById("modalColB").innerHTML = body;
+
+    let actions = "";
+    /* Tombol Copy Teks disembunyikan di tab Profile */
+    if (!noCopyText) {
+        actions += `<button class="btn-action" id="mCopyText"><i class="fa-regular fa-copy"></i> Copy Teks</button>`;
+    }
+    if (it.imageUrl) {
+        actions += `<button class="btn-action" id="mCopyImg"><i class="fa-regular fa-image"></i> Copy Gambar</button>`;
+    }
+    document.getElementById("modalActions").innerHTML = actions;
+
+    const mct = document.getElementById("mCopyText");
+    if (mct) mct.onclick = () => copyText(it.content, "Teks");
+    const mci = document.getElementById("mCopyImg");
+    if (mci) mci.onclick = () => copyImage(it.imageUrl, it.title);
+
+    document.getElementById("modalOverlay").classList.add("open");
+}
+
+function closeModal() { document.getElementById("modalOverlay").classList.remove("open"); }
+document.getElementById("modalCloseBtn").addEventListener("click", closeModal);
+document.getElementById("modalOverlay").addEventListener("click", e => { if (e.target === document.getElementById("modalOverlay")) closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+/* ============================================================
+   DELEGASI KLIK KONTEN
+   ============================================================ */
+contentArea.addEventListener("click", async e => {
+    const idx = e.target.closest("[data-index]");
+    if (!idx) return;
+    const i = parseInt(idx.dataset.index);
+    const items = getFilteredData();
+    if (e.target.closest(".copy-text-btn")) { if (items[i]) await copyText(items[i].content, "Teks"); return; }
+    if (e.target.closest(".copy-img-btn"))  { if (items[i]?.imageUrl) await copyImage(items[i].imageUrl, items[i].title); return; }
+    if (e.target.closest(".detail-btn"))    { openModal(i); return; }
+    openModal(i);
 });
 
-function initSidebar() { document.querySelectorAll(".sidebar-item").forEach(item=>{ item.addEventListener("click",()=>{ document.querySelectorAll(".sidebar-item").forEach(i=>i.classList.remove("active")); item.classList.add("active"); currentFilter = item.dataset.filter; searchQuery=""; searchInput.value=""; searchClear.classList.remove("visible"); qrisTypeFilter="all"; document.querySelectorAll(".filter-chip").forEach(chip=>{ chip.classList.toggle("active", chip.dataset.type==="all"); }); updatePageHeader(); renderContent(); }); }); }
-function initViewToggle() { document.querySelectorAll(".view-toggle-btn").forEach(btn=>{ btn.addEventListener("click",()=>{ document.querySelectorAll(".view-toggle-btn").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); currentView=btn.dataset.view; renderContent(); }); }); }
-function initQrisTypeFilter() { document.querySelectorAll(".filter-chip").forEach(chip=>{ chip.addEventListener("click",()=>{ if(currentFilter!=="gidQris") return; document.querySelectorAll(".filter-chip").forEach(c=>c.classList.remove("active")); chip.classList.add("active"); qrisTypeFilter=chip.dataset.type; renderContent(); }); }); }
+/* ============================================================
+   SIDEBAR, VIEW TOGGLE, FILTER, SEARCH
+   ============================================================ */
+function initSidebar() {
+    document.querySelectorAll(".sidebar-item").forEach(item => {
+        item.addEventListener("click", () => {
+            document.querySelectorAll(".sidebar-item").forEach(i => i.classList.remove("active"));
+            item.classList.add("active");
+            currentFilter = item.dataset.filter;
+            searchQuery = ""; searchInput.value = ""; searchClear.classList.remove("visible");
+            qrisTypeFilter = "all";
+            document.querySelectorAll(".filter-chip").forEach(c => c.classList.toggle("active", c.dataset.type === "all"));
+            updatePageHeader(); renderContent();
+        });
+    });
+}
 
-function updateProgressBar() { timerBarFillEl.style.width = (timerRemaining / 30 * 100) + '%'; }
-function updateLastRefresh() { if(lastRefreshTime) timerLastUpdateEl.innerHTML = `<i class="fa-solid fa-check-circle" style="color:var(--sage);"></i> ${formatTime(lastRefreshTime)}`; else timerLastUpdateEl.innerHTML = `<i class="fa-regular fa-clock"></i> Menunggu`; }
-function startTimer() { if(timerInterval) clearInterval(timerInterval); timerRemaining=30; updateProgressBar(); timerInterval=setInterval(()=>{ timerRemaining--; if(timerRemaining<=0){ silentRefresh(); timerRemaining=30; } updateProgressBar(); },1000); }
-async function silentRefresh() { if(isLoading) return; isLoading=true; try{ await fetchSheetData(); lastError=null; lastRefreshTime=new Date(); updateLastRefresh(); renderContent(); } catch(err){ lastError=err.message; } finally{ isLoading=false; } }
-async function manualRefresh() { if(isLoading) return; isLoading=true; liveDot.classList.add("refreshing"); refreshBtn.classList.add("spinning"); renderContent(); try{ await fetchSheetData(); lastError=null; lastRefreshTime=new Date(); updateLastRefresh(); showToast("Data diperbarui"); renderContent(); } catch(err){ lastError=err.message; showToast("Gagal refresh"); renderContent(); } finally{ isLoading=false; liveDot.classList.remove("refreshing"); refreshBtn.classList.remove("spinning"); } }
-refreshBtn.addEventListener("click",manualRefresh);
-searchInput.addEventListener("input",()=>{ searchQuery=searchInput.value; searchClear.classList.toggle("visible",searchQuery.length>0); renderContent(); });
-searchClear.addEventListener("click",()=>{ searchInput.value=""; searchQuery=""; searchClear.classList.remove("visible"); renderContent(); });
-async function loadData() { isLoading=true; updatePageHeader(); renderContent(); try{ await fetchSheetData(); lastError=null; lastRefreshTime=new Date(); updateLastRefresh(); } catch(err){ lastError=err.message; } finally{ isLoading=false; renderContent(); startTimer(); } }
+function initViewToggle() {
+    document.querySelectorAll(".view-toggle-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll(".view-toggle-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active"); currentView = btn.dataset.view; renderContent();
+        });
+    });
+}
 
-if (!isLoggedIn()) { showLoginModal(); } else { hideLoginModal(); document.getElementById("appLayout").classList.add("entering"); loadData(); initSidebar(); initViewToggle(); initQrisTypeFilter(); }
+function initQrisTypeFilter() {
+    document.querySelectorAll(".filter-chip").forEach(chip => {
+        chip.addEventListener("click", () => {
+            if (currentFilter !== "gidQris") return;
+            document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+            chip.classList.add("active"); qrisTypeFilter = chip.dataset.type; renderContent();
+        });
+    });
+}
+
+searchInput.addEventListener("input", () => {
+    searchQuery = searchInput.value;
+    searchClear.classList.toggle("visible", searchQuery.length > 0);
+    renderContent();
+});
+searchClear.addEventListener("click", () => {
+    searchInput.value = ""; searchQuery = ""; searchClear.classList.remove("visible");
+    searchInput.focus(); renderContent();
+});
+
+/* ============================================================
+   TIMER AUTO-REFRESH 30 DETIK
+   ============================================================ */
+function updateProgressBar() { timerBarFillEl.style.width = (timerRemaining / 30 * 100) + "%"; }
+function updateLastRefreshLabel() {
+    if (lastRefreshTime) timerLastUpdateEl.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--sage);"></i> Update ${formatTime(lastRefreshTime)}`;
+    else timerLastUpdateEl.innerHTML = `<i class="fa-regular fa-clock"></i> Menunggu`;
+}
+
+function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerRemaining = 30; updateProgressBar();
+    timerInterval = setInterval(() => {
+        timerRemaining--;
+        if (timerRemaining <= 0) { silentRefresh(); timerRemaining = 30; }
+        updateProgressBar();
+    }, 1000);
+}
+
+async function silentRefresh() {
+    if (isLoading) return; isLoading = true;
+    try { await fetchSheetData(); lastError = null; lastRefreshTime = new Date(); updateLastRefreshLabel(); renderContent(); }
+    catch (err) { lastError = err.message; }
+    finally { isLoading = false; }
+}
+
+async function manualRefresh() {
+    if (isLoading) return; isLoading = true;
+    liveDot.classList.add("refreshing"); refreshBtn.classList.add("spinning");
+    renderContent();
+    try { await fetchSheetData(); lastError = null; lastRefreshTime = new Date(); updateLastRefreshLabel(); showToast("Data diperbarui"); }
+    catch (err) { lastError = err.message; showToast("Gagal refresh"); }
+    finally { isLoading = false; liveDot.classList.remove("refreshing"); refreshBtn.classList.remove("spinning"); renderContent(); }
+}
+
+refreshBtn.addEventListener("click", manualRefresh);
+
+/* ============================================================
+   LOAD DATA AWAL
+   ============================================================ */
+async function loadData() {
+    isLoading = true; updatePageHeader(); renderContent();
+    try { await fetchSheetData(); lastError = null; lastRefreshTime = new Date(); updateLastRefreshLabel(); }
+    catch (err) { lastError = err.message; }
+    finally { isLoading = false; renderContent(); startTimer(); }
+}
+
+function bootstrapApp() { loadData(); initSidebar(); initViewToggle(); initQrisTypeFilter(); }
+
+/* ============================================================
+   LOGIN EVENT LISTENERS
+   ============================================================ */
+document.getElementById("loginBtn").addEventListener("click", () => {
+    attemptLogin(document.getElementById("loginUsername").value.trim(), document.getElementById("loginPassword").value);
+});
+document.getElementById("loginPassword").addEventListener("keydown", e => {
+    if (e.key === "Enter") attemptLogin(document.getElementById("loginUsername").value.trim(), document.getElementById("loginPassword").value);
+});
+document.getElementById("loginUsername").addEventListener("keydown", e => {
+    if (e.key === "Enter") document.getElementById("loginPassword").focus();
+});
+document.getElementById("togglePasswordBtn").addEventListener("click", () => {
+    const p = document.getElementById("loginPassword");
+    const icon = document.querySelector("#togglePasswordBtn i");
+    p.type = p.type === "password" ? "text" : "password";
+    icon.className = p.type === "password" ? "fa-regular fa-eye" : "fa-regular fa-eye-slash";
+});
+document.getElementById("logoutHeaderBtn").addEventListener("click", logout);
+
+/* ============================================================
+   INISIALISASI
+   ============================================================ */
+if (isLoggedIn()) { hideLogin(); document.getElementById("appLayout").classList.add("entering"); bootstrapApp(); }
+else { showLogin(); }
 </script>
 </body>
 </html>
