@@ -16,9 +16,11 @@
 --coral:#f06858;--sage:#7eb88a;--lavender:#a78bfa;
 --content-color:#7dd3e8;
 --qris-primary:#4fc3f7;--qris-soft:rgba(79,195,247,0.06);
+--bonus-color:#ff6b9d;--bonus-soft:rgba(255,107,157,0.08);
+/* TAMBAHAN BETTING: warna khusus Cara Betting Togel */
+--betting-color:#84cc16;--betting-soft:rgba(132,204,22,0.08);
 --radius:10px;--radius-lg:11px;--sidebar-w:210px;
 --font-display:'Space Grotesk',system-ui,sans-serif;--font-body:'DM Sans',system-ui,sans-serif;
-/* Grid configuration untuk ukuran persegi standar */
 --grid-card-size:200px;
 --grid-gap:16px;
 }
@@ -35,7 +37,7 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:va
 .login-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none;}
 .login-overlay .scanlines{position:absolute;inset:0;pointer-events:none;z-index:1;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,240,255,0.015) 2px,rgba(0,240,255,0.015) 4px);}
 .login-overlay .grid-bg{position:absolute;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(0,240,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,0.03) 1px,transparent 1px);background-size:60px 60px;animation:gridShift 20s linear infinite;}
-@keyframes gridShift{0%{background-position:0 0;}100%{background-position:60px 60px;}
+@keyframes gridShift{0%{background-position:0 0;}100%{background-position:60px 60px);}
 }
 .login-overlay .corner{position:fixed;width:50px;height:50px;pointer-events:none;z-index:2;}
 .login-overlay .corner-tl{top:16px;left:16px;border-top:2px solid #00f0ff;border-left:2px solid #00f0ff;box-shadow:0 0 15px rgba(0,240,255,0.3),inset 0 0 15px rgba(0,240,255,0.05);}
@@ -89,6 +91,9 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:va
 .bg-atmosphere .orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(240,104,88,0.12),transparent 70%);bottom:-15%;right:-5%;}
 .bg-atmosphere .orb-3{width:350px;height:350px;background:radial-gradient(circle,rgba(126,184,138,0.1),transparent 70%);top:40%;left:50%;}
 .bg-atmosphere .orb-4{width:300px;height:300px;background:radial-gradient(circle,rgba(79,195,247,0.08),transparent 70%);top:10%;right:20%;}
+.bg-atmosphere .orb-5{width:280px;height:280px;background:radial-gradient(circle,rgba(255,107,157,0.1),transparent 70%);top:60%;left:15%;}
+/* TAMBAHAN BETTING: orb warna lime hijau */
+.bg-atmosphere .orb-6{width:260px;height:260px;background:radial-gradient(circle,rgba(132,204,22,0.1),transparent 70%);bottom:20%;right:30%;}
 @keyframes orbFloat{0%{transform:translate(0,0) scale(1);}33%{transform:translate(30px,-40px) scale(1.05);}66%{transform:translate(-20px,20px) scale(0.95);}100%{transform:translate(15px,-15px) scale(1.02);}}
 
 .sidebar{width:var(--sidebar-w);background:linear-gradient(180deg,rgba(17,17,24,0.96),rgba(8,8,12,0.98));backdrop-filter:blur(20px);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;flex-shrink:0;overflow-y:auto;}
@@ -105,6 +110,13 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:va
 .sidebar-item.active{background:linear-gradient(135deg,var(--accent-soft),rgba(232,168,56,0.02));border-color:rgba(232,168,56,0.15);}
 .sidebar-item.active .label{color:var(--fg);font-weight:600;}
 .sidebar-item.active .icon-wrap{background:linear-gradient(135deg,rgba(232,168,56,0.2),rgba(232,168,56,0.08));color:var(--accent);}
+.sidebar-item[data-filter="gidBonus"].active{background:linear-gradient(135deg,var(--bonus-soft),rgba(255,107,157,0.02));border-color:rgba(255,107,157,0.15);}
+.sidebar-item[data-filter="gidBonus"].active .label{color:var(--fg);font-weight:600;}
+.sidebar-item[data-filter="gidBonus"].active .icon-wrap{background:linear-gradient(135deg,rgba(255,107,157,0.2),rgba(255,107,157,0.08));color:var(--bonus-color);}
+/* TAMBAHAN BETTING: style active khusus item Cara Betting Togel */
+.sidebar-item[data-filter="gidBetting"].active{background:linear-gradient(135deg,var(--betting-soft),rgba(132,204,22,0.02));border-color:rgba(132,204,22,0.15);}
+.sidebar-item[data-filter="gidBetting"].active .label{color:var(--fg);font-weight:600;}
+.sidebar-item[data-filter="gidBetting"].active .icon-wrap{background:linear-gradient(135deg,rgba(132,204,22,0.2),rgba(132,204,22,0.08));color:var(--betting-color);}
 .sidebar-footer{padding:0.55rem 0.65rem;border-top:1px solid var(--border);}
 .timer-bar-track{width:100%;height:2px;background:rgba(255,255,255,0.04);border-radius:2px;overflow:hidden;}
 .timer-bar-fill{height:100%;background:linear-gradient(90deg,var(--sage),rgba(126,184,138,0.6));transition:width 1s linear;}
@@ -115,6 +127,9 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:va
 .page-title{font-family:var(--font-display);font-size:1.25rem;font-weight:700;}
 .accent-word{color:var(--accent);}
 .qris-word{color:var(--qris-primary);}
+.bonus-word{color:var(--bonus-color);}
+/* TAMBAHAN BETTING: class kata warna betting */
+.betting-word{color:var(--betting-color);}
 .header-actions{display:flex;align-items:center;gap:0.3rem;}
 .status-badge{display:inline-flex;align-items:center;gap:0.25rem;padding:0.2rem 0.5rem;border-radius:14px;background:rgba(126,184,138,0.06);border:1px solid rgba(126,184,138,0.15);font-size:0.55rem;color:var(--sage);}
 .live-dot{width:4px;height:4px;border-radius:50%;background:var(--sage);animation:dotPulse 2s infinite;}
@@ -137,7 +152,6 @@ body{min-height:100vh;background:var(--bg);font-family:var(--font-body);color:va
 .view-toggle-btn{background:transparent;border:none;width:30px;height:30px;border-radius:22px;font-size:0.65rem;font-weight:500;color:var(--fg-muted);cursor:pointer;transition:all 0.25s;font-family:var(--font-body);display:flex;align-items:center;justify-content:center;}
 .view-toggle-btn.active{background:rgba(255,255,255,0.08);color:var(--fg);}
 
-/* ===== GRID SISTEM PERSEGI STANDAR ===== */
 .cards-grid{
 display: grid;
 grid-template-columns: repeat(auto-fill, minmax(var(--grid-card-size), 1fr));
@@ -400,7 +414,7 @@ border: 1px solid var(--border);
 color: var(--fg-dim);
 cursor: pointer;
 display: flex;
-align-items: center;
+align-items:center;
 justify-content: center;
 font-size: 0.72rem;
 transition: all 0.2s;
@@ -416,7 +430,6 @@ color: var(--coral);
 padding: 0 0.85rem 0.85rem;
 }
 
-/* ===== PERUBAHAN: SEMBUNYIKAN LABEL "JUDUL" DAN TEKS KOSONG ===== */
 .modal-section{
 margin-bottom: 0.6rem;
 }
@@ -429,7 +442,6 @@ letter-spacing: 0.12em;
 text-transform: uppercase;
 color: var(--fg-dim);
 margin-bottom: 0.2rem;
-/* Sembunyikan label "Judul" */
 display: none;
 }
 
@@ -445,7 +457,6 @@ color: var(--fg);
 font-weight: 600;
 }
 
-/* Sembunyikan teks "Tidak ada detail." ketika kosong */
 .modal-section-content:empty,
 .modal-section-content:contains("Tidak ada detail.") {
 display: none;
@@ -618,7 +629,7 @@ overflow: visible;
 </style>
 </head>
 <body>
-<div class="bg-atmosphere"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div><div class="orb orb-4"></div></div>
+<div class="bg-atmosphere"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div><div class="orb orb-4"></div><div class="orb orb-5"></div><div class="orb orb-6"></div></div>
 
 <div id="loginModal" class="login-overlay">
     <div class="scanlines"></div><div class="grid-bg"></div>
@@ -660,6 +671,9 @@ overflow: visible;
         <div class="sidebar-item" data-filter="gid0"><div class="icon-wrap"><i class="fa-solid fa-layer-group"></i></div><div class="label">ALL PK</div></div>
         <div class="sidebar-item" data-filter="gid5"><div class="icon-wrap"><i class="fa-solid fa-database"></i></div><div class="label">JADWAL PASARAN</div></div>
         <div class="sidebar-item" data-filter="gid473"><div class="icon-wrap"><i class="fa-solid fa-trophy"></i></div><div class="label">HADIAH TOGEL</div></div>
+        <div class="sidebar-item" data-filter="gidBonus"><div class="icon-wrap"><i class="fa-solid fa-gift"></i></div><div class="label">BONUS LINETOGEL</div></div>
+        <!-- TAMBAHAN BETTING: Item sidebar Cara Betting Togel -->
+        <div class="sidebar-item" data-filter="gidBetting"><div class="icon-wrap"><i class="fa-solid fa-book-open"></i></div><div class="label">CARA BETTING TOGEL</div></div>
         <div class="sidebar-item active" data-filter="gidQris"><div class="icon-wrap"><i class="fa-solid fa-qrcode"></i></div><div class="label">QRIS PAYMENT</div></div>
         <div class="sidebar-item" data-filter="gidProfile"><div class="icon-wrap"><i class="fa-solid fa-building-columns"></i></div><div class="label">PROFILE BANK & E-WALLET</div></div>
     </nav>
@@ -713,12 +727,10 @@ overflow: visible;
         <div class="accent-strip" id="modalAccent" style="height:3px;"></div>
         <div class="modal-header"><button class="modal-close" id="modalCloseBtn"><i class="fa-solid fa-xmark"></i></button></div>
         <div class="modal-body">
-            <!-- Section Judul disembunyikan via CSS -->
             <div class="modal-section">
                 <div class="modal-section-label">Judul</div>
                 <div class="modal-section-content" id="modalColA"></div>
             </div>
-            <!-- Section Detail - hanya tampilkan jika ada isi -->
             <div class="modal-section" id="modalDetailSection">
                 <div class="modal-section-label">Detail</div>
                 <div class="modal-section-content" id="modalColB"></div>
@@ -732,12 +744,24 @@ overflow: visible;
 const LOGIN_KEY="ruangWaktuAuth";const VALID_USER="Putra28";const VALID_PASS="Tyaaa27";
 const SPREADSHEET_ID="1VO91WJb1w2Pi4V_GO12hDl8KPkkmHkOUFxtqEmCvygM";
 const GID_TAMBAHAN="575827072";const GID_HADIAH="473202279";const GID_QRIS="58319050";const GID_PROFILE="1187407703";
+const GID_BONUS="2134404678";
+/* TAMBAHAN BETTING: GID untuk sheet Cara Betting Togel */
+const GID_BETTING="1474141640";
+
 const URL_GID0=`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
 const URL_GID5=`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_TAMBAHAN}`;
 const URL_GID473=`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_HADIAH}`;
 const URL_GID_QRIS=`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_QRIS}`;
 const URL_GID_PROF=`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_PROFILE}`;
+const URL_GID_BONUS=`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_BONUS}`;
+/* TAMBAHAN BETTING: URL untuk sheet Cara Betting Togel */
+const URL_GID_BETTING=`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_BETTING}`;
+
 let gid0Data=[],gid5Data=[],gid473Data=[],gidQrisData=[],gidProfileData=[];
+let gidBonusData=[];
+/* TAMBAHAN BETTING: Array data untuk Cara Betting Togel */
+let gidBettingData=[];
+
 let currentFilter="gidQris",currentView="list",searchQuery="",qrisTypeFilter="all";
 let isLoading=false,lastError=null;
 let lastRefreshTime=null,timerRemaining=30,timerInterval=null;
@@ -766,16 +790,47 @@ function attemptLogin(u,p){if(u===VALID_USER&&p===VALID_PASS){setLoggedIn(true);
 
 async function fetchSimple(url){const res=await fetch(url);if(!res.ok)throw new Error("HTTP "+res.status);const table=parseGviz(await res.text());return(table.rows||[]).map(r=>({title:r.c[0]?.v!=null?String(r.c[0].v).trim():"",content:r.c[1]?.v!=null?String(r.c[1].v).trim():"",imageUrl:"",raw:(r.c||[]).map(c=>c?.v!=null?String(c.v).trim():"")}));}
 async function fetchRich(url){const res=await fetch(url);if(!res.ok)throw new Error("HTTP "+res.status);const table=parseGviz(await res.text());const rows=table.rows||[];const items=[];for(const row of rows){const cells=row.c||[];const raw=cells.map(c=>c?.v!=null?String(c.v).trim():"");if(raw.every(v=>!v))continue;let imageUrl="";const textParts=[];for(const val of raw){if(isImageUrl(val)){if(!imageUrl)imageUrl=val;}else if(val){textParts.push(val);}}items.push({title:textParts[0]||"Informasi",content:textParts.slice(1).join("\n"),imageUrl,raw});}return items;}
-async function fetchSheetData(){const[r0,r5,r473,rQris,rProf]=await Promise.allSettled([fetchSimple(URL_GID0),fetchSimple(URL_GID5),fetchSimple(URL_GID473),fetchRich(URL_GID_QRIS),fetchRich(URL_GID_PROF)]);if(r0.status==="fulfilled")gid0Data=r0.value;if(r5.status==="fulfilled")gid5Data=r5.value;if(r473.status==="fulfilled")gid473Data=r473.value;if(rQris.status==="fulfilled")gidQrisData=rQris.value;if(rProf.status==="fulfilled")gidProfileData=rProf.value;}
+
+async function fetchSheetData(){
+/* TAMBAHAN BETTING: Tambah fetch untuk sheet Cara Betting Togel */
+const[r0,r5,r473,rQris,rProf,rBonus,rBetting]=await Promise.allSettled([
+    fetchSimple(URL_GID0),
+    fetchSimple(URL_GID5),
+    fetchSimple(URL_GID473),
+    fetchRich(URL_GID_QRIS),
+    fetchRich(URL_GID_PROF),
+    fetchSimple(URL_GID_BONUS),
+    fetchSimple(URL_GID_BETTING)
+]);
+if(r0.status==="fulfilled")gid0Data=r0.value;
+if(r5.status==="fulfilled")gid5Data=r5.value;
+if(r473.status==="fulfilled")gid473Data=r473.value;
+if(rQris.status==="fulfilled")gidQrisData=rQris.value;
+if(rProf.status==="fulfilled")gidProfileData=rProf.value;
+if(rBonus.status==="fulfilled")gidBonusData=rBonus.value;
+/* TAMBAHAN BETTING: Simpan data Cara Betting Togel */
+if(rBetting.status==="fulfilled")gidBettingData=rBetting.value;
+}
 
 function buildProfileImageMap(){const map=new Map();for(const p of gidProfileData){if(p.imageUrl)map.set(p.title.toLowerCase().trim(),p.imageUrl);}return map;}
 function findProfileImage(qrisTitle,profileMap){if(!qrisTitle)return"";const key=qrisTitle.toLowerCase().trim();if(profileMap.has(key))return profileMap.get(key);let bestMatch="",bestLen=Infinity;for(const[pKey,pImg]of profileMap){if(key.includes(pKey)&&pKey.length<bestLen&&pKey.length>=2){bestMatch=pImg;bestLen=pKey.length;}}if(bestMatch)return bestMatch;bestMatch="";bestLen=Infinity;for(const[pKey,pImg]of profileMap){if(pKey.includes(key)&&key.length>=2){bestMatch=pImg;bestLen=pKey.length;}}return bestMatch;}
 
-function getActiveData(){switch(currentFilter){case"gid0":return gid0Data;case"gid5":return gid5Data;case"gid473":return gid473Data;case"gidProfile":return gidProfileData;case"gidQris":{const profileMap=buildProfileImageMap();let data=gidQrisData.map(item=>{const matchedImage=findProfileImage(item.title,profileMap);return{...item,imageUrl:matchedImage||item.imageUrl};});if(qrisTypeFilter!=="all"){data=data.filter(it=>detectQrisType(it)===qrisTypeFilter);}return data;}default:return[];}}
+/* TAMBAHAN BETTING: Tambah case gidBetting di getActiveData */
+function getActiveData(){switch(currentFilter){case"gid0":return gid0Data;case"gid5":return gid5Data;case"gid473":return gid473Data;case"gidProfile":return gidProfileData;case"gidBonus":return gidBonusData;case"gidBetting":return gidBettingData;case"gidQris":{const profileMap=buildProfileImageMap();let data=gidQrisData.map(item=>{const matchedImage=findProfileImage(item.title,profileMap);return{...item,imageUrl:matchedImage||item.imageUrl};});if(qrisTypeFilter!=="all"){data=data.filter(it=>detectQrisType(it)===qrisTypeFilter);}return data;}default:return[];}}
 function getFilteredData(){let data=getActiveData();if(searchQuery.trim()){const q=searchQuery.trim().toLowerCase();data=data.filter(it=>(it.title||"").toLowerCase().includes(q)||(it.content||"").toLowerCase().includes(q));}return data;}
 
-function getConfigKey(){if(currentFilter==="gidProfile")return"gidProfile";if(currentFilter==="gidQris")return"qrisCombined";return currentFilter;}
-const PAGE_CONFIGS={gid0:{titleHTML:'<span class="accent-word">ALL</span> PK',stripGradient:"linear-gradient(90deg, #e8a838, rgba(232,168,56,0.2))",emptyIcon:"fa-layer-group",emptyTitle:"Tidak ada data PK",searchPlaceholder:"Cari data PK..."},gid5:{titleHTML:'Jadwal <span class="accent-word">PASARAN</span>',stripGradient:"linear-gradient(90deg, #f06858, rgba(240,104,88,0.2))",emptyIcon:"fa-calendar-days",emptyTitle:"Tidak ada jadwal",searchPlaceholder:"Cari jadwal..."},gid473:{titleHTML:'Hadiah <span class="accent-word">TOGEL</span>',stripGradient:"linear-gradient(90deg, #a78bfa, rgba(167,139,250,0.2))",emptyIcon:"fa-trophy",emptyTitle:"Tidak ada hadiah",searchPlaceholder:"Cari hadiah..."},qrisCombined:{titleHTML:'<span class="qris-word">QRIS Payment</span>',stripGradient:"linear-gradient(90deg, #4fc3f7, rgba(79,195,247,0.2))",emptyIcon:"fa-qrcode",emptyTitle:"Tidak ada data QRIS",searchPlaceholder:"Cari QRIS (bank/ewallet)..."},gidProfile:{titleHTML:'<span class="accent-word">PROFILE</span> Bank & E-Wallet',stripGradient:"linear-gradient(90deg, #36d1dc, rgba(54,209,220,0.2))",emptyIcon:"fa-building-columns",emptyTitle:"Belum ada data profile",searchPlaceholder:"Cari profile bank / e-wallet..."}};
+/* TAMBAHAN BETTING: Tambah case gidBetting di getConfigKey */
+function getConfigKey(){if(currentFilter==="gidProfile")return"gidProfile";if(currentFilter==="gidQris")return"qrisCombined";if(currentFilter==="gidBonus")return"gidBonus";if(currentFilter==="gidBetting")return"gidBetting";return currentFilter;}
+const PAGE_CONFIGS={
+gid0:{titleHTML:'<span class="accent-word">ALL</span> PK',stripGradient:"linear-gradient(90deg, #e8a838, rgba(232,168,56,0.2))",emptyIcon:"fa-layer-group",emptyTitle:"Tidak ada data PK",searchPlaceholder:"Cari data PK..."},
+gid5:{titleHTML:'Jadwal <span class="accent-word">PASARAN</span>',stripGradient:"linear-gradient(90deg, #f06858, rgba(240,104,88,0.2))",emptyIcon:"fa-calendar-days",emptyTitle:"Tidak ada jadwal",searchPlaceholder:"Cari jadwal..."},
+gid473:{titleHTML:'Hadiah <span class="accent-word">TOGEL</span>',stripGradient:"linear-gradient(90deg, #a78bfa, rgba(167,139,250,0.2))",emptyIcon:"fa-trophy",emptyTitle:"Tidak ada hadiah",searchPlaceholder:"Cari hadiah..."},
+qrisCombined:{titleHTML:'<span class="qris-word">QRIS Payment</span>',stripGradient:"linear-gradient(90deg, #4fc3f7, rgba(79,195,247,0.2))",emptyIcon:"fa-qrcode",emptyTitle:"Tidak ada data QRIS",searchPlaceholder:"Cari QRIS (bank/ewallet)..."},
+gidProfile:{titleHTML:'<span class="accent-word">PROFILE</span> Bank & E-Wallet',stripGradient:"linear-gradient(90deg, #36d1dc, rgba(54,209,220,0.2))",emptyIcon:"fa-building-columns",emptyTitle:"Belum ada data profile",searchPlaceholder:"Cari profile bank / e-wallet..."},
+gidBonus:{titleHTML:'<span class="bonus-word">BONUS</span> LINETOGEL',stripGradient:"linear-gradient(90deg, #ff6b9d, rgba(255,107,157,0.2))",emptyIcon:"fa-gift",emptyTitle:"Belum ada data bonus",searchPlaceholder:"Cari bonus..."},
+/* TAMBAHAN BETTING: Konfigurasi halaman Cara Betting Togel */
+gidBetting:{titleHTML:'<span class="betting-word">CARA BETTING</span> TOGEL',stripGradient:"linear-gradient(90deg, #84cc16, rgba(132,204,22,0.2))",emptyIcon:"fa-book-open",emptyTitle:"Belum ada panduan betting",searchPlaceholder:"Cari cara betting..."}
+};
 function getCfg(){return PAGE_CONFIGS[getConfigKey()]||PAGE_CONFIGS.qrisCombined;}
 function updatePageHeader(){const cfg=getCfg();pageTitleEl.innerHTML=cfg.titleHTML;searchInput.placeholder=cfg.searchPlaceholder;document.getElementById("qrisTypeFilterWrapper").style.display=currentFilter==="gidQris"?"flex":"none";}
 
@@ -810,7 +865,6 @@ return`<div class="list-row" data-index="${i}"><div class="row-title">${title}</
 }
 }
 
-// ===== FUNGSI MODAL YANG DIMODIFIKASI =====
 function openModal(index){
 const items=getFilteredData();
 if(!items[index])return;
@@ -821,34 +875,27 @@ const noCopyText=hideCopyTextBtn();
 
 document.getElementById("modalAccent").style.background=cfg.stripGradient;
 
-// Tampilkan judul saja (tanpa label "Judul")
 document.getElementById("modalColA").innerHTML=`<strong>${escapeHtml(it.title)}</strong>`;
 
-// ===== PERUBAHAN UTAMA: HAPUS TEKS "Tidak ada detail." =====
 const modalDetailSection = document.getElementById("modalDetailSection");
 const modalColB = document.getElementById("modalColB");
 
-// Hanya tampilkan section detail jika ADA konten
 if(it.content && it.content.trim() && it.content.trim() !== "Tidak ada detail."){
     modalDetailSection.style.display = 'block';
     modalColB.innerHTML = escapeHtml(it.content);
     
-    // Tambahkan gambar jika ada
     if(it.imageUrl){
         modalColB.innerHTML += `<div class="modal-qris-image"><img src="${escapeHtml(it.imageUrl)}" alt="gambar" onerror="this.parentElement.style.display='none'"></div>`;
     }
 } else {
-    // Sembunyikan section detail jika kosong atau hanya berisi "Tidak ada detail."
     modalDetailSection.style.display = 'none';
     
-    // Jika tidak ada content tapi ada gambar, tampilkan gambar saja
     if(it.imageUrl){
         modalDetailSection.style.display = 'block';
         modalColB.innerHTML = `<div class="modal-qris-image"><img src="${escapeHtml(it.imageUrl)}" alt="gambar" onerror="this.parentElement.style.display='none'"></div>`;
     }
 }
 
-// Setup tombol aksi
 let actions="";
 if(!noCopyText && it.content && it.content.trim() && it.content.trim() !== "Tidak ada detail."){
     actions+=`<button class="btn-action" id="mCopyText"><i class="fa-regular fa-copy"></i> Copy Teks</button>`;
@@ -869,7 +916,6 @@ document.getElementById("modalOverlay").classList.add("open");
 
 function closeModal(){
 document.getElementById("modalOverlay").classList.remove("open");
-// Reset visibility saat modal ditutup
 document.getElementById("modalDetailSection").style.display = 'block';
 }
 
