@@ -396,7 +396,7 @@ mark{background:rgba(79,195,247,0.2);color:var(--qris-primary);border-radius:3px
 
 <script>
 /* ============================================================
-   SISTEM UTAMA
+   SISTEM UTAMA - DENGAN PERBAIKAN FITUR WEB & WATCH UNTUK JADWAL
    ============================================================ */
 const LOGIN_KEY="ruangWaktuAuth";const VALID_USER="Putra28";const VALID_PASS="Tyaaa27";
 const SPREADSHEET_ID="1VO91WJb1w2Pi4V_GO12hDl8KPkkmHkOUFxtqEmCvygM";
@@ -436,10 +436,9 @@ function isImageUrl(val){if(!val||typeof val!=="string")return false;return /\.(
 function detectQrisType(item){const text=((item.title||"")+" "+(item.content||"")).toLowerCase();if(["bca","mandiri","bri","bni","cimb","permata","bsi","danamon","ocbc","btn","panin","maybank","mega","bukopin","bank","jago","seabank"].some(k=>text.includes(k)))return"bank";if(["ovo","gopay","dana","linkaja","shopeepay","spay","ewallet","dompet digital","paylater","doku","sakuku","kredivo","akulaku","atome","flip"].some(k=>text.includes(k)))return"ewallet";return"all";}
 function hideCopyTextBtn(){return currentFilter==="gidProfile";}
 
-/* ===== PARSER CERDAS UNTUK JADWAL PASARAN ===== */
+/* ===== PARSER CERDAS UNTUK JADWAL PASARAN (DIPERBAIKI) ===== */
 function parseJadwalItem(item) {
     const text = (item.content || '').trim();
-    const lines = text.split('\n').map(l => l.trim());
     const lowerText = text.toLowerCase();
     
     let cutoffTime = '--:--';
@@ -447,60 +446,55 @@ function parseJadwalItem(item) {
     let webUrl = '';
     let watchUrl = '';
     
-    const timeRegex = /([01]?[0-9]|2[0-3]):[0-5][0-9]/; // HH:MM
+    // Regex untuk menangkap URL (termasuk yang mungkin terpisah spasi atau tanda kurung)
+    const urlRegex = /https?:\/\/[^\s<>"']+/gi;
+    const urls = text.match(urlRegex) || [];
     
-    lines.forEach(line => {
-        const l = line.toLowerCase();
-        // Cari Jam Buka / Cutoff
-        if (l.includes('buka') || l.includes('cutoff') || l.includes('open')) {
-            const match = line.match(timeRegex);
-            if (match) cutoffTime = match[0];
-        }
-        // Cari Jam Tutup / Result
-        if (l.includes('tutup') || l.includes('result') || l.includes('close') || l.includes('keluar')) {
-            const match = line.match(timeRegex);
-            if (match) resultTime = match[0];
-        }
-    });
+    // Regex untuk waktu HH:MM
+    const timeRegex = /\b([01]?[0-9]|2[0-3]):[0-5][0-9]\b/g;
+    const times = text.match(timeRegex) || [];
     
-    // Jika tidak ada label, coba ambil 2 waktu pertama
-    if (cutoffTime === '--:--' && resultTime === '--:--') {
-        const allTimes = text.match(new RegExp(timeRegex, 'g'));
-        if (allTimes && allTimes.length >= 2) {
-            cutoffTime = allTimes[0];
-            resultTime = allTimes[1];
-        } else if (allTimes && allTimes.length === 1) {
-            resultTime = allTimes[0];
-        }
-    } else if (cutoffTime === '--:--' || resultTime === '--:--') {
-        const allTimes = text.match(new RegExp(timeRegex, 'g'));
-        if (allTimes && allTimes.length >= 2) {
-            if (cutoffTime === '--:--') cutoffTime = allTimes.find(t => t !== resultTime) || allTimes[0];
-            if (resultTime === '--:--') resultTime = allTimes.find(t => t !== cutoffTime) || allTimes[1];
-        }
+    // Identifikasi waktu berdasarkan label
+    if (lowerText.includes('buka') || lowerText.includes('cutoff') || lowerText.includes('open')) {
+        if (times.length > 0) cutoffTime = times[0];
+    }
+    if (lowerText.includes('tutup') || lowerText.includes('result') || lowerText.includes('close') || lowerText.includes('keluar')) {
+        if (times.length > (lowerText.includes('buka') ? 1 : 0)) resultTime = times[lowerText.includes('buka') ? 1 : 0];
+        else if (times.length > 0) resultTime = times[0];
     }
     
-    // Cari URL (Web / Watch)
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const urls = text.match(urlRegex) || [];
-    urls.forEach(url => {
+    // Fallback jika tidak ada label
+    if (cutoffTime === '--:--' && resultTime === '--:--' && times.length >= 2) {
+        cutoffTime = times[0];
+        resultTime = times[1];
+    } else if (cutoffTime === '--:--' && times.length >= 1) {
+        cutoffTime = times[0];
+    } else if (resultTime === '--:--' && times.length >= 1) {
+        resultTime = times[0];
+    }
+    
+    // Klasifikasi URL: jika mengandung kata live/watch/stream -> watchUrl, sisanya webUrl
+    for (let url of urls) {
         const u = url.toLowerCase();
-        if (u.includes('live') || u.includes('watch') || u.includes('stream') || u.includes('result')) {
+        if (u.includes('live') || u.includes('watch') || u.includes('stream') || u.includes('result') || u.includes('togel')) {
             if (!watchUrl) watchUrl = url;
         } else {
             if (!webUrl) webUrl = url;
         }
-    });
-    // Jika cuma ada 1 URL, jadikan webUrl
-    if (!webUrl && watchUrl && urls.length === 1) {
-        webUrl = watchUrl; watchUrl = '';
+    }
+    
+    // Jika hanya satu URL dan tidak terdeteksi sebagai watch, jadikan webUrl
+    if (urls.length === 1 && !webUrl) {
+        webUrl = urls[0];
+        watchUrl = '';
+    } else if (urls.length === 1 && webUrl && !watchUrl) {
+        // sudah benar
     }
     
     // Status
     let status = 'active';
-    if (lowerText.includes('status: tutup') || lowerText.includes('status: close') || lowerText.includes('status: passed')) {
-        status = 'passed';
-    } else if (lowerText.includes('tutup') && !lowerText.includes('buka') && !lowerText.includes('cutoff')) {
+    if (lowerText.includes('status: tutup') || lowerText.includes('status: close') || lowerText.includes('status: passed') || 
+        (lowerText.includes('tutup') && !lowerText.includes('buka') && !lowerText.includes('cutoff'))) {
         status = 'passed';
     }
     
@@ -580,7 +574,7 @@ async function copyImage(url,title){if(!url)return;try{const r=await fetch(url);
 
 function highlightMatch(text,query){if(!query||!text)return escapeHtml(text);const safe=query.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");return escapeHtml(text).replace(new RegExp(`(${safe})`,"gi"),'<mark>$1</mark>');}
 
-/* ===== RENDER JADWAL ABBSSIDIAN STYLE ===== */
+/* ===== RENDER JADWAL DENGAN DATA-ATTRIBUTE YANG BENAR ===== */
 function renderJadwalGrid(items) {
     const q = searchQuery.trim();
     const html = items.map((it, i) => {
@@ -588,13 +582,15 @@ function renderJadwalGrid(items) {
         const statusClass = p.status;
         const statusLabel = p.status === 'active' ? 'Active' : 'Passed';
         
+        // Escape untuk atribut HTML
+        const webUrlEsc = escapeHtml(p.webUrl);
+        const watchUrlEsc = escapeHtml(p.watchUrl);
+        const fullContentEsc = escapeHtml(p.fullContent);
+        
         const webBtnClass = p.webUrl ? '' : 'disabled';
         const watchBtnClass = p.watchUrl ? '' : 'disabled';
         
-        // Simpan data ke attribute untuk event listener
-        const dataAttr = `data-web="${escapeHtml(p.webUrl)}" data-watch="${escapeHtml(p.watchUrl)}" data-copy="${escapeHtml(p.fullContent)}"`;
-
-        return `<div class="j-card-abss" data-index="${i}" ${dataAttr}>
+        return `<div class="j-card-abss" data-index="${i}" data-web="${webUrlEsc}" data-watch="${watchUrlEsc}" data-copy="${fullContentEsc}">
             <div class="j-header-abss">
                 <div class="j-title-abss">${highlightMatch(it.title, q)}</div>
                 <div class="j-badge-abss ${statusClass}">${statusLabel}</div>
@@ -668,32 +664,44 @@ document.getElementById("modalCloseBtn").addEventListener("click",closeModal);
 document.getElementById("modalOverlay").addEventListener("click",e=>{if(e.target===document.getElementById("modalOverlay"))closeModal();});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
 
-/* ===== EVENT LISTENER UNTUK TOMBOL JADWAL ===== */
+/* ===== EVENT LISTENER UNTUK TOMBOL JADWAL DAN CARD ===== */
 contentArea.addEventListener("click", async e => {
-    // Tangani tombol .WEB
+    // Tombol WEB pada kartu jadwal
     if (e.target.closest('.j-btn-web') && !e.target.closest('.j-btn-web').classList.contains('disabled')) {
         const card = e.target.closest('.j-card-abss');
         const url = card?.dataset.web;
-        if (url) { window.open(url, '_blank'); }
-        else { showToast('Link web tidak tersedia', 'error'); }
+        if (url && url !== '') { 
+            window.open(url, '_blank');
+            showToast('Membuka website...');
+        } else { 
+            showToast('Link web tidak tersedia', 'error'); 
+        }
         return;
     }
-    // Tangani tombol .COPY
+    // Tombol COPY pada kartu jadwal
     if (e.target.closest('.j-btn-copy')) {
         const card = e.target.closest('.j-card-abss');
         const text = card?.dataset.copy;
-        if (text) { await copyText(text, 'Jadwal'); }
+        if (text) { 
+            await copyText(text, 'Jadwal'); 
+        } else {
+            showToast('Tidak ada teks untuk disalin', 'error');
+        }
         return;
     }
-    // Tangani tombol .WATCH
+    // Tombol WATCH pada kartu jadwal
     if (e.target.closest('.j-btn-watch') && !e.target.closest('.j-btn-watch').classList.contains('disabled')) {
         const card = e.target.closest('.j-card-abss');
         const url = card?.dataset.watch;
-        if (url) { window.open(url, '_blank'); }
-        else { showToast('Link live tidak tersedia', 'error'); }
+        if (url && url !== '') { 
+            window.open(url, '_blank');
+            showToast('Membuka live streaming...');
+        } else { 
+            showToast('Link live tidak tersedia', 'error'); 
+        }
         return;
     }
-    // Tangani copy default
+    // Tombol copy teks pada kartu default
     if (e.target.closest(".copy-text-btn")) {
         const idx = e.target.closest("[data-index]");
         const i = parseInt(idx?.dataset.index);
@@ -701,6 +709,7 @@ contentArea.addEventListener("click", async e => {
         if (items[i]) await copyText(items[i].content, "Teks");
         return;
     }
+    // Tombol copy gambar pada kartu default
     if (e.target.closest(".copy-img-btn")) {
         const idx = e.target.closest("[data-index]");
         const i = parseInt(idx?.dataset.index);
@@ -708,12 +717,7 @@ contentArea.addEventListener("click", async e => {
         if (items[i]?.imageUrl) await copyImage(items[i].imageUrl, items[i].title);
         return;
     }
-    // Klik kartu untuk buka modal (kecuali kartu jadwal yang sudah punya tombol aksi sendiri)
-    const idx = e.target.closest("[data-index]");
-    if (idx && !e.target.closest('.j-btn-abss')) {
-        const i = parseInt(idx.dataset.index);
-        openModal(i);
-    }
+    // Sisa klik (misal pada body card) tidak melakukan apa-apa (modal tidak terbuka)
 });
 
 function initSidebar(){document.querySelectorAll(".sidebar-item").forEach(item=>{item.addEventListener("click",()=>{navigateToModule(item.dataset.filter);});});}
