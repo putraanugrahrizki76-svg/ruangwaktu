@@ -167,6 +167,60 @@
                 transform: translate(15px, -15px) scale(1.02);
             }
         }
+        @keyframes orbFloat2 {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(-40px, 30px) scale(1.1);
+            }
+            100% {
+                transform: translate(20px, -20px) scale(0.9);
+            }
+        }
+        @keyframes orbFloat3 {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(50px, 20px) scale(1.08);
+            }
+            66% {
+                transform: translate(-30px, -40px) scale(0.92);
+            }
+            100% {
+                transform: translate(10px, 30px) scale(1.03);
+            }
+        }
+        @keyframes starTwinkle {
+            0%,
+            100% {
+                opacity: .2;
+            }
+            50% {
+                opacity: .8;
+            }
+        }
+        @keyframes starTwinkle2 {
+            0%,
+            100% {
+                opacity: .1;
+            }
+            50% {
+                opacity: .6;
+            }
+        }
+        @keyframes nebulaPulse {
+            0%,
+            100% {
+                opacity: .3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: .6;
+                transform: scale(1.2);
+            }
+        }
         @keyframes toastIn {
             to {
                 opacity: 1;
@@ -303,6 +357,23 @@
                 opacity: 0.6;
             }
         }
+        @keyframes auroraWave {
+            0% {
+                transform: translateX(-100%) rotate(0deg);
+            }
+            100% {
+                transform: translateX(200%) rotate(3deg);
+            }
+        }
+        @keyframes auroraWave2 {
+            0% {
+                transform: translateX(100%) rotate(0deg);
+            }
+            100% {
+                transform: translateX(-200%) rotate(-3deg);
+            }
+        }
+
         .toast {
             position: fixed;
             bottom: 2rem;
@@ -674,41 +745,158 @@
         .app-layout.entering .main-content {
             animation: fadeInUp .7s cubic-bezier(.16, 1, .3, 1) .15s both;
         }
+
+        /* ===== ENHANCED BACKGROUND ===== */
         .bg-atmosphere {
             position: fixed;
             inset: 0;
             z-index: 0;
             pointer-events: none;
             overflow: hidden;
+            background: radial-gradient(ellipse at 20% 50%, rgba(20, 0, 40, 0.4), transparent 50%),
+                        radial-gradient(ellipse at 80% 50%, rgba(0, 20, 60, 0.4), transparent 50%),
+                        radial-gradient(ellipse at 50% 80%, rgba(60, 0, 80, 0.2), transparent 40%),
+                        #08080c;
         }
+        .bg-atmosphere .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: .3;
+            animation: nebulaPulse 12s ease-in-out infinite alternate;
+        }
+        .bg-atmosphere .nebula-1 {
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(168, 85, 247, .15), transparent 70%);
+            top: -20%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+        .bg-atmosphere .nebula-2 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 240, 255, .12), transparent 70%);
+            bottom: -20%;
+            right: -10%;
+            animation-delay: 4s;
+        }
+        .bg-atmosphere .nebula-3 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 0, 229, .10), transparent 70%);
+            top: 40%;
+            left: 40%;
+            animation-delay: 8s;
+        }
+        .bg-atmosphere .nebula-4 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(57, 255, 20, .06), transparent 70%);
+            top: 10%;
+            right: 20%;
+            animation-delay: 2s;
+        }
+        .bg-atmosphere .nebula-5 {
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(232, 168, 56, .08), transparent 70%);
+            bottom: 10%;
+            left: 20%;
+            animation-delay: 6s;
+        }
+        .bg-atmosphere .aurora {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, .08), rgba(168, 85, 247, .08), rgba(255, 0, 229, .08), transparent);
+            filter: blur(40px);
+            opacity: .4;
+            animation: auroraWave 25s linear infinite;
+            width: 200%;
+        }
+        .bg-atmosphere .aurora-1 {
+            top: 15%;
+            left: -50%;
+            height: 60px;
+            animation-duration: 30s;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, .06), rgba(168, 85, 247, .08), rgba(255, 0, 229, .06), transparent);
+        }
+        .bg-atmosphere .aurora-2 {
+            top: 70%;
+            left: -50%;
+            height: 50px;
+            animation-duration: 35s;
+            animation-name: auroraWave2;
+            background: linear-gradient(90deg, transparent, rgba(57, 255, 20, .05), rgba(0, 240, 255, .06), rgba(168, 85, 247, .05), transparent);
+        }
+        .bg-atmosphere .star {
+            position: absolute;
+            border-radius: 50%;
+            background: #fff;
+        }
+        .bg-atmosphere .star-1 { width: 2px; height: 2px; top: 10%; left: 15%; animation: starTwinkle 3s ease-in-out infinite; }
+        .bg-atmosphere .star-2 { width: 1.5px; height: 1.5px; top: 25%; left: 75%; animation: starTwinkle2 4s ease-in-out infinite; }
+        .bg-atmosphere .star-3 { width: 2.5px; height: 2.5px; top: 5%; left: 45%; animation: starTwinkle 2.5s ease-in-out infinite; }
+        .bg-atmosphere .star-4 { width: 1px; height: 1px; top: 60%; left: 10%; animation: starTwinkle2 3.5s ease-in-out infinite; }
+        .bg-atmosphere .star-5 { width: 2px; height: 2px; top: 80%; left: 85%; animation: starTwinkle 4.5s ease-in-out infinite; }
+        .bg-atmosphere .star-6 { width: 1.5px; height: 1.5px; top: 45%; left: 5%; animation: starTwinkle2 2.8s ease-in-out infinite; }
+        .bg-atmosphere .star-7 { width: 2px; height: 2px; top: 90%; left: 30%; animation: starTwinkle 3.2s ease-in-out infinite; }
+        .bg-atmosphere .star-8 { width: 1px; height: 1px; top: 35%; left: 90%; animation: starTwinkle 5s ease-in-out infinite; }
+
         .bg-atmosphere .orb {
             position: absolute;
             border-radius: 50%;
             filter: blur(120px);
-            opacity: .4;
+            opacity: .3;
             animation: orbFloat 20s ease-in-out infinite alternate;
         }
         .orb-1 {
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(232, 168, 56, .18), transparent 70%);
+            background: radial-gradient(circle, rgba(232, 168, 56, .15), transparent 70%);
             top: -10%;
             left: -5%;
+            animation-duration: 25s;
         }
         .orb-2 {
             width: 400px;
             height: 400px;
-            background: radial-gradient(circle, rgba(240, 104, 88, .12), transparent 70%);
+            background: radial-gradient(circle, rgba(240, 104, 88, .10), transparent 70%);
             bottom: -15%;
             right: -5%;
+            animation-duration: 30s;
+            animation-name: orbFloat2;
         }
         .orb-3 {
             width: 350px;
             height: 350px;
-            background: radial-gradient(circle, rgba(126, 184, 138, .1), transparent 70%);
+            background: radial-gradient(circle, rgba(126, 184, 138, .08), transparent 70%);
             top: 40%;
             left: 50%;
+            animation-duration: 22s;
+            animation-name: orbFloat3;
         }
+        .orb-4 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(168, 85, 247, .10), transparent 70%);
+            top: 60%;
+            right: 10%;
+            animation-duration: 28s;
+            animation-name: orbFloat2;
+            animation-delay: 3s;
+        }
+        .orb-5 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(0, 240, 255, .08), transparent 70%);
+            top: 20%;
+            left: 30%;
+            animation-duration: 26s;
+            animation-name: orbFloat3;
+            animation-delay: 5s;
+        }
+
         .sidebar {
             width: var(--sidebar-w);
             background: linear-gradient(180deg, rgba(17, 17, 24, .96), rgba(8, 8, 12, .98));
@@ -721,6 +909,7 @@
             height: 100vh;
             flex-shrink: 0;
             overflow-y: auto;
+            z-index: 2;
         }
         .sidebar::-webkit-scrollbar {
             width: 3px;
@@ -983,6 +1172,8 @@
             flex: 1;
             padding: 1rem 1.2rem;
             min-width: 0;
+            position: relative;
+            z-index: 1;
         }
         .dashboard-container {
             max-width: 1600px;
@@ -1622,6 +1813,10 @@
             background: var(--bg);
             padding: .3rem 0;
             margin-bottom: .5rem;
+        }
+        /* hide search bar in password view */
+        .sticky-top.hidden-sticky {
+            display: none !important;
         }
         .search-bar {
             position: relative;
@@ -2704,7 +2899,7 @@
             flex-shrink: 0;
         }
 
-        /* ===== GENERATOR PASSWORD - TOP/BOTTOM LAYOUT ===== */
+        /* ===== GENERATOR PASSWORD - TANPA RIWAYAT ===== */
         .password-generator-wrapper {
             display: flex;
             flex-direction: column;
@@ -2724,7 +2919,6 @@
             width: 100%;
         }
 
-        /* Display Box */
         .password-display-box {
             background: linear-gradient(160deg, rgba(168, 85, 247, .05), rgba(8, 8, 12, .95));
             border: 1.5px solid rgba(168, 85, 247, .25);
@@ -2825,7 +3019,6 @@
             font-size: .7rem;
         }
 
-        /* Strength bar */
         .password-strength-section {
             display: flex;
             align-items: center;
@@ -2873,82 +3066,10 @@
             flex-shrink: 0;
         }
 
-        /* History box - with clear button */
         .password-history-box {
-            padding: .6rem .8rem;
-            border-radius: 12px;
-            background: rgba(0, 0, 0, .25);
-            border: 1px solid var(--border);
-            max-height: 85px;
-            overflow-y: auto;
-            display: flex;
-            flex-wrap: wrap;
-            gap: .4rem;
-            align-content: flex-start;
-            width: 100%;
-            position: relative;
-        }
-        .password-history-box::-webkit-scrollbar {
-            width: 3px;
-        }
-        .password-history-box::-webkit-scrollbar-thumb {
-            background: var(--password-color);
-            border-radius: 3px;
-        }
-        .password-history-box .hist-empty {
-            font-size: .6rem;
-            color: var(--fg-dim);
-            font-style: italic;
-            width: 100%;
-            text-align: center;
-            padding: .2rem 0;
-        }
-        .password-history-box .hist-item {
-            font-family: var(--font-mono);
-            font-size: .58rem;
-            padding: .15rem .5rem;
-            border-radius: 6px;
-            background: rgba(168, 85, 247, .06);
-            border: 1px solid rgba(168, 85, 247, .12);
-            color: var(--fg-muted);
-            white-space: nowrap;
-            cursor: pointer;
-            transition: all .25s;
-        }
-        .password-history-box .hist-item:hover {
-            background: rgba(168, 85, 247, .14);
-            color: var(--password-color);
-            border-color: rgba(168, 85, 247, .3);
-        }
-        .password-history-box .hist-clear-btn {
-            position: absolute;
-            top: 4px;
-            right: 6px;
-            background: rgba(255, 60, 60, .1);
-            border: 1px solid rgba(255, 60, 60, .2);
-            color: var(--alarm-red);
-            border-radius: 6px;
-            padding: .1rem .4rem;
-            font-size: .5rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all .25s;
-            font-family: var(--font-body);
-            display: flex;
-            align-items: center;
-            gap: .2rem;
-            z-index: 2;
-        }
-        .password-history-box .hist-clear-btn:hover {
-            background: rgba(255, 60, 60, .2);
-            border-color: rgba(255, 60, 60, .4);
-            transform: scale(1.05);
-        }
-        .password-history-box .hist-clear-btn i {
-            font-size: .5rem;
+            display: none !important;
         }
 
-        /* Options panel */
         .password-options-panel {
             background: rgba(0, 0, 0, .25);
             border-radius: 14px;
@@ -3076,7 +3197,6 @@
             display: none;
         }
 
-        /* Base Text input row */
         .password-base-text-row {
             display: flex;
             align-items: center;
@@ -3117,7 +3237,6 @@
             font-size: .65rem;
         }
 
-        /* Generate button */
         .password-gen-btn-full {
             display: flex;
             align-items: center;
@@ -3174,9 +3293,6 @@
                 font-size: .55rem;
                 min-width: 60px;
             }
-            .password-history-box {
-                max-height: 70px;
-            }
             .password-strength-section .str-bar {
                 max-width: 100px;
                 min-width: 60px;
@@ -3184,26 +3300,47 @@
             .password-base-text-row .opt-control {
                 min-width: 120px;
             }
-            .password-history-box .hist-clear-btn {
-                font-size: .45rem;
-                padding: .05rem .3rem;
+            .sidebar {
+                width: 200px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="bg-atmosphere"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
+    <!-- ENHANCED BACKGROUND -->
+    <div class="bg-atmosphere">
+        <div class="nebula nebula-1"></div>
+        <div class="nebula nebula-2"></div>
+        <div class="nebula nebula-3"></div>
+        <div class="nebula nebula-4"></div>
+        <div class="nebula nebula-5"></div>
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+        <div class="star star-1"></div>
+        <div class="star star-2"></div>
+        <div class="star star-3"></div>
+        <div class="star star-4"></div>
+        <div class="star star-5"></div>
+        <div class="star star-6"></div>
+        <div class="star star-7"></div>
+        <div class="star star-8"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="orb orb-5"></div>
+    </div>
 
     <div id="loginModal" class="login-overlay"><div class="scanlines"></div><div class="grid-bg"></div><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="side-label side-label-left">RUANG WAKTU SECURE</div><div class="side-label side-label-right">DATA CENTER v2.0</div><div class="login-card"><div class="card-inner-glow"></div><div class="login-icon"><div class="icon-ring"><i class="fa-solid fa-lock"></i></div></div><div class="login-title">RUANG WAKTU</div><div class="login-sub">Secure Access</div><div class="input-group"><label class="input-label">Username</label><i class="fa-regular fa-user input-icon"></i><input type="text" id="loginUsername" autocomplete="off"></div><div class="input-group"><label class="input-label">Password</label><i class="fa-regular fa-key input-icon"></i><input type="password" id="loginPassword" autocomplete="off"><button type="button" id="togglePasswordBtn" class="password-toggle"><i class="fa-regular fa-eye"></i></button></div><button class="login-btn" id="loginBtn"><i class="fa-solid fa-arrow-right-to-bracket"></i> MASUK</button><div id="loginError" class="login-error"></div><div class="login-footer-note">Ruang Waktu Data Center</div></div></div>
 
-    <div class="app-layout" id="appLayout"><aside class="sidebar"><div class="sidebar-header"><div class="sidebar-brand"><div class="sidebar-brand-icon"><i class="fa-solid fa-clock-rotate-left"></i></div><div><div>Ruang Waktu</div><div class="sidebar-brand-sub">Data Center</div></div></div></div><nav class="sidebar-nav"><div class="sidebar-section-label">Data Sheet</div><div class="sidebar-item" data-filter="gid0"><div class="icon-wrap"><i class="fa-solid fa-layer-group"></i></div><div class="label">ALL PK</div></div><div class="sidebar-item" data-filter="gid5"><div class="icon-wrap"><i class="fa-solid fa-database"></i></div><div class="label">JADWAL PASARAN</div></div><div class="sidebar-item" data-filter="gid473"><div class="icon-wrap"><i class="fa-solid fa-trophy"></i></div><div class="label">HADIAH TOGEL</div></div><div class="sidebar-item" data-filter="gidBonus"><div class="icon-wrap"><i class="fa-solid fa-gift"></i></div><div class="label">BONUS LINETOGEL</div></div><div class="sidebar-item" data-filter="gidBetting"><div class="icon-wrap"><i class="fa-solid fa-book-open"></i></div><div class="label">CARA BETTING TOGEL</div></div><div class="sidebar-item" data-filter="gidEvent"><div class="icon-wrap"><i class="fa-solid fa-bolt"></i></div><div class="label">EVENT LINETOGEL</div></div><div class="sidebar-item" data-filter="gidQris"><div class="icon-wrap"><i class="fa-solid fa-qrcode"></i></div><div class="label">QRIS PAYMENT</div></div><div class="sidebar-item" data-filter="gidProfile"><div class="icon-wrap"><i class="fa-solid fa-building-columns"></i></div><div class="label">PROFILE BANK & E-WALLET</div></div><div class="sidebar-item" data-filter="gidPassword"><div class="icon-wrap"><i class="fa-solid fa-key"></i></div><div class="label">GENERATOR PASSWORD</div></div></nav><div class="sidebar-notif-section"><div class="sidebar-notif-row"><button class="notif-toggle-btn" id="notifToggleBtn"><i class="fa-solid fa-bell bell-ring"></i> <span id="notifToggleText">ON</span></button><button class="notif-test-btn" id="notifTestBtn" title="Test Alarm"><i class="fa-solid fa-volume-high"></i></button></div><div class="notif-next-info" id="notifNextInfo">Memuat jadwal...</div></div><div class="sidebar-footer"><div class="timer-bar-track"><div class="timer-bar-fill" id="timerBarFill" style="width:100%"></div></div><div id="timerLastUpdate" style="font-size:.5rem;margin-top:.3rem;color:var(--fg-dim)"><i class="fa-regular fa-clock"></i> Auto-refresh aktif</div></div></aside><main class="main-content"><div class="dashboard-container"><div class="dashboard-view" id="dashboardView"><div class="dashboard-header"><div></div><button class="logout-dash-btn" id="logoutDashBtn">LOGOUT <i class="fa-solid fa-arrow-right-from-bracket"></i></button></div><div class="premium-hero"><div class="premium-hero-title">RUANG WAKTU</div><div class="premium-hero-sub">Premium Interface</div><div class="premium-hero-ver"><span class="blink-dot"></span> SYSTEM UPDATE V2.5</div></div><div class="module-grid"><div class="module-card mod-pk" data-filter="gid0"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-layer-group"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">ALL PK</div><div class="module-card-desc">Database lengkap prediksi dan kombinasi angka dari semua pasaran.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-jadwal" data-filter="gid5"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-database"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">JADWAL PASARAN</div><div class="module-card-desc">Jadwal lengkap pasaran togel hari ini dengan waktu result real-time.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-hadiah" data-filter="gid473"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-trophy"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">HADIAH TOGEL</div><div class="module-card-desc">Daftar hadiah 2D, 3D, 4D dan bonus prize lengkap terbaru.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-bonus" data-filter="gidBonus"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-gift"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">BONUS LINETOGEL</div><div class="module-card-desc">Informasi bonus, promosi, dan cashback eksklusif member.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-betting" data-filter="gidBetting"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-book-open"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">CARA BETTING TOGEL</div><div class="module-card-desc">Panduan lengkap cara memasang taruhan dan format betting.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-event" data-filter="gidEvent"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-bolt"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">EVENT LINETOGEL</div><div class="module-card-desc">Info event seru, turnamen, dan hadiah spesial dari Linetogel.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-qris" data-filter="gidQris"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-qrcode"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">QRIS PAYMENT</div><div class="module-card-desc">Kode QR pembayaran instan via Bank dan E-Wallet.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-profile" data-filter="gidProfile"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-building-columns"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">PROFILE BANK & E-WALLET</div><div class="module-card-desc">Nomor rekening dan informasi akun bank serta e-wallet resmi.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-password" data-filter="gidPassword"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-key"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">GENERATOR PASSWORD</div><div class="module-card-desc">Buat password kuat & aman dengan berbagai opsi karakter.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div></div></div><div class="data-view" id="dataView"><header class="page-header"><div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap"><button class="back-btn" id="backBtn"><i class="fa-solid fa-arrow-left"></i> BACK</button><h1 class="page-title" id="pageTitle"></h1><div class="jadwal-live-clock" id="jadwalClock"><span class="clk-dot"></span> <span id="clockTime">00:00:00</span></div></div><div class="header-actions"><div class="status-badge"><span class="live-dot" id="liveDot"></span><span>Live</span></div><button class="refresh-btn" id="refreshBtn"><i class="fa-solid fa-rotate-right"></i></button><button id="logoutHeaderBtn" class="logout-header-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i></button></div></header><div class="next-pasaran-badge" id="nextPasaranBadge"><div class="npb-icon"><i class="fa-solid fa-bell"></i></div><div class="npb-text" id="npbText">Memuat...</div><div class="npb-countdown" id="npbCountdown">--:--</div></div><div class="sticky-top"><div class="search-bar"><i class="fa-solid fa-magnifying-glass" style="position:absolute;left:.65rem;top:50%;transform:translateY(-50%);color:var(--fg-dim);font-size:.68rem"></i><input type="text" class="search-input" id="searchInput" placeholder="Cari..."><button class="search-clear" id="searchClear"><i class="fa-solid fa-xmark"></i></button><div class="search-result-count" id="searchResultCount"></div></div><div class="toolbar"><div class="qris-type-filter" id="qrisTypeFilterWrapper"><button class="filter-chip active" data-type="all">Semua</button><button class="filter-chip" data-type="bank">Bank</button><button class="filter-chip" data-type="ewallet">E-Wallet</button></div></div></div><section id="contentArea"><div class="loading-state"><div class="loader-ring"></div><span>Memuat data...</span></div></section></div><footer style="margin-top:1.2rem;text-align:center;font-size:.55rem;color:var(--fg-dim);padding-top:.7rem;border-top:1px solid var(--border)">Ruang Waktu Data Center</footer></div></main></div>
+    <div class="app-layout" id="appLayout"><aside class="sidebar"><div class="sidebar-header"><div class="sidebar-brand"><div class="sidebar-brand-icon"><i class="fa-solid fa-clock-rotate-left"></i></div><div><div>Ruang Waktu</div><div class="sidebar-brand-sub">Data Center</div></div></div></div><nav class="sidebar-nav"><div class="sidebar-section-label">Data Sheet</div><div class="sidebar-item" data-filter="gid0"><div class="icon-wrap"><i class="fa-solid fa-layer-group"></i></div><div class="label">ALL PK</div></div><div class="sidebar-item" data-filter="gid5"><div class="icon-wrap"><i class="fa-solid fa-database"></i></div><div class="label">JADWAL PASARAN</div></div><div class="sidebar-item" data-filter="gid473"><div class="icon-wrap"><i class="fa-solid fa-trophy"></i></div><div class="label">HADIAH TOGEL</div></div><div class="sidebar-item" data-filter="gidBonus"><div class="icon-wrap"><i class="fa-solid fa-gift"></i></div><div class="label">BONUS LINETOGEL</div></div><div class="sidebar-item" data-filter="gidBetting"><div class="icon-wrap"><i class="fa-solid fa-book-open"></i></div><div class="label">CARA BETTING TOGEL</div></div><div class="sidebar-item" data-filter="gidEvent"><div class="icon-wrap"><i class="fa-solid fa-bolt"></i></div><div class="label">EVENT LINETOGEL</div></div><div class="sidebar-item" data-filter="gidQris"><div class="icon-wrap"><i class="fa-solid fa-qrcode"></i></div><div class="label">QRIS PAYMENT</div></div><div class="sidebar-item" data-filter="gidProfile"><div class="icon-wrap"><i class="fa-solid fa-building-columns"></i></div><div class="label">PROFILE BANK & E-WALLET</div></div><div class="sidebar-item" data-filter="gidPassword"><div class="icon-wrap"><i class="fa-solid fa-key"></i></div><div class="label">GENERATOR PASSWORD</div></div></nav><div class="sidebar-notif-section"><div class="sidebar-notif-row"><button class="notif-toggle-btn" id="notifToggleBtn"><i class="fa-solid fa-bell bell-ring"></i> <span id="notifToggleText">ON</span></button><button class="notif-test-btn" id="notifTestBtn" title="Test Alarm"><i class="fa-solid fa-volume-high"></i></button></div><div class="notif-next-info" id="notifNextInfo">Memuat jadwal...</div></div><div class="sidebar-footer"><div class="timer-bar-track"><div class="timer-bar-fill" id="timerBarFill" style="width:100%"></div></div><div id="timerLastUpdate" style="font-size:.5rem;margin-top:.3rem;color:var(--fg-dim)"><i class="fa-regular fa-clock"></i> Auto-refresh aktif</div></div></aside><main class="main-content"><div class="dashboard-container"><div class="dashboard-view" id="dashboardView"><div class="dashboard-header"><div></div><button class="logout-dash-btn" id="logoutDashBtn">LOGOUT <i class="fa-solid fa-arrow-right-from-bracket"></i></button></div><div class="premium-hero"><div class="premium-hero-title">RUANG WAKTU</div><div class="premium-hero-sub">Premium Interface</div><div class="premium-hero-ver"><span class="blink-dot"></span> SYSTEM UPDATE V2.5</div></div><div class="module-grid"><div class="module-card mod-pk" data-filter="gid0"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-layer-group"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">ALL PK</div><div class="module-card-desc">Database lengkap prediksi dan kombinasi angka dari semua pasaran.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-jadwal" data-filter="gid5"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-database"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">JADWAL PASARAN</div><div class="module-card-desc">Jadwal lengkap pasaran togel hari ini dengan waktu result real-time.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-hadiah" data-filter="gid473"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-trophy"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">HADIAH TOGEL</div><div class="module-card-desc">Daftar hadiah 2D, 3D, 4D dan bonus prize lengkap terbaru.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-bonus" data-filter="gidBonus"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-gift"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">BONUS LINETOGEL</div><div class="module-card-desc">Informasi bonus, promosi, dan cashback eksklusif member.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-betting" data-filter="gidBetting"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-book-open"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">CARA BETTING TOGEL</div><div class="module-card-desc">Panduan lengkap cara memasang taruhan dan format betting.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-event" data-filter="gidEvent"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-bolt"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">EVENT LINETOGEL</div><div class="module-card-desc">Info event seru, turnamen, dan hadiah spesial dari Linetogel.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-qris" data-filter="gidQris"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-qrcode"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">QRIS PAYMENT</div><div class="module-card-desc">Kode QR pembayaran instan via Bank dan E-Wallet.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-profile" data-filter="gidProfile"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-building-columns"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">PROFILE BANK & E-WALLET</div><div class="module-card-desc">Nomor rekening dan informasi akun bank serta e-wallet resmi.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-password" data-filter="gidPassword"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-key"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">GENERATOR PASSWORD</div><div class="module-card-desc">Buat password kuat & aman dengan berbagai opsi karakter.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div></div></div><div class="data-view" id="dataView"><header class="page-header"><div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap"><button class="back-btn" id="backBtn"><i class="fa-solid fa-arrow-left"></i> BACK</button><h1 class="page-title" id="pageTitle"></h1><div class="jadwal-live-clock" id="jadwalClock"><span class="clk-dot"></span> <span id="clockTime">00:00:00</span></div></div><div class="header-actions"><div class="status-badge"><span class="live-dot" id="liveDot"></span><span>Live</span></div><button class="refresh-btn" id="refreshBtn"><i class="fa-solid fa-rotate-right"></i></button><button id="logoutHeaderBtn" class="logout-header-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i></button></div></header><div class="next-pasaran-badge" id="nextPasaranBadge"><div class="npb-icon"><i class="fa-solid fa-bell"></i></div><div class="npb-text" id="npbText">Memuat...</div><div class="npb-countdown" id="npbCountdown">--:--</div></div><div class="sticky-top" id="stickyTop"><div class="search-bar"><i class="fa-solid fa-magnifying-glass" style="position:absolute;left:.65rem;top:50%;transform:translateY(-50%);color:var(--fg-dim);font-size:.68rem"></i><input type="text" class="search-input" id="searchInput" placeholder="Cari..."><button class="search-clear" id="searchClear"><i class="fa-solid fa-xmark"></i></button><div class="search-result-count" id="searchResultCount"></div></div><div class="toolbar"><div class="qris-type-filter" id="qrisTypeFilterWrapper"><button class="filter-chip active" data-type="all">Semua</button><button class="filter-chip" data-type="bank">Bank</button><button class="filter-chip" data-type="ewallet">E-Wallet</button></div></div></div><section id="contentArea"><div class="loading-state"><div class="loader-ring"></div><span>Memuat data...</span></div></section></div><footer style="margin-top:1.2rem;text-align:center;font-size:.55rem;color:var(--fg-dim);padding-top:.7rem;border-top:1px solid var(--border)">Ruang Waktu Data Center</footer></div></main></div>
 
     <div class="alarm-overlay" id="alarmOverlay"><div class="alarm-card"><div class="alarm-icon-wrap"><i class="fa-solid fa-bell"></i></div><div class="alarm-label" id="alarmLabel">PASARAN BUKA</div><div class="alarm-title-text" id="alarmTitleText">PASARAN BUKA!</div><div class="alarm-pasaran" id="alarmPasaran">-</div><div class="alarm-time" id="alarmTime">--:-- <span>WIB</span></div><div class="alarm-countdown" id="alarmCountdown"></div><button class="alarm-dismiss-btn" id="alarmDismissBtn"><i class="fa-solid fa-bell-slash"></i> MATIKAN ALARM</button><div class="alarm-auto-dismiss" id="alarmAutoDismiss">Auto-dismiss dalam <strong>20</strong> detik</div></div></div>
 
     <div class="modal-overlay" id="modalOverlay"><div class="modal-panel"><div class="accent-strip" id="modalAccent" style="height:3px"></div><div class="modal-header"><button class="modal-close" id="modalCloseBtn"><i class="fa-solid fa-xmark"></i></button></div><div class="modal-body"><div class="modal-section"><div class="modal-section-label">Judul</div><div class="modal-section-content" id="modalColA"></div></div><div class="modal-section" id="modalDetailSection"><div class="modal-section-label">Detail</div><div class="modal-section-content" id="modalColB"></div></div><div class="modal-actions" id="modalActions"></div></div></div></div>
 
     <script>
-        // ==================== FULL SYSTEM WITH GENERATOR PASSWORD + BASE TEXT + CLEAR HISTORY ====================
+        // ==================== FULL SYSTEM WITH GENERATOR PASSWORD + BASE TEXT + TANPA RIWAYAT + HAPUS SEARCH PASSWORD ====================
         var LOGIN_KEY = "ruangWaktuAuth",
             VALID_USER = "Putra28",
             VALID_PASS = "Tyaaa27";
@@ -3254,8 +3391,7 @@
         var firedAlarms = {};
         var eventCategoryFilter = "all";
 
-        // ===== GENERATOR PASSWORD STATE (no symbols) =====
-        var passwordHistory = [];
+        // ===== GENERATOR PASSWORD STATE (tidak ada riwayat) =====
         var pwdLength = 16;
         var pwdUppercase = true,
             pwdLowercase = true,
@@ -3276,6 +3412,7 @@
         var jadwalClockEl = $("jadwalClock"),
             clockTimeEl = $("clockTime");
         var alarmOverlay = $("alarmOverlay");
+        var stickyTop = $("stickyTop");
 
         function escapeHtml(s) { if (!s) return ""; return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;"); }
 
@@ -3407,7 +3544,8 @@
 
         function updatePageHeader() { var cfg = getCfg(); pageTitleEl.innerHTML = cfg.titleHTML; searchInput.placeholder = cfg.searchPlaceholder; $("qrisTypeFilterWrapper").style.display = currentFilter === "gidQris" ? "flex" : "none"; var np = $("nextPasaranBadge"); if (currentFilter === "gid5") { jadwalClockEl.classList.add("visible"); if (!clockInterval) { updateClock();
                     clockInterval = setInterval(updateClock, 1000); } np.classList.add("visible"); } else { jadwalClockEl.classList.remove("visible"); if (clockInterval) { clearInterval(clockInterval);
-                    clockInterval = null; } np.classList.remove("visible"); } }
+                    clockInterval = null; } np.classList.remove("visible"); } // hide search bar for password view
+            if (currentFilter === "gidPassword") { stickyTop.classList.add("hidden-sticky"); } else { stickyTop.classList.remove("hidden-sticky"); } }
 
         function updateClock() { var n = new Date(); if (clockTimeEl) clockTimeEl.textContent = String(n.getHours()).padStart(2, "0") + ":" + String(n.getMinutes()).padStart(2, "0") + ":" + String(n.getSeconds()).padStart(2, "0"); }
 
@@ -3519,11 +3657,11 @@
                 else btn.classList.remove("active"); });
         }
 
-        // ===== GENERATOR PASSWORD - TOP/BOTTOM LAYOUT + BASE TEXT + CLEAR HISTORY =====
+        // ===== GENERATOR PASSWORD - TANPA RIWAYAT =====
         function renderPasswordGenerator() {
             var html = '<div class="password-generator-wrapper">';
 
-            // TOP SECTION: display, strength, history
+            // TOP SECTION: display + strength
             html += '<div class="password-gen-top">';
             html += '<div class="password-display-box"><div class="pwd-label"><i class="fa-solid fa-key"></i> PASSWORD GENERATED</div>';
             html += '<div class="password-output-field" id="pwdOutput">Klik Generate</div>';
@@ -3535,17 +3673,6 @@
             html += '<div class="password-strength-section"><span class="str-label">Kekuatan</span>';
             html += '<div class="str-bar" id="strengthBar"><span></span><span></span><span></span><span></span></div>';
             html += '<span class="str-text" id="strengthText">-</span></div>';
-
-            html += '<div class="password-history-box" id="pwdHistory">';
-            if (passwordHistory.length === 0) {
-                html += '<span class="hist-empty">Riwayat password kosong</span>';
-            } else {
-                for (var h = 0; h < passwordHistory.length; h++) {
-                    html += '<span class="hist-item">' + escapeHtml(passwordHistory[h]) + '</span>';
-                }
-                html += '<button class="hist-clear-btn" id="pwdClearHistoryBtn"><i class="fa-regular fa-trash-can"></i> Hapus</button>';
-            }
-            html += '</div>';
             html += '</div>';
 
             // BOTTOM SECTION: options + base text + generate
@@ -3557,7 +3684,7 @@
             html += '<input type="range" id="pwdLengthRange" min="6" max="40" value="' + pwdLength + '">';
             html += '<span class="range-val" id="pwdLengthVal">' + pwdLength + '</span></div></div>';
 
-            // Character types (no symbols)
+            // Character types
             html += '<div class="password-opt-row"><span class="opt-label">Karakter</span>';
             html += '<div class="password-toggle-chips">';
             var opts = [{ id: "pwdUpper", label: "A-Z", checked: pwdUppercase }, { id: "pwdLower", label: "a-z", checked: pwdLowercase }, { id: "pwdNum", label: "0-9", checked: pwdNumbers }];
@@ -3583,16 +3710,6 @@
                     pwdBaseText = baseInput.value;
                 });
             }
-            // Clear history button
-            var clearBtn = $("pwdClearHistoryBtn");
-            if (clearBtn) {
-                clearBtn.addEventListener("click", function(e) {
-                    e.stopPropagation();
-                    passwordHistory = [];
-                    updateHistory();
-                    showToast("Riwayat password dihapus");
-                });
-            }
             generatePassword(true);
         }
 
@@ -3607,31 +3724,34 @@
                         pwdNumbers = $("pwdNum").checked;
                         document.querySelectorAll(".chip-opt").forEach(function(lb) { lb.classList.toggle("active", lb.querySelector("input").checked); });
                         generatePassword(); }); } }
-            // Base text changes are handled via input event in renderPasswordGenerator
-            $("pwdGenerateBtn").addEventListener("click", function() { generatePassword(); });
-            $("pwdRefreshBtn").addEventListener("click", function() { generatePassword(); });
-            $("pwdCopyBtn").addEventListener("click", function() { var out = $("pwdOutput"); if (out && out.textContent && out.textContent !== "Klik Generate") { copyText(out.textContent, "Password"); } });
-            var hist = $("pwdHistory");
-            if (hist) { hist.addEventListener("click", function(e) { var item = e.target.closest(".hist-item"); if (item) { copyText(item.textContent, "Password"); } }); }
+            var genBtn = $("pwdGenerateBtn");
+            if (genBtn) genBtn.addEventListener("click", function() { generatePassword(); });
+            var refreshBtn2 = $("pwdRefreshBtn");
+            if (refreshBtn2) refreshBtn2.addEventListener("click", function() { generatePassword(); });
+            var copyBtn = $("pwdCopyBtn");
+            if (copyBtn) copyBtn.addEventListener("click", function() { var out = $("pwdOutput"); if (out && out.textContent && out.textContent !== "Klik Generate") { copyText(out.textContent, "Password"); } });
         }
 
         function generatePassword(initial) {
             var baseInput = $("pwdBaseText");
             var baseText = baseInput ? baseInput.value : "";
-            var chars = "";
 
-            // Determine character set based on toggles
             var allowedChars = "";
             if (pwdUppercase) allowedChars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             if (pwdLowercase) allowedChars += "abcdefghijklmnopqrstuvwxyz";
             if (pwdNumbers) allowedChars += "0123456789";
 
+            if (allowedChars === "") {
+                showToast("Pilih minimal 1 jenis karakter", "error");
+                return;
+            }
+
+            var pwd = "";
+
             if (baseText.trim() !== "") {
-                // Use base text as source: filter characters based on toggles, then shuffle
                 var filtered = "";
                 for (var i = 0; i < baseText.length; i++) {
                     var c = baseText[i];
-                    // Check if character is in allowedChars
                     if (allowedChars.indexOf(c) !== -1) {
                         filtered += c;
                     }
@@ -3640,7 +3760,6 @@
                     showToast("Base text tidak mengandung karakter yang dipilih", "error");
                     return;
                 }
-                // Shuffle filtered string (Fisher-Yates)
                 var arr = filtered.split('');
                 for (var si = arr.length - 1; si > 0; si--) {
                     var rj = Math.floor(Math.random() * (si + 1));
@@ -3649,33 +3768,23 @@
                     arr[rj] = tmp;
                 }
                 var shuffled = arr.join('');
-                // Build password: take pwdLength chars, repeat if needed
-                var pwd = "";
                 for (var pi = 0; pi < pwdLength; pi++) {
                     pwd += shuffled[pi % shuffled.length];
                 }
-                var out = $("pwdOutput");
-                if (out) { out.textContent = pwd;
-                    out.classList.add("glow"); }
-                var strength = calcStrength(pwd);
-                updateStrength(strength);
-                if (!initial) { passwordHistory.unshift(pwd); if (passwordHistory.length > 10) passwordHistory.pop();
-                    updateHistory(); }
-                return;
+            } else {
+                var len = pwdLength;
+                for (var ri = 0; ri < len; ri++) {
+                    pwd += allowedChars.charAt(Math.floor(Math.random() * allowedChars.length));
+                }
             }
 
-            // No base text: use normal random generation from allowedChars
-            if (allowedChars === "") { showToast("Pilih minimal 1 jenis karakter", "error"); return; }
-            var len = pwdLength;
-            var pwd2 = "";
-            for (var ri = 0; ri < len; ri++) { pwd2 += allowedChars.charAt(Math.floor(Math.random() * allowedChars.length)); }
-            var out2 = $("pwdOutput");
-            if (out2) { out2.textContent = pwd2;
-                out2.classList.add("glow"); }
-            var strength2 = calcStrength(pwd2);
-            updateStrength(strength2);
-            if (!initial) { passwordHistory.unshift(pwd2); if (passwordHistory.length > 10) passwordHistory.pop();
-                updateHistory(); }
+            var out = $("pwdOutput");
+            if (out) {
+                out.textContent = pwd;
+                out.classList.add("glow");
+            }
+            var strength = calcStrength(pwd);
+            updateStrength(strength);
         }
 
         function calcStrength(pwd) {
@@ -3713,29 +3822,6 @@
             text.style.color = colors[idx];
         }
 
-        function updateHistory() {
-            var hist = $("pwdHistory");
-            if (!hist) return;
-            if (passwordHistory.length === 0) {
-                hist.innerHTML = '<span class="hist-empty">Riwayat password kosong</span>';
-                return;
-            }
-            var html = "";
-            for (var i = 0; i < passwordHistory.length; i++) { html += '<span class="hist-item">' + escapeHtml(passwordHistory[i]) + '</span>'; }
-            html += '<button class="hist-clear-btn" id="pwdClearHistoryBtn"><i class="fa-regular fa-trash-can"></i> Hapus</button>';
-            hist.innerHTML = html;
-            // Re-bind clear button
-            var clearBtn = $("pwdClearHistoryBtn");
-            if (clearBtn) {
-                clearBtn.addEventListener("click", function(e) {
-                    e.stopPropagation();
-                    passwordHistory = [];
-                    updateHistory();
-                    showToast("Riwayat password dihapus");
-                });
-            }
-        }
-
         // ===== RENDER CONTENT =====
         function renderContent() {
             if (isLoading && !lastRefreshTime) { contentArea.innerHTML = '<div class="loading-state"><div class="loader-ring"></div><span>Memuat data...</span></div>'; return; }
@@ -3743,7 +3829,9 @@
             if (currentFilter === "gidEvent") { renderEventViewWithFilters(); var totalRaw = gidEventData.length; var qf = searchQuery.trim(); var shownCount = contentArea.querySelectorAll(".event-section-card, .prosedur-section").length; if (qf) $("searchResultCount").innerHTML = 'Ditemukan <strong>' + shownCount + '</strong> dari ' + totalRaw + ' event';
                 else $("searchResultCount").innerHTML = ''; return; }
             if (currentFilter === "gidPassword") { renderPasswordGenerator();
-                $("searchResultCount").innerHTML = ""; return; }
+                $("searchResultCount").innerHTML = "";
+                // search bar already hidden via updatePageHeader
+                return; }
             var items = getFilteredData(),
                 cfg = getCfg(),
                 q = searchQuery.trim(),
@@ -3810,10 +3898,8 @@
             searchQuery = searchInput.value;
             searchClear.classList.toggle("visible", searchQuery.length > 0);
             if (currentFilter === "gidPassword") {
-                if (searchQuery.trim()) { var items = gidPasswordData.filter(function(i) { return (i.title || "").toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1 || (i.content || "").toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1; });
-                    renderDefaultGrid(items);
-                    $("searchResultCount").innerHTML = 'Ditemukan <strong>' + items.length + '</strong> dari ' + gidPasswordData.length + " data"; } else { renderPasswordGenerator();
-                    $("searchResultCount").innerHTML = ""; }
+                // password view doesn't use search, just ignore
+                return;
             } else { renderContent(); }
         });
 
@@ -3822,8 +3908,7 @@
             searchQuery = "";
             searchClear.classList.remove("visible");
             searchInput.focus();
-            if (currentFilter === "gidPassword") { renderPasswordGenerator();
-                $("searchResultCount").innerHTML = ""; } else { renderContent(); }
+            if (currentFilter === "gidPassword") { return; } else { renderContent(); }
         });
 
         function updateProgressBar() { timerBarFillEl.style.width = (timerRemaining / 30 * 100) + "%"; }
