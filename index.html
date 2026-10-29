@@ -2110,12 +2110,21 @@
             gap: clamp(.8rem, 2vw, 1.1rem);
         }
         .gallery-intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
             margin-bottom: 1rem;
-            padding: 1rem 1.1rem;
-            border: 1px solid rgba(0, 240, 255, .14);
-            border-radius: 13px;
-            background: linear-gradient(120deg, rgba(0, 240, 255, .06), rgba(167, 139, 250, .045) 55%, rgba(17, 17, 24, .75));
+            padding: 1.15rem 1.25rem;
+            border: 1px solid rgba(0, 240, 255, .17);
+            border-radius: 16px;
+            background:
+                radial-gradient(circle at 90% 10%, rgba(167, 139, 250, .12), transparent 35%),
+                linear-gradient(120deg, rgba(0, 240, 255, .075), rgba(17, 17, 24, .92) 58%);
             box-shadow: inset 0 1px rgba(255, 255, 255, .025);
+        }
+        .gallery-intro-content {
+            min-width: 0;
         }
         .gallery-eyebrow {
             display: flex;
@@ -2149,29 +2158,112 @@
             color: var(--fg-muted);
             font-size: .72rem;
         }
+        .gallery-count {
+            display: grid;
+            min-width: 76px;
+            justify-items: center;
+            gap: .1rem;
+            padding: .6rem .8rem;
+            border: 1px solid rgba(0, 240, 255, .17);
+            border-radius: 12px;
+            background: rgba(0, 240, 255, .055);
+            flex-shrink: 0;
+        }
+        .gallery-count strong {
+            color: var(--neon-cyan);
+            font-family: var(--font-mono);
+            font-size: 1.15rem;
+            line-height: 1.1;
+        }
+        .gallery-count span {
+            color: var(--fg-muted);
+            font-family: var(--font-mono);
+            font-size: .48rem;
+            letter-spacing: .12em;
+        }
         .gallery-grid .card {
-            min-height: 300px;
-            background: linear-gradient(160deg, rgba(20, 23, 31, .94), rgba(10, 10, 16, .97));
+            min-height: 340px;
+            border-radius: 15px;
+            background: linear-gradient(160deg, rgba(20, 23, 31, .96), rgba(10, 10, 16, .98));
+            box-shadow: 0 8px 28px -18px rgba(0, 0, 0, .9);
+        }
+        .gallery-grid .card-inner {
+            padding: 0;
+        }
+        .gallery-grid .card-title {
+            padding: .95rem 1rem .15rem;
+            margin: 0;
+            font-size: .86rem;
+            -webkit-line-clamp: 1;
+        }
+        .gallery-grid .card-content {
+            padding: 0 1rem;
+            margin: .35rem 0 .15rem;
         }
         .gallery-grid .qris-image-preview {
             flex: 1;
-            min-height: 170px;
+            min-height: 190px;
             max-height: none;
-            margin: .4rem 0 .7rem;
-            border-color: rgba(0, 240, 255, .14);
+            margin: .55rem .75rem .75rem;
+            border-color: rgba(0, 240, 255, .16);
+            border-radius: 12px;
             background: linear-gradient(145deg, rgba(0, 240, 255, .045), rgba(0, 0, 0, .48));
         }
         .gallery-grid .qris-image-preview img {
             width: 100%;
-            height: 220px;
-            max-height: 220px;
+            height: 230px;
+            max-height: 230px;
             object-fit: cover;
             padding: 0;
+        }
+        .gallery-image-fallback {
+            display: grid;
+            width: 100%;
+            height: 230px;
+            align-content: center;
+            justify-items: center;
+            gap: .45rem;
+            padding: 1rem;
+            color: var(--fg-muted);
+            font-size: .72rem;
+            text-align: center;
+        }
+        .gallery-image-fallback[hidden] {
+            display: none !important;
+        }
+        .gallery-image-fallback i {
+            color: var(--neon-cyan);
+            font-size: 1.5rem;
+        }
+        .gallery-image-fallback a {
+            color: var(--neon-cyan);
+            text-decoration: none;
+        }
+        .gallery-image-fallback a:hover {
+            text-decoration: underline;
         }
         .gallery-grid .card-content {
             flex: 0 1 auto;
             max-height: 4.5em;
             margin-bottom: .2rem;
+        }
+        .gallery-grid .qris-actions {
+            margin-top: auto;
+            padding: .65rem .75rem .75rem;
+            border-top: 1px solid rgba(255, 255, 255, .055);
+            background: rgba(0, 0, 0, .12);
+        }
+        @media (max-width: 600px) {
+            .gallery-intro {
+                padding: .9rem;
+            }
+            .gallery-intro p {
+                max-width: 28ch;
+            }
+            .gallery-count {
+                min-width: 64px;
+                padding: .5rem .6rem;
+            }
         }
         .card {
             background: var(--card);
@@ -3474,6 +3566,22 @@
             GID_BETTING = "1474141640",
             GID_EVENT = "349745996";
         var GID_GAMBAR_LAIN = "1991211887";
+        var POSTIMG_DIRECT_IMAGES = {
+            "mzqLBHNm": "https://i.postimg.cc/L54nkkqF/Id-OGuk-I.png",
+            "svmLWRb3": "https://i.postimg.cc/mgWW0Lw1/pe-B7r-CN.png",
+            "4m8ggtfG": "https://i.postimg.cc/Cx0LbH9R/Qr17BN5.png",
+            "PNTsvKNT": "https://i.postimg.cc/mZFbq5sz/w1IIHc-H.png",
+            "Jyx3613Y": "https://i.postimg.cc/768BLh54/9NEab-Qr.png",
+            "D8GrVQd4": "https://i.postimg.cc/65jYvY8c/Ah2g-D4G.png",
+            "XrVp29sT": "https://i.postimg.cc/9Q9ZQpZF/V02Eh-WW.png",
+            "K4kqzMD2": "https://i.postimg.cc/nVT63KsC/h2Ey-Ka-C.png",
+            "XGZ8pRdM": "https://i.postimg.cc/PxyFFhqq/I7b9x-Qn.png",
+            "9RjdQDm1": "https://i.postimg.cc/tTs2D6L0/d79UY4q.jpg",
+            "MvGyH2SY": "https://i.postimg.cc/nc4TdpSN/Nc-Piq0f.png",
+            "r0c4L7jt": "https://i.postimg.cc/QtKJc3WS/f-Zv-MVzb.png",
+            "gLLmt2hK": "https://i.postimg.cc/Y0b094qT/Sleekshot.png",
+            "crQNvjBm": "https://i.postimg.cc/QxzNyZBR/image.png"
+        };
         var BASE = "https://docs.google.com/spreadsheets/d/" + SPREADSHEET_ID + "/gviz/tq?tqx=out:json";
         var URLS = {
             gid0: BASE,
@@ -3603,9 +3711,16 @@
 
         function normalizeGalleryImageUrl(value) {
             var url = String(value || "").trim();
+            var postimgMatch = url.match(/^https?:\/\/(?:www\.)?postimg\.cc\/([A-Za-z0-9]+)/i);
+            if (postimgMatch && POSTIMG_DIRECT_IMAGES[postimgMatch[1]]) return POSTIMG_DIRECT_IMAGES[postimgMatch[1]];
             var match = url.match(/drive\.google\.com\/file\/d\/([^/?#]+)/i);
             if (!match) match = url.match(/drive\.google\.com\/(?:open|uc)\?(?:[^#]*&)?id=([^&#]+)/i);
             return match ? "https://drive.google.com/uc?export=view&id=" + encodeURIComponent(match[1]) : url;
+        }
+
+        function isGalleryImageCandidate(value) {
+            var url = String(value || "").trim();
+            return isImageUrl(url) || /^https?:\/\/[^\s<>"']+$/i.test(url);
         }
 
         function fetchGallery(url) {
@@ -3620,8 +3735,8 @@
                         return c && c.v != null ? String(c.v).trim() : "";
                     });
                     if (raw.every(function(value) { return !value; })) continue;
-                    var imageUrls = raw.filter(isImageUrl).map(normalizeGalleryImageUrl);
-                    var textParts = raw.filter(function(value) { return value && !isImageUrl(value); });
+                    var imageUrls = raw.filter(isGalleryImageCandidate).map(normalizeGalleryImageUrl);
+                    var textParts = raw.filter(function(value) { return value && !isGalleryImageCandidate(value); });
                     var title = textParts.shift() || "Gambar " + (ri + 1);
                     var content = textParts.join("\n");
                     if (imageUrls.length) {
@@ -3792,22 +3907,23 @@
                 q = searchQuery.trim(),
                 noCopy = currentFilter === "gidProfile",
                 isGallery = currentFilter === "gidGambarLain";
-            var html = isGallery ? '<div class="gallery-intro"><div class="gallery-eyebrow"><span class="gallery-eyebrow-dot"></span> KOLEKSI VISUAL · LIVE</div><div class="gallery-intro-title">GAMBAR <span>LAIN-LAIN</span></div><p>Seluruh gambar dan detail yang tersedia pada sheet ditampilkan di galeri ini.</p></div><div class="cards-grid gallery-grid">' : '<div class="cards-grid">';
+            var html = isGallery ? '<div class="gallery-intro"><div class="gallery-intro-content"><div class="gallery-eyebrow"><span class="gallery-eyebrow-dot"></span> GALERI GAMBAR · LIVE</div><div class="gallery-intro-title">GAMBAR <span>LAIN-LAIN</span></div><p>Seluruh gambar dan detail yang tersedia pada sheet ditampilkan di galeri ini.</p></div><div class="gallery-count"><strong>' + items.length + '</strong><span>GAMBAR</span></div></div><div class="cards-grid gallery-grid">' : '<div class="cards-grid">';
             for (var i = 0; i < items.length; i++) {
                 var it = items[i],
                     title = highlightMatch(it.title, q),
                     content = highlightMatch(it.content, q);
                 var hasImg = it.imageUrl && it.imageUrl.trim();
                 var imgHtml = "";
-                if (hasImg) imgHtml = '<div class="qris-image-preview"><img src="' + escapeHtml(it.imageUrl) + '" loading="lazy" alt="' + escapeHtml(it.title) + '" onerror="this.parentElement.style.display=\'none\'"></div>';
+                if (hasImg && isGallery) imgHtml = '<div class="qris-image-preview"><img src="' + escapeHtml(it.imageUrl) + '" loading="lazy" alt="' + escapeHtml(it.title) + '" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="gallery-image-fallback" hidden><i class="fa-regular fa-image"></i><span>Pratinjau gambar tidak tersedia</span><a href="' + escapeHtml(it.imageUrl) + '" target="_blank" rel="noopener noreferrer">Buka sumber gambar</a></div></div>';
+                else if (hasImg) imgHtml = '<div class="qris-image-preview"><img src="' + escapeHtml(it.imageUrl) + '" loading="lazy" alt="' + escapeHtml(it.title) + '" onerror="this.parentElement.style.display=\'none\'"></div>';
 
                 // Extract URL from content
                 var url = extractFirstUrl(it.content);
                 if (!url && isGallery && hasImg) url = it.imageUrl;
                 var dataUrlAttr = url && !isGallery ? ' data-url="' + escapeHtml(url) + '"' : '';
-                var linkBtn = url ? '<button class="btn-action btn-link open-link-btn" data-url="' + escapeHtml(url) + '"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka</button>' : '';
+                var linkBtn = url ? '<button class="btn-action btn-link open-link-btn" data-url="' + escapeHtml(url) + '"><i class="fa-solid fa-arrow-up-right-from-square"></i> ' + (isGallery ? 'Lihat asli' : 'Buka') + '</button>' : '';
 
-                var imgBtn = hasImg ? '<button class="btn-action copy-img-btn" data-index="' + i + '"><i class="fa-regular fa-image"></i> Copy</button>' : "";
+                var imgBtn = hasImg ? '<button class="btn-action copy-img-btn" data-index="' + i + '"><i class="fa-regular fa-image"></i> ' + (isGallery ? 'Salin gambar' : 'Copy') + '</button>' : "";
                 var textBtn = noCopy ? "" : '<button class="btn-action copy-text-btn" data-index="' + i + '"><i class="fa-regular fa-copy"></i> Copy</button>';
 
                 html += '<article class="card" data-index="' + i + '"' + dataUrlAttr + '><div class="accent-strip" style="background:' + cfg.stripGradient + '"></div><div class="card-inner"><h2 class="card-title">' + title + '</h2>' + (content ? '<div class="card-content">' + content + '</div>' : "") + imgHtml + '<div class="qris-actions">' + textBtn + linkBtn + imgBtn + '</div></div></article>';
@@ -4392,9 +4508,6 @@
         (function addGalleryEntry() {
             var sidebarNav = document.querySelector(".sidebar-nav");
             if (sidebarNav && !document.querySelector('.sidebar-item[data-filter="gidGambarLain"]')) {
-                var sectionLabel = document.createElement("div");
-                sectionLabel.className = "sidebar-section-label";
-                sectionLabel.textContent = "Koleksi";
                 var sidebarItem = document.createElement("div");
                 sidebarItem.className = "sidebar-item";
                 sidebarItem.dataset.filter = "gidGambarLain";
@@ -4408,7 +4521,6 @@
                         navigateToModule("gidGambarLain");
                     }
                 });
-                sidebarNav.appendChild(sectionLabel);
                 sidebarNav.appendChild(sidebarItem);
             }
 
