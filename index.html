@@ -3517,6 +3517,226 @@
                 width: 200px;
             }
         }
+
+        /* Modern blush-red cards and responsive data columns */
+        :root {
+            --accent: #fb7185;
+            --accent-soft: rgba(251, 113, 133, .12);
+            --content-color: #f4cbd2;
+            --border: rgba(251, 113, 133, .14);
+            --border-hover: rgba(251, 113, 133, .34);
+        }
+        .cards-grid {
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+            grid-auto-rows: minmax(300px, auto);
+            gap: clamp(.8rem, 1.8vw, 1.15rem);
+        }
+        #contentArea .cards-grid:not(.gallery-grid) {
+            grid-auto-rows: 320px;
+            align-items: stretch;
+        }
+        #contentArea .cards-grid:not(.gallery-grid) .card {
+            height: 320px;
+            min-height: 320px;
+        }
+        #contentArea .cards-grid:not(.gallery-grid) .card-inner {
+            padding: 1rem;
+        }
+        #contentArea .cards-grid:not(.gallery-grid) .card-title {
+            min-height: 2.6em;
+        }
+        #contentArea .cards-grid:not(.gallery-grid) .card-content {
+            max-height: 8rem;
+            overflow-y: auto;
+            padding-right: .25rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(251, 113, 133, .5) transparent;
+        }
+        #contentArea .cards-grid:not(.gallery-grid) .qris-actions {
+            min-height: 42px;
+            align-content: flex-end;
+        }
+        #contentArea .cards-grid.compact-purple-grid:not(.gallery-grid) {
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 185px), 1fr));
+            grid-auto-rows: 176px;
+            gap: .75rem;
+        }
+        #contentArea .cards-grid.compact-purple-grid:not(.gallery-grid) .card {
+            height: 176px;
+            min-height: 176px;
+            border-color: rgba(196, 181, 253, .26);
+            border-radius: 15px;
+            background:
+                radial-gradient(circle at 100% 0, rgba(192, 132, 252, .2), transparent 44%),
+                linear-gradient(150deg, rgba(39, 29, 58, .98), rgba(16, 14, 27, .99));
+            box-shadow: 0 12px 28px -22px rgba(168, 85, 247, .58), 0 8px 20px -16px rgba(0, 0, 0, .85);
+        }
+        #contentArea .cards-grid.compact-purple-grid:not(.gallery-grid) .card:hover {
+            border-color: rgba(216, 180, 254, .55);
+            box-shadow: 0 14px 30px -20px rgba(192, 132, 252, .6), 0 10px 22px -16px rgba(0, 0, 0, .9);
+        }
+        #contentArea .cards-grid.compact-purple-grid:not(.gallery-grid) .accent-strip {
+            height: 3px;
+            background: linear-gradient(90deg, #c084fc, #e9d5ff, transparent) !important;
+        }
+        #contentArea .cards-grid.compact-purple-grid:not(.gallery-grid) .card-inner {
+            padding: .72rem .78rem .65rem;
+        }
+        #contentArea .cards-grid.compact-purple-grid:not(.gallery-grid) .card-title {
+            min-height: 2.45em;
+            margin-bottom: .35rem;
+            padding-bottom: .35rem;
+            border-bottom: 1px solid rgba(216, 180, 254, .18);
+            color: #f5edff;
+            font-size: .72rem;
+            letter-spacing: .025em;
+        }
+        #contentArea .cards-grid.compact-purple-grid:not(.gallery-grid) .card-content {
+            max-height: 4.35em;
+            padding-right: 0;
+            overflow: hidden;
+            color: #ddd0f6;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            white-space: normal;
+            font-size: .65rem;
+            line-height: 1.45;
+        }
+        #contentArea .cards-grid.compact-purple-grid:not(.gallery-grid) .qris-actions {
+            min-height: 30px;
+            gap: .35rem;
+            padding-top: .38rem;
+            border-top-color: rgba(216, 180, 254, .13);
+        }
+        #contentArea .cards-grid.compact-purple-grid:not(.gallery-grid) .btn-action {
+            min-height: 27px;
+            padding: .28rem .46rem;
+            border-radius: 8px;
+            background: rgba(192, 132, 252, .11);
+            border-color: rgba(192, 132, 252, .27);
+            color: #e9d5ff;
+            font-size: .56rem;
+        }
+        #contentArea .cards-grid.compact-purple-grid:not(.gallery-grid) .btn-action:hover {
+            background: rgba(192, 132, 252, .2);
+            border-color: rgba(216, 180, 254, .5);
+            color: #fff;
+        }
+        .btn-action:disabled {
+            opacity: .42;
+            cursor: not-allowed;
+        }
+        .cards-grid .card {
+            min-height: 300px;
+            height: 100%;
+            border: 1px solid rgba(251, 113, 133, .18);
+            border-radius: 16px;
+            background:
+                radial-gradient(circle at 100% 0, rgba(251, 113, 133, .1), transparent 42%),
+                linear-gradient(155deg, rgba(43, 24, 32, .96), rgba(15, 13, 19, .98));
+            box-shadow: 0 12px 30px -22px rgba(251, 113, 133, .45), 0 8px 24px -18px rgba(0, 0, 0, .9);
+        }
+        .cards-grid .card:hover {
+            border-color: rgba(251, 113, 133, .42);
+            box-shadow: 0 16px 36px -22px rgba(251, 113, 133, .48), 0 12px 28px -18px rgba(0, 0, 0, .85);
+            transform: translateY(-4px);
+        }
+        .cards-grid .card-title {
+            color: #ffe7ec;
+            letter-spacing: .015em;
+        }
+        .cards-grid .card-content {
+            color: #f4cbd2;
+        }
+        .cards-grid .qris-image-preview {
+            border-color: rgba(251, 113, 133, .2);
+            background: linear-gradient(145deg, rgba(251, 113, 133, .06), rgba(0, 0, 0, .42));
+        }
+        .cards-grid .qris-actions {
+            padding-top: .65rem;
+            border-top: 1px solid rgba(255, 180, 194, .1);
+        }
+        .btn-action {
+            min-height: 34px;
+            padding: .42rem .72rem;
+            gap: .38rem;
+            border-radius: 10px;
+            background: rgba(251, 113, 133, .1);
+            border-color: rgba(251, 113, 133, .24);
+            color: #ffb6c2;
+        }
+        .btn-action:hover {
+            background: rgba(251, 113, 133, .18);
+            border-color: rgba(251, 113, 133, .42);
+            color: #ffe7ec;
+            transform: translateY(-1px);
+        }
+        .btn-action:focus-visible {
+            outline: 2px solid #fb7185;
+            outline-offset: 2px;
+        }
+        .btn-action.btn-link {
+            background: rgba(79, 195, 247, .08);
+            border-color: rgba(79, 195, 247, .2);
+            color: var(--qris-primary);
+        }
+        .btn-action.btn-link:hover {
+            background: rgba(79, 195, 247, .16);
+            border-color: rgba(79, 195, 247, .38);
+        }
+        .j-card-abss,
+        .event-section-card,
+        .prosedur-section {
+            border-color: rgba(251, 113, 133, .18);
+            background:
+                radial-gradient(circle at 100% 0, rgba(251, 113, 133, .08), transparent 42%),
+                linear-gradient(155deg, rgba(43, 24, 32, .96), rgba(15, 13, 19, .98));
+            border-radius: 16px;
+            box-shadow: 0 10px 28px -22px rgba(251, 113, 133, .38);
+        }
+        .j-card-abss:hover,
+        .event-section-card:hover {
+            border-color: rgba(251, 113, 133, .42);
+            box-shadow: 0 14px 32px -20px rgba(251, 113, 133, .42);
+        }
+        .j-card-abss::before,
+        .event-section-card::before,
+        .prosedur-section::before {
+            background: linear-gradient(90deg, #fb7185, #fda4af, transparent);
+        }
+        .j-header-abss,
+        .event-section-header {
+            border-color: rgba(251, 113, 133, .14);
+            background: rgba(251, 113, 133, .035);
+        }
+        .j-title-abss,
+        .event-section-title {
+            color: #ffe0e6;
+        }
+        @media (max-width: 600px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: minmax(280px, auto);
+            }
+            #contentArea .cards-grid:not(.gallery-grid) {
+                grid-auto-rows: 300px;
+            }
+            #contentArea .cards-grid:not(.gallery-grid) .card {
+                height: 300px;
+                min-height: 300px;
+            }
+            #contentArea .cards-grid.compact-purple-grid:not(.gallery-grid) {
+                grid-template-columns: repeat(auto-fill, minmax(min(100%, 155px), 1fr));
+                grid-auto-rows: 176px;
+            }
+            .cards-grid .card {
+                min-height: 280px;
+            }
+            .jadwal-grid-abssidian {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -3554,9 +3774,10 @@
 
     <script>
         // ==================== FULL SYSTEM + LINK CARD (open in new tab) ====================
+        // Isi placeholder hanya di konfigurasi lokal; login sisi browser bukan pengamanan produksi.
         var LOGIN_KEY = "ruangWaktuAuth",
-            VALID_USER = "Putra28",
-            VALID_PASS = "Tyaaa27";
+            VALID_USER = "GANTI_USERNAME",
+            VALID_PASS = "GANTI_PASSWORD";
         var SPREADSHEET_ID = "1VO91WJb1w2Pi4V_GO12hDl8KPkkmHkOUFxtqEmCvygM";
         var GID_TAMBAHAN = "575827072",
             GID_HADIAH = "473202279",
@@ -3682,24 +3903,43 @@
         function showToast(msg, type) { var t = document.createElement("div"); t.className = "toast"; var ic = type === "error" ? "fa-circle-xmark" : "fa-circle-check"; var clr = type === "error" ? "var(--coral)" : "var(--sage)"; t.innerHTML = '<i class="fa-solid ' + ic + '" style="color:' + clr + '"></i> ' + escapeHtml(msg); document.body.appendChild(t); setTimeout(function() { t.remove() }, 1800); }
 
         async function copyImageToClipboard(url, title) {
-            if (!url) return;
+            if (!url) {
+                showToast("Gambar tidak tersedia", "error");
+                return false;
+            }
             try {
+                if (!navigator.clipboard || typeof navigator.clipboard.write !== "function" || typeof ClipboardItem === "undefined") {
+                    throw new Error("Clipboard gambar tidak didukung");
+                }
                 showToast("Mengambil gambar...", "");
                 const response = await fetch(url, { mode: 'cors' });
                 if (!response.ok) throw new Error('Gagal mengambil gambar');
                 const blob = await response.blob();
                 if (!blob.type.startsWith('image/')) throw new Error('Bukan format gambar');
+                const bitmap = await createImageBitmap(blob);
+                const canvas = document.createElement("canvas");
+                canvas.width = bitmap.width;
+                canvas.height = bitmap.height;
+                const context = canvas.getContext("2d");
+                if (!context) throw new Error("Canvas gambar tidak tersedia");
+                context.drawImage(bitmap, 0, 0);
+                if (bitmap.close) bitmap.close();
+                const pngBlob = await new Promise(function(resolve) {
+                    canvas.toBlob(resolve, "image/png");
+                });
+                if (!pngBlob) throw new Error("Konversi gambar gagal");
                 await navigator.clipboard.write([
                     new ClipboardItem({
-                        [blob.type]: blob
+                        "image/png": pngBlob
                     })
                 ]);
                 showToast("Gambar " + (title ? escapeHtml(title) : "") + " disalin ke clipboard", "");
+                return true;
             } catch (err) {
-                console.warn(err);
-                navigator.clipboard.writeText(url).then(() => {
-                    showToast("Gagal menyalin gambar, URL gambar disalin sebagai teks", "error");
-                }).catch(() => showToast("Gagal menyalin gambar", "error"));
+                console.warn("Gagal menyalin gambar ke clipboard.");
+                var urlCopied = await copyText(url, "URL gambar", true);
+                showToast(urlCopied ? "Browser membatasi salin gambar; URL disalin sebagai teks" : "Gagal menyalin gambar", "error");
+                return false;
             }
         }
         var copyImage = copyImageToClipboard;
@@ -3879,8 +4119,50 @@
         $("backBtn").addEventListener("click", showDashboard);
         document.querySelectorAll(".module-card").forEach(function(c) { c.addEventListener("click", function() { navigateToModule(c.dataset.filter) }) });
 
-        function copyText(text, label) { if (!text) return;
-            navigator.clipboard.writeText(text).then(function() { showToast((label || "Teks") + " disalin") }).catch(function() { showToast("Gagal menyalin", "error") }); }
+        function copyText(text, label, silent) {
+            var value = text == null ? "" : String(text);
+            var message = (label || "Teks") + " berhasil disalin";
+            if (!value.trim()) {
+                if (!silent) showToast("Tidak ada teks untuk disalin", "error");
+                return Promise.resolve(false);
+            }
+
+            function fallbackCopy() {
+                var textarea = document.createElement("textarea");
+                textarea.value = value;
+                textarea.setAttribute("readonly", "");
+                textarea.style.position = "fixed";
+                textarea.style.top = "0";
+                textarea.style.left = "-9999px";
+                textarea.style.opacity = "0";
+                document.body.appendChild(textarea);
+                textarea.focus();
+                textarea.select();
+                textarea.setSelectionRange(0, textarea.value.length);
+                var copied = false;
+                try {
+                    copied = document.execCommand("copy");
+                } catch (error) {
+                    copied = false;
+                }
+                textarea.remove();
+                if (!silent) showToast(copied ? message : "Gagal menyalin teks", copied ? "success" : "error");
+                return Promise.resolve(copied);
+            }
+
+            if (navigator.clipboard && window.isSecureContext) {
+                return navigator.clipboard.writeText(value).then(function() {
+                    if (!silent) showToast(message);
+                    return true;
+                }).catch(fallbackCopy);
+            }
+            return fallbackCopy();
+        }
+
+        function getItemCopyText(item) {
+            if (!item) return "";
+            return item.content == null ? "" : String(item.content).trim();
+        }
 
         function highlightMatch(text, q) { if (!q || !text) return escapeHtml(text); var s = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); return escapeHtml(text).replace(new RegExp("(" + s + ")", "gi"), "<mark>$1</mark>"); }
 
@@ -3896,7 +4178,7 @@
                     p = parseJadwalItem(it),
                     sc = p.status,
                     sl = p.status === "active" ? "Active" : "Passed";
-                html += '<div class="j-card-abss" data-index="' + i + '" data-web="' + escapeHtml(p.webUrl) + '" data-watch="' + escapeHtml(p.watchUrl) + '" data-copy="' + escapeHtml(p.fullContent) + '"><div class="j-header-abss"><div class="j-title-abss">' + highlightMatch(it.title, q) + '</div><div class="j-badge-abss ' + sc + '">' + sl + '</div></div><div class="j-body-abss"><div class="j-time-row"><span class="j-time-label"><i class="fa-solid fa-lock-open"></i> Buka</span><span class="j-time-val">' + p.cutoffTime + '</span></div><div class="j-time-row"><span class="j-time-label"><i class="fa-solid fa-lock"></i> Tutup</span><span class="j-time-val result-val">' + p.resultTime + '</span></div></div><div class="j-footer-abss"><button class="j-btn-abss j-btn-web ' + (p.webUrl ? "" : "disabled") + '"><i class="fa-solid fa-globe"></i> Web</button><button class="j-btn-abss j-btn-copy"><i class="fa-regular fa-copy"></i> Copy</button><button class="j-btn-abss j-btn-watch ' + (p.watchUrl ? "" : "disabled") + '"><i class="fa-solid fa-eye"></i> Watch</button></div></div>'; }
+                html += '<div class="j-card-abss" data-index="' + i + '" data-web="' + escapeHtml(p.webUrl) + '" data-watch="' + escapeHtml(p.watchUrl) + '" data-copy="' + escapeHtml(getItemCopyText(it)) + '"><div class="j-header-abss"><div class="j-title-abss">' + highlightMatch(it.title, q) + '</div><div class="j-badge-abss ' + sc + '">' + sl + '</div></div><div class="j-body-abss"><div class="j-time-row"><span class="j-time-label"><i class="fa-solid fa-lock-open"></i> Buka</span><span class="j-time-val">' + p.cutoffTime + '</span></div><div class="j-time-row"><span class="j-time-label"><i class="fa-solid fa-lock"></i> Tutup</span><span class="j-time-val result-val">' + p.resultTime + '</span></div></div><div class="j-footer-abss"><button class="j-btn-abss j-btn-web ' + (p.webUrl ? "" : "disabled") + '"><i class="fa-solid fa-globe"></i> Web</button><button class="j-btn-abss j-btn-copy"><i class="fa-regular fa-copy"></i> Salin teks</button><button class="j-btn-abss j-btn-watch ' + (p.watchUrl ? "" : "disabled") + '"><i class="fa-solid fa-eye"></i> Watch</button></div></div>'; }
             html += "</div>";
             contentArea.innerHTML = html;
         }
@@ -3905,9 +4187,12 @@
         function renderDefaultGrid(items) {
             var cfg = getCfg(),
                 q = searchQuery.trim(),
-                noCopy = currentFilter === "gidProfile",
+                compactPurple = ["gid0", "gid473", "gidBonus"].indexOf(currentFilter) !== -1,
+                allowTextCopy = currentFilter !== "gidBetting",
                 isGallery = currentFilter === "gidGambarLain";
-            var html = isGallery ? '<div class="gallery-intro"><div class="gallery-intro-content"><div class="gallery-eyebrow"><span class="gallery-eyebrow-dot"></span> GALERI GAMBAR · LIVE</div><div class="gallery-intro-title">GAMBAR <span>LAIN-LAIN</span></div><p>Seluruh gambar dan detail yang tersedia pada sheet ditampilkan di galeri ini.</p></div><div class="gallery-count"><strong>' + items.length + '</strong><span>GAMBAR</span></div></div><div class="cards-grid gallery-grid">' : '<div class="cards-grid">';
+            var gridClass = isGallery ? "cards-grid gallery-grid" : "cards-grid" + (compactPurple ? " compact-purple-grid" : "");
+            var cardAccent = compactPurple ? "linear-gradient(90deg,#c084fc,rgba(192,132,252,.2))" : cfg.stripGradient;
+            var html = isGallery ? '<div class="gallery-intro"><div class="gallery-intro-content"><div class="gallery-eyebrow"><span class="gallery-eyebrow-dot"></span> GALERI GAMBAR · LIVE</div><div class="gallery-intro-title">GAMBAR <span>LAIN-LAIN</span></div><p>Seluruh gambar dan detail yang tersedia pada sheet ditampilkan di galeri ini.</p></div><div class="gallery-count"><strong>' + items.length + '</strong><span>GAMBAR</span></div></div><div class="' + gridClass + '">' : '<div class="' + gridClass + '">';
             for (var i = 0; i < items.length; i++) {
                 var it = items[i],
                     title = highlightMatch(it.title, q),
@@ -3921,12 +4206,15 @@
                 var url = extractFirstUrl(it.content);
                 if (!url && isGallery && hasImg) url = it.imageUrl;
                 var dataUrlAttr = url && !isGallery ? ' data-url="' + escapeHtml(url) + '"' : '';
-                var linkBtn = url ? '<button class="btn-action btn-link open-link-btn" data-url="' + escapeHtml(url) + '"><i class="fa-solid fa-arrow-up-right-from-square"></i> ' + (isGallery ? 'Lihat asli' : 'Buka') + '</button>' : '';
+                var linkBtn = !isGallery && url ? '<button class="btn-action btn-link open-link-btn" data-url="' + escapeHtml(url) + '"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka</button>' : '';
 
-                var imgBtn = hasImg ? '<button class="btn-action copy-img-btn" data-index="' + i + '"><i class="fa-regular fa-image"></i> ' + (isGallery ? 'Salin gambar' : 'Copy') + '</button>' : "";
-                var textBtn = noCopy ? "" : '<button class="btn-action copy-text-btn" data-index="' + i + '"><i class="fa-regular fa-copy"></i> Copy</button>';
+                var imageButtonLabel = currentFilter === "gidBetting" ? "COPY GAMBAR" : (isGallery ? "Salin gambar" : "Copy");
+                var imgBtn = hasImg
+                    ? '<button class="btn-action copy-img-btn" data-index="' + i + '"><i class="fa-regular fa-image"></i> ' + imageButtonLabel + '</button>'
+                    : (currentFilter === "gidBetting" ? '<button class="btn-action copy-img-btn" type="button" disabled title="Gambar tidak tersedia pada item ini"><i class="fa-regular fa-image"></i> COPY GAMBAR</button>' : "");
+                var textBtn = allowTextCopy && it.content && it.content.trim() ? '<button class="btn-action copy-text-btn" data-index="' + i + '"><i class="fa-regular fa-copy"></i> Salin teks</button>' : "";
 
-                html += '<article class="card" data-index="' + i + '"' + dataUrlAttr + '><div class="accent-strip" style="background:' + cfg.stripGradient + '"></div><div class="card-inner"><h2 class="card-title">' + title + '</h2>' + (content ? '<div class="card-content">' + content + '</div>' : "") + imgHtml + '<div class="qris-actions">' + textBtn + linkBtn + imgBtn + '</div></div></article>';
+                html += '<article class="card" data-index="' + i + '"' + dataUrlAttr + '><div class="accent-strip" style="background:' + cardAccent + '"></div><div class="card-inner"><h2 class="card-title">' + title + '</h2>' + (content ? '<div class="card-content">' + content + '</div>' : "") + imgHtml + '<div class="qris-actions">' + textBtn + linkBtn + imgBtn + '</div></div></article>';
             }
             html += "</div>";
             contentArea.innerHTML = html;
@@ -3976,18 +4264,18 @@
                 var ev = filteredEventItems[ei].item,
                     evIdx = filteredEventItems[ei].idx;
                 var icon = "fa-bolt";
-                html += '<div class="event-section-card" data-index="' + evIdx + '"><div class="event-section-header"><div class="event-section-icon-wrap"><i class="fa-solid ' + icon + '"></i></div><div class="event-section-title-wrap"><div class="event-section-title">' + highlightMatch(ev.title, q) + '</div><div class="event-section-badge"><span class="mini-dot"></span> AKTIF</div></div></div><div class="event-section-body">' + (ev.content && ev.content.trim() ? '<div class="event-section-content">' + highlightMatch(ev.content, q) + '</div>' : '') + (ev.imageUrl && ev.imageUrl.trim() ? '<div class="event-section-image"><img src="' + escapeHtml(ev.imageUrl) + '" loading="lazy" alt="' + escapeHtml(ev.title) + '" onerror="this.parentElement.style.display=\'none\'"></div>' : '') + '<div class="event-section-actions"><button class="btn-action copy-text-btn" data-index="' + evIdx + '"><i class="fa-regular fa-copy"></i> Copy Teks</button>' + (ev.imageUrl ? '<button class="btn-action copy-img-btn" data-index="' + evIdx + '"><i class="fa-regular fa-image"></i> Copy Gambar</button>' : '') + '</div></div></div>';
+                html += '<div class="event-section-card" data-index="' + evIdx + '"><div class="event-section-header"><div class="event-section-icon-wrap"><i class="fa-solid ' + icon + '"></i></div><div class="event-section-title-wrap"><div class="event-section-title">' + highlightMatch(ev.title, q) + '</div><div class="event-section-badge"><span class="mini-dot"></span> AKTIF</div></div></div><div class="event-section-body">' + (ev.content && ev.content.trim() ? '<div class="event-section-content">' + highlightMatch(ev.content, q) + '</div>' : '') + (ev.imageUrl && ev.imageUrl.trim() ? '<div class="event-section-image"><img src="' + escapeHtml(ev.imageUrl) + '" loading="lazy" alt="' + escapeHtml(ev.title) + '" onerror="this.parentElement.style.display=\'none\'"></div>' : '') + '<div class="event-section-actions">' + (ev.content && ev.content.trim() ? '<button class="btn-action copy-text-btn" data-index="' + evIdx + '"><i class="fa-regular fa-copy"></i> Salin teks</button>' : '') + (ev.imageUrl ? '<button class="btn-action copy-img-btn" data-index="' + evIdx + '"><i class="fa-regular fa-image"></i> Salin gambar</button>' : '') + '</div></div></div>';
             }
             for (var pi = 0; pi < prosedurItems.length; pi++) {
                 var pr = prosedurItems[pi].item,
                     prIdx = prosedurItems[pi].idx;
-                html += '<div class="prosedur-section" data-index="' + prIdx + '"><div class="prosedur-header"><div class="prosedur-icon-wrap"><i class="fa-solid fa-clipboard-check"></i></div><div class="prosedur-title">' + highlightMatch(pr.title, q) + '</div></div><div class="prosedur-body"><div class="event-section-content">' + highlightMatch(pr.content, q) + '</div>' + (pr.imageUrl && pr.imageUrl.trim() ? '<div class="event-section-image" style="border-color:rgba(167,139,250,.12)"><img src="' + escapeHtml(pr.imageUrl) + '" loading="lazy" alt="' + escapeHtml(pr.title) + '" onerror="this.parentElement.style.display=\'none\'"></div>' : '') + '<div class="event-section-actions"><button class="btn-action copy-text-btn" data-index="' + prIdx + '"><i class="fa-regular fa-copy"></i> Copy Teks</button>' + (pr.imageUrl ? '<button class="btn-action copy-img-btn" data-index="' + prIdx + '"><i class="fa-regular fa-image"></i> Copy Gambar</button>' : '') + '</div></div></div>';
+                html += '<div class="prosedur-section" data-index="' + prIdx + '"><div class="prosedur-header"><div class="prosedur-icon-wrap"><i class="fa-solid fa-clipboard-check"></i></div><div class="prosedur-title">' + highlightMatch(pr.title, q) + '</div></div><div class="prosedur-body"><div class="event-section-content">' + highlightMatch(pr.content, q) + '</div>' + (pr.imageUrl && pr.imageUrl.trim() ? '<div class="event-section-image" style="border-color:rgba(167,139,250,.12)"><img src="' + escapeHtml(pr.imageUrl) + '" loading="lazy" alt="' + escapeHtml(pr.title) + '" onerror="this.parentElement.style.display=\'none\'"></div>' : '') + '<div class="event-section-actions">' + (pr.content && pr.content.trim() ? '<button class="btn-action copy-text-btn" data-index="' + prIdx + '"><i class="fa-regular fa-copy"></i> Salin teks</button>' : '') + (pr.imageUrl ? '<button class="btn-action copy-img-btn" data-index="' + prIdx + '"><i class="fa-regular fa-image"></i> Salin gambar</button>' : '') + '</div></div></div>';
             }
             if (filteredEventItems.length === 0 && prosedurItems.length === 0) html += '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-bolt"></i></div><div class="empty-title">Tidak ada event sesuai filter</div></div>';
             html += '</div>';
             contentArea.innerHTML = html;
             var copyAllBtn = $("eventCopyAllBtn");
-            if (copyAllBtn) copyAllBtn.addEventListener("click", function() { var allText = []; for (var ai = 0; ai < raw.length; ai++) { allText.push(raw[ai].title); if (raw[ai].content) allText.push(raw[ai].content); } copyText(allText.join("\n\n"), "Semua Event"); });
+            if (copyAllBtn) copyAllBtn.addEventListener("click", function() { var allText = []; for (var ai = 0; ai < raw.length; ai++) { if (raw[ai].content && raw[ai].content.trim()) allText.push(raw[ai].content.trim()); } copyText(allText.join("\n\n"), "Semua Event"); });
             document.querySelectorAll(".event-filter-chip").forEach(function(btn) { btn.addEventListener("click", function(e) { eventCategoryFilter = btn.dataset.cat;
                     renderEventViewWithFilters(); }); if ((eventCategoryFilter === "all" && btn.dataset.cat === "all") || (eventCategoryFilter === btn.dataset.cat)) btn.classList.add("active");
                 else btn.classList.remove("active"); });
@@ -4236,8 +4524,7 @@
         }
 
         function openModal(index) { var items = (currentFilter === "gidEvent") ? gidEventData : getFilteredData(); if (!items[index]) return; var it = items[index],
-                cfg = getCfg(),
-                noCopy = currentFilter === "gidProfile";
+                cfg = getCfg();
             $("modalAccent").style.background = cfg.stripGradient;
             $("modalColA").innerHTML = "<strong>" + escapeHtml(it.title) + "</strong>";
             var body = "";
@@ -4248,11 +4535,11 @@
             if (body.trim()) { ds.style.display = "block";
                 $("modalColB").innerHTML = body; } else ds.style.display = "none";
             var actions = "";
-            if (!noCopy && it.content && it.content.trim()) actions += '<button class="btn-action" id="mCopyText"><i class="fa-regular fa-copy"></i> Copy Teks</button>';
-            if (hasImg) actions += '<button class="btn-action" id="mCopyImg"><i class="fa-regular fa-image"></i> Copy Gambar</button>';
+            if (currentFilter !== "gidBetting" && it.content && it.content.trim()) actions += '<button class="btn-action" id="mCopyText"><i class="fa-regular fa-copy"></i> Salin teks</button>';
+            if (hasImg) actions += '<button class="btn-action" id="mCopyImg"><i class="fa-regular fa-image"></i> Salin gambar</button>';
             $("modalActions").innerHTML = actions;
             var mct = $("mCopyText");
-            if (mct) mct.onclick = function() { copyText(it.content, "Teks") };
+            if (mct) mct.onclick = function() { copyText(getItemCopyText(it), "Teks") };
             var mci = $("mCopyImg");
             if (mci) mci.onclick = function() { copyImage(it.imageUrl, it.title) };
             $("modalOverlay").classList.add("open");
@@ -4277,7 +4564,7 @@
                     url2 = c3 ? c3.dataset.watch : ""; if (url2) window.open(url2, "_blank");
                 else showToast("Link tidak tersedia", "error"); return; }
             // copy text
-            var ctb = e.target.closest(".copy-text-btn"); if (ctb) { var idx = parseInt(ctb.closest("[data-index]") ? ctb.closest("[data-index]").dataset.index : "-1"); var items = (currentFilter === "gidEvent") ? gidEventData : getFilteredData(); if (items[idx]) copyText(items[idx].content, "Teks"); return; }
+            var ctb = e.target.closest(".copy-text-btn"); if (ctb) { var idx = parseInt(ctb.dataset.index || (ctb.closest("[data-index]") ? ctb.closest("[data-index]").dataset.index : "-1"), 10); var items = (currentFilter === "gidEvent") ? gidEventData : getFilteredData(); if (items[idx]) copyText(getItemCopyText(items[idx]), "Teks"); return; }
             // copy image
             var cib = e.target.closest(".copy-img-btn"); if (cib) { var idx2 = parseInt(cib.closest("[data-index]") ? cib.closest("[data-index]").dataset.index : "-1"); var items2 = (currentFilter === "gidEvent") ? gidEventData : getFilteredData(); if (items2[idx2] && items2[idx2].imageUrl) copyImage(items2[idx2].imageUrl, items2[idx2].title); return; }
             // open link button (already handled via dedicated listener)
