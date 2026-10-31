@@ -897,9 +897,11 @@
             animation-delay: 5s;
         }
 
+        /* ===== SIDEBAR + GRAFIK KOTAK ===== */
         .sidebar {
             width: var(--sidebar-w);
-            background: linear-gradient(180deg, rgba(17, 17, 24, .96), rgba(8, 8, 12, .98));
+            background:
+                linear-gradient(180deg, rgba(17, 17, 24, .97), rgba(8, 8, 12, .99));
             backdrop-filter: blur(20px);
             border-right: 1px solid var(--border);
             display: flex;
@@ -909,20 +911,54 @@
             height: 100vh;
             flex-shrink: 0;
             overflow-y: auto;
+            overflow-x: hidden;
             z-index: 2;
+            position: sticky;
         }
-        .sidebar::-webkit-scrollbar {
-            width: 3px;
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 240, 255, .035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, .035) 1px, transparent 1px);
+            background-size: 22px 22px;
+            pointer-events: none;
+            opacity: .7;
+            mask-image: linear-gradient(180deg, rgba(0,0,0,.55), transparent 75%);
+            z-index: 0;
         }
-        .sidebar::-webkit-scrollbar-track {
-            background: transparent;
+        .sidebar > * {
+            position: relative;
+            z-index: 1;
         }
-        .sidebar::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, .06);
-            border-radius: 3px;
-        }
+        .sidebar::-webkit-scrollbar { width: 3px; }
+        .sidebar::-webkit-scrollbar-track { background: transparent; }
+        .sidebar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .08); border-radius: 3px; }
+
         .sidebar-header {
-            padding: 1.1rem .85rem .85rem;
+            padding: 1.15rem .9rem 1rem;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+        /* sudut kotak dekoratif di header brand */
+        .sidebar-header::before,
+        .sidebar-header::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            pointer-events: none;
+        }
+        .sidebar-header::before {
+            top: 10px; left: 10px;
+            border-top: 2px solid rgba(0, 240, 255, .45);
+            border-left: 2px solid rgba(0, 240, 255, .45);
+        }
+        .sidebar-header::after {
+            top: 10px; right: 10px;
+            border-top: 2px solid rgba(255, 0, 229, .4);
+            border-right: 2px solid rgba(255, 0, 229, .4);
         }
         .sidebar-brand {
             font-family: var(--font-display);
@@ -930,163 +966,197 @@
             font-weight: 700;
             display: flex;
             align-items: center;
-            gap: .5rem;
+            gap: .55rem;
+            color: var(--fg);
         }
         .sidebar-brand-icon {
-            width: 34px;
-            height: 34px;
-            border-radius: 8px;
-            background: linear-gradient(135deg, var(--accent), rgba(232, 168, 56, .6));
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            background: linear-gradient(135deg, var(--accent), rgba(232, 168, 56, .65));
             display: flex;
             align-items: center;
             justify-content: center;
             color: #08080c;
-            font-size: .8rem;
+            font-size: .82rem;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 1px rgba(232, 168, 56, .25), 0 4px 12px -4px rgba(232, 168, 56, .4);
         }
         .sidebar-brand-sub {
-            font-size: .6rem;
+            font-size: .58rem;
             color: var(--fg-dim);
-            margin-top: .15rem;
+            margin-top: .12rem;
+            letter-spacing: .08em;
         }
+
         .sidebar-nav {
             flex: 1;
-            padding: .3rem .65rem;
+            padding: .55rem .65rem 1rem;
             display: flex;
             flex-direction: column;
             gap: .2rem;
         }
+
+        /* JUDUL SECTION = kotak grafik */
         .sidebar-section-label {
             font-family: var(--font-display);
-            font-size: .58rem;
-            font-weight: 600;
-            color: var(--fg-dim);
-            letter-spacing: .14em;
-            padding: .65rem .65rem .35rem;
+            font-size: .55rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            letter-spacing: .16em;
+            padding: .55rem .7rem .5rem;
             text-transform: uppercase;
+            margin: .35rem 0 .15rem;
+            position: relative;
+            background: rgba(0, 240, 255, .04);
+            border: 1px solid rgba(0, 240, 255, .18);
+            border-radius: 6px;
+            text-shadow: 0 0 12px rgba(0, 240, 255, .25);
         }
+        .sidebar-section-label::before,
+        .sidebar-section-label::after {
+            content: '';
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            pointer-events: none;
+        }
+        .sidebar-section-label::before {
+            top: -1px; left: -1px;
+            border-top: 2px solid var(--neon-cyan);
+            border-left: 2px solid var(--neon-cyan);
+            border-radius: 2px 0 0 0;
+        }
+        .sidebar-section-label::after {
+            bottom: -1px; right: -1px;
+            border-bottom: 2px solid var(--neon-magenta);
+            border-right: 2px solid var(--neon-magenta);
+            border-radius: 0 0 2px 0;
+        }
+
         .sidebar-item {
             display: flex;
             align-items: center;
             gap: .55rem;
-            padding: .65rem .75rem;
-            border-radius: 9px;
+            padding: .58rem .7rem;
+            border-radius: 10px;
             cursor: pointer;
-            transition: all .3s;
+            transition: all .25s;
             border: 1px solid transparent;
+            position: relative;
+            overflow: visible;
+        }
+        .sidebar-item .corner-tl,
+        .sidebar-item .corner-br {
+            display: none;
+        }
+        .sidebar-item.active::before,
+        .sidebar-item:hover::before {
+            content: '';
+            position: absolute;
+            top: 4px; left: 4px;
+            width: 8px; height: 8px;
+            border-top: 1.5px solid rgba(0, 240, 255, .55);
+            border-left: 1.5px solid rgba(0, 240, 255, .55);
+            border-radius: 2px 0 0 0;
+            pointer-events: none;
+            z-index: 2;
+            opacity: 1;
+            transform: none;
+            background: none;
+            box-shadow: none;
+            height: 8px;
+            width: 8px;
+        }
+        .sidebar-item.active::after,
+        .sidebar-item:hover::after {
+            content: '';
+            position: absolute;
+            bottom: 4px; right: 4px;
+            width: 8px; height: 8px;
+            border-bottom: 1.5px solid rgba(255, 0, 229, .45);
+            border-right: 1.5px solid rgba(255, 0, 229, .45);
+            border-radius: 0 0 2px 0;
+            pointer-events: none;
+            z-index: 2;
         }
         .sidebar-item .icon-wrap {
-            width: 34px;
-            height: 34px;
+            width: 32px;
+            height: 32px;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: rgba(255, 255, 255, .03);
             color: var(--fg-dim);
-            font-size: .82rem;
-            transition: all .3s;
+            font-size: .78rem;
+            transition: all .25s;
             flex-shrink: 0;
         }
         .sidebar-item .label {
             font-family: var(--font-display);
-            font-size: .74rem;
+            font-size: .72rem;
             font-weight: 600;
             color: var(--fg-muted);
-            transition: all .3s;
+            transition: all .25s;
             letter-spacing: .02em;
         }
         .sidebar-item:hover {
-            background: rgba(255, 255, 255, .03);
+            background: rgba(255, 255, 255, .04);
+            border-color: rgba(255, 255, 255, .06);
         }
         .sidebar-item.active {
-            border-color: rgba(255, 255, 255, .08);
-            background: rgba(255, 255, 255, .04);
+            border-color: rgba(255, 255, 255, .1);
+            background: rgba(255, 255, 255, .05);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .03);
         }
-        .sidebar-item.active .label {
-            color: var(--fg);
-        }
+        .sidebar-item.active .label { color: var(--fg); }
         .sidebar-item.active .icon-wrap {
-            background: rgba(255, 255, 255, .06);
+            background: rgba(255, 255, 255, .07);
             color: var(--fg);
         }
-        .sidebar-item[data-filter="gid0"] .label {
-            color: var(--accent);
-        }
-        .sidebar-item[data-filter="gid0"] .icon-wrap {
-            color: var(--accent);
-            background: var(--accent-soft);
-        }
-        .sidebar-item[data-filter="gid5"] .label {
-            color: var(--coral);
-        }
-        .sidebar-item[data-filter="gid5"] .icon-wrap {
-            color: var(--coral);
-            background: rgba(240, 104, 88, .08);
-        }
-        .sidebar-item[data-filter="gid473"] .label {
-            color: var(--lavender);
-        }
-        .sidebar-item[data-filter="gid473"] .icon-wrap {
-            color: var(--lavender);
-            background: rgba(167, 139, 250, .08);
-        }
-        .sidebar-item[data-filter="gidBonus"] .label {
-            color: var(--bonus-color);
-        }
-        .sidebar-item[data-filter="gidBonus"] .icon-wrap {
-            color: var(--bonus-color);
-            background: var(--bonus-soft);
-        }
-        .sidebar-item[data-filter="gidBetting"] .label {
-            color: var(--betting-color);
-        }
-        .sidebar-item[data-filter="gidBetting"] .icon-wrap {
-            color: var(--betting-color);
-            background: var(--betting-soft);
-        }
-        .sidebar-item[data-filter="gidEvent"] .label {
-            color: var(--event-color);
-        }
-        .sidebar-item[data-filter="gidEvent"] .icon-wrap {
-            color: var(--event-color);
-            background: var(--event-soft);
-        }
-        .sidebar-item[data-filter="gidQris"] .label {
-            color: var(--qris-primary);
-        }
-        .sidebar-item[data-filter="gidQris"] .icon-wrap {
-            color: var(--qris-primary);
-            background: var(--qris-soft);
-        }
-        .sidebar-item[data-filter="gidProfile"] .label {
-            color: #36d1dc;
-        }
-        .sidebar-item[data-filter="gidProfile"] .icon-wrap {
-            color: #36d1dc;
-            background: rgba(54, 209, 220, .08);
-        }
-        .sidebar-item[data-filter="gidPassword"] .label {
-            color: var(--password-color);
-        }
-        .sidebar-item[data-filter="gidPassword"] .icon-wrap {
-            color: var(--password-color);
-            background: var(--password-soft);
-        }
-        .sidebar-item[data-filter="gidGambarLain"] .label {
-            color: var(--neon-cyan);
-        }
-        .sidebar-item[data-filter="gidGambarLain"] .icon-wrap {
-            color: var(--neon-cyan);
-            background: rgba(0, 240, 255, .08);
-        }
+        /* warna per modul */
+        .sidebar-item[data-filter="gid0"] .label { color: #6ee7b7; }
+        .sidebar-item[data-filter="gid0"] .icon-wrap { color: #6ee7b7; background: rgba(16, 185, 129, .12); }
+        .sidebar-item[data-filter="gid5"] .label { color: var(--coral); }
+        .sidebar-item[data-filter="gid5"] .icon-wrap { color: var(--coral); background: rgba(240, 104, 88, .08); }
+        .sidebar-item[data-filter="gid473"] .label { color: var(--lavender); }
+        .sidebar-item[data-filter="gid473"] .icon-wrap { color: var(--lavender); background: rgba(167, 139, 250, .08); }
+        .sidebar-item[data-filter="gidBonus"] .label { color: var(--bonus-color); }
+        .sidebar-item[data-filter="gidBonus"] .icon-wrap { color: var(--bonus-color); background: var(--bonus-soft); }
+        .sidebar-item[data-filter="gidBetting"] .label { color: var(--betting-color); }
+        .sidebar-item[data-filter="gidBetting"] .icon-wrap { color: var(--betting-color); background: var(--betting-soft); }
+        .sidebar-item[data-filter="gidEvent"] .label { color: var(--event-color); }
+        .sidebar-item[data-filter="gidEvent"] .icon-wrap { color: var(--event-color); background: var(--event-soft); }
+        .sidebar-item[data-filter="gidQris"] .label { color: var(--qris-primary); }
+        .sidebar-item[data-filter="gidQris"] .icon-wrap { color: var(--qris-primary); background: var(--qris-soft); }
+        .sidebar-item[data-filter="gidProfile"] .label { color: var(--sage); }
+        .sidebar-item[data-filter="gidProfile"] .icon-wrap { color: var(--sage); background: rgba(126, 184, 138, .08); }
+        .sidebar-item[data-filter="gidPassword"] .label { color: var(--password-color); }
+        .sidebar-item[data-filter="gidPassword"] .icon-wrap { color: var(--password-color); background: var(--password-soft); }
+        .sidebar-item[data-filter="gidGambarLain"] .label { color: var(--content-color); }
+        .sidebar-item[data-filter="gidGambarLain"] .icon-wrap { color: var(--content-color); background: rgba(125, 211, 232, .08); }
+        .sidebar-item.active .label { color: var(--fg) !important; }
+        .sidebar-item.active .icon-wrap { background: rgba(255, 255, 255, .07) !important; color: var(--fg) !important; }
+
         .sidebar-notif-section {
-            padding: .65rem;
+            padding: .75rem .7rem;
             border-top: 1px solid var(--border);
+            position: relative;
+        }
+        .sidebar-notif-section::before {
+            content: '';
+            position: absolute;
+            top: 8px; left: 10px;
+            width: 8px; height: 8px;
+            border-top: 1.5px solid rgba(255, 60, 60, .4);
+            border-left: 1.5px solid rgba(255, 60, 60, .4);
+            pointer-events: none;
         }
         .sidebar-notif-row {
             display: flex;
             align-items: center;
-            gap: .4rem;
+            gap: .45rem;
         }
         .notif-toggle-btn {
             flex: 1;
@@ -1110,18 +1180,11 @@
             border-color: var(--border);
             color: var(--fg-dim);
         }
-        .notif-toggle-btn:hover {
-            transform: translateY(-1px);
-        }
-        .notif-toggle-btn i {
-            font-size: .78rem;
-        }
-        .notif-toggle-btn .bell-ring {
-            animation: bellRing .6s ease-in-out infinite;
-        }
+        .notif-toggle-btn:hover { transform: translateY(-1px); }
+        .notif-toggle-btn i { font-size: .78rem; }
+        .notif-toggle-btn .bell-ring { animation: bellRing .6s ease-in-out infinite; }
         .notif-test-btn {
-            width: 36px;
-            height: 36px;
+            width: 36px; height: 36px;
             border-radius: 8px;
             background: rgba(255, 255, 255, .03);
             border: 1px solid var(--border);
@@ -1162,12 +1225,80 @@
         .sidebar-footer {
             padding: .65rem .85rem;
             border-top: 1px solid var(--border);
+            position: relative;
+        }
+        .sidebar-footer::before,
+        .sidebar-footer::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+        }
+        .sidebar-footer::before {
+            bottom: 8px; left: 10px;
+            border-bottom: 1.5px solid rgba(57, 255, 20, .35);
+            border-left: 1.5px solid rgba(57, 255, 20, .35);
+        }
+        .sidebar-footer::after {
+            bottom: 8px; right: 10px;
+            border-bottom: 1.5px solid rgba(0, 240, 255, .35);
+            border-right: 1.5px solid rgba(0, 240, 255, .35);
+        }
+
+        /* ===== DASHBOARD GRAFIK TOUCH ===== */
+        .main-content {
+            position: relative;
+        }
+        .main-content::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            left: var(--sidebar-w);
+            background-image:
+                linear-gradient(rgba(0, 240, 255, .025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, .025) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: .6;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, rgba(0,0,0,.7), transparent 75%);
+        }
+        .page-header,
+        .premium-hero,
+        .module-grid,
+        #contentArea,
+        .sticky-top {
+            position: relative;
+            z-index: 1;
+        }
+        .page-title {
+            position: relative;
+            display: inline-block;
+        }
+        .page-title::before,
+        .page-title::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+        }
+        .page-title::before {
+            top: -4px; left: -12px;
+            border-top: 2px solid rgba(0, 240, 255, .5);
+            border-left: 2px solid rgba(0, 240, 255, .5);
+        }
+        .page-title::after {
+            bottom: -4px; right: -12px;
+            border-bottom: 2px solid rgba(255, 0, 229, .4);
+            border-right: 2px solid rgba(255, 0, 229, .4);
         }
         .timer-bar-track {
             width: 100%;
-            height: 2px;
-            background: rgba(255, 255, 255, .04);
-            border-radius: 2px;
+            height: 3px;
+            background: rgba(255, 255, 255, .05);
+            border-radius: 4px;
             overflow: hidden;
         }
         .timer-bar-fill {
@@ -1283,18 +1414,19 @@
             margin-top: 1.5rem;
         }
         .module-card {
-            background: linear-gradient(160deg, rgba(17, 17, 28, .9), rgba(10, 10, 16, .95));
-            border: 1px solid rgba(255, 255, 255, .06);
+            background: linear-gradient(160deg, rgba(17, 17, 28, .92), rgba(10, 10, 16, .96));
+            border: 1px solid rgba(255, 255, 255, .07);
             border-radius: 14px;
             padding: 1.4rem 1.2rem;
             cursor: pointer;
-            transition: all .35s;
+            transition: all .35s cubic-bezier(.16, 1, .3, 1);
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             gap: .6rem;
         }
+        /* garis atas gradient */
         .module-card::before {
             content: '';
             position: absolute;
@@ -1302,17 +1434,88 @@
             left: 0;
             right: 0;
             height: 2px;
-            opacity: .6;
+            opacity: .65;
             transition: opacity .35s;
+            z-index: 2;
         }
         .module-card:hover {
-            border-color: rgba(255, 255, 255, .12);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px -10px rgba(0, 0, 0, .6);
+            border-color: rgba(255, 255, 255, .14);
+            transform: translateY(-5px);
+            box-shadow:
+                0 16px 44px -12px rgba(0, 0, 0, .65),
+                0 0 0 1px rgba(255, 255, 255, .04);
         }
         .module-card:hover::before {
             opacity: 1;
         }
+        /* Sudut grafik kotak modern di kartu dashboard */
+        .module-card .mc-corners {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .module-card .mc-corners span {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            transition: all .3s;
+        }
+        .module-card .mc-corners .c-tl {
+            top: 8px; left: 8px;
+            border-top: 2px solid rgba(0, 240, 255, .45);
+            border-left: 2px solid rgba(0, 240, 255, .45);
+            border-radius: 3px 0 0 0;
+        }
+        .module-card .mc-corners .c-tr {
+            top: 8px; right: 8px;
+            border-top: 2px solid rgba(255, 0, 229, .4);
+            border-right: 2px solid rgba(255, 0, 229, .4);
+            border-radius: 0 3px 0 0;
+        }
+        .module-card .mc-corners .c-bl {
+            bottom: 8px; left: 8px;
+            border-bottom: 2px solid rgba(57, 255, 20, .35);
+            border-left: 2px solid rgba(57, 255, 20, .35);
+            border-radius: 0 0 0 3px;
+        }
+        .module-card .mc-corners .c-br {
+            bottom: 8px; right: 8px;
+            border-bottom: 2px solid rgba(0, 240, 255, .4);
+            border-right: 2px solid rgba(0, 240, 255, .4);
+            border-radius: 0 0 3px 0;
+        }
+        .module-card:hover .mc-corners .c-tl,
+        .module-card:hover .mc-corners .c-tr,
+        .module-card:hover .mc-corners .c-bl,
+        .module-card:hover .mc-corners .c-br {
+            width: 18px;
+            height: 18px;
+            filter: drop-shadow(0 0 4px currentColor);
+        }
+        .module-card:hover .mc-corners .c-tl { border-color: rgba(0, 240, 255, .85); }
+        .module-card:hover .mc-corners .c-tr { border-color: rgba(255, 0, 229, .75); }
+        .module-card:hover .mc-corners .c-bl { border-color: rgba(57, 255, 20, .7); }
+        .module-card:hover .mc-corners .c-br { border-color: rgba(0, 240, 255, .8); }
+
+        /* Grid soft di dalam area kartu */
+        .module-card .mc-grid {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: .35;
+            background-image:
+                linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+            background-size: 18px 18px;
+            mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, #000 20%, transparent 75%);
+        }
+        .module-card > *:not(.mc-corners):not(.mc-grid) {
+            position: relative;
+            z-index: 1;
+        }
+
         .module-card-top {
             display: flex;
             align-items: center;
@@ -2068,7 +2271,8 @@
             letter-spacing: .03em;
         }
         .j-time-val.result-val {
-            color: #ff6b9d;
+            color: #6ee7b7;
+            text-shadow: 0 0 12px rgba(110, 231, 183, .25);
         }
         .j-content-preview {
             font-size: .66rem;
@@ -2091,11 +2295,11 @@
         }
         .j-footer-abss {
             display: flex;
-            gap: .35rem;
-            padding: .65rem .75rem .8rem;
+            gap: .4rem;
+            padding: .7rem .7rem .85rem;
             border-top: 1px solid rgba(79, 195, 247, .08);
-            background: rgba(0, 0, 0, .25);
-            flex-wrap: wrap;
+            background: rgba(0, 0, 0, .28);
+            flex-wrap: nowrap;
         }
         .j-btn-abss {
             flex: 1;
@@ -2104,56 +2308,58 @@
             border: 1px solid rgba(255, 255, 255, .1);
             color: var(--fg-muted);
             font-family: var(--font-display);
-            font-size: .58rem;
+            font-size: .55rem;
             font-weight: 600;
-            letter-spacing: .04em;
+            letter-spacing: .03em;
             text-transform: uppercase;
-            padding: .5rem .45rem;
+            padding: .48rem .35rem;
             border-radius: 999px;
             cursor: pointer;
             transition: all .25s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: .3rem;
+            gap: .28rem;
             white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .j-btn-abss i {
             font-size: .55rem;
         }
         .j-btn-abss.j-btn-sub {
-            background: linear-gradient(135deg, rgba(168, 85, 247, .18), rgba(168, 85, 247, .06));
-            border-color: rgba(168, 85, 247, .35);
-            color: #c084fc;
+            background: linear-gradient(135deg, rgba(168, 85, 247, .2), rgba(168, 85, 247, .07));
+            border-color: rgba(168, 85, 247, .4);
+            color: #d8b4fe;
         }
         .j-btn-abss.j-btn-sub:hover {
-            background: linear-gradient(135deg, rgba(168, 85, 247, .3), rgba(168, 85, 247, .12));
-            border-color: rgba(168, 85, 247, .55);
-            color: #e9d5ff;
+            background: linear-gradient(135deg, rgba(168, 85, 247, .32), rgba(168, 85, 247, .14));
+            border-color: rgba(168, 85, 247, .6);
+            color: #f3e8ff;
             box-shadow: 0 0 14px -4px rgba(168, 85, 247, .4);
         }
         .j-btn-abss.j-btn-isi {
-            background: linear-gradient(135deg, rgba(249, 115, 22, .18), rgba(249, 115, 22, .06));
-            border-color: rgba(249, 115, 22, .35);
-            color: #fb923c;
+            background: linear-gradient(135deg, rgba(249, 115, 22, .2), rgba(249, 115, 22, .07));
+            border-color: rgba(249, 115, 22, .4);
+            color: #fdba74;
         }
         .j-btn-abss.j-btn-isi:hover {
-            background: linear-gradient(135deg, rgba(249, 115, 22, .3), rgba(249, 115, 22, .12));
-            border-color: rgba(249, 115, 22, .55);
-            color: #fdba74;
+            background: linear-gradient(135deg, rgba(249, 115, 22, .32), rgba(249, 115, 22, .14));
+            border-color: rgba(249, 115, 22, .6);
+            color: #ffedd5;
             box-shadow: 0 0 14px -4px rgba(249, 115, 22, .4);
         }
         .j-btn-abss.j-btn-web {
-            background: linear-gradient(135deg, rgba(30, 41, 70, .9), rgba(15, 23, 42, .95));
-            border-color: rgba(100, 116, 139, .45);
-            color: #94a3b8;
-            flex: 1.15;
+            background: linear-gradient(135deg, rgba(16, 185, 129, .12), rgba(6, 78, 59, .15));
+            border-color: rgba(52, 211, 153, .35);
+            color: #6ee7b7;
+            flex: 1.2;
         }
         .j-btn-abss.j-btn-web:hover {
-            background: linear-gradient(135deg, rgba(51, 65, 100, .95), rgba(30, 41, 70, .98));
-            border-color: rgba(148, 163, 184, .55);
-            color: #e2e8f0;
-            box-shadow: 0 0 14px -4px rgba(100, 116, 139, .35);
+            background: linear-gradient(135deg, rgba(16, 185, 129, .22), rgba(6, 78, 59, .25));
+            border-color: rgba(52, 211, 153, .55);
+            color: #a7f3d0;
+            box-shadow: 0 0 14px -4px rgba(16, 185, 129, .35);
         }
         .j-btn-abss:hover {
             transform: translateY(-1px);
@@ -3349,6 +3555,49 @@
         .password-history-box {
             display: none !important;
         }
+        .pwd-multi-list {
+            display: flex;
+            flex-direction: column;
+            gap: .45rem;
+            margin-top: .3rem;
+        }
+        .pwd-multi-item {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            background: rgba(0,0,0,.3);
+            border: 1px solid rgba(168, 85, 247, .15);
+            border-radius: 10px;
+            padding: .5rem .7rem;
+        }
+        .pwd-multi-item code {
+            flex: 1;
+            font-family: var(--font-mono);
+            font-size: .78rem;
+            color: #e9d5ff;
+            word-break: break-all;
+        }
+        .btn-pwd-mini {
+            background: rgba(168, 85, 247, .15);
+            border: 1px solid rgba(168, 85, 247, .3);
+            color: #c084fc;
+            border-radius: 8px;
+            padding: .3rem .5rem;
+            cursor: pointer;
+            font-size: .7rem;
+            transition: all .2s;
+        }
+        .btn-pwd-mini:hover {
+            background: rgba(168, 85, 247, .3);
+            color: #fff;
+        }
+        .password-strength-section .str-bar span {
+            height: 5px;
+            flex: 1;
+            border-radius: 3px;
+            background: var(--border);
+            transition: all .35s;
+        }
 
         .password-options-panel {
             background: rgba(0, 0, 0, .25);
@@ -3912,27 +4161,75 @@
         var pwdLength = 16;
         var pwdUppercase = true,
             pwdLowercase = true,
-            pwdNumbers = true;
+            pwdNumbers = true,
+            pwdSymbols = false,
+            pwdExcludeSimilar = true;
         var pwdBaseText = "";
+        var pwdCount = 1;
 
-        // ===== PROFANITY LIST =====
+        // ===== PROFANITY & KATA TIDAK BAKU (ID + EN + variasi ejaan) =====
         var PROFANITY_LIST = [
-            'anjing', 'babi', 'kontol', 'memek', 'jembut', 'ngentot', 'pepek', 'titit', 'pantek',
-            'bangsat', 'keparat', 'laknat', 'tolol', 'bodoh', 'goblok', 'geblek', 'bego', 'sial',
-            'brengsek', 'bajingan', 'kampret', 'asu', 'jancok', 'cok', 'peler', 'ketek', 'tempik',
-            'jablay', 'sundul', 'goblog', 'njing', 'bangsad', 'kntl', 'mmk', 'ngntot', 'ppk',
-            'fuck', 'shit', 'damn', 'bitch', 'cunt', 'dick', 'pussy', 'asshole', 'bastard',
-            'whore', 'slut', 'motherfucker', 'wtf', 'stfu', 'lmfao'
+            // kasar ID
+            "anjing","anjir","anjrit","anjay","babi","kontol","kntl","memek","mmk","jembut","jmbt",
+            "ngentot","ngntot","ngewe","pepek","ppk","titit","tt","pantek","pntk","peler","plr",
+            "bangsat","bangsad","bgst","keparat","laknat","tolol","bodoh","goblok","goblog","geblek",
+            "bego","sial","sialan","brengsek","bajingan","kampret","asu","jancok","jancuk","cok",
+            "ketek","tempik","jablay","sundul","njing","kimak","pukimak","lancap","coli","colmek",
+            "ngocok","sperma","penis","vagina","anal","bokep","porno","sex","seks","mesum",
+            "lonte","pelacur","perek","sundel","jalang","bencong","banci","homo","lesbi",
+            "setan","iblis","dajjal","kafir","munafik","tai","taik","tahi","eek","kentut",
+            "gblk","tolol","idiot","dungu","bebal","otakudang","otak udang","tai kucing",
+            // variasi ejaan / singkatan
+            "a n j","k*ntol","m*mek","b*bi","f*ck","sh*t","b*tch","njir","anjg","anjnk",
+            "kontl","memk","ngentd","bangst","gblk","tolol","bgsd","jnck","cntol",
+            // kasar EN
+            "fuck","fucker","fucking","shit","damn","bitch","cunt","dick","pussy","asshole",
+            "bastard","whore","slut","motherfucker","mf","wtf","stfu","lmfao","bullshit",
+            "cock","porn","xxx","nigger","nigga","faggot","retard","rape","rapist",
+            // kata tidak baku / slang kasar yang sering muncul di password
+            "tai","taik","anj","bgst","anjrit","anjirrr","kontolll","memekk"
         ];
 
+        function normalizeForFilter(text) {
+            if (!text) return "";
+            return String(text)
+                .toLowerCase()
+                .replace(/0/g, "o")
+                .replace(/1/g, "i")
+                .replace(/3/g, "e")
+                .replace(/4/g, "a")
+                .replace(/5/g, "s")
+                .replace(/7/g, "t")
+                .replace(/8/g, "b")
+                .replace(/@/g, "a")
+                .replace(/\$/g, "s")
+                .replace(/!/g, "i")
+                .replace(/\*/g, "")
+                .replace(/[^a-z0-9\s]/g, "")
+                .replace(/\s+/g, "");
+        }
+
         function containsProfanity(text) {
-            var lower = text.toLowerCase();
+            if (!text) return false;
+            var lower = String(text).toLowerCase();
+            var normalized = normalizeForFilter(text);
             for (var i = 0; i < PROFANITY_LIST.length; i++) {
-                if (lower.includes(PROFANITY_LIST[i])) {
-                    return true;
-                }
+                var word = PROFANITY_LIST[i].toLowerCase().replace(/\s+/g, "");
+                if (!word) continue;
+                if (lower.indexOf(PROFANITY_LIST[i].toLowerCase()) !== -1) return true;
+                if (normalized.indexOf(word) !== -1) return true;
             }
             return false;
+        }
+
+        function stripProfanityFromBase(text) {
+            if (!text) return "";
+            var result = String(text);
+            for (var i = 0; i < PROFANITY_LIST.length; i++) {
+                var re = new RegExp(PROFANITY_LIST[i].replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi");
+                result = result.replace(re, "");
+            }
+            return result.replace(/\s{2,}/g, " ").trim();
         }
 
         // ===== Helper: extract first URL from text =====
@@ -4139,7 +4436,7 @@
 
         function getConfigKey() { if (currentFilter === "gidProfile") return "gidProfile"; if (currentFilter === "gidQris") return "qrisCombined"; if (currentFilter === "gidBonus") return "gidBonus"; if (currentFilter === "gidBetting") return "gidBetting"; if (currentFilter === "gidEvent") return "gidEvent"; if (currentFilter === "gidPassword") return "gidPassword"; return currentFilter; }
         var PAGE_CONFIGS = {
-            gid0: { titleHTML: '<span class="accent-word">ALL</span> PK', stripGradient: "linear-gradient(90deg,#e8a838,rgba(232,168,56,.2))", emptyIcon: "fa-layer-group", emptyTitle: "Tidak ada data PK", searchPlaceholder: "Cari data PK..." },
+            gid0: { titleHTML: '<span style="color:#6ee7b7">ALL</span> PK', stripGradient: "linear-gradient(90deg,#34d399,rgba(52,211,153,.25))", emptyIcon: "fa-layer-group", emptyTitle: "Tidak ada data PK", searchPlaceholder: "Cari data PK..." },
             gid5: { titleHTML: 'Jadwal <span class="accent-word">PASARAN</span>', stripGradient: "linear-gradient(90deg,#00f0ff,rgba(0,240,255,.2))", emptyIcon: "fa-database", emptyTitle: "Tidak ada jadwal pasaran", searchPlaceholder: "Cari pasaran..." },
             gid473: { titleHTML: 'Hadiah <span class="accent-word">TOGEL</span>', stripGradient: "linear-gradient(90deg,#a78bfa,rgba(167,139,250,.2))", emptyIcon: "fa-trophy", emptyTitle: "Tidak ada hadiah", searchPlaceholder: "Cari hadiah..." },
             qrisCombined: { titleHTML: '<span class="qris-word">QRIS Payment</span>', stripGradient: "linear-gradient(90deg,#4fc3f7,rgba(79,195,247,.2))", emptyIcon: "fa-qrcode", emptyTitle: "Tidak ada data QRIS", searchPlaceholder: "Cari QRIS..." },
@@ -4159,7 +4456,7 @@
 
         function updateClock() { var n = new Date(); if (clockTimeEl) clockTimeEl.textContent = String(n.getHours()).padStart(2, "0") + ":" + String(n.getMinutes()).padStart(2, "0") + ":" + String(n.getSeconds()).padStart(2, "0"); }
 
-        function showDashboard() { dashboardView.classList.remove("hidden");
+        function showDashboard() { setTimeout(decorateModuleCards, 30); dashboardView.classList.remove("hidden");
             dataView.classList.remove("active");
             document.querySelectorAll(".sidebar-item").forEach(function(i) { i.classList.remove("active") });
             $("nextPasaranBadge").classList.remove("visible"); if (clockInterval) { clearInterval(clockInterval);
@@ -4233,16 +4530,99 @@
 
         function highlightMatch(text, q) { if (!q || !text) return escapeHtml(text); var s = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); return escapeHtml(text).replace(new RegExp("(" + s + ")", "gi"), "<mark>$1</mark>"); }
 
-        function parseJadwalItem(item) { var text = (item.content || "").trim(),
-                lt = text.toLowerCase(); var ct = "--:--",
-                rt = "--:--",
-                wu = "",
-                wa = ""; var urls = text.match(/https?:\/\/[^\s<>"')\]]+/gi) || []; var times = text.match(/\b([01]?[0-9]|2[0-3]):[0-5][0-9]\b/g) || []; if (lt.indexOf("buka") !== -1 || lt.indexOf("cutoff") !== -1 || lt.indexOf("open") !== -1) { if (times.length > 0) ct = times[0]; } if (lt.indexOf("tutup") !== -1 || lt.indexOf("result") !== -1 || lt.indexOf("close") !== -1 || lt.indexOf("keluar") !== -1) { if (times.length > (lt.indexOf("buka") !== -1 ? 1 : 0)) rt = times[lt.indexOf("buka") !== -1 ? 1 : 0]; else if (times.length > 0) rt = times[0]; } if (ct === "--:--" && rt === "--:--" && times.length >= 2) { ct = times[0];
-                rt = times[1]; } else if (ct === "--:--" && times.length >= 1) ct = times[0]; else if (rt === "--:--" && times.length >= 1) rt = times[0]; for (var ui = 0; ui < urls.length; ui++) { var u = urls[ui],
-                    l = u.toLowerCase(); if (l.indexOf("live") !== -1 || l.indexOf("watch") !== -1 || l.indexOf("stream") !== -1 || l.indexOf("result") !== -1) { if (!wa) wa = u; } else { if (!wu) wu = u; } } if (urls.length === 1 && !wu) wu = urls[0]; var st = "active"; if (lt.indexOf("status: tutup") !== -1 || lt.indexOf("status: close") !== -1 || lt.indexOf("status: passed") !== -1 || (lt.indexOf("tutup") !== -1 && lt.indexOf("buka") === -1 && lt.indexOf("cutoff") === -1)) st = "passed"; return { title: item.title, cutoffTime: ct, resultTime: rt, webUrl: wu, watchUrl: wa, fullContent: item.content, status: st }; }
+        function parseJadwalItem(item) {
+            // Gabungkan semua sumber teks agar parsing akurat sesuai data sheet
+            var title = (item.title || "").trim();
+            var content = (item.content || "").trim();
+            var rawJoined = ((item.raw || []).join(" ")).trim();
+            var text = (title + "\n" + content + "\n" + rawJoined).trim();
+            var lt = text.toLowerCase();
+
+            var ct = "--:--";   // jam tutup / cutoff
+            var rt = "--:--";   // jam result
+            var wu = "";        // web url
+            var wa = "";        // watch/live url
+
+            // ===== 1. Cari jam dengan pola yang sering dipakai di sheet =====
+            // Contoh: "Tutup Pasaran Pukul 00:00 WIB"
+            var tutupMatch = text.match(/tutup\s*(?:pasaran)?\s*(?:pukul|jam)?\s*([01]?\d|2[0-3]):([0-5]\d)/i);
+            if (tutupMatch) {
+                ct = (tutupMatch[1].length === 1 ? "0" : "") + tutupMatch[1] + ":" + tutupMatch[2];
+            }
+
+            // Contoh: "Keluaran Nomor Result Pukul 00:15 WIB" / "Result Pukul 00:15"
+            var resultMatch = text.match(/(?:keluaran|result|hasil)\s*(?:nomor\s*)?(?:result\s*)?(?:pukul|jam)?\s*([01]?\d|2[0-3]):([0-5]\d)/i);
+            if (resultMatch) {
+                rt = (resultMatch[1].length === 1 ? "0" : "") + resultMatch[1] + ":" + resultMatch[2];
+            }
+
+            // Contoh: "Buka Pukul 17:00" / "Open 17:00"
+            var bukaMatch = text.match(/(?:buka|open|cutoff)\s*(?:pasaran)?\s*(?:pukul|jam)?\s*([01]?\d|2[0-3]):([0-5]\d)/i);
+            // Jika ada kata buka, simpan sebagai cutoff kalau belum ada
+            if (bukaMatch && ct === "--:--") {
+                ct = (bukaMatch[1].length === 1 ? "0" : "") + bukaMatch[1] + ":" + bukaMatch[2];
+            }
+
+            // ===== 2. Fallback: ambil semua jam HH:MM yang ada =====
+            var times = text.match(/\b([01]?\d|2[0-3]):([0-5]\d)\b/g) || [];
+            // Normalisasi format 9:05 -> 09:05
+            times = times.map(function(t) {
+                var parts = t.split(":");
+                var h = parts[0].length === 1 ? "0" + parts[0] : parts[0];
+                return h + ":" + parts[1];
+            });
+
+            if (ct === "--:--" && times.length >= 1) ct = times[0];
+            if (rt === "--:--" && times.length >= 2) rt = times[1];
+            else if (rt === "--:--" && times.length === 1 && ct !== times[0]) rt = times[0];
+            // Jika hanya ketemu 1 jam dan sudah dipakai ct, biarkan rt kosong
+
+            // Jika pola "Tutup ... Dan Keluaran ... Result ..." ada 2 jam berurutan
+            if (ct === "--:--" && rt === "--:--" && times.length >= 2) {
+                ct = times[0];
+                rt = times[1];
+            }
+
+            // ===== 3. Ambil URL =====
+            var urls = text.match(/https?:\/\/[^\s<>"')\]]+/gi) || [];
+            for (var ui = 0; ui < urls.length; ui++) {
+                var u = urls[ui].replace(/[.,;:!?)]+$/, "");
+                var l = u.toLowerCase();
+                if (l.indexOf("live") !== -1 || l.indexOf("watch") !== -1 || l.indexOf("stream") !== -1) {
+                    if (!wa) wa = u;
+                } else {
+                    if (!wu) wu = u;
+                }
+            }
+            if (urls.length === 1 && !wu) wu = urls[0].replace(/[.,;:!?)]+$/, "");
+
+            // ===== 4. Status =====
+            var st = "active";
+            if (lt.indexOf("status: tutup") !== -1 || lt.indexOf("status: close") !== -1 ||
+                lt.indexOf("status: passed") !== -1 ||
+                (lt.indexOf("tutup") !== -1 && lt.indexOf("buka") === -1 && lt.indexOf("cutoff") === -1 && times.length === 0)) {
+                st = "passed";
+            }
+
+            return {
+                title: title,
+                cutoffTime: ct,
+                resultTime: rt,
+                webUrl: wu,
+                watchUrl: wa,
+                fullContent: content,
+                status: st
+            };
+        }
 
         // Penyimpanan teks copy per kartu (hindari masalah data-attribute yang hilang newline / link)
         var jadwalCopyStore = {};
+
+        function extractAnyUrl(text) {
+            if (!text) return "";
+            var m = String(text).match(/https?:\/\/[^\s<>"')\]]+/i);
+            return m ? m[0].replace(/[.,;:!?)]+$/, "") : "";
+        }
 
         function renderJadwalGrid(items) {
             var q = searchQuery.trim();
@@ -4256,20 +4636,37 @@
                     sl = p.status === "active" ? "LIVE" : "PASSED";
 
                 var title = (it.title || "").trim();
-                var webUrl = (p.webUrl || "").trim();
-                var bukaDisplay = p.cutoffTime !== "--:--" ? p.cutoffTime : "00:00";
-                var resultDisplay = p.resultTime !== "--:--" ? p.resultTime : "00:15";
+                var fullContent = (it.content || "").trim();
+                var rawAll = (title + "\n" + fullContent + "\n" + ((it.raw || []).join(" "))).trim();
 
-                // ===== SALIN SUBJUDUL (format tetap + LINK lengkap) =====
+                // Ambil URL dari parser, lalu fallback ke pencarian di seluruh teks
+                var webUrl = (p.webUrl || "").trim();
+                if (!webUrl) webUrl = extractAnyUrl(rawAll);
+                if (!webUrl) webUrl = extractAnyUrl(fullContent);
+                if (!webUrl) webUrl = extractAnyUrl(title);
+
+                // Pakai jam yang benar-benar berhasil di-parse dari data sheet (jangan asal isi default)
+                var bukaDisplay = p.cutoffTime !== "--:--" ? p.cutoffTime : "--:--";
+                var resultDisplay = p.resultTime !== "--:--" ? p.resultTime : "--:--";
+
+                // ===== SALIN SUBJUDUL – format PASTI seperti yang diminta user =====
                 var subText = "Pasaran : " + title + "\n";
                 subText += "Web Resmi : " + (webUrl || "-") + "\n\n";
                 subText += "Note : Jika saat mengakses link tersebut mengalami kendala, Maka silahkan akses link berikut menggunakan VPN ya bosku";
 
-                // ===== SALIN ISI =====
+                // ===== SALIN ISI (hanya pakai jam yang valid dari data) =====
                 var isiText = "Pasaran : " + title + "\n";
-                isiText += "Tutup Pasaran Pukul " + bukaDisplay + " WIB Dan Keluaran Nomor Result Pukul " + resultDisplay + " WIB.";
+                if (bukaDisplay !== "--:--" && resultDisplay !== "--:--") {
+                    isiText += "Tutup Pasaran Pukul " + bukaDisplay + " WIB Dan Keluaran Nomor Result Pukul " + resultDisplay + " WIB.";
+                } else if (bukaDisplay !== "--:--") {
+                    isiText += "Tutup Pasaran Pukul " + bukaDisplay + " WIB.";
+                } else if (resultDisplay !== "--:--") {
+                    isiText += "Keluaran Nomor Result Pukul " + resultDisplay + " WIB.";
+                } else {
+                    isiText += (fullContent || "Jadwal belum tersedia.");
+                }
 
-                // Simpan di store (bukan data-attribute) supaya link & newline utuh
+                // Simpan di store agar link + newline 100% utuh saat disalin
                 jadwalCopyStore[i] = {
                     sub: subText,
                     isi: isiText,
@@ -4282,25 +4679,25 @@
 
                 // Kotak jam
                 html += '<div class="j-times-box">';
-                html += '<div class="j-time-item"><span class="j-time-label"><i class="fa-solid fa-lock"></i> Tutup</span><span class="j-time-val">' + bukaDisplay + ' WIB</span></div>';
-                html += '<div class="j-time-item"><span class="j-time-label"><i class="fa-solid fa-trophy"></i> Result</span><span class="j-time-val result-val">' + resultDisplay + ' WIB</span></div>';
+                html += '<div class="j-time-item"><span class="j-time-label"><i class="fa-solid fa-lock"></i> Jam Tutup</span><span class="j-time-val">' + bukaDisplay + (bukaDisplay !== "--:--" ? " WIB" : "") + '</span></div>';
+                html += '<div class="j-time-item"><span class="j-time-label"><i class="fa-solid fa-trophy"></i> Jam Result</span><span class="j-time-val result-val">' + resultDisplay + (resultDisplay !== "--:--" ? " WIB" : "") + '</span></div>';
                 html += '</div>';
 
-                // Preview
+                // Preview agar user lihat teks yang akan disalin
                 html += '<div class="j-content-preview">';
                 html += '<div style="margin-bottom:4px;color:#c084fc;font-size:.62rem;font-weight:600;letter-spacing:.05em;">SUBJUDUL</div>';
-                html += escapeHtml(subText).replace(/\n/g, "<br>") + "<br><br>";
+                html += escapeHtml(subText).replace(/\\n/g, "<br>").replace(/\n/g, "<br>") + "<br><br>";
                 html += '<div style="margin-bottom:4px;color:#fb923c;font-size:.62rem;font-weight:600;letter-spacing:.05em;">ISI</div>';
-                html += escapeHtml(isiText).replace(/\n/g, "<br>");
+                html += escapeHtml(isiText).replace(/\\n/g, "<br>").replace(/\n/g, "<br>");
                 html += '</div>';
 
                 html += '</div>';
 
                 // Tombol
                 html += '<div class="j-footer-abss">';
-                html += '<button class="j-btn-abss j-btn-sub" type="button" data-idx="' + i + '"><i class="fa-regular fa-copy"></i> Salin Subjudul</button>';
-                html += '<button class="j-btn-abss j-btn-isi" type="button" data-idx="' + i + '"><i class="fa-regular fa-copy"></i> Salin Isi</button>';
-                html += '<button class="j-btn-abss j-btn-web ' + (webUrl ? "" : "disabled") + '" type="button" data-idx="' + i + '"><i class="fa-solid fa-globe"></i> Kunjungi Website</button>';
+                html += '<button class="j-btn-abss j-btn-sub" type="button" data-idx="' + i + '" title="Salin Subjudul"><i class="fa-regular fa-copy"></i> Subjudul</button>';
+                html += '<button class="j-btn-abss j-btn-isi" type="button" data-idx="' + i + '" title="Salin Isi"><i class="fa-regular fa-copy"></i> Isi</button>';
+                html += '<button class="j-btn-abss j-btn-web ' + (webUrl ? "" : "disabled") + '" type="button" data-idx="' + i + '" title="Kunjungi Website"><i class="fa-solid fa-globe"></i> Website</button>';
                 html += '</div></div>';
             }
             html += "</div>";
@@ -4309,30 +4706,40 @@
             // Binding tombol – ambil teks dari store (link & newline pasti ikut)
             document.querySelectorAll(".j-btn-sub").forEach(function(btn) {
                 btn.addEventListener("click", function(e) {
+                    e.preventDefault();
                     e.stopPropagation();
                     var idx = parseInt(btn.getAttribute("data-idx"), 10);
-                    if (jadwalCopyStore[idx] && jadwalCopyStore[idx].sub) {
-                        copyText(jadwalCopyStore[idx].sub, "Subjudul");
+                    var data = jadwalCopyStore[idx];
+                    if (data && data.sub) {
+                        copyText(data.sub, "Subjudul");
+                    } else {
+                        showToast("Data subjudul tidak tersedia", "error");
                     }
                 });
             });
 
             document.querySelectorAll(".j-btn-isi").forEach(function(btn) {
                 btn.addEventListener("click", function(e) {
+                    e.preventDefault();
                     e.stopPropagation();
                     var idx = parseInt(btn.getAttribute("data-idx"), 10);
-                    if (jadwalCopyStore[idx] && jadwalCopyStore[idx].isi) {
-                        copyText(jadwalCopyStore[idx].isi, "Isi");
+                    var data = jadwalCopyStore[idx];
+                    if (data && data.isi) {
+                        copyText(data.isi, "Isi");
+                    } else {
+                        showToast("Data isi tidak tersedia", "error");
                     }
                 });
             });
 
             document.querySelectorAll(".j-btn-web").forEach(function(btn) {
                 btn.addEventListener("click", function(e) {
+                    e.preventDefault();
                     e.stopPropagation();
                     if (btn.classList.contains("disabled")) return;
                     var idx = parseInt(btn.getAttribute("data-idx"), 10);
-                    var url = (jadwalCopyStore[idx] && jadwalCopyStore[idx].web) || "";
+                    var data = jadwalCopyStore[idx];
+                    var url = (data && data.web) || "";
                     if (url) {
                         window.open(url, "_blank");
                         showToast("Membuka website pasaran");
@@ -4347,11 +4754,12 @@
         function renderDefaultGrid(items) {
             var cfg = getCfg(),
                 q = searchQuery.trim(),
-                compactPurple = ["gid0", "gid473", "gidBonus"].indexOf(currentFilter) !== -1,
+                compactGreen = currentFilter === "gid0",
+                compactPurple = ["gid473", "gidBonus"].indexOf(currentFilter) !== -1,
                 allowTextCopy = currentFilter !== "gidBetting",
                 isGallery = currentFilter === "gidGambarLain";
-            var gridClass = isGallery ? "cards-grid gallery-grid" : "cards-grid" + (compactPurple ? " compact-purple-grid" : "");
-            var cardAccent = compactPurple ? "linear-gradient(90deg,#c084fc,rgba(192,132,252,.2))" : cfg.stripGradient;
+            var gridClass = isGallery ? "cards-grid gallery-grid" : "cards-grid" + (compactGreen ? " compact-green-grid" : (compactPurple ? " compact-purple-grid" : ""));
+            var cardAccent = compactGreen ? "linear-gradient(90deg,#34d399,rgba(52,211,153,.25))" : (compactPurple ? "linear-gradient(90deg,#c084fc,rgba(192,132,252,.2))" : cfg.stripGradient;
             var html = isGallery ? '<div class="gallery-intro"><div class="gallery-intro-content"><div class="gallery-eyebrow"><span class="gallery-eyebrow-dot"></span> GALERI GAMBAR · LIVE</div><div class="gallery-intro-title">GAMBAR <span>LAIN-LAIN</span></div><p>Seluruh gambar dan detail yang tersedia pada sheet ditampilkan di galeri ini.</p></div><div class="gallery-count"><strong>' + items.length + '</strong><span>GAMBAR</span></div></div><div class="' + gridClass + '">' : '<div class="' + gridClass + '">';
             for (var i = 0; i < items.length; i++) {
                 var it = items[i],
@@ -4441,12 +4849,14 @@
                 else btn.classList.remove("active"); });
         }
 
-        // ===== GENERATOR PASSWORD - TANPA RIWAYAT + PROFANITY FILTER =====
+        // ===== GENERATOR PASSWORD - LEBIH EFISIEN + FILTER KASAR =====
         function renderPasswordGenerator() {
             var html = '<div class="password-generator-wrapper">';
 
+            // Output utama
             html += '<div class="password-gen-top">';
-            html += '<div class="password-display-box"><div class="pwd-label"><i class="fa-solid fa-shield-halved"></i> PASSWORD GENERATED</div>';
+            html += '<div class="password-display-box">';
+            html += '<div class="pwd-label"><i class="fa-solid fa-shield-halved"></i> PASSWORD GENERATED</div>';
             html += '<div class="password-output-field" id="pwdOutput">Klik Generate</div>';
             html += '<div class="password-display-actions">';
             html += '<button class="btn-pwd" id="pwdCopyBtn"><i class="fa-regular fa-copy"></i> Salin</button>';
@@ -4454,194 +4864,285 @@
             html += '</div></div>';
 
             html += '<div class="password-strength-section"><span class="str-label">Kekuatan</span>';
-            html += '<div class="str-bar" id="strengthBar"><span></span><span></span><span></span><span></span></div>';
+            html += '<div class="str-bar" id="strengthBar"><span></span><span></span><span></span><span></span><span></span></div>';
             html += '<span class="str-text" id="strengthText">-</span></div>';
             html += '</div>';
 
+            // Panel opsi
             html += '<div class="password-gen-bottom">';
-            html += '<div class="password-options-panel"><div class="opt-title">⚙️ Opsi Password</div>';
+            html += '<div class="password-options-panel"><div class="opt-title"><i class="fa-solid fa-sliders"></i> Opsi Password</div>';
 
+            // Panjang
             html += '<div class="password-opt-row"><span class="opt-label">Panjang</span><div class="opt-control">';
-            html += '<input type="range" id="pwdLengthRange" min="6" max="40" value="' + pwdLength + '">';
+            html += '<input type="range" id="pwdLengthRange" min="8" max="48" value="' + pwdLength + '">';
             html += '<span class="range-val" id="pwdLengthVal">' + pwdLength + '</span></div></div>';
 
+            // Karakter
             html += '<div class="password-opt-row"><span class="opt-label">Karakter</span>';
             html += '<div class="password-toggle-chips">';
-            var opts = [{ id: "pwdUpper", label: "A-Z", checked: pwdUppercase }, { id: "pwdLower", label: "a-z", checked: pwdLowercase }, { id: "pwdNum", label: "0-9", checked: pwdNumbers }];
-            for (var oi = 0; oi < opts.length; oi++) { var o = opts[oi];
-                html += '<label class="chip-opt ' + (o.checked ? 'active' : '') + '" for="' + o.id + '"><input type="checkbox" id="' + o.id + '" ' + (o.checked ? 'checked' : '') + '><span class="ck-box"><i class="fa-solid fa-check"></i></span> ' + o.label + '</label>'; }
+            var opts = [
+                { id: "pwdUpper", label: "A-Z", checked: pwdUppercase },
+                { id: "pwdLower", label: "a-z", checked: pwdLowercase },
+                { id: "pwdNum", label: "0-9", checked: pwdNumbers },
+                { id: "pwdSym", label: "!@#", checked: pwdSymbols }
+            ];
+            for (var oi = 0; oi < opts.length; oi++) {
+                var o = opts[oi];
+                html += '<label class="chip-opt ' + (o.checked ? "active" : "") + '" for="' + o.id + '">';
+                html += '<input type="checkbox" id="' + o.id + '" ' + (o.checked ? "checked" : "") + '>';
+                html += '<span class="ck-box"><i class="fa-solid fa-check"></i></span> ' + o.label + '</label>';
+            }
             html += '</div></div>';
 
-            html += '<div class="password-base-text-row"><span class="opt-label">Base Text <span style="font-weight:400;color:var(--fg-dim);font-size:.65rem">(Optional, filter kata kasar aktif)</span></span>';
-            html += '<div class="opt-control"><input type="text" id="pwdBaseText" placeholder="Masukkan teks dasar untuk diacak..." value="' + escapeHtml(pwdBaseText) + '"></div></div>';
+            // Exclude similar
+            html += '<div class="password-opt-row"><span class="opt-label">Hindari mirip (0OIl1)</span>';
+            html += '<div class="password-toggle-chips">';
+            html += '<label class="chip-opt ' + (pwdExcludeSimilar ? "active" : "") + '" for="pwdExclude">';
+            html += '<input type="checkbox" id="pwdExclude" ' + (pwdExcludeSimilar ? "checked" : "") + '>';
+            html += '<span class="ck-box"><i class="fa-solid fa-check"></i></span> Aktif</label>';
+            html += '</div></div>';
 
+            // Jumlah generate
+            html += '<div class="password-opt-row"><span class="opt-label">Jumlah</span><div class="opt-control">';
+            html += '<input type="range" id="pwdCountRange" min="1" max="5" value="' + pwdCount + '">';
+            html += '<span class="range-val" id="pwdCountVal">' + pwdCount + '</span></div></div>';
+
+            // Base text
+            html += '<div class="password-base-text-row">';
+            html += '<span class="opt-label">Base Text <span style="font-weight:400;color:var(--fg-dim);font-size:.62rem">(opsional · filter kata kasar & tidak baku aktif)</span></span>';
+            html += '<div class="opt-control"><input type="text" id="pwdBaseText" placeholder="Contoh: namatoko2024 ..." value="' + escapeHtml(pwdBaseText) + '" maxlength="60"></div>';
+            html += '<div id="pwdBaseHint" style="font-size:.62rem;margin-top:.35rem;color:var(--fg-dim);"></div>';
             html += '</div>';
 
+            html += '</div>'; // options panel
+
+            // Multi output
+            html += '<div id="pwdMultiList" class="pwd-multi-list" style="display:none;"></div>';
+
             html += '<button class="password-gen-btn-full" id="pwdGenerateBtn"><i class="fa-solid fa-key"></i> GENERATE PASSWORD</button>';
+            html += '<div style="text-align:center;font-size:.58rem;color:var(--fg-dim);margin-top:.4rem;">Filter kata kasar & tidak baku otomatis aktif</div>';
             html += '</div></div>';
 
             contentArea.innerHTML = html;
             bindPasswordEvents();
-            var baseInput = $("pwdBaseText");
-            if (baseInput) {
-                baseInput.addEventListener("input", function() {
-                    pwdBaseText = baseInput.value;
-                });
-            }
             generatePassword(true);
         }
 
         function bindPasswordEvents() {
             var lenRange = $("pwdLengthRange");
-            if (lenRange) { lenRange.addEventListener("input", function() { pwdLength = parseInt(lenRange.value);
+            if (lenRange) {
+                lenRange.addEventListener("input", function() {
+                    pwdLength = parseInt(lenRange.value, 10);
                     $("pwdLengthVal").textContent = pwdLength;
-                    generatePassword(); }); }
-            var toggles = ["pwdUpper", "pwdLower", "pwdNum"];
-            for (var ti = 0; ti < toggles.length; ti++) { var el = $(toggles[ti]); if (el) { el.addEventListener("change", function() { pwdUppercase = $("pwdUpper").checked;
-                        pwdLowercase = $("pwdLower").checked;
-                        pwdNumbers = $("pwdNum").checked;
-                        document.querySelectorAll(".chip-opt").forEach(function(lb) { lb.classList.toggle("active", lb.querySelector("input").checked); });
-                        generatePassword(); }); } }
+                    generatePassword();
+                });
+            }
+            var countRange = $("pwdCountRange");
+            if (countRange) {
+                countRange.addEventListener("input", function() {
+                    pwdCount = parseInt(countRange.value, 10);
+                    $("pwdCountVal").textContent = pwdCount;
+                });
+            }
+            var toggles = ["pwdUpper", "pwdLower", "pwdNum", "pwdSym", "pwdExclude"];
+            for (var ti = 0; ti < toggles.length; ti++) {
+                (function(id) {
+                    var el = $(id);
+                    if (!el) return;
+                    el.addEventListener("change", function() {
+                        pwdUppercase = $("pwdUpper") ? $("pwdUpper").checked : true;
+                        pwdLowercase = $("pwdLower") ? $("pwdLower").checked : true;
+                        pwdNumbers = $("pwdNum") ? $("pwdNum").checked : true;
+                        pwdSymbols = $("pwdSym") ? $("pwdSym").checked : false;
+                        pwdExcludeSimilar = $("pwdExclude") ? $("pwdExclude").checked : true;
+                        document.querySelectorAll(".chip-opt").forEach(function(lb) {
+                            var inp = lb.querySelector("input");
+                            if (inp) lb.classList.toggle("active", inp.checked);
+                        });
+                        generatePassword();
+                    });
+                })(toggles[ti]);
+            }
+            var baseInput = $("pwdBaseText");
+            if (baseInput) {
+                baseInput.addEventListener("input", function() {
+                    pwdBaseText = baseInput.value;
+                    var hint = $("pwdBaseHint");
+                    if (containsProfanity(pwdBaseText)) {
+                        if (hint) {
+                            hint.style.color = "#ff6b9d";
+                            hint.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Terdeteksi kata kasar / tidak baku — akan dibersihkan otomatis';
+                        }
+                    } else if (pwdBaseText.trim()) {
+                        if (hint) {
+                            hint.style.color = "#6ee7b7";
+                            hint.innerHTML = '<i class="fa-solid fa-circle-check"></i> Base text bersih';
+                        }
+                    } else {
+                        if (hint) hint.innerHTML = "";
+                    }
+                });
+            }
             var genBtn = $("pwdGenerateBtn");
             if (genBtn) genBtn.addEventListener("click", function() { generatePassword(); });
             var refreshBtn2 = $("pwdRefreshBtn");
             if (refreshBtn2) refreshBtn2.addEventListener("click", function() { generatePassword(); });
             var copyBtn = $("pwdCopyBtn");
-            if (copyBtn) copyBtn.addEventListener("click", function() { var out = $("pwdOutput"); if (out && out.textContent && out.textContent !== "Klik Generate") { copyText(out.textContent, "Password"); } });
+            if (copyBtn) {
+                copyBtn.addEventListener("click", function() {
+                    var out = $("pwdOutput");
+                    if (out && out.textContent && out.textContent !== "Klik Generate") {
+                        copyText(out.textContent, "Password");
+                    }
+                });
+            }
+        }
+
+        function getAllowedChars() {
+            var chars = "";
+            if (pwdUppercase) chars += pwdExcludeSimilar ? "ABCDEFGHJKLMNPQRSTUVWXYZ" : "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            if (pwdLowercase) chars += pwdExcludeSimilar ? "abcdefghijkmnopqrstuvwxyz" : "abcdefghijklmnopqrstuvwxyz";
+            if (pwdNumbers) chars += pwdExcludeSimilar ? "23456789" : "0123456789";
+            if (pwdSymbols) chars += "!@#$%&*_+-=?";
+            return chars;
+        }
+
+        function generateRandomPwd(len, allowed) {
+            var result = "";
+            var arr = new Uint32Array(len);
+            if (window.crypto && window.crypto.getRandomValues) {
+                window.crypto.getRandomValues(arr);
+                for (var i = 0; i < len; i++) {
+                    result += allowed.charAt(arr[i] % allowed.length);
+                }
+            } else {
+                for (var j = 0; j < len; j++) {
+                    result += allowed.charAt(Math.floor(Math.random() * allowed.length));
+                }
+            }
+            return result;
         }
 
         function generatePassword(initial) {
             var baseInput = $("pwdBaseText");
-            var baseText = baseInput ? baseInput.value : "";
+            var baseText = baseInput ? baseInput.value : (pwdBaseText || "");
 
-            if (baseText.trim() !== "" && containsProfanity(baseText)) {
-                showToast("Base text mengandung kata kasar! Harap hapus kata tersebut.", "error");
-                baseInput.value = "";
-                pwdBaseText = "";
-                var out = $("pwdOutput");
-                if (out) out.textContent = "Klik Generate";
-                var strengthText = $("strengthText");
-                if (strengthText) strengthText.textContent = "-";
-                var bars = document.querySelectorAll("#strengthBar span");
-                if (bars) bars.forEach(function(b) { b.classList.remove("active");
-                    b.style.background = ""; });
-                return;
+            // Bersihkan base text dari kata kasar
+            if (baseText.trim() && containsProfanity(baseText)) {
+                var cleaned = stripProfanityFromBase(baseText);
+                if (baseInput) baseInput.value = cleaned;
+                pwdBaseText = cleaned;
+                baseText = cleaned;
+                showToast("Kata kasar / tidak baku di base text telah dihapus", "error");
+                var hint = $("pwdBaseHint");
+                if (hint) {
+                    hint.style.color = "#6ee7b7";
+                    hint.innerHTML = cleaned ? '<i class="fa-solid fa-circle-check"></i> Base text dibersihkan' : "";
+                }
             }
 
-            var allowedChars = "";
-            if (pwdUppercase) allowedChars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            if (pwdLowercase) allowedChars += "abcdefghijklmnopqrstuvwxyz";
-            if (pwdNumbers) allowedChars += "0123456789";
-
-            if (allowedChars === "") {
+            var allowedChars = getAllowedChars();
+            if (!allowedChars) {
                 showToast("Pilih minimal 1 jenis karakter", "error");
                 return;
             }
 
-            var pwd = "";
-            var filtered = "";
-
-            function generateRandomPwd() {
-                var result = "";
-                for (var ri = 0; ri < pwdLength; ri++) {
-                    result += allowedChars.charAt(Math.floor(Math.random() * allowedChars.length));
-                }
-                return result;
-            }
-
-            if (baseText.trim() !== "") {
-                for (var i = 0; i < baseText.length; i++) {
-                    var c = baseText[i];
-                    if (allowedChars.indexOf(c) !== -1) {
-                        filtered += c;
+            function makeOne() {
+                var pwd = "";
+                if (baseText.trim()) {
+                    // Filter karakter base sesuai opsi yang aktif
+                    var filtered = "";
+                    for (var i = 0; i < baseText.length; i++) {
+                        var c = baseText[i];
+                        if (allowedChars.indexOf(c) !== -1) filtered += c;
                     }
-                }
-                if (filtered.length === 0) {
-                    showToast("Base text tidak mengandung karakter yang dipilih", "error");
-                    return;
-                }
-                var arr = filtered.split('');
-                for (var si = arr.length - 1; si > 0; si--) {
-                    var rj = Math.floor(Math.random() * (si + 1));
-                    var tmp = arr[si];
-                    arr[si] = arr[rj];
-                    arr[rj] = tmp;
-                }
-                var shuffled = arr.join('');
-                pwd = "";
-                for (var pi = 0; pi < pwdLength; pi++) {
-                    pwd += shuffled[pi % shuffled.length];
-                }
-            } else {
-                pwd = generateRandomPwd();
-            }
-
-            if (containsProfanity(pwd)) {
-                var attempts = 0;
-                var cleanPwd = "";
-                while (attempts < 5) {
-                    if (baseText.trim() !== "" && filtered.length > 0) {
-                        var arr2 = filtered.split('');
-                        for (var si2 = arr2.length - 1; si2 > 0; si2--) {
-                            var rj2 = Math.floor(Math.random() * (si2 + 1));
-                            var tmp2 = arr2[si2];
-                            arr2[si2] = arr2[rj2];
-                            arr2[rj2] = tmp2;
-                        }
-                        var shuffled2 = arr2.join('');
-                        cleanPwd = "";
-                        for (var pi2 = 0; pi2 < pwdLength; pi2++) {
-                            cleanPwd += shuffled2[pi2 % shuffled2.length];
-                        }
+                    if (!filtered) {
+                        // base tidak punya karakter valid → random penuh
+                        pwd = generateRandomPwd(pwdLength, allowedChars);
                     } else {
-                        cleanPwd = generateRandomPwd();
+                        // acak urutan base lalu pad / repeat sampai panjang
+                        var arr = filtered.split("");
+                        for (var si = arr.length - 1; si > 0; si--) {
+                            var rj = Math.floor(Math.random() * (si + 1));
+                            var tmp = arr[si]; arr[si] = arr[rj]; arr[rj] = tmp;
+                        }
+                        var shuffled = arr.join("");
+                        for (var pi = 0; pi < pwdLength; pi++) {
+                            pwd += shuffled[pi % shuffled.length];
+                        }
+                        // sisipkan sedikit random agar lebih kuat
+                        if (pwdLength >= 10) {
+                            var mix = generateRandomPwd(Math.min(4, Math.floor(pwdLength / 4)), allowedChars);
+                            pwd = pwd.substring(0, pwdLength - mix.length) + mix;
+                        }
                     }
-                    if (!containsProfanity(cleanPwd)) {
-                        pwd = cleanPwd;
-                        break;
-                    }
+                } else {
+                    pwd = generateRandomPwd(pwdLength, allowedChars);
+                }
+
+                // Pastikan tidak mengandung kata kasar
+                var attempts = 0;
+                while (containsProfanity(pwd) && attempts < 12) {
+                    pwd = generateRandomPwd(pwdLength, allowedChars);
                     attempts++;
                 }
                 if (containsProfanity(pwd)) {
-                    showToast("Password mengandung kata kasar, meng-generate ulang secara acak...", "");
-                    for (var retry = 0; retry < 10; retry++) {
-                        var fallbackPwd = generateRandomPwd();
-                        if (!containsProfanity(fallbackPwd)) {
-                            pwd = fallbackPwd;
-                            break;
-                        }
-                    }
-                    if (containsProfanity(pwd)) {
-                        pwd += "Xy9Z";
-                        if (containsProfanity(pwd)) {
-                            pwd = generateRandomPwd() + "A1";
-                        }
-                    }
+                    // force append aman
+                    pwd = generateRandomPwd(Math.max(8, pwdLength - 4), allowedChars) + "Xk9m";
+                    if (pwd.length > pwdLength) pwd = pwd.substring(0, pwdLength);
                 }
+                return pwd;
             }
 
+            var mainPwd = makeOne();
             var out = $("pwdOutput");
             if (out) {
-                out.textContent = pwd;
+                out.textContent = mainPwd;
                 out.classList.add("glow");
             }
-            var strength = calcStrength(pwd);
-            updateStrength(strength);
+            updateStrength(calcStrength(mainPwd));
+
+            // Multi generate
+            var multi = $("pwdMultiList");
+            if (multi) {
+                if (pwdCount > 1) {
+                    multi.style.display = "flex";
+                    var mhtml = "";
+                    for (var m = 0; m < pwdCount; m++) {
+                        var extra = (m === 0) ? mainPwd : makeOne();
+                        mhtml += '<div class="pwd-multi-item"><code>' + escapeHtml(extra) + '</code>';
+                        mhtml += '<button type="button" class="btn-pwd-mini" data-pwd="' + escapeHtml(extra) + '"><i class="fa-regular fa-copy"></i></button></div>';
+                    }
+                    multi.innerHTML = mhtml;
+                    multi.querySelectorAll(".btn-pwd-mini").forEach(function(btn) {
+                        btn.addEventListener("click", function() {
+                            copyText(btn.getAttribute("data-pwd") || "", "Password");
+                        });
+                    });
+                } else {
+                    multi.style.display = "none";
+                    multi.innerHTML = "";
+                }
+            }
         }
 
         function calcStrength(pwd) {
+            if (!pwd) return 0;
             var score = 0;
-            if (pwd.length >= 12) score += 2;
+            if (pwd.length >= 16) score += 3;
+            else if (pwd.length >= 12) score += 2;
             else if (pwd.length >= 8) score += 1;
             if (/[A-Z]/.test(pwd)) score += 1;
             if (/[a-z]/.test(pwd)) score += 1;
             if (/[0-9]/.test(pwd)) score += 1;
-            if (pwd.length >= 16) score += 1;
+            if (/[^A-Za-z0-9]/.test(pwd)) score += 2;
             var types = 0;
             if (/[A-Z]/.test(pwd)) types++;
             if (/[a-z]/.test(pwd)) types++;
             if (/[0-9]/.test(pwd)) types++;
+            if (/[^A-Za-z0-9]/.test(pwd)) types++;
             if (types >= 3) score += 1;
+            if (types >= 4) score += 1;
             return Math.min(score, 10);
         }
 
@@ -4651,15 +5152,17 @@
             if (!bar || !text) return;
             var spans = bar.querySelectorAll("span");
             var idx = 0;
-            if (score >= 8) idx = 4;
-            else if (score >= 6) idx = 3;
-            else if (score >= 4) idx = 2;
-            else if (score >= 2) idx = 1;
+            if (score >= 9) idx = 4;
+            else if (score >= 7) idx = 3;
+            else if (score >= 5) idx = 2;
+            else if (score >= 3) idx = 1;
             else idx = 0;
             var colors = ["#ff3c3c", "#ff8800", "#ffcc00", "#84cc16", "#39ff14"];
             var labels = ["SANGAT LEMAH", "LEMAH", "SEDANG", "KUAT", "SANGAT KUAT"];
-            for (var i = 0; i < spans.length; i++) { spans[i].classList.toggle("active", i < idx + 1);
-                spans[i].style.background = i < idx + 1 ? colors[idx] : ""; }
+            for (var i = 0; i < spans.length; i++) {
+                spans[i].classList.toggle("active", i <= idx);
+                spans[i].style.background = i <= idx ? colors[idx] : "";
+            }
             text.textContent = labels[idx];
             text.style.color = colors[idx];
         }
@@ -4713,16 +5216,9 @@
 
         // ===== EVENT LISTENER FOR CARD CLICKS =====
         contentArea.addEventListener("click", function(e) {
-            // web button jadwal
-            var webBtn = e.target.closest(".j-btn-web"); if (webBtn && !webBtn.classList.contains("disabled")) { var c = webBtn.closest(".j-card-abss"),
-                    url = c ? c.dataset.web : ""; if (url) window.open(url, "_blank");
-                else showToast("Link tidak tersedia", "error"); return; }
-            // copy jadwal
-            var copyBtn = e.target.closest(".j-btn-copy"); if (copyBtn) { var c2 = copyBtn.closest(".j-card-abss"); if (c2 && c2.dataset.copy) copyText(c2.dataset.copy, "Jadwal"); return; }
-            // watch jadwal
-            var watchBtn = e.target.closest(".j-btn-watch"); if (watchBtn && !watchBtn.classList.contains("disabled")) { var c3 = watchBtn.closest(".j-card-abss"),
-                    url2 = c3 ? c3.dataset.watch : ""; if (url2) window.open(url2, "_blank");
-                else showToast("Link tidak tersedia", "error"); return; }
+            // Jadwal buttons (Salin Subjudul / Salin Isi / Kunjungi Website) sudah di-handle di renderJadwalGrid
+            // Biarkan event dihentikan oleh stopPropagation di handler baru
+            if (e.target.closest(".j-btn-sub, .j-btn-isi, .j-btn-web")) return;
             // copy text
             var ctb = e.target.closest(".copy-text-btn"); if (ctb) { var idx = parseInt(ctb.dataset.index || (ctb.closest("[data-index]") ? ctb.closest("[data-index]").dataset.index : "-1"), 10); var items = (currentFilter === "gidEvent") ? gidEventData : getFilteredData(); if (items[idx]) copyText(getItemCopyText(items[idx]), "Teks"); return; }
             // copy image
@@ -4867,17 +5363,18 @@
                 $("npbCountdown").textContent = cdStr; } }
 
         function showAlarmOverlay(title, time, isWarning, type) {
-            type = type || "buka";
+            type = type || "tutup";
             var isResult = type === "result";
             alarmOverlay.classList.toggle("warning-mode", !!isWarning);
             if (isResult) {
                 $("alarmLabel").textContent = isWarning ? "PERINGATAN - HAMPIR RESULT" : "RESULT KELUAR!";
                 $("alarmTitleText").textContent = isWarning ? "HAMPIR RESULT!" : "RESULT SUDAH KELUAR!";
-                $("alarmCountdown").textContent = isWarning ? "Nomor result segera keluar" : "Nomor result sudah keluar sekarang!";
+                $("alarmCountdown").textContent = isWarning ? "Nomor result segera keluar (~5 menit)" : "Nomor result sudah keluar sekarang!";
             } else {
-                $("alarmLabel").textContent = isWarning ? "PERINGATAN - HAMPIR BUKA" : "PASARAN BUKA!";
-                $("alarmTitleText").textContent = isWarning ? "HAMPIR BUKA!" : "PASARAN BUKA!";
-                $("alarmCountdown").textContent = isWarning ? "Pasaran segera buka" : "Pasaran sudah buka sekarang!";
+                // cutoffTime di data = jam TUTUP pasaran
+                $("alarmLabel").textContent = isWarning ? "PERINGATAN - HAMPIR TUTUP" : "PASARAN TUTUP!";
+                $("alarmTitleText").textContent = isWarning ? "HAMPIR TUTUP!" : "PASARAN SUDAH TUTUP!";
+                $("alarmCountdown").textContent = isWarning ? "Pasaran segera tutup (~5 menit)" : "Pasaran sudah tutup sekarang!";
             }
             $("alarmPasaran").textContent = title;
             $("alarmTime").innerHTML = time + ' <span>WIB</span>';
@@ -4899,7 +5396,7 @@
             }, 3000);
             try {
                 if (Notification.permission === "granted") {
-                    var nTitle = isResult ? (isWarning ? "Peringatan Result" : "Result Keluar!") : (isWarning ? "Peringatan Pasaran" : "Pasaran Buka!");
+                    var nTitle = isResult ? (isWarning ? "Peringatan Result" : "Result Keluar!") : (isWarning ? "Peringatan Tutup Pasaran" : "Pasaran Tutup!");
                     new Notification(nTitle, { body: title + " - " + time + " WIB" });
                 }
             } catch (e) {}
@@ -4932,14 +5429,14 @@
                             var diff = nowTotal - openTotal;
                             if (diff >= 0 && diff <= 45 && !firedAlarms[key]) {
                                 firedAlarms[key] = true;
-                                showAlarmOverlay(item.title, p.cutoffTime, false, "buka");
+                                showAlarmOverlay(item.title, p.cutoffTime, false, "tutup");
                                 break;
                             }
                             var wKey = item.title + "_warn_open_" + p.cutoffTime + "_" + new Date().toDateString();
                             var diffWarn = openTotal - nowTotal;
                             if (diffWarn > 0 && diffWarn <= 300 && diffWarn >= 240 && !firedAlarms[wKey]) {
                                 firedAlarms[wKey] = true;
-                                showAlarmOverlay(item.title, p.cutoffTime, true, "buka");
+                                showAlarmOverlay(item.title, p.cutoffTime, true, "tutup");
                                 break;
                             }
                         }
@@ -4994,7 +5491,22 @@
         $("notifTestBtn").addEventListener("click", function() { showAlarmOverlay("Test Pasaran", "17:30", false) });
         if ("Notification" in window && Notification.permission === "default") Notification.requestPermission();
 
-        function bootstrapApp() { loadData();
+        
+        // Tambah sudut grafik kotak di setiap kartu dashboard
+        function decorateModuleCards() {
+            document.querySelectorAll(".module-card").forEach(function(card) {
+                if (card.querySelector(".mc-corners")) return;
+                var corners = document.createElement("div");
+                corners.className = "mc-corners";
+                corners.innerHTML = '<span class="c-tl"></span><span class="c-tr"></span><span class="c-bl"></span><span class="c-br"></span>';
+                var grid = document.createElement("div");
+                grid.className = "mc-grid";
+                card.insertBefore(grid, card.firstChild);
+                card.insertBefore(corners, card.firstChild);
+            });
+        }
+
+        function bootstrapApp() { decorateModuleCards(); loadData();
             initSidebar();
             initQrisTypeFilter();
             showDashboard();
