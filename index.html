@@ -1961,22 +1961,23 @@
         }
         .jadwal-grid-abssidian {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.1rem;
         }
         .j-card-abss {
-            background: linear-gradient(160deg, rgba(14, 14, 24, .95), rgba(8, 8, 12, .98));
-            border: 1px solid rgba(0, 240, 255, .08);
-            border-radius: 12px;
+            background: linear-gradient(165deg, rgba(12, 18, 36, .97), rgba(8, 10, 20, .99));
+            border: 1px solid rgba(79, 195, 247, .18);
+            border-radius: 14px;
             overflow: hidden;
-            transition: all .4s;
+            transition: all .35s cubic-bezier(.16, 1, .3, 1);
             position: relative;
-            cursor: pointer;
+            cursor: default;
+            box-shadow: 0 8px 28px -12px rgba(0, 0, 0, .55);
         }
         .j-card-abss:hover {
-            border-color: rgba(0, 240, 255, .35);
-            box-shadow: 0 0 20px -5px rgba(0, 240, 255, .15), 0 10px 30px -10px rgba(0, 0, 0, .6);
-            transform: translateY(-3px);
+            border-color: rgba(79, 195, 247, .45);
+            box-shadow: 0 0 28px -8px rgba(79, 195, 247, .22), 0 14px 40px -14px rgba(0, 0, 0, .7);
+            transform: translateY(-4px);
         }
         .j-card-abss::before {
             content: '';
@@ -1985,8 +1986,8 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--neon-cyan), transparent);
-            opacity: .5;
+            background: linear-gradient(90deg, #4fc3f7, #a78bfa, transparent);
+            opacity: .7;
         }
         .j-card-abss:hover::before {
             opacity: 1;
@@ -1995,106 +1996,163 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: .85rem 1rem;
-            border-bottom: 1px solid rgba(0, 240, 255, .08);
+            padding: .9rem 1rem .7rem;
+            border-bottom: 1px solid rgba(79, 195, 247, .1);
         }
         .j-title-abss {
             font-family: var(--font-display);
-            font-size: .9rem;
+            font-size: .88rem;
             font-weight: 700;
-            color: #fff;
-            letter-spacing: .05em;
+            color: #e8f4ff;
+            letter-spacing: .04em;
             text-transform: uppercase;
+            display: flex;
+            align-items: center;
         }
         .j-badge-abss {
             font-family: var(--font-mono);
-            font-size: .6rem;
+            font-size: .55rem;
             font-weight: 700;
-            letter-spacing: .1em;
+            letter-spacing: .12em;
             text-transform: uppercase;
-            padding: .2rem .5rem;
-            border-radius: 4px;
+            padding: .22rem .55rem;
+            border-radius: 5px;
             border: 1px solid;
         }
         .j-badge-abss.active {
-            color: var(--neon-green);
-            background: rgba(57, 255, 20, .08);
-            border-color: rgba(57, 255, 20, .3);
+            color: #39ff14;
+            background: rgba(57, 255, 20, .1);
+            border-color: rgba(57, 255, 20, .35);
+            box-shadow: 0 0 10px -2px rgba(57, 255, 20, .25);
         }
         .j-badge-abss.passed {
-            color: #ff0055;
-            background: rgba(255, 0, 85, .08);
-            border-color: rgba(255, 0, 85, .3);
+            color: #ff5c8a;
+            background: rgba(255, 60, 100, .08);
+            border-color: rgba(255, 60, 100, .3);
         }
         .j-body-abss {
-            padding: .85rem 1rem;
+            padding: .85rem 1rem  .7rem;
         }
-        .j-time-row {
+        .j-times-box {
+            display: flex;
+            flex-direction: column;
+            gap: .45rem;
+            margin-bottom: .75rem;
+            background: rgba(0, 240, 255, .03);
+            border: 1px solid rgba(0, 240, 255, .08);
+            border-radius: 9px;
+            padding: .55rem .7rem;
+        }
+        .j-time-item {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: .5rem;
-            margin-bottom: .5rem;
-            font-size: .72rem;
-        }
-        .j-time-row:last-child {
-            margin-bottom: 0;
         }
         .j-time-label {
             font-family: var(--font-mono);
             color: var(--fg-dim);
-            font-size: .6rem;
+            font-size: .58rem;
             font-weight: 600;
-            letter-spacing: .05em;
+            letter-spacing: .06em;
             text-transform: uppercase;
-            width: 70px;
+            display: flex;
+            align-items: center;
+            gap: .3rem;
         }
         .j-time-val {
             font-family: var(--font-mono);
-            color: var(--neon-cyan);
-            font-weight: 600;
-            font-size: .8rem;
+            color: #4fc3f7;
+            font-weight: 700;
+            font-size: .82rem;
+            letter-spacing: .03em;
         }
         .j-time-val.result-val {
-            color: var(--neon-magenta);
+            color: #ff6b9d;
+        }
+        .j-content-preview {
+            font-size: .68rem;
+            color: var(--fg-muted);
+            line-height: 1.45;
+            max-height: 4.2em;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
         }
         .j-footer-abss {
             display: flex;
-            gap: .4rem;
-            padding: .7rem 1rem;
-            border-top: 1px solid rgba(0, 240, 255, .08);
-            background: rgba(0, 0, 0, .2);
+            gap: .35rem;
+            padding: .65rem .75rem .8rem;
+            border-top: 1px solid rgba(79, 195, 247, .08);
+            background: rgba(0, 0, 0, .25);
+            flex-wrap: wrap;
         }
         .j-btn-abss {
             flex: 1;
+            min-width: 0;
             background: rgba(255, 255, 255, .03);
-            border: 1px solid rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .1);
             color: var(--fg-muted);
-            font-family: var(--font-mono);
-            font-size: .6rem;
+            font-family: var(--font-display);
+            font-size: .58rem;
             font-weight: 600;
-            letter-spacing: .05em;
+            letter-spacing: .04em;
             text-transform: uppercase;
-            padding: .4rem 0;
-            border-radius: 6px;
+            padding: .45rem .3rem;
+            border-radius: 8px;
             cursor: pointer;
             transition: all .25s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: .3rem;
-        }
-        .j-btn-abss:hover {
-            background: rgba(0, 240, 255, .1);
-            border-color: rgba(0, 240, 255, .3);
-            color: var(--neon-cyan);
-        }
-        .j-btn-abss.disabled {
-            opacity: .3;
-            cursor: not-allowed;
-            pointer-events: none;
+            gap: .25rem;
+            white-space: nowrap;
         }
         .j-btn-abss i {
             font-size: .55rem;
+        }
+        .j-btn-abss.j-btn-sub {
+            background: linear-gradient(135deg, rgba(168, 85, 247, .18), rgba(168, 85, 247, .06));
+            border-color: rgba(168, 85, 247, .35);
+            color: #c084fc;
+        }
+        .j-btn-abss.j-btn-sub:hover {
+            background: linear-gradient(135deg, rgba(168, 85, 247, .3), rgba(168, 85, 247, .12));
+            border-color: rgba(168, 85, 247, .55);
+            color: #e9d5ff;
+            box-shadow: 0 0 14px -4px rgba(168, 85, 247, .4);
+        }
+        .j-btn-abss.j-btn-isi {
+            background: linear-gradient(135deg, rgba(249, 115, 22, .18), rgba(249, 115, 22, .06));
+            border-color: rgba(249, 115, 22, .35);
+            color: #fb923c;
+        }
+        .j-btn-abss.j-btn-isi:hover {
+            background: linear-gradient(135deg, rgba(249, 115, 22, .3), rgba(249, 115, 22, .12));
+            border-color: rgba(249, 115, 22, .55);
+            color: #fdba74;
+            box-shadow: 0 0 14px -4px rgba(249, 115, 22, .4);
+        }
+        .j-btn-abss.j-btn-web {
+            background: linear-gradient(135deg, rgba(59, 130, 246, .2), rgba(59, 130, 246, .06));
+            border-color: rgba(59, 130, 246, .4);
+            color: #60a5fa;
+            flex: 1.15;
+        }
+        .j-btn-abss.j-btn-web:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, .32), rgba(59, 130, 246, .12));
+            border-color: rgba(59, 130, 246, .6);
+            color: #93c5fd;
+            box-shadow: 0 0 14px -4px rgba(59, 130, 246, .4);
+        }
+        .j-btn-abss:hover {
+            transform: translateY(-1px);
+        }
+        .j-btn-abss.disabled {
+            opacity: .35;
+            cursor: not-allowed;
+            pointer-events: none;
         }
         .cards-grid {
             display: grid;
@@ -4174,13 +4232,71 @@
                 rt = times[1]; } else if (ct === "--:--" && times.length >= 1) ct = times[0]; else if (rt === "--:--" && times.length >= 1) rt = times[0]; for (var ui = 0; ui < urls.length; ui++) { var u = urls[ui],
                     l = u.toLowerCase(); if (l.indexOf("live") !== -1 || l.indexOf("watch") !== -1 || l.indexOf("stream") !== -1 || l.indexOf("result") !== -1) { if (!wa) wa = u; } else { if (!wu) wu = u; } } if (urls.length === 1 && !wu) wu = urls[0]; var st = "active"; if (lt.indexOf("status: tutup") !== -1 || lt.indexOf("status: close") !== -1 || lt.indexOf("status: passed") !== -1 || (lt.indexOf("tutup") !== -1 && lt.indexOf("buka") === -1 && lt.indexOf("cutoff") === -1)) st = "passed"; return { title: item.title, cutoffTime: ct, resultTime: rt, webUrl: wu, watchUrl: wa, fullContent: item.content, status: st }; }
 
-        function renderJadwalGrid(items) { var q = searchQuery.trim(); var html = '<div class="jadwal-grid-abssidian">'; for (var i = 0; i < items.length; i++) { var it = items[i],
+        function renderJadwalGrid(items) {
+            var q = searchQuery.trim();
+            var html = '<div class="jadwal-grid-abssidian">';
+            for (var i = 0; i < items.length; i++) {
+                var it = items[i],
                     p = parseJadwalItem(it),
                     sc = p.status,
-                    sl = p.status === "active" ? "Active" : "Passed";
-                html += '<div class="j-card-abss" data-index="' + i + '" data-web="' + escapeHtml(p.webUrl) + '" data-watch="' + escapeHtml(p.watchUrl) + '" data-copy="' + escapeHtml(getItemCopyText(it)) + '"><div class="j-header-abss"><div class="j-title-abss">' + highlightMatch(it.title, q) + '</div><div class="j-badge-abss ' + sc + '">' + sl + '</div></div><div class="j-body-abss"><div class="j-time-row"><span class="j-time-label"><i class="fa-solid fa-lock-open"></i> Buka</span><span class="j-time-val">' + p.cutoffTime + '</span></div><div class="j-time-row"><span class="j-time-label"><i class="fa-solid fa-lock"></i> Tutup</span><span class="j-time-val result-val">' + p.resultTime + '</span></div></div><div class="j-footer-abss"><button class="j-btn-abss j-btn-web ' + (p.webUrl ? "" : "disabled") + '"><i class="fa-solid fa-globe"></i> Web</button><button class="j-btn-abss j-btn-copy"><i class="fa-regular fa-copy"></i> Salin teks</button><button class="j-btn-abss j-btn-watch ' + (p.watchUrl ? "" : "disabled") + '"><i class="fa-solid fa-eye"></i> Watch</button></div></div>'; }
+                    sl = p.status === "active" ? "LIVE" : "PASSED";
+                // Build subtitle text (web + note) and isi (close/result)
+                var subText = "";
+                var isiText = "";
+                var full = (it.content || "").trim();
+                // Try to split content into subtitle-like and body
+                if (full) {
+                    var lines = full.split(/\n+/);
+                    if (lines.length >= 2) {
+                        subText = lines.slice(0, Math.ceil(lines.length / 2)).join(" ").trim();
+                        isiText = lines.slice(Math.ceil(lines.length / 2)).join(" ").trim();
+                    } else {
+                        subText = full;
+                        isiText = "Pasaran : " + it.title + "\nTutup Pasaran Pukul " + p.cutoffTime + " WIB Dan Keluaran Nomor Result Pukul " + p.resultTime + " WIB.";
+                    }
+                } else {
+                    isiText = "Pasaran : " + it.title + "\nTutup Pasaran Pukul " + p.cutoffTime + " WIB Dan Keluaran Nomor Result Pukul " + p.resultTime + " WIB.";
+                }
+                // Clean times display
+                var bukaDisplay = p.cutoffTime !== "--:--" ? p.cutoffTime : "-";
+                var resultDisplay = p.resultTime !== "--:--" ? p.resultTime : "-";
+                html += '<div class="j-card-abss" data-index="' + i + '" data-web="' + escapeHtml(p.webUrl) + '" data-watch="' + escapeHtml(p.watchUrl) + '" data-copy-sub="' + escapeHtml(subText || it.title) + '" data-copy-isi="' + escapeHtml(isiText || full) + '" data-copy="' + escapeHtml(getItemCopyText(it)) + '">';
+                html += '<div class="j-header-abss"><div class="j-title-abss"><i class="fa-solid fa-calendar-days" style="margin-right:6px;opacity:.7"></i>' + highlightMatch(it.title, q) + '</div><div class="j-badge-abss ' + sc + '">' + sl + '</div></div>';
+                html += '<div class="j-body-abss">';
+                // Prominent times
+                html += '<div class="j-times-box">';
+                html += '<div class="j-time-item"><span class="j-time-label"><i class="fa-solid fa-lock-open"></i> Buka / Tutup</span><span class="j-time-val">' + bukaDisplay + ' WIB</span></div>';
+                html += '<div class="j-time-item"><span class="j-time-label"><i class="fa-solid fa-trophy"></i> Result</span><span class="j-time-val result-val">' + resultDisplay + ' WIB</span></div>';
+                html += '</div>';
+                // Content preview
+                if (full) {
+                    html += '<div class="j-content-preview">' + highlightMatch(escapeHtml(full).substring(0, 220) + (full.length > 220 ? "..." : ""), q) + '</div>';
+                }
+                html += '</div>';
+                // Footer buttons matching the requested style
+                html += '<div class="j-footer-abss">';
+                html += '<button class="j-btn-abss j-btn-sub" type="button"><i class="fa-regular fa-copy"></i> Salin Subjudul</button>';
+                html += '<button class="j-btn-abss j-btn-isi" type="button"><i class="fa-regular fa-copy"></i> Salin Isi</button>';
+                html += '<button class="j-btn-abss j-btn-web ' + (p.webUrl ? "" : "disabled") + '" type="button"><i class="fa-solid fa-globe"></i> Kunjungi Website</button>';
+                html += '</div></div>';
+            }
             html += "</div>";
             contentArea.innerHTML = html;
+            // Bind new buttons
+            document.querySelectorAll(".j-btn-sub").forEach(function(btn) {
+                btn.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    var card = btn.closest(".j-card-abss");
+                    if (card && card.dataset.copySub) copyText(card.dataset.copySub, "Subjudul");
+                });
+            });
+            document.querySelectorAll(".j-btn-isi").forEach(function(btn) {
+                btn.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    var card = btn.closest(".j-card-abss");
+                    if (card && card.dataset.copyIsi) copyText(card.dataset.copyIsi, "Isi");
+                });
+            });
         }
 
         // ===== RENDER DEFAULT GRID WITH LINK CARD =====
@@ -4706,19 +4822,45 @@
             infoEl.innerHTML = "Selanjutnya: <strong>" + escapeHtml(next.title) + "</strong> (" + next.openTime + ')<br><span class="ncd">' + cdStr + "</span> lagi"; if (currentFilter === "gid5") { $("npbText").innerHTML = "<strong>" + escapeHtml(next.title) + "</strong> buka <span class=\"npb-time\">" + next.openTime + "</span> WIB";
                 $("npbCountdown").textContent = cdStr; } }
 
-        function showAlarmOverlay(title, time, isWarning) { alarmOverlay.classList.toggle("warning-mode", !!isWarning);
-            $("alarmLabel").textContent = isWarning ? "PERINGATAN - HAMPIR BUKA" : "PASARAN BUKA!";
-            $("alarmTitleText").textContent = isWarning ? "HAMPIR BUKA!" : "PASARAN BUKA!";
+        function showAlarmOverlay(title, time, isWarning, type) {
+            type = type || "buka";
+            var isResult = type === "result";
+            alarmOverlay.classList.toggle("warning-mode", !!isWarning);
+            if (isResult) {
+                $("alarmLabel").textContent = isWarning ? "PERINGATAN - HAMPIR RESULT" : "RESULT KELUAR!";
+                $("alarmTitleText").textContent = isWarning ? "HAMPIR RESULT!" : "RESULT SUDAH KELUAR!";
+                $("alarmCountdown").textContent = isWarning ? "Nomor result segera keluar" : "Nomor result sudah keluar sekarang!";
+            } else {
+                $("alarmLabel").textContent = isWarning ? "PERINGATAN - HAMPIR BUKA" : "PASARAN BUKA!";
+                $("alarmTitleText").textContent = isWarning ? "HAMPIR BUKA!" : "PASARAN BUKA!";
+                $("alarmCountdown").textContent = isWarning ? "Pasaran segera buka" : "Pasaran sudah buka sekarang!";
+            }
             $("alarmPasaran").textContent = title;
             $("alarmTime").innerHTML = time + ' <span>WIB</span>';
-            $("alarmCountdown").textContent = isWarning ? "Pasaran segera buka" : "Pasaran sudah buka sekarang!";
-            alarmOverlay.classList.add("active"); var countdown = 20;
-            $("alarmAutoDismiss").innerHTML = 'Auto-dismiss dalam <strong>' + countdown + "</strong> detik"; if (alarmAutoTimer) clearInterval(alarmAutoTimer);
-            alarmAutoTimer = setInterval(function() { countdown--;
-                $("alarmAutoDismiss").innerHTML = 'Auto-dismiss dalam <strong>' + countdown + "</strong> detik"; if (countdown <= 0) dismissAlarm() }, 1000); if (isWarning) playWarningBeep();
-            else playAlarmBeep(); if (alarmSoundInterval) clearInterval(alarmSoundInterval);
-            alarmSoundInterval = setInterval(function() { if (isWarning) playWarningBeep();
-                else playAlarmBeep() }, 3000); try { if (Notification.permission === "granted") new Notification(isWarning ? "Peringatan Pasaran" : "Pasaran Buka!", { body: title + " - " + time + " WIB" }) } catch (e) {} if (navigator.vibrate) navigator.vibrate(isWarning ? [200, 100, 200] : [300, 100, 300, 100, 300]); }
+            alarmOverlay.classList.add("active");
+            var countdown = 20;
+            $("alarmAutoDismiss").innerHTML = 'Auto-dismiss dalam <strong>' + countdown + "</strong> detik";
+            if (alarmAutoTimer) clearInterval(alarmAutoTimer);
+            alarmAutoTimer = setInterval(function() {
+                countdown--;
+                $("alarmAutoDismiss").innerHTML = 'Auto-dismiss dalam <strong>' + countdown + "</strong> detik";
+                if (countdown <= 0) dismissAlarm();
+            }, 1000);
+            if (isWarning) playWarningBeep();
+            else playAlarmBeep();
+            if (alarmSoundInterval) clearInterval(alarmSoundInterval);
+            alarmSoundInterval = setInterval(function() {
+                if (isWarning) playWarningBeep();
+                else playAlarmBeep();
+            }, 3000);
+            try {
+                if (Notification.permission === "granted") {
+                    var nTitle = isResult ? (isWarning ? "Peringatan Result" : "Result Keluar!") : (isWarning ? "Peringatan Pasaran" : "Pasaran Buka!");
+                    new Notification(nTitle, { body: title + " - " + time + " WIB" });
+                }
+            } catch (e) {}
+            if (navigator.vibrate) navigator.vibrate(isWarning ? [200, 100, 200] : [300, 100, 300, 100, 300]);
+        }
 
         function dismissAlarm() { alarmOverlay.classList.remove("active");
             alarmOverlay.classList.remove("warning-mode"); if (alarmSoundInterval) { clearInterval(alarmSoundInterval);
@@ -4726,11 +4868,68 @@
                 alarmAutoTimer = null; } }
         $("alarmDismissBtn").addEventListener("click", dismissAlarm);
 
-        function checkAlarms() { if (!notifEnabled || !gid5Data.length) return; var now = new Date(),
-                nowTotal = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds(); for (var i = 0; i < gid5Data.length; i++) { var item = gid5Data[i]; var p = parseJadwalItem(item); if (p.cutoffTime === "--:--" || p.status === "passed") continue; var parts = p.cutoffTime.split(":"); if (parts.length < 2) continue; var h = parseInt(parts[0], 10),
-                    m = parseInt(parts[1], 10); if (isNaN(h) || isNaN(m)) continue; var openTotal = h * 3600 + m * 60; var key = item.title + "_" + p.cutoffTime + "_" + new Date().toDateString(); var diff = nowTotal - openTotal; if (diff >= 0 && diff <= 30 && !firedAlarms[key]) { firedAlarms[key] = true;
-                    showAlarmOverlay(item.title, p.cutoffTime, false); break; } var wKey = item.title + "_warn_" + p.cutoffTime + "_" + new Date().toDateString(); var diffWarn = openTotal - nowTotal; if (diffWarn > 0 && diffWarn <= 300 && diffWarn >= 270 && !firedAlarms[wKey]) { firedAlarms[wKey] = true;
-                    showAlarmOverlay(item.title, p.cutoffTime, true); break; } } }
+        function checkAlarms() {
+            if (!notifEnabled || !gid5Data.length) return;
+            var now = new Date(),
+                nowTotal = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+            for (var i = 0; i < gid5Data.length; i++) {
+                var item = gid5Data[i];
+                var p = parseJadwalItem(item);
+                if (p.status === "passed") continue;
+
+                // ===== ALARM FOR BUKA / CUTOFF =====
+                if (p.cutoffTime !== "--:--") {
+                    var parts = p.cutoffTime.split(":");
+                    if (parts.length >= 2) {
+                        var h = parseInt(parts[0], 10), m = parseInt(parts[1], 10);
+                        if (!isNaN(h) && !isNaN(m)) {
+                            var openTotal = h * 3600 + m * 60;
+                            var key = item.title + "_open_" + p.cutoffTime + "_" + new Date().toDateString();
+                            var diff = nowTotal - openTotal;
+                            if (diff >= 0 && diff <= 45 && !firedAlarms[key]) {
+                                firedAlarms[key] = true;
+                                showAlarmOverlay(item.title, p.cutoffTime, false, "buka");
+                                break;
+                            }
+                            var wKey = item.title + "_warn_open_" + p.cutoffTime + "_" + new Date().toDateString();
+                            var diffWarn = openTotal - nowTotal;
+                            if (diffWarn > 0 && diffWarn <= 300 && diffWarn >= 240 && !firedAlarms[wKey]) {
+                                firedAlarms[wKey] = true;
+                                showAlarmOverlay(item.title, p.cutoffTime, true, "buka");
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                // ===== ALARM FOR RESULT (yang diminta user) =====
+                if (p.resultTime !== "--:--") {
+                    var rParts = p.resultTime.split(":");
+                    if (rParts.length >= 2) {
+                        var rh = parseInt(rParts[0], 10), rm = parseInt(rParts[1], 10);
+                        if (!isNaN(rh) && !isNaN(rm)) {
+                            var resultTotal = rh * 3600 + rm * 60;
+                            var rKey = item.title + "_result_" + p.resultTime + "_" + new Date().toDateString();
+                            var rDiff = nowTotal - resultTotal;
+                            // Fire when result time is reached (within 45s)
+                            if (rDiff >= 0 && rDiff <= 45 && !firedAlarms[rKey]) {
+                                firedAlarms[rKey] = true;
+                                showAlarmOverlay(item.title, p.resultTime, false, "result");
+                                break;
+                            }
+                            // Warning 5 menit sebelum result
+                            var rwKey = item.title + "_warn_result_" + p.resultTime + "_" + new Date().toDateString();
+                            var rDiffWarn = resultTotal - nowTotal;
+                            if (rDiffWarn > 0 && rDiffWarn <= 300 && rDiffWarn >= 240 && !firedAlarms[rwKey]) {
+                                firedAlarms[rwKey] = true;
+                                showAlarmOverlay(item.title, p.resultTime, true, "result");
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         function startAlarmCheck() { if (alarmCheckInterval) clearInterval(alarmCheckInterval);
             alarmCheckInterval = setInterval(checkAlarms, 15000);
