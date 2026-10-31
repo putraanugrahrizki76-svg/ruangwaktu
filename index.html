@@ -1122,10 +1122,10 @@
         .sidebar-item[data-filter="gid5"] .icon-wrap { color: var(--coral); background: rgba(240, 104, 88, .08); }
         .sidebar-item[data-filter="gid473"] .label { color: var(--lavender); }
         .sidebar-item[data-filter="gid473"] .icon-wrap { color: var(--lavender); background: rgba(167, 139, 250, .08); }
-        .sidebar-item[data-filter="gidBonus"] .label { color: var(--bonus-color); }
-        .sidebar-item[data-filter="gidBonus"] .icon-wrap { color: var(--bonus-color); background: var(--bonus-soft); }
-        .sidebar-item[data-filter="gidBetting"] .label { color: var(--betting-color); }
-        .sidebar-item[data-filter="gidBetting"] .icon-wrap { color: var(--betting-color); background: var(--betting-soft); }
+        .sidebar-item[data-filter="gidBonus"] .label { color: #60a5fa; }
+        .sidebar-item[data-filter="gidBonus"] .icon-wrap { color: #60a5fa; background: rgba(37, 99, 235, .12); }
+        .sidebar-item[data-filter="gidBetting"] .label { color: #facc15; }
+        .sidebar-item[data-filter="gidBetting"] .icon-wrap { color: #facc15; background: rgba(202, 138, 4, .12); }
         .sidebar-item[data-filter="gidEvent"] .label { color: var(--event-color); }
         .sidebar-item[data-filter="gidEvent"] .icon-wrap { color: var(--event-color); background: var(--event-soft); }
         .sidebar-item[data-filter="gidQris"] .label { color: var(--qris-primary); }
@@ -3939,6 +3939,313 @@
             border-color: rgba(216, 180, 254, .5);
             color: #fff;
         }
+
+        /* ===== ALL PK – HIJAU MODERN (ukuran sama dengan ungu) ===== */
+        #contentArea .cards-grid.compact-green-grid:not(.gallery-grid) {
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 185px), 1fr));
+            grid-auto-rows: 176px;
+            gap: .75rem;
+        }
+        #contentArea .cards-grid.compact-green-grid:not(.gallery-grid) .card {
+            height: 176px;
+            min-height: 176px;
+            border-color: rgba(52, 211, 153, .32);
+            border-radius: 15px;
+            background:
+                radial-gradient(ellipse 90% 70% at 100% 0%, rgba(52, 211, 153, .22), transparent 50%),
+                radial-gradient(ellipse 60% 50% at 0% 100%, rgba(16, 185, 129, .1), transparent 45%),
+                linear-gradient(155deg, rgba(10, 36, 28, .98), rgba(6, 16, 14, .99));
+            box-shadow:
+                0 12px 28px -22px rgba(16, 185, 129, .45),
+                0 8px 20px -16px rgba(0, 0, 0, .85),
+                inset 0 1px 0 rgba(110, 231, 183, .08);
+        }
+        #contentArea .cards-grid.compact-green-grid:not(.gallery-grid) .card:hover {
+            border-color: rgba(110, 231, 183, .55);
+            box-shadow:
+                0 14px 32px -18px rgba(52, 211, 153, .5),
+                0 10px 22px -16px rgba(0, 0, 0, .9),
+                0 0 0 1px rgba(110, 231, 183, .12);
+            transform: translateY(-2px);
+        }
+        #contentArea .cards-grid.compact-green-grid:not(.gallery-grid) .accent-strip {
+            height: 3px;
+            background: linear-gradient(90deg, #10b981, #34d399, #6ee7b7, transparent) !important;
+        }
+        #contentArea .cards-grid.compact-green-grid:not(.gallery-grid) .card-inner {
+            padding: .72rem .78rem .65rem;
+        }
+        #contentArea .cards-grid.compact-green-grid:not(.gallery-grid) .card-title {
+            min-height: 2.45em;
+            margin-bottom: .35rem;
+            padding-bottom: .35rem;
+            border-bottom: 1px solid rgba(52, 211, 153, .22);
+            color: #ffffff;
+            font-size: .72rem;
+            letter-spacing: .025em;
+        }
+        #contentArea .cards-grid.compact-green-grid:not(.gallery-grid) .card-content {
+            max-height: 4.35em;
+            padding-right: 0;
+            overflow: hidden;
+            color: rgba(255, 255, 255, .88);
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            white-space: normal;
+            font-size: .65rem;
+            line-height: 1.45;
+        }
+        #contentArea .cards-grid.compact-green-grid:not(.gallery-grid) .qris-actions {
+            min-height: 30px;
+            gap: .35rem;
+            padding-top: .38rem;
+            border-top: 1px solid rgba(52, 211, 153, .15);
+        }
+        #contentArea .cards-grid.compact-green-grid:not(.gallery-grid) .btn-action {
+            min-height: 27px;
+            padding: .28rem .46rem;
+            border-radius: 8px;
+            background: rgba(16, 185, 129, .14);
+            border: 1px solid rgba(52, 211, 153, .35);
+            color: #6ee7b7;
+            font-size: .56rem;
+            transition: all .2s;
+        }
+        #contentArea .cards-grid.compact-green-grid:not(.gallery-grid) .btn-action:hover {
+            background: rgba(16, 185, 129, .28);
+            border-color: rgba(110, 231, 183, .55);
+            color: #ecfdf5;
+            box-shadow: 0 0 12px -4px rgba(52, 211, 153, .4);
+        }
+
+        /* ===== BONUS LINETOGEL – BIRU MODERN (ukuran sama) ===== */
+        #contentArea .cards-grid.compact-blue-grid:not(.gallery-grid) {
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 185px), 1fr));
+            grid-auto-rows: 176px;
+            gap: .75rem;
+        }
+        #contentArea .cards-grid.compact-blue-grid:not(.gallery-grid) .card {
+            height: 176px;
+            min-height: 176px;
+            border-color: rgba(96, 165, 250, .32);
+            border-radius: 15px;
+            background:
+                radial-gradient(ellipse 90% 70% at 100% 0%, rgba(59, 130, 246, .22), transparent 50%),
+                radial-gradient(ellipse 60% 50% at 0% 100%, rgba(37, 99, 235, .1), transparent 45%),
+                linear-gradient(155deg, rgba(12, 24, 48, .98), rgba(8, 12, 28, .99));
+            box-shadow:
+                0 12px 28px -22px rgba(59, 130, 246, .45),
+                0 8px 20px -16px rgba(0, 0, 0, .85),
+                inset 0 1px 0 rgba(147, 197, 253, .08);
+        }
+        #contentArea .cards-grid.compact-blue-grid:not(.gallery-grid) .card:hover {
+            border-color: rgba(147, 197, 253, .55);
+            box-shadow:
+                0 14px 32px -18px rgba(59, 130, 246, .5),
+                0 10px 22px -16px rgba(0, 0, 0, .9),
+                0 0 0 1px rgba(96, 165, 250, .12);
+            transform: translateY(-2px);
+        }
+        #contentArea .cards-grid.compact-blue-grid:not(.gallery-grid) .accent-strip {
+            height: 3px;
+            background: linear-gradient(90deg, #2563eb, #3b82f6, #93c5fd, transparent) !important;
+        }
+        #contentArea .cards-grid.compact-blue-grid:not(.gallery-grid) .card-inner {
+            padding: .72rem .78rem .65rem;
+        }
+        #contentArea .cards-grid.compact-blue-grid:not(.gallery-grid) .card-title {
+            min-height: 2.45em;
+            margin-bottom: .35rem;
+            padding-bottom: .35rem;
+            border-bottom: 1px solid rgba(96, 165, 250, .22);
+            color: #ffffff;
+            font-size: .72rem;
+            letter-spacing: .025em;
+        }
+        #contentArea .cards-grid.compact-blue-grid:not(.gallery-grid) .card-content {
+            max-height: 4.35em;
+            padding-right: 0;
+            overflow: hidden;
+            color: rgba(255, 255, 255, .88);
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            white-space: normal;
+            font-size: .65rem;
+            line-height: 1.45;
+        }
+        #contentArea .cards-grid.compact-blue-grid:not(.gallery-grid) .qris-actions {
+            min-height: 30px;
+            gap: .35rem;
+            padding-top: .38rem;
+            border-top: 1px solid rgba(96, 165, 250, .15);
+        }
+        #contentArea .cards-grid.compact-blue-grid:not(.gallery-grid) .btn-action {
+            min-height: 27px;
+            padding: .28rem .46rem;
+            border-radius: 8px;
+            background: rgba(37, 99, 235, .16);
+            border: 1px solid rgba(96, 165, 250, .35);
+            color: #93c5fd;
+            font-size: .56rem;
+            transition: all .2s;
+        }
+        #contentArea .cards-grid.compact-blue-grid:not(.gallery-grid) .btn-action:hover {
+            background: rgba(37, 99, 235, .3);
+            border-color: rgba(147, 197, 253, .55);
+            color: #eff6ff;
+            box-shadow: 0 0 12px -4px rgba(59, 130, 246, .4);
+        }
+
+        /* ===== CARA BETTING TOGEL – KUNING (muat gambar + Copy + COPY GAMBAR) ===== */
+        #contentArea .cards-grid.compact-yellow-grid:not(.gallery-grid) {
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+            grid-auto-rows: 300px;
+            gap: .85rem;
+        }
+        #contentArea .cards-grid.compact-yellow-grid:not(.gallery-grid) .card {
+            height: 300px;
+            min-height: 300px;
+            border-color: rgba(250, 204, 21, .32);
+            border-radius: 15px;
+            background:
+                radial-gradient(ellipse 90% 70% at 100% 0%, rgba(234, 179, 8, .2), transparent 50%),
+                radial-gradient(ellipse 60% 50% at 0% 100%, rgba(202, 138, 4, .1), transparent 45%),
+                linear-gradient(155deg, rgba(40, 32, 8, .98), rgba(16, 14, 6, .99));
+            box-shadow:
+                0 12px 28px -22px rgba(234, 179, 8, .4),
+                0 8px 20px -16px rgba(0, 0, 0, .85),
+                inset 0 1px 0 rgba(253, 224, 71, .08);
+            overflow: hidden;
+        }
+        #contentArea .cards-grid.compact-yellow-grid:not(.gallery-grid) .card:hover {
+            border-color: rgba(253, 224, 71, .55);
+            box-shadow:
+                0 14px 32px -18px rgba(250, 204, 21, .45),
+                0 10px 22px -16px rgba(0, 0, 0, .9),
+                0 0 0 1px rgba(250, 204, 21, .12);
+            transform: translateY(-2px);
+        }
+        #contentArea .cards-grid.compact-yellow-grid:not(.gallery-grid) .accent-strip {
+            height: 3px;
+            background: linear-gradient(90deg, #ca8a04, #eab308, #fde047, transparent) !important;
+            flex-shrink: 0;
+        }
+        #contentArea .cards-grid.compact-yellow-grid:not(.gallery-grid) .card-inner {
+            padding: .65rem .7rem .55rem;
+            display: flex;
+            flex-direction: column;
+            height: calc(100% - 3px);
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        #contentArea .cards-grid.compact-yellow-grid:not(.gallery-grid) .card-title {
+            min-height: 0;
+            max-height: 2.4em;
+            margin-bottom: .3rem;
+            padding-bottom: .3rem;
+            border-bottom: 1px solid rgba(250, 204, 21, .22);
+            color: #ffffff;
+            font-size: .7rem;
+            letter-spacing: .02em;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            flex: 0 0 auto;
+        }
+        #contentArea .cards-grid.compact-yellow-grid:not(.gallery-grid) .card-content {
+            max-height: 2.6em;
+            padding-right: 0;
+            overflow: hidden;
+            color: rgba(255, 255, 255, .88);
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            white-space: normal;
+            font-size: .6rem;
+            line-height: 1.35;
+            flex: 0 0 auto;
+            min-height: 0;
+            margin-bottom: .35rem;
+        }
+        /* Gambar di dalam kartu betting */
+        #contentArea .cards-grid.compact-yellow-grid:not(.gallery-grid) .qris-image-preview {
+            flex: 1 1 auto;
+            min-height: 90px;
+            max-height: 130px;
+            margin: 0 0 .4rem;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(250, 204, 21, .2);
+            background: rgba(0, 0, 0, .35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #contentArea .cards-grid.compact-yellow-grid:not(.gallery-grid) .qris-image-preview img {
+            width: 100%;
+            height: 100%;
+            max-height: 130px;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+        }
+        /* Area tombol selalu di bawah, tidak tertutup gambar */
+        #contentArea .cards-grid.compact-yellow-grid:not(.gallery-grid) .qris-actions {
+            min-height: 64px;
+            gap: .4rem;
+            padding-top: .45rem;
+            border-top: 1px solid rgba(250, 204, 21, .18);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: stretch;
+            align-content: flex-start;
+            flex: 0 0 auto;
+            margin-top: auto;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(180deg, transparent, rgba(16, 14, 6, .5) 20%);
+        }
+        #contentArea .cards-grid.compact-yellow-grid:not(.gallery-grid) .qris-actions .btn-action {
+            flex: 1 1 calc(50% - .25rem);
+            min-width: calc(50% - .25rem);
+            justify-content: center;
+        }
+        #contentArea .cards-grid.compact-yellow-grid:not(.gallery-grid) .btn-action {
+            min-height: 30px;
+            padding: .32rem .48rem;
+            border-radius: 8px;
+            background: rgba(202, 138, 4, .18);
+            border: 1px solid rgba(250, 204, 21, .38);
+            color: #fde047;
+            font-size: .58rem;
+            font-weight: 600;
+            transition: all .2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .3rem;
+            white-space: nowrap;
+        }
+        #contentArea .cards-grid.compact-yellow-grid:not(.gallery-grid) .btn-action.copy-text-btn {
+            background: rgba(234, 179, 8, .25) !important;
+            border-color: rgba(250, 204, 21, .55) !important;
+            color: #fef9c3 !important;
+        }
+        #contentArea .cards-grid.compact-yellow-grid:not(.gallery-grid) .btn-action.copy-text-btn:hover,
+        #contentArea .cards-grid.compact-yellow-grid:not(.gallery-grid) .btn-action:hover {
+            background: rgba(202, 138, 4, .35) !important;
+            border-color: rgba(253, 224, 71, .6) !important;
+            color: #fff !important;
+            box-shadow: 0 0 12px -4px rgba(234, 179, 8, .45);
+        }
+        #contentArea .cards-grid.compact-yellow-grid:not(.gallery-grid) .btn-action:disabled {
+            opacity: .42;
+            color: rgba(253, 224, 71, .5);
+        }
+
         .btn-action:disabled {
             opacity: .42;
             cursor: not-allowed;
@@ -4080,9 +4387,71 @@
         <div class="orb orb-5"></div>
     </div>
 
-    <div id="loginModal" class="login-overlay"><div class="scanlines"></div><div class="grid-bg"></div><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="side-label side-label-left">RUANG WAKTU SECURE</div><div class="side-label side-label-right">DATA CENTER v2.0</div><div class="login-card"><div class="card-inner-glow"></div><div class="login-icon"><div class="icon-ring"><i class="fa-solid fa-lock"></i></div></div><div class="login-title">RUANG WAKTU</div><div class="login-sub">Secure Access</div><div class="input-group"><label class="input-label">Username</label><i class="fa-regular fa-user input-icon"></i><input type="text" id="loginUsername" autocomplete="off"></div><div class="input-group"><label class="input-label">Password</label><i class="fa-regular fa-key input-icon"></i><input type="password" id="loginPassword" autocomplete="off"><button type="button" id="togglePasswordBtn" class="password-toggle"><i class="fa-regular fa-eye"></i></button></div><button class="login-btn" id="loginBtn"><i class="fa-solid fa-arrow-right-to-bracket"></i> MASUK</button><div id="loginError" class="login-error"></div><div class="login-footer-note">Ruang Waktu Data Center</div></div></div>
+    <div id="loginModal" class="login-overlay"><div class="scanlines"></div><div class="grid-bg"></div><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="side-label side-label-left">RUANG WAKTU SECURE</div><div class="side-label side-label-right">DATA CENTER v2.0</div><div class="login-card"><div class="card-inner-glow"></div><div class="login-icon"><div class="icon-ring"><i class="fa-solid fa-lock"></i></div></div><div class="login-title">RUANG WAKTU</div><div class="login-sub">Secure Access</div><div class="input-group"><label class="input-label">Username</label><i class="fa-regular fa-user input-icon"></i><input type="text" id="loginUsername" autocomplete="off"></div><div class="input-group"><label class="input-label">Password</label><i class="fa-regular fa-key input-icon"></i><input type="password" id="loginPassword" autocomplete="off"><button type="button" id="togglePasswordBtn" class="password-toggle"><i class="fa-regular fa-eye"></i></button></div><button class="login-btn" id="loginBtn" type="button" onclick="window.__doLogin && window.__doLogin()"><i class="fa-solid fa-arrow-right-to-bracket"></i> MASUK</button><div id="loginError" class="login-error"></div><div class="login-footer-note">Ruang Waktu Data Center</div></div></div>
 
-    <div class="app-layout" id="appLayout"><aside class="sidebar"><div class="sidebar-header"><div class="sidebar-brand"><div class="sidebar-brand-icon"><i class="fa-solid fa-clock-rotate-left"></i></div><div><div>Ruang Waktu</div><div class="sidebar-brand-sub">Data Center</div></div></div></div><nav class="sidebar-nav"><div class="sidebar-section-label">Data Sheet</div><div class="sidebar-item" data-filter="gid0"><div class="icon-wrap"><i class="fa-solid fa-layer-group"></i></div><div class="label">ALL PK</div></div><div class="sidebar-item" data-filter="gid5"><div class="icon-wrap"><i class="fa-solid fa-database"></i></div><div class="label">JADWAL PASARAN</div></div><div class="sidebar-item" data-filter="gid473"><div class="icon-wrap"><i class="fa-solid fa-trophy"></i></div><div class="label">HADIAH TOGEL</div></div><div class="sidebar-item" data-filter="gidBonus"><div class="icon-wrap"><i class="fa-solid fa-gift"></i></div><div class="label">BONUS LINETOGEL</div></div><div class="sidebar-item" data-filter="gidBetting"><div class="icon-wrap"><i class="fa-solid fa-book-open"></i></div><div class="label">CARA BETTING TOGEL</div></div><div class="sidebar-item" data-filter="gidEvent"><div class="icon-wrap"><i class="fa-solid fa-bolt"></i></div><div class="label">EVENT LINETOGEL</div></div><div class="sidebar-item" data-filter="gidQris"><div class="icon-wrap"><i class="fa-solid fa-qrcode"></i></div><div class="label">QRIS PAYMENT</div></div><div class="sidebar-item" data-filter="gidProfile"><div class="icon-wrap"><i class="fa-solid fa-building-columns"></i></div><div class="label">PROFILE BANK & E-WALLET</div></div><div class="sidebar-item" data-filter="gidPassword"><div class="icon-wrap"><i class="fa-solid fa-key"></i></div><div class="label">GENERATOR PASSWORD</div></div></nav><div class="sidebar-notif-section"><div class="sidebar-notif-row"><button class="notif-toggle-btn" id="notifToggleBtn"><i class="fa-solid fa-bell bell-ring"></i> <span id="notifToggleText">ON</span></button><button class="notif-test-btn" id="notifTestBtn" title="Test Alarm"><i class="fa-solid fa-volume-high"></i></button></div><div class="notif-next-info" id="notifNextInfo">Memuat jadwal...</div></div><div class="sidebar-footer"><div class="timer-bar-track"><div class="timer-bar-fill" id="timerBarFill" style="width:100%"></div></div><div id="timerLastUpdate" style="font-size:.5rem;margin-top:.3rem;color:var(--fg-dim)"><i class="fa-regular fa-clock"></i> Auto-refresh aktif</div></div></aside><main class="main-content"><div class="dashboard-container"><div class="dashboard-view" id="dashboardView"><div class="dashboard-header"><div></div><button class="logout-dash-btn" id="logoutDashBtn">LOGOUT <i class="fa-solid fa-arrow-right-from-bracket"></i></button></div><div class="premium-hero"><div class="premium-hero-title">RUANG WAKTU</div><div class="premium-hero-sub">Premium Interface</div><div class="premium-hero-ver"><span class="blink-dot"></span> SYSTEM UPDATE V2.5</div></div><div class="module-grid"><div class="module-card mod-pk" data-filter="gid0"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-layer-group"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">ALL PK</div><div class="module-card-desc">Database lengkap prediksi dan kombinasi angka dari semua pasaran.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-jadwal" data-filter="gid5"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-database"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">JADWAL PASARAN</div><div class="module-card-desc">Jadwal lengkap pasaran togel hari ini dengan waktu result real-time.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-hadiah" data-filter="gid473"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-trophy"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">HADIAH TOGEL</div><div class="module-card-desc">Daftar hadiah 2D, 3D, 4D dan bonus prize lengkap terbaru.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-bonus" data-filter="gidBonus"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-gift"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">BONUS LINETOGEL</div><div class="module-card-desc">Informasi bonus, promosi, dan cashback eksklusif member.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-betting" data-filter="gidBetting"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-book-open"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">CARA BETTING TOGEL</div><div class="module-card-desc">Panduan lengkap cara memasang taruhan dan format betting.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-event" data-filter="gidEvent"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-bolt"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">EVENT LINETOGEL</div><div class="module-card-desc">Info event seru, turnamen, dan hadiah spesial dari Linetogel.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-qris" data-filter="gidQris"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-qrcode"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">QRIS PAYMENT</div><div class="module-card-desc">Kode QR pembayaran instan via Bank dan E-Wallet.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-profile" data-filter="gidProfile"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-building-columns"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">PROFILE BANK & E-WALLET</div><div class="module-card-desc">Nomor rekening dan informasi akun bank serta e-wallet resmi.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-password" data-filter="gidPassword"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-key"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">GENERATOR PASSWORD</div><div class="module-card-desc">Buat password kuat & aman dengan berbagai opsi karakter. (Filter kata kasar aktif)</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div></div></div><div class="data-view" id="dataView"><header class="page-header"><div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap"><button class="back-btn" id="backBtn"><i class="fa-solid fa-arrow-left"></i> BACK</button><h1 class="page-title" id="pageTitle"></h1><div class="jadwal-live-clock" id="jadwalClock"><span class="clk-dot"></span> <span id="clockTime">00:00:00</span></div></div><div class="header-actions"><div class="status-badge"><span class="live-dot" id="liveDot"></span><span>Live</span></div><button class="refresh-btn" id="refreshBtn"><i class="fa-solid fa-rotate-right"></i></button><button id="logoutHeaderBtn" class="logout-header-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i></button></div></header><div class="next-pasaran-badge" id="nextPasaranBadge"><div class="npb-icon"><i class="fa-solid fa-bell"></i></div><div class="npb-text" id="npbText">Memuat...</div><div class="npb-countdown" id="npbCountdown">--:--</div></div><div class="sticky-top" id="stickyTop"><div class="search-bar"><i class="fa-solid fa-magnifying-glass" style="position:absolute;left:.65rem;top:50%;transform:translateY(-50%);color:var(--fg-dim);font-size:.68rem"></i><input type="text" class="search-input" id="searchInput" placeholder="Cari..."><button class="search-clear" id="searchClear"><i class="fa-solid fa-xmark"></i></button><div class="search-result-count" id="searchResultCount"></div></div><div class="toolbar"><div class="qris-type-filter" id="qrisTypeFilterWrapper"><button class="filter-chip active" data-type="all">Semua</button><button class="filter-chip" data-type="bank">Bank</button><button class="filter-chip" data-type="ewallet">E-Wallet</button></div></div></div><section id="contentArea"><div class="loading-state"><div class="loader-ring"></div><span>Memuat data...</span></div></section></div><footer style="margin-top:1.2rem;text-align:center;font-size:.55rem;color:var(--fg-dim);padding-top:.7rem;border-top:1px solid var(--border)">Ruang Waktu Data Center</footer></div></main></div>
+    
+<script>
+/* Login darurat – tetap jalan meski script utama error */
+(function () {
+  var USER = "Putra28";
+  var PASS = "Tyaaa27";
+  var KEY = "ruangWaktuAuth";
+
+  function hideOverlay() {
+    var m = document.getElementById("loginModal");
+    if (!m) return;
+    m.classList.add("hidden");
+    m.style.display = "none";
+    m.style.opacity = "0";
+    m.style.visibility = "hidden";
+    m.style.pointerEvents = "none";
+  }
+
+  function tryLogin() {
+    var u = (document.getElementById("loginUsername") || {}).value || "";
+    var p = (document.getElementById("loginPassword") || {}).value || "";
+    var err = document.getElementById("loginError");
+    if (u.trim() === USER && p === PASS) {
+      try { localStorage.setItem(KEY, "true"); } catch (e) {}
+      hideOverlay();
+      var layout = document.getElementById("appLayout");
+      if (layout) layout.classList.add("entering");
+      if (typeof window.bootstrapApp === "function") {
+        try { window.bootstrapApp(); } catch (e) { console.error(e); }
+      } else if (typeof bootstrapApp === "function") {
+        try { bootstrapApp(); } catch (e) { console.error(e); }
+      }
+      if (err) err.innerText = "";
+      return true;
+    }
+    if (err) err.innerText = "Username atau password salah. Username: Putra28 · Password: Tyaaa27";
+    return false;
+  }
+
+  window.__doLogin = tryLogin;
+
+  function bind() {
+    var btn = document.getElementById("loginBtn");
+    var pEl = document.getElementById("loginPassword");
+    var uEl = document.getElementById("loginUsername");
+    if (btn) btn.onclick = function (e) { if (e) e.preventDefault(); tryLogin(); };
+    if (pEl) pEl.onkeydown = function (e) { if (e.key === "Enter") { e.preventDefault(); tryLogin(); } };
+    if (uEl) uEl.onkeydown = function (e) { if (e.key === "Enter") { e.preventDefault(); if (pEl) pEl.focus(); } };
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind);
+  else bind();
+
+  // Auto-skip overlay if already logged in
+  try {
+    if (localStorage.getItem(KEY) === "true") {
+      hideOverlay();
+    }
+  } catch (e) {}
+})();
+</script>
+
+<div class="app-layout" id="appLayout"><aside class="sidebar"><div class="sidebar-header"><div class="sidebar-brand"><div class="sidebar-brand-icon"><i class="fa-solid fa-clock-rotate-left"></i></div><div><div>Ruang Waktu</div><div class="sidebar-brand-sub">Data Center</div></div></div></div><nav class="sidebar-nav"><div class="sidebar-section-label">Data Sheet</div><div class="sidebar-item" data-filter="gid0"><div class="icon-wrap"><i class="fa-solid fa-layer-group"></i></div><div class="label">ALL PK</div></div><div class="sidebar-item" data-filter="gid5"><div class="icon-wrap"><i class="fa-solid fa-database"></i></div><div class="label">JADWAL PASARAN</div></div><div class="sidebar-item" data-filter="gid473"><div class="icon-wrap"><i class="fa-solid fa-trophy"></i></div><div class="label">HADIAH TOGEL</div></div><div class="sidebar-item" data-filter="gidBonus"><div class="icon-wrap"><i class="fa-solid fa-gift"></i></div><div class="label">BONUS LINETOGEL</div></div><div class="sidebar-item" data-filter="gidBetting"><div class="icon-wrap"><i class="fa-solid fa-book-open"></i></div><div class="label">CARA BETTING TOGEL</div></div><div class="sidebar-item" data-filter="gidEvent"><div class="icon-wrap"><i class="fa-solid fa-bolt"></i></div><div class="label">EVENT LINETOGEL</div></div><div class="sidebar-item" data-filter="gidQris"><div class="icon-wrap"><i class="fa-solid fa-qrcode"></i></div><div class="label">QRIS PAYMENT</div></div><div class="sidebar-item" data-filter="gidProfile"><div class="icon-wrap"><i class="fa-solid fa-building-columns"></i></div><div class="label">PROFILE BANK & E-WALLET</div></div><div class="sidebar-item" data-filter="gidPassword"><div class="icon-wrap"><i class="fa-solid fa-key"></i></div><div class="label">GENERATOR PASSWORD</div></div></nav><div class="sidebar-notif-section"><div class="sidebar-notif-row"><button class="notif-toggle-btn" id="notifToggleBtn"><i class="fa-solid fa-bell bell-ring"></i> <span id="notifToggleText">ON</span></button><button class="notif-test-btn" id="notifTestBtn" title="Test Alarm"><i class="fa-solid fa-volume-high"></i></button></div><div class="notif-next-info" id="notifNextInfo">Memuat jadwal...</div></div><div class="sidebar-footer"><div class="timer-bar-track"><div class="timer-bar-fill" id="timerBarFill" style="width:100%"></div></div><div id="timerLastUpdate" style="font-size:.5rem;margin-top:.3rem;color:var(--fg-dim)"><i class="fa-regular fa-clock"></i> Auto-refresh aktif</div></div></aside><main class="main-content"><div class="dashboard-container"><div class="dashboard-view" id="dashboardView"><div class="dashboard-header"><div></div><button class="logout-dash-btn" id="logoutDashBtn">LOGOUT <i class="fa-solid fa-arrow-right-from-bracket"></i></button></div><div class="premium-hero"><div class="premium-hero-title">RUANG WAKTU</div><div class="premium-hero-sub">Premium Interface</div><div class="premium-hero-ver"><span class="blink-dot"></span> SYSTEM UPDATE V2.5</div></div><div class="module-grid"><div class="module-card mod-pk" data-filter="gid0"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-layer-group"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">ALL PK</div><div class="module-card-desc">Database lengkap prediksi dan kombinasi angka dari semua pasaran.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-jadwal" data-filter="gid5"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-database"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">JADWAL PASARAN</div><div class="module-card-desc">Jadwal lengkap pasaran togel hari ini dengan waktu result real-time.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-hadiah" data-filter="gid473"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-trophy"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">HADIAH TOGEL</div><div class="module-card-desc">Daftar hadiah 2D, 3D, 4D dan bonus prize lengkap terbaru.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-bonus" data-filter="gidBonus"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-gift"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">BONUS LINETOGEL</div><div class="module-card-desc">Informasi bonus, promosi, dan cashback eksklusif member.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-betting" data-filter="gidBetting"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-book-open"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">CARA BETTING TOGEL</div><div class="module-card-desc">Panduan lengkap cara memasang taruhan dan format betting.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-event" data-filter="gidEvent"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-bolt"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">EVENT LINETOGEL</div><div class="module-card-desc">Info event seru, turnamen, dan hadiah spesial dari Linetogel.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-qris" data-filter="gidQris"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-qrcode"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">QRIS PAYMENT</div><div class="module-card-desc">Kode QR pembayaran instan via Bank dan E-Wallet.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-profile" data-filter="gidProfile"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-building-columns"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">PROFILE BANK & E-WALLET</div><div class="module-card-desc">Nomor rekening dan informasi akun bank serta e-wallet resmi.</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div><div class="module-card mod-password" data-filter="gidPassword"><div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-key"></i></div><div class="module-card-status"><span class="status-dot"></span> ONLINE</div></div><div class="module-card-name">GENERATOR PASSWORD</div><div class="module-card-desc">Buat password kuat & aman dengan berbagai opsi karakter. (Filter kata kasar aktif)</div><div class="module-card-access">ACCESS <i class="fa-solid fa-arrow-right"></i></div></div></div></div><div class="data-view" id="dataView"><header class="page-header"><div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap"><button class="back-btn" id="backBtn"><i class="fa-solid fa-arrow-left"></i> BACK</button><h1 class="page-title" id="pageTitle"></h1><div class="jadwal-live-clock" id="jadwalClock"><span class="clk-dot"></span> <span id="clockTime">00:00:00</span></div></div><div class="header-actions"><div class="status-badge"><span class="live-dot" id="liveDot"></span><span>Live</span></div><button class="refresh-btn" id="refreshBtn"><i class="fa-solid fa-rotate-right"></i></button><button id="logoutHeaderBtn" class="logout-header-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i></button></div></header><div class="next-pasaran-badge" id="nextPasaranBadge"><div class="npb-icon"><i class="fa-solid fa-bell"></i></div><div class="npb-text" id="npbText">Memuat...</div><div class="npb-countdown" id="npbCountdown">--:--</div></div><div class="sticky-top" id="stickyTop"><div class="search-bar"><i class="fa-solid fa-magnifying-glass" style="position:absolute;left:.65rem;top:50%;transform:translateY(-50%);color:var(--fg-dim);font-size:.68rem"></i><input type="text" class="search-input" id="searchInput" placeholder="Cari..."><button class="search-clear" id="searchClear"><i class="fa-solid fa-xmark"></i></button><div class="search-result-count" id="searchResultCount"></div></div><div class="toolbar"><div class="qris-type-filter" id="qrisTypeFilterWrapper"><button class="filter-chip active" data-type="all">Semua</button><button class="filter-chip" data-type="bank">Bank</button><button class="filter-chip" data-type="ewallet">E-Wallet</button></div></div></div><section id="contentArea"><div class="loading-state"><div class="loader-ring"></div><span>Memuat data...</span></div></section></div><footer style="margin-top:1.2rem;text-align:center;font-size:.55rem;color:var(--fg-dim);padding-top:.7rem;border-top:1px solid var(--border)">Ruang Waktu Data Center</footer></div></main></div>
 
     <div class="alarm-overlay" id="alarmOverlay"><div class="alarm-card"><div class="alarm-icon-wrap"><i class="fa-solid fa-bell"></i></div><div class="alarm-label" id="alarmLabel">PASARAN BUKA</div><div class="alarm-title-text" id="alarmTitleText">PASARAN BUKA!</div><div class="alarm-pasaran" id="alarmPasaran">-</div><div class="alarm-time" id="alarmTime">--:-- <span>WIB</span></div><div class="alarm-countdown" id="alarmCountdown"></div><button class="alarm-dismiss-btn" id="alarmDismissBtn"><i class="fa-solid fa-bell-slash"></i> MATIKAN ALARM</button><div class="alarm-auto-dismiss" id="alarmAutoDismiss">Auto-dismiss dalam <strong>20</strong> detik</div></div></div>
 
@@ -4266,45 +4635,142 @@
 
         function showToast(msg, type) { var t = document.createElement("div"); t.className = "toast"; var ic = type === "error" ? "fa-circle-xmark" : "fa-circle-check"; var clr = type === "error" ? "var(--coral)" : "var(--sage)"; t.innerHTML = '<i class="fa-solid ' + ic + '" style="color:' + clr + '"></i> ' + escapeHtml(msg); document.body.appendChild(t); setTimeout(function() { t.remove() }, 1800); }
 
+        function blobToPngBlob(blob) {
+            return createImageBitmap(blob).then(function(bitmap) {
+                var canvas = document.createElement("canvas");
+                canvas.width = bitmap.width;
+                canvas.height = bitmap.height;
+                var ctx = canvas.getContext("2d");
+                if (!ctx) throw new Error("Canvas tidak tersedia");
+                ctx.drawImage(bitmap, 0, 0);
+                if (bitmap.close) bitmap.close();
+                return new Promise(function(resolve, reject) {
+                    canvas.toBlob(function(png) {
+                        if (png) resolve(png);
+                        else reject(new Error("Konversi PNG gagal"));
+                    }, "image/png");
+                });
+            });
+        }
+
+        function loadImageAsPngBlob(url) {
+            return new Promise(function(resolve, reject) {
+                var img = new Image();
+                img.crossOrigin = "anonymous";
+                img.onload = function() {
+                    try {
+                        var canvas = document.createElement("canvas");
+                        canvas.width = img.naturalWidth || img.width;
+                        canvas.height = img.naturalHeight || img.height;
+                        if (!canvas.width || !canvas.height) {
+                            reject(new Error("Ukuran gambar tidak valid"));
+                            return;
+                        }
+                        var ctx = canvas.getContext("2d");
+                        ctx.drawImage(img, 0, 0);
+                        canvas.toBlob(function(png) {
+                            if (png) resolve(png);
+                            else reject(new Error("toBlob gagal"));
+                        }, "image/png");
+                    } catch (e) {
+                        reject(e);
+                    }
+                };
+                img.onerror = function() { reject(new Error("Gagal memuat gambar")); };
+                img.src = url;
+            });
+        }
+
+        function fetchImageBlob(url) {
+            return fetch(url, { mode: "cors", cache: "no-store" }).then(function(res) {
+                if (!res.ok) throw new Error("HTTP " + res.status);
+                return res.blob();
+            }).then(function(blob) {
+                if (!blob || !blob.type || blob.type.indexOf("image/") !== 0) {
+                    // beberapa server kirim application/octet-stream
+                    if (blob && blob.size > 0) return blob;
+                    throw new Error("Bukan file gambar");
+                }
+                return blob;
+            });
+        }
+
+        function normalizeImageFetchUrl(url) {
+            if (!url) return url;
+            var u = String(url).trim();
+            // Google Drive share link → direct view
+            var m = u.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+            if (m) return "https://drive.google.com/uc?export=view&id=" + m[1];
+            m = u.match(/[?&]id=([^&]+)/);
+            if (u.indexOf("drive.google.com") !== -1 && m) return "https://drive.google.com/uc?export=view&id=" + m[1];
+            return u;
+        }
+
+        async function writePngToClipboard(pngBlob) {
+            if (!navigator.clipboard || typeof navigator.clipboard.write !== "function" || typeof ClipboardItem === "undefined") {
+                throw new Error("Clipboard gambar tidak didukung di browser ini");
+            }
+            // Chrome butuh image/png
+            await navigator.clipboard.write([
+                new ClipboardItem({ "image/png": pngBlob })
+            ]);
+        }
+
         async function copyImageToClipboard(url, title) {
             if (!url) {
                 showToast("Gambar tidak tersedia", "error");
                 return false;
             }
+            var src = normalizeImageFetchUrl(url);
+            showToast("Menyalin gambar...", "");
+
+            var lastErr = null;
+            var candidates = [src];
+            // proxy CORS sebagai cadangan (hanya jika domain berbeda)
             try {
-                if (!navigator.clipboard || typeof navigator.clipboard.write !== "function" || typeof ClipboardItem === "undefined") {
-                    throw new Error("Clipboard gambar tidak didukung");
+                if (/^https?:\/\//i.test(src)) {
+                    candidates.push("https://images.weserv.nl/?url=" + encodeURIComponent(src.replace(/^https?:\/\//i, "")) + "&output=png");
+                    candidates.push("https://corsproxy.io/?" + encodeURIComponent(src));
                 }
-                showToast("Mengambil gambar...", "");
-                const response = await fetch(url, { mode: 'cors' });
-                if (!response.ok) throw new Error('Gagal mengambil gambar');
-                const blob = await response.blob();
-                if (!blob.type.startsWith('image/')) throw new Error('Bukan format gambar');
-                const bitmap = await createImageBitmap(blob);
-                const canvas = document.createElement("canvas");
-                canvas.width = bitmap.width;
-                canvas.height = bitmap.height;
-                const context = canvas.getContext("2d");
-                if (!context) throw new Error("Canvas gambar tidak tersedia");
-                context.drawImage(bitmap, 0, 0);
-                if (bitmap.close) bitmap.close();
-                const pngBlob = await new Promise(function(resolve) {
-                    canvas.toBlob(resolve, "image/png");
-                });
-                if (!pngBlob) throw new Error("Konversi gambar gagal");
-                await navigator.clipboard.write([
-                    new ClipboardItem({
-                        "image/png": pngBlob
-                    })
-                ]);
-                showToast("Gambar " + (title ? escapeHtml(title) : "") + " disalin ke clipboard", "");
-                return true;
-            } catch (err) {
-                console.warn("Gagal menyalin gambar ke clipboard.");
-                var urlCopied = await copyText(url, "URL gambar", true);
-                showToast(urlCopied ? "Browser membatasi salin gambar; URL disalin sebagai teks" : "Gagal menyalin gambar", "error");
-                return false;
+            } catch (e) {}
+
+            for (var i = 0; i < candidates.length; i++) {
+                var tryUrl = candidates[i];
+                try {
+                    var blob = await fetchImageBlob(tryUrl);
+                    var pngBlob = blob.type === "image/png" ? blob : await blobToPngBlob(blob);
+                    await writePngToClipboard(pngBlob);
+                    showToast("Gambar berhasil disalin" + (title ? ": " + title : ""), "");
+                    return true;
+                } catch (err1) {
+                    lastErr = err1;
+                    try {
+                        var png2 = await loadImageAsPngBlob(tryUrl);
+                        await writePngToClipboard(png2);
+                        showToast("Gambar berhasil disalin" + (title ? ": " + title : ""), "");
+                        return true;
+                    } catch (err2) {
+                        lastErr = err2;
+                    }
+                }
             }
+
+            // Cadangan: gambar yang sudah tampil di halaman
+            try {
+                var imgs = document.querySelectorAll('img[src="' + src.replace(/"/g, '\\"') + '"], img[src="' + String(url).replace(/"/g, '\\"') + '"]');
+                if (imgs && imgs.length) {
+                    var png3 = await loadImageAsPngBlob(imgs[0].src);
+                    await writePngToClipboard(png3);
+                    showToast("Gambar berhasil disalin" + (title ? ": " + title : ""), "");
+                    return true;
+                }
+            } catch (err3) {
+                lastErr = err3;
+            }
+
+            console.warn("copyImageToClipboard gagal:", lastErr);
+            showToast("Gagal menyalin gambar. Buka situs lewat HTTPS dan izinkan clipboard.", "error");
+            return false;
         }
         var copyImage = copyImageToClipboard;
 
@@ -4441,8 +4907,8 @@
             gid473: { titleHTML: 'Hadiah <span class="accent-word">TOGEL</span>', stripGradient: "linear-gradient(90deg,#a78bfa,rgba(167,139,250,.2))", emptyIcon: "fa-trophy", emptyTitle: "Tidak ada hadiah", searchPlaceholder: "Cari hadiah..." },
             qrisCombined: { titleHTML: '<span class="qris-word">QRIS Payment</span>', stripGradient: "linear-gradient(90deg,#4fc3f7,rgba(79,195,247,.2))", emptyIcon: "fa-qrcode", emptyTitle: "Tidak ada data QRIS", searchPlaceholder: "Cari QRIS..." },
             gidProfile: { titleHTML: '<span class="accent-word">PROFILE</span> Bank & E-Wallet', stripGradient: "linear-gradient(90deg,#36d1dc,rgba(54,209,220,.2))", emptyIcon: "fa-building-columns", emptyTitle: "Belum ada data profile", searchPlaceholder: "Cari profile..." },
-            gidBonus: { titleHTML: '<span class="bonus-word">BONUS</span> LINETOGEL', stripGradient: "linear-gradient(90deg,#ff6b9d,rgba(255,107,157,.2))", emptyIcon: "fa-gift", emptyTitle: "Belum ada data bonus", searchPlaceholder: "Cari bonus..." },
-            gidBetting: { titleHTML: '<span class="betting-word">CARA BETTING</span> TOGEL', stripGradient: "linear-gradient(90deg,#84cc16,rgba(132,204,22,.2))", emptyIcon: "fa-book-open", emptyTitle: "Belum ada panduan betting", searchPlaceholder: "Cari cara betting..." },
+            gidBonus: { titleHTML: '<span style="color:#60a5fa">BONUS</span> LINETOGEL', stripGradient: "linear-gradient(90deg,#3b82f6,rgba(59,130,246,.25))", emptyIcon: "fa-gift", emptyTitle: "Belum ada data bonus", searchPlaceholder: "Cari bonus..." },
+            gidBetting: { titleHTML: '<span style="color:#facc15">CARA BETTING</span> TOGEL', stripGradient: "linear-gradient(90deg,#eab308,rgba(234,179,8,.25))", emptyIcon: "fa-book-open", emptyTitle: "Belum ada panduan betting", searchPlaceholder: "Cari cara betting..." },
             gidEvent: { titleHTML: '<span class="event-word">EVENT</span> LINETOGEL', stripGradient: "linear-gradient(90deg,#f97316,rgba(249,115,22,.2))", emptyIcon: "fa-bolt", emptyTitle: "Belum ada event berjalan", searchPlaceholder: "Cari event..." },
             gidGambarLain: { titleHTML: '<span style="color:var(--neon-cyan)">GAMBAR</span> LAIN-LAIN', stripGradient: "linear-gradient(90deg,#00f0ff,rgba(167,139,250,.25))", emptyIcon: "fa-images", emptyTitle: "Belum ada gambar lain-lain", searchPlaceholder: "Cari gambar..." },
             gidPassword: { titleHTML: '<span class="password-word">GENERATOR</span> PASSWORD', stripGradient: "linear-gradient(90deg,#a855f7,rgba(168,85,247,.2))", emptyIcon: "fa-key", emptyTitle: "Belum ada data password", searchPlaceholder: "Cari password..." }
@@ -4525,7 +4991,14 @@
 
         function getItemCopyText(item) {
             if (!item) return "";
-            return item.content == null ? "" : String(item.content).trim();
+            var title = item.title == null ? "" : String(item.title).trim();
+            var body = item.content == null ? "" : String(item.content).trim();
+            if (title && body) {
+                // hindari duplikat jika content sudah diawali title
+                if (body.toLowerCase().indexOf(title.toLowerCase()) === 0) return body;
+                return title + "\n\n" + body;
+            }
+            return body || title || "";
         }
 
         function highlightMatch(text, q) { if (!q || !text) return escapeHtml(text); var s = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); return escapeHtml(text).replace(new RegExp("(" + s + ")", "gi"), "<mark>$1</mark>"); }
@@ -4755,11 +5228,14 @@
             var cfg = getCfg(),
                 q = searchQuery.trim(),
                 compactGreen = currentFilter === "gid0",
-                compactPurple = ["gid473", "gidBonus"].indexOf(currentFilter) !== -1,
-                allowTextCopy = currentFilter !== "gidBetting",
-                isGallery = currentFilter === "gidGambarLain";
-            var gridClass = isGallery ? "cards-grid gallery-grid" : "cards-grid" + (compactGreen ? " compact-green-grid" : (compactPurple ? " compact-purple-grid" : ""));
-            var cardAccent = compactGreen ? "linear-gradient(90deg,#34d399,rgba(52,211,153,.25))" : (compactPurple ? "linear-gradient(90deg,#c084fc,rgba(192,132,252,.2))" : cfg.stripGradient;
+                compactBlue = currentFilter === "gidBonus",
+                compactYellow = currentFilter === "gidBetting",
+                compactPurple = currentFilter === "gid473",
+                allowTextCopy = true,
+                isGallery = currentFilter === "gidGambarLain",
+                hideOpenBtn = currentFilter === "gid0";
+            var gridClass = isGallery ? "cards-grid gallery-grid" : "cards-grid" + (compactGreen ? " compact-green-grid" : (compactBlue ? " compact-blue-grid" : (compactYellow ? " compact-yellow-grid" : (compactPurple ? " compact-purple-grid" : ""))));
+            var cardAccent = compactGreen ? "linear-gradient(90deg,#34d399,rgba(52,211,153,.25))" : (compactBlue ? "linear-gradient(90deg,#3b82f6,rgba(59,130,246,.25))" : (compactYellow ? "linear-gradient(90deg,#eab308,rgba(234,179,8,.25))" : (compactPurple ? "linear-gradient(90deg,#c084fc,rgba(192,132,252,.2))" : cfg.stripGradient)));
             var html = isGallery ? '<div class="gallery-intro"><div class="gallery-intro-content"><div class="gallery-eyebrow"><span class="gallery-eyebrow-dot"></span> GALERI GAMBAR · LIVE</div><div class="gallery-intro-title">GAMBAR <span>LAIN-LAIN</span></div><p>Seluruh gambar dan detail yang tersedia pada sheet ditampilkan di galeri ini.</p></div><div class="gallery-count"><strong>' + items.length + '</strong><span>GAMBAR</span></div></div><div class="' + gridClass + '">' : '<div class="' + gridClass + '">';
             for (var i = 0; i < items.length; i++) {
                 var it = items[i],
@@ -4773,14 +5249,18 @@
                 // Extract URL from content
                 var url = extractFirstUrl(it.content);
                 if (!url && isGallery && hasImg) url = it.imageUrl;
-                var dataUrlAttr = url && !isGallery ? ' data-url="' + escapeHtml(url) + '"' : '';
-                var linkBtn = !isGallery && url ? '<button class="btn-action btn-link open-link-btn" data-url="' + escapeHtml(url) + '"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka</button>' : '';
+                var dataUrlAttr = (url && !isGallery && !hideOpenBtn) ? ' data-url="' + escapeHtml(url) + '"' : '';
+                var linkBtn = (!isGallery && !hideOpenBtn && url) ? '<button class="btn-action btn-link open-link-btn" data-url="' + escapeHtml(url) + '"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka</button>' : '';
 
                 var imageButtonLabel = currentFilter === "gidBetting" ? "COPY GAMBAR" : (isGallery ? "Salin gambar" : "Copy");
                 var imgBtn = hasImg
                     ? '<button class="btn-action copy-img-btn" data-index="' + i + '"><i class="fa-regular fa-image"></i> ' + imageButtonLabel + '</button>'
                     : (currentFilter === "gidBetting" ? '<button class="btn-action copy-img-btn" type="button" disabled title="Gambar tidak tersedia pada item ini"><i class="fa-regular fa-image"></i> COPY GAMBAR</button>' : "");
-                var textBtn = allowTextCopy && it.content && it.content.trim() ? '<button class="btn-action copy-text-btn" data-index="' + i + '"><i class="fa-regular fa-copy"></i> Salin teks</button>' : "";
+                // Tombol Copy teks — disembunyikan di CARA BETTING TOGEL (hanya COPY GAMBAR)
+                var canCopyText = allowTextCopy && currentFilter !== "gidBetting" && (((it.content || "").trim()) || ((it.title || "").trim()));
+                var textBtn = canCopyText
+                    ? '<button class="btn-action copy-text-btn" type="button" data-index="' + i + '"><i class="fa-regular fa-copy"></i> Salin teks</button>'
+                    : "";
 
                 html += '<article class="card" data-index="' + i + '"' + dataUrlAttr + '><div class="accent-strip" style="background:' + cardAccent + '"></div><div class="card-inner"><h2 class="card-title">' + title + '</h2>' + (content ? '<div class="card-content">' + content + '</div>' : "") + imgHtml + '<div class="qris-actions">' + textBtn + linkBtn + imgBtn + '</div></div></article>';
             }
@@ -5512,39 +5992,104 @@
             showDashboard();
             startAlarmCheck();
             updateNotifUI(); }
-        $("loginBtn").addEventListener("click", function() { attemptLogin($("loginUsername").value.trim(), $("loginPassword").value) });
-        $("loginPassword").addEventListener("keydown", function(e) { if (e.key === "Enter") attemptLogin($("loginUsername").value.trim(), $("loginPassword").value) });
-        $("loginUsername").addEventListener("keydown", function(e) { if (e.key === "Enter") $("loginPassword").focus() });
-        $("togglePasswordBtn").addEventListener("click", function() { var p = $("loginPassword"),
-                icon = document.querySelector("#togglePasswordBtn i");
-            p.type = p.type === "password" ? "text" : "password";
-            icon.className = p.type === "password" ? "fa-regular fa-eye" : "fa-regular fa-eye-slash" });
-        $("logoutHeaderBtn").addEventListener("click", logout);
-        $("logoutDashBtn").addEventListener("click", logout);
+        window.bootstrapApp = bootstrapApp;
+        function isLoggedIn() {
+            try { return localStorage.getItem(LOGIN_KEY) === "true"; } catch (e) { return false; }
+        }
+
+        function setLoggedIn(v) {
+            try {
+                if (v) localStorage.setItem(LOGIN_KEY, "true");
+                else localStorage.removeItem(LOGIN_KEY);
+            } catch (e) {}
+        }
+
+        function showLogin() {
+            var m = document.getElementById("loginModal");
+            if (m) m.classList.remove("hidden");
+        }
+
+        function hideLogin() {
+            var m = document.getElementById("loginModal");
+            if (m) {
+                m.classList.add("hidden");
+                m.style.display = "none";
+                m.style.opacity = "0";
+                m.style.visibility = "hidden";
+                m.style.pointerEvents = "none";
+            }
+        }
 
         function attemptLogin(u, p) {
-            if (u === VALID_USER && p === VALID_PASS) { setLoggedIn(true);
+            u = (u || "").trim();
+            p = p == null ? "" : String(p);
+            var err = document.getElementById("loginError");
+            if (u === VALID_USER && p === VALID_PASS) {
+                setLoggedIn(true);
                 hideLogin();
-                $("appLayout").classList.add("entering");
-                bootstrapApp(); return true; }
-            var e = $("loginError");
-            e.innerText = "Username atau password salah.";
+                var layout = document.getElementById("appLayout");
+                if (layout) layout.classList.add("entering");
+                try {
+                    if (typeof bootstrapApp === "function") bootstrapApp();
+                } catch (errBoot) {
+                    console.error("bootstrapApp error:", errBoot);
+                }
+                if (err) err.innerText = "";
+                return true;
+            }
+            if (err) err.innerText = "Username atau password salah. Gunakan: Putra28 / Tyaaa27";
             return false;
         }
 
-        function isLoggedIn() { return localStorage.getItem(LOGIN_KEY) === "true"; }
+        // Global agar bisa dipanggil dari onclick inline
+        window.__doLogin = function() {
+            var uEl = document.getElementById("loginUsername");
+            var pEl = document.getElementById("loginPassword");
+            return attemptLogin(uEl ? uEl.value : "", pEl ? pEl.value : "");
+        };
 
-        function setLoggedIn(v) { if (v) localStorage.setItem(LOGIN_KEY, "true");
-            else localStorage.removeItem(LOGIN_KEY); }
-
-        function showLogin() { $("loginModal").classList.remove("hidden"); }
-
-        function hideLogin() { $("loginModal").classList.add("hidden"); }
-
-        function logout() { setLoggedIn(false);
+        function logout() {
+            setLoggedIn(false);
             showLogin();
-            $("appLayout").classList.remove("entering");
-            stopAlarmCheck(); }
+            var m = document.getElementById("loginModal");
+            if (m) {
+                m.style.display = "";
+                m.style.opacity = "";
+                m.style.visibility = "";
+                m.style.pointerEvents = "";
+            }
+            var layout = document.getElementById("appLayout");
+            if (layout) layout.classList.remove("entering");
+            try { stopAlarmCheck(); } catch (e) {}
+        }
+
+        (function bindLoginUI() {
+            var btn = document.getElementById("loginBtn");
+            var uEl = document.getElementById("loginUsername");
+            var pEl = document.getElementById("loginPassword");
+            var tog = document.getElementById("togglePasswordBtn");
+            if (btn) btn.addEventListener("click", function(e) {
+                e.preventDefault();
+                window.__doLogin();
+            });
+            if (pEl) pEl.addEventListener("keydown", function(e) {
+                if (e.key === "Enter") { e.preventDefault(); window.__doLogin(); }
+            });
+            if (uEl) uEl.addEventListener("keydown", function(e) {
+                if (e.key === "Enter") { e.preventDefault(); if (pEl) pEl.focus(); }
+            });
+            if (tog) tog.addEventListener("click", function() {
+                var p = document.getElementById("loginPassword");
+                var icon = document.querySelector("#togglePasswordBtn i");
+                if (!p) return;
+                p.type = p.type === "password" ? "text" : "password";
+                if (icon) icon.className = p.type === "password" ? "fa-regular fa-eye" : "fa-regular fa-eye-slash";
+            });
+            var lo1 = document.getElementById("logoutHeaderBtn");
+            var lo2 = document.getElementById("logoutDashBtn");
+            if (lo1) lo1.addEventListener("click", logout);
+            if (lo2) lo2.addEventListener("click", logout);
+        })();
 
         // Tambahkan tautan galeri ke sidebar dan dashboard tanpa mengubah modul yang sudah ada.
         (function addGalleryEntry() {
@@ -5586,9 +6131,19 @@
             }
         })();
 
-        if (isLoggedIn()) { hideLogin();
-            $("appLayout").classList.add("entering");
-            bootstrapApp(); } else showLogin();
+        try {
+            if (isLoggedIn()) {
+                hideLogin();
+                var layout = document.getElementById("appLayout");
+                if (layout) layout.classList.add("entering");
+                bootstrapApp();
+            } else {
+                showLogin();
+            }
+        } catch (bootErr) {
+            console.error(bootErr);
+            showLogin();
+        }
     </script>
 </body>
 </html>
