@@ -2071,14 +2071,23 @@
             color: #ff6b9d;
         }
         .j-content-preview {
-            font-size: .68rem;
+            font-size: .66rem;
             color: var(--fg-muted);
-            line-height: 1.45;
-            max-height: 4.2em;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
+            line-height: 1.5;
+            max-height: 11em;
+            overflow: auto;
+            padding: .4rem .5rem;
+            background: rgba(0,0,0,.18);
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,.04);
+            scrollbar-width: thin;
+        }
+        .j-content-preview::-webkit-scrollbar {
+            width: 4px;
+        }
+        .j-content-preview::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,.15);
+            border-radius: 4px;
         }
         .j-footer-abss {
             display: flex;
@@ -2099,14 +2108,14 @@
             font-weight: 600;
             letter-spacing: .04em;
             text-transform: uppercase;
-            padding: .45rem .3rem;
-            border-radius: 8px;
+            padding: .5rem .45rem;
+            border-radius: 999px;
             cursor: pointer;
             transition: all .25s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: .25rem;
+            gap: .3rem;
             white-space: nowrap;
         }
         .j-btn-abss i {
@@ -2135,16 +2144,16 @@
             box-shadow: 0 0 14px -4px rgba(249, 115, 22, .4);
         }
         .j-btn-abss.j-btn-web {
-            background: linear-gradient(135deg, rgba(59, 130, 246, .2), rgba(59, 130, 246, .06));
-            border-color: rgba(59, 130, 246, .4);
-            color: #60a5fa;
+            background: linear-gradient(135deg, rgba(30, 41, 70, .9), rgba(15, 23, 42, .95));
+            border-color: rgba(100, 116, 139, .45);
+            color: #94a3b8;
             flex: 1.15;
         }
         .j-btn-abss.j-btn-web:hover {
-            background: linear-gradient(135deg, rgba(59, 130, 246, .32), rgba(59, 130, 246, .12));
-            border-color: rgba(59, 130, 246, .6);
-            color: #93c5fd;
-            box-shadow: 0 0 14px -4px rgba(59, 130, 246, .4);
+            background: linear-gradient(135deg, rgba(51, 65, 100, .95), rgba(30, 41, 70, .98));
+            border-color: rgba(148, 163, 184, .55);
+            color: #e2e8f0;
+            box-shadow: 0 0 14px -4px rgba(100, 116, 139, .35);
         }
         .j-btn-abss:hover {
             transform: translateY(-1px);
@@ -4232,69 +4241,104 @@
                 rt = times[1]; } else if (ct === "--:--" && times.length >= 1) ct = times[0]; else if (rt === "--:--" && times.length >= 1) rt = times[0]; for (var ui = 0; ui < urls.length; ui++) { var u = urls[ui],
                     l = u.toLowerCase(); if (l.indexOf("live") !== -1 || l.indexOf("watch") !== -1 || l.indexOf("stream") !== -1 || l.indexOf("result") !== -1) { if (!wa) wa = u; } else { if (!wu) wu = u; } } if (urls.length === 1 && !wu) wu = urls[0]; var st = "active"; if (lt.indexOf("status: tutup") !== -1 || lt.indexOf("status: close") !== -1 || lt.indexOf("status: passed") !== -1 || (lt.indexOf("tutup") !== -1 && lt.indexOf("buka") === -1 && lt.indexOf("cutoff") === -1)) st = "passed"; return { title: item.title, cutoffTime: ct, resultTime: rt, webUrl: wu, watchUrl: wa, fullContent: item.content, status: st }; }
 
+        // Penyimpanan teks copy per kartu (hindari masalah data-attribute yang hilang newline / link)
+        var jadwalCopyStore = {};
+
         function renderJadwalGrid(items) {
             var q = searchQuery.trim();
+            jadwalCopyStore = {}; // reset setiap render
             var html = '<div class="jadwal-grid-abssidian">';
+
             for (var i = 0; i < items.length; i++) {
                 var it = items[i],
                     p = parseJadwalItem(it),
                     sc = p.status,
                     sl = p.status === "active" ? "LIVE" : "PASSED";
-                // Build subtitle text (web + note) and isi (close/result)
-                var subText = "";
-                var isiText = "";
-                var full = (it.content || "").trim();
-                // Try to split content into subtitle-like and body
-                if (full) {
-                    var lines = full.split(/\n+/);
-                    if (lines.length >= 2) {
-                        subText = lines.slice(0, Math.ceil(lines.length / 2)).join(" ").trim();
-                        isiText = lines.slice(Math.ceil(lines.length / 2)).join(" ").trim();
-                    } else {
-                        subText = full;
-                        isiText = "Pasaran : " + it.title + "\nTutup Pasaran Pukul " + p.cutoffTime + " WIB Dan Keluaran Nomor Result Pukul " + p.resultTime + " WIB.";
-                    }
-                } else {
-                    isiText = "Pasaran : " + it.title + "\nTutup Pasaran Pukul " + p.cutoffTime + " WIB Dan Keluaran Nomor Result Pukul " + p.resultTime + " WIB.";
-                }
-                // Clean times display
-                var bukaDisplay = p.cutoffTime !== "--:--" ? p.cutoffTime : "-";
-                var resultDisplay = p.resultTime !== "--:--" ? p.resultTime : "-";
-                html += '<div class="j-card-abss" data-index="' + i + '" data-web="' + escapeHtml(p.webUrl) + '" data-watch="' + escapeHtml(p.watchUrl) + '" data-copy-sub="' + escapeHtml(subText || it.title) + '" data-copy-isi="' + escapeHtml(isiText || full) + '" data-copy="' + escapeHtml(getItemCopyText(it)) + '">';
-                html += '<div class="j-header-abss"><div class="j-title-abss"><i class="fa-solid fa-calendar-days" style="margin-right:6px;opacity:.7"></i>' + highlightMatch(it.title, q) + '</div><div class="j-badge-abss ' + sc + '">' + sl + '</div></div>';
+
+                var title = (it.title || "").trim();
+                var webUrl = (p.webUrl || "").trim();
+                var bukaDisplay = p.cutoffTime !== "--:--" ? p.cutoffTime : "00:00";
+                var resultDisplay = p.resultTime !== "--:--" ? p.resultTime : "00:15";
+
+                // ===== SALIN SUBJUDUL (format tetap + LINK lengkap) =====
+                var subText = "Pasaran : " + title + "\n";
+                subText += "Web Resmi : " + (webUrl || "-") + "\n\n";
+                subText += "Note : Jika saat mengakses link tersebut mengalami kendala, Maka silahkan akses link berikut menggunakan VPN ya bosku";
+
+                // ===== SALIN ISI =====
+                var isiText = "Pasaran : " + title + "\n";
+                isiText += "Tutup Pasaran Pukul " + bukaDisplay + " WIB Dan Keluaran Nomor Result Pukul " + resultDisplay + " WIB.";
+
+                // Simpan di store (bukan data-attribute) supaya link & newline utuh
+                jadwalCopyStore[i] = {
+                    sub: subText,
+                    isi: isiText,
+                    web: webUrl
+                };
+
+                html += '<div class="j-card-abss" data-index="' + i + '">';
+                html += '<div class="j-header-abss"><div class="j-title-abss"><i class="fa-solid fa-calendar-days" style="margin-right:6px;opacity:.7"></i>' + highlightMatch(title, q) + '</div><div class="j-badge-abss ' + sc + '">' + sl + '</div></div>';
                 html += '<div class="j-body-abss">';
-                // Prominent times
+
+                // Kotak jam
                 html += '<div class="j-times-box">';
-                html += '<div class="j-time-item"><span class="j-time-label"><i class="fa-solid fa-lock-open"></i> Buka / Tutup</span><span class="j-time-val">' + bukaDisplay + ' WIB</span></div>';
+                html += '<div class="j-time-item"><span class="j-time-label"><i class="fa-solid fa-lock"></i> Tutup</span><span class="j-time-val">' + bukaDisplay + ' WIB</span></div>';
                 html += '<div class="j-time-item"><span class="j-time-label"><i class="fa-solid fa-trophy"></i> Result</span><span class="j-time-val result-val">' + resultDisplay + ' WIB</span></div>';
                 html += '</div>';
-                // Content preview
-                if (full) {
-                    html += '<div class="j-content-preview">' + highlightMatch(escapeHtml(full).substring(0, 220) + (full.length > 220 ? "..." : ""), q) + '</div>';
-                }
+
+                // Preview
+                html += '<div class="j-content-preview">';
+                html += '<div style="margin-bottom:4px;color:#c084fc;font-size:.62rem;font-weight:600;letter-spacing:.05em;">SUBJUDUL</div>';
+                html += escapeHtml(subText).replace(/\n/g, "<br>") + "<br><br>";
+                html += '<div style="margin-bottom:4px;color:#fb923c;font-size:.62rem;font-weight:600;letter-spacing:.05em;">ISI</div>';
+                html += escapeHtml(isiText).replace(/\n/g, "<br>");
                 html += '</div>';
-                // Footer buttons matching the requested style
+
+                html += '</div>';
+
+                // Tombol
                 html += '<div class="j-footer-abss">';
-                html += '<button class="j-btn-abss j-btn-sub" type="button"><i class="fa-regular fa-copy"></i> Salin Subjudul</button>';
-                html += '<button class="j-btn-abss j-btn-isi" type="button"><i class="fa-regular fa-copy"></i> Salin Isi</button>';
-                html += '<button class="j-btn-abss j-btn-web ' + (p.webUrl ? "" : "disabled") + '" type="button"><i class="fa-solid fa-globe"></i> Kunjungi Website</button>';
+                html += '<button class="j-btn-abss j-btn-sub" type="button" data-idx="' + i + '"><i class="fa-regular fa-copy"></i> Salin Subjudul</button>';
+                html += '<button class="j-btn-abss j-btn-isi" type="button" data-idx="' + i + '"><i class="fa-regular fa-copy"></i> Salin Isi</button>';
+                html += '<button class="j-btn-abss j-btn-web ' + (webUrl ? "" : "disabled") + '" type="button" data-idx="' + i + '"><i class="fa-solid fa-globe"></i> Kunjungi Website</button>';
                 html += '</div></div>';
             }
             html += "</div>";
             contentArea.innerHTML = html;
-            // Bind new buttons
+
+            // Binding tombol – ambil teks dari store (link & newline pasti ikut)
             document.querySelectorAll(".j-btn-sub").forEach(function(btn) {
                 btn.addEventListener("click", function(e) {
                     e.stopPropagation();
-                    var card = btn.closest(".j-card-abss");
-                    if (card && card.dataset.copySub) copyText(card.dataset.copySub, "Subjudul");
+                    var idx = parseInt(btn.getAttribute("data-idx"), 10);
+                    if (jadwalCopyStore[idx] && jadwalCopyStore[idx].sub) {
+                        copyText(jadwalCopyStore[idx].sub, "Subjudul");
+                    }
                 });
             });
+
             document.querySelectorAll(".j-btn-isi").forEach(function(btn) {
                 btn.addEventListener("click", function(e) {
                     e.stopPropagation();
-                    var card = btn.closest(".j-card-abss");
-                    if (card && card.dataset.copyIsi) copyText(card.dataset.copyIsi, "Isi");
+                    var idx = parseInt(btn.getAttribute("data-idx"), 10);
+                    if (jadwalCopyStore[idx] && jadwalCopyStore[idx].isi) {
+                        copyText(jadwalCopyStore[idx].isi, "Isi");
+                    }
+                });
+            });
+
+            document.querySelectorAll(".j-btn-web").forEach(function(btn) {
+                btn.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    if (btn.classList.contains("disabled")) return;
+                    var idx = parseInt(btn.getAttribute("data-idx"), 10);
+                    var url = (jadwalCopyStore[idx] && jadwalCopyStore[idx].web) || "";
+                    if (url) {
+                        window.open(url, "_blank");
+                        showToast("Membuka website pasaran");
+                    } else {
+                        showToast("Link tidak tersedia", "error");
+                    }
                 });
             });
         }
