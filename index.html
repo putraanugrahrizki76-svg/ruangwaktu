@@ -1128,10 +1128,10 @@
         .sidebar-item[data-filter="gidBetting"] .icon-wrap { color: #facc15; background: rgba(202, 138, 4, .12); }
         .sidebar-item[data-filter="gidEvent"] .label { color: var(--event-color); }
         .sidebar-item[data-filter="gidEvent"] .icon-wrap { color: var(--event-color); background: var(--event-soft); }
-        .sidebar-item[data-filter="gidQris"] .label { color: var(--qris-primary); }
-        .sidebar-item[data-filter="gidQris"] .icon-wrap { color: var(--qris-primary); background: var(--qris-soft); }
-        .sidebar-item[data-filter="gidProfile"] .label { color: var(--sage); }
-        .sidebar-item[data-filter="gidProfile"] .icon-wrap { color: var(--sage); background: rgba(126, 184, 138, .08); }
+        .sidebar-item[data-filter="gidQris"] .label { color: #f472b6; }
+        .sidebar-item[data-filter="gidQris"] .icon-wrap { color: #f472b6; background: rgba(236, 72, 153, .12); }
+        .sidebar-item[data-filter="gidProfile"] .label { color: #fb923c; }
+        .sidebar-item[data-filter="gidProfile"] .icon-wrap { color: #fb923c; background: rgba(249, 115, 22, .12); }
         .sidebar-item[data-filter="gidPassword"] .label { color: var(--password-color); }
         .sidebar-item[data-filter="gidPassword"] .icon-wrap { color: var(--password-color); background: var(--password-soft); }
         .sidebar-item[data-filter="gidGambarLain"] .label { color: var(--content-color); }
@@ -1871,7 +1871,7 @@
             color: var(--accent);
         }
         .qris-word {
-            color: var(--qris-primary);
+            color: #f472b6;
         }
         .bonus-word {
             color: var(--bonus-color);
@@ -4246,6 +4246,264 @@
             color: rgba(253, 224, 71, .5);
         }
 
+        /* ===== QRIS PAYMENT – PINK MODERN (gambar + teks + tombol) ===== */
+        #contentArea .cards-grid.compact-pink-grid:not(.gallery-grid) {
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+            grid-auto-rows: 300px;
+            gap: .85rem;
+        }
+        #contentArea .cards-grid.compact-pink-grid:not(.gallery-grid) .card {
+            height: 300px;
+            min-height: 300px;
+            border-color: rgba(244, 114, 182, .32);
+            border-radius: 15px;
+            background:
+                radial-gradient(ellipse 90% 70% at 100% 0%, rgba(236, 72, 153, .2), transparent 50%),
+                radial-gradient(ellipse 60% 50% at 0% 100%, rgba(219, 39, 119, .1), transparent 45%),
+                linear-gradient(155deg, rgba(40, 16, 32, .98), rgba(18, 8, 16, .99));
+            box-shadow:
+                0 12px 28px -22px rgba(236, 72, 153, .45),
+                0 8px 20px -16px rgba(0, 0, 0, .85),
+                inset 0 1px 0 rgba(251, 207, 232, .08);
+            overflow: hidden;
+        }
+        #contentArea .cards-grid.compact-pink-grid:not(.gallery-grid) .card:hover {
+            border-color: rgba(251, 113, 133, .55);
+            box-shadow:
+                0 14px 32px -18px rgba(236, 72, 153, .5),
+                0 10px 22px -16px rgba(0, 0, 0, .9),
+                0 0 0 1px rgba(244, 114, 182, .12);
+            transform: translateY(-2px);
+        }
+        #contentArea .cards-grid.compact-pink-grid:not(.gallery-grid) .accent-strip {
+            height: 3px;
+            background: linear-gradient(90deg, #db2777, #ec4899, #f9a8d4, transparent) !important;
+            flex-shrink: 0;
+        }
+        #contentArea .cards-grid.compact-pink-grid:not(.gallery-grid) .card-inner {
+            padding: .65rem .7rem .55rem;
+            display: flex;
+            flex-direction: column;
+            height: calc(100% - 3px);
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        #contentArea .cards-grid.compact-pink-grid:not(.gallery-grid) .card-title {
+            min-height: 0;
+            max-height: 2.4em;
+            margin-bottom: .3rem;
+            padding-bottom: .3rem;
+            border-bottom: 1px solid rgba(244, 114, 182, .22);
+            color: #ffffff;
+            font-size: .7rem;
+            letter-spacing: .02em;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            flex: 0 0 auto;
+        }
+        #contentArea .cards-grid.compact-pink-grid:not(.gallery-grid) .card-content {
+            max-height: 2.6em;
+            overflow: hidden;
+            color: rgba(255, 255, 255, .88);
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            white-space: normal;
+            font-size: .6rem;
+            line-height: 1.35;
+            flex: 0 0 auto;
+            margin-bottom: .3rem;
+        }
+        #contentArea .cards-grid.compact-pink-grid:not(.gallery-grid) .qris-image-preview {
+            flex: 1 1 auto;
+            min-height: 90px;
+            max-height: 130px;
+            margin: 0 0 .4rem;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(244, 114, 182, .22);
+            background: rgba(0, 0, 0, .35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #contentArea .cards-grid.compact-pink-grid:not(.gallery-grid) .qris-image-preview img {
+            width: 100%;
+            height: 100%;
+            max-height: 130px;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+        }
+        #contentArea .cards-grid.compact-pink-grid:not(.gallery-grid) .qris-actions {
+            min-height: 64px;
+            gap: .4rem;
+            padding-top: .45rem;
+            border-top: 1px solid rgba(244, 114, 182, .18);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: stretch;
+            flex: 0 0 auto;
+            margin-top: auto;
+            position: relative;
+            z-index: 2;
+        }
+        #contentArea .cards-grid.compact-pink-grid:not(.gallery-grid) .qris-actions .btn-action {
+            flex: 1 1 calc(50% - .25rem);
+            min-width: calc(50% - .25rem);
+            justify-content: center;
+            min-height: 30px;
+            padding: .32rem .48rem;
+            border-radius: 8px;
+            background: rgba(219, 39, 119, .18);
+            border: 1px solid rgba(244, 114, 182, .4);
+            color: #fbcfe8;
+            font-size: .58rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            white-space: nowrap;
+            transition: all .2s;
+        }
+        #contentArea .cards-grid.compact-pink-grid:not(.gallery-grid) .btn-action:hover {
+            background: rgba(236, 72, 153, .35);
+            border-color: rgba(251, 207, 232, .55);
+            color: #fff;
+            box-shadow: 0 0 12px -4px rgba(236, 72, 153, .45);
+        }
+
+        /* ===== PROFILE BANK & E-WALLET – ORANGE MODERN ===== */
+        #contentArea .cards-grid.compact-orange-grid:not(.gallery-grid) {
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+            grid-auto-rows: 300px;
+            gap: .85rem;
+        }
+        #contentArea .cards-grid.compact-orange-grid:not(.gallery-grid) .card {
+            height: 300px;
+            min-height: 300px;
+            border-color: rgba(251, 146, 60, .35);
+            border-radius: 15px;
+            background:
+                radial-gradient(ellipse 90% 70% at 100% 0%, rgba(249, 115, 22, .2), transparent 50%),
+                radial-gradient(ellipse 60% 50% at 0% 100%, rgba(234, 88, 12, .1), transparent 45%),
+                linear-gradient(155deg, rgba(40, 24, 10, .98), rgba(18, 12, 6, .99));
+            box-shadow:
+                0 12px 28px -22px rgba(249, 115, 22, .45),
+                0 8px 20px -16px rgba(0, 0, 0, .85),
+                inset 0 1px 0 rgba(253, 186, 116, .08);
+            overflow: hidden;
+        }
+        #contentArea .cards-grid.compact-orange-grid:not(.gallery-grid) .card:hover {
+            border-color: rgba(253, 186, 116, .55);
+            box-shadow:
+                0 14px 32px -18px rgba(249, 115, 22, .5),
+                0 10px 22px -16px rgba(0, 0, 0, .9),
+                0 0 0 1px rgba(251, 146, 60, .12);
+            transform: translateY(-2px);
+        }
+        #contentArea .cards-grid.compact-orange-grid:not(.gallery-grid) .accent-strip {
+            height: 3px;
+            background: linear-gradient(90deg, #ea580c, #f97316, #fdba74, transparent) !important;
+            flex-shrink: 0;
+        }
+        #contentArea .cards-grid.compact-orange-grid:not(.gallery-grid) .card-inner {
+            padding: .65rem .7rem .55rem;
+            display: flex;
+            flex-direction: column;
+            height: calc(100% - 3px);
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        #contentArea .cards-grid.compact-orange-grid:not(.gallery-grid) .card-title {
+            min-height: 0;
+            max-height: 2.4em;
+            margin-bottom: .3rem;
+            padding-bottom: .3rem;
+            border-bottom: 1px solid rgba(251, 146, 60, .25);
+            color: #ffffff;
+            font-size: .7rem;
+            letter-spacing: .02em;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            flex: 0 0 auto;
+        }
+        #contentArea .cards-grid.compact-orange-grid:not(.gallery-grid) .card-content {
+            max-height: 2.6em;
+            overflow: hidden;
+            color: rgba(255, 255, 255, .88);
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            white-space: normal;
+            font-size: .6rem;
+            line-height: 1.35;
+            flex: 0 0 auto;
+            margin-bottom: .3rem;
+        }
+        #contentArea .cards-grid.compact-orange-grid:not(.gallery-grid) .qris-image-preview {
+            flex: 1 1 auto;
+            min-height: 90px;
+            max-height: 130px;
+            margin: 0 0 .4rem;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(251, 146, 60, .25);
+            background: rgba(0, 0, 0, .35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #contentArea .cards-grid.compact-orange-grid:not(.gallery-grid) .qris-image-preview img {
+            width: 100%;
+            height: 100%;
+            max-height: 130px;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+        }
+        #contentArea .cards-grid.compact-orange-grid:not(.gallery-grid) .qris-actions {
+            min-height: 64px;
+            gap: .4rem;
+            padding-top: .45rem;
+            border-top: 1px solid rgba(251, 146, 60, .2);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: stretch;
+            flex: 0 0 auto;
+            margin-top: auto;
+            position: relative;
+            z-index: 2;
+        }
+        #contentArea .cards-grid.compact-orange-grid:not(.gallery-grid) .qris-actions .btn-action {
+            flex: 1 1 calc(50% - .25rem);
+            min-width: calc(50% - .25rem);
+            justify-content: center;
+            min-height: 30px;
+            padding: .32rem .48rem;
+            border-radius: 8px;
+            background: rgba(234, 88, 12, .18);
+            border: 1px solid rgba(251, 146, 60, .4);
+            color: #fed7aa;
+            font-size: .58rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            white-space: nowrap;
+            transition: all .2s;
+        }
+        #contentArea .cards-grid.compact-orange-grid:not(.gallery-grid) .btn-action:hover {
+            background: rgba(249, 115, 22, .35);
+            border-color: rgba(253, 186, 116, .55);
+            color: #fff;
+            box-shadow: 0 0 12px -4px rgba(249, 115, 22, .45);
+        }
+
         .btn-action:disabled {
             opacity: .42;
             cursor: not-allowed;
@@ -4635,142 +4893,223 @@
 
         function showToast(msg, type) { var t = document.createElement("div"); t.className = "toast"; var ic = type === "error" ? "fa-circle-xmark" : "fa-circle-check"; var clr = type === "error" ? "var(--coral)" : "var(--sage)"; t.innerHTML = '<i class="fa-solid ' + ic + '" style="color:' + clr + '"></i> ' + escapeHtml(msg); document.body.appendChild(t); setTimeout(function() { t.remove() }, 1800); }
 
+        function downloadBlobFile(blob, filename) {
+            try {
+                var a = document.createElement("a");
+                var objUrl = URL.createObjectURL(blob);
+                a.href = objUrl;
+                a.download = filename || "gambar.png";
+                a.style.display = "none";
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(function() {
+                    URL.revokeObjectURL(objUrl);
+                    a.remove();
+                }, 1500);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function normalizeImageFetchUrl(url) {
+            if (!url) return "";
+            var u = String(url).trim();
+            var m = u.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+            if (m) return "https://drive.google.com/uc?export=download&id=" + m[1];
+            m = u.match(/drive\.google\.com\/open\?id=([^&]+)/);
+            if (m) return "https://drive.google.com/uc?export=download&id=" + m[1];
+            m = u.match(/[?&]id=([a-zA-Z0-9_-]{20,})/);
+            if (u.indexOf("drive.google.com") !== -1 && m) return "https://drive.google.com/uc?export=download&id=" + m[1];
+            // postimg page -> try i.postimg.cc direct is handled elsewhere
+            return u;
+        }
+
+        function buildCorsImageUrls(originalUrl) {
+            var src = normalizeImageFetchUrl(originalUrl);
+            var list = [];
+            if (!src) return list;
+            list.push(src);
+            try {
+                var bare = src.replace(/^https?:\/\//i, "");
+                // weserv – PNG + CORS
+                list.push("https://images.weserv.nl/?url=" + encodeURIComponent(bare) + "&output=png");
+                list.push("https://images.weserv.nl/?url=" + encodeURIComponent(src) + "&output=png");
+                // corsproxy
+                list.push("https://corsproxy.io/?" + encodeURIComponent(src));
+                list.push("https://api.allorigins.win/raw?url=" + encodeURIComponent(src));
+            } catch (e) {}
+            // unique
+            var seen = {};
+            var out = [];
+            for (var i = 0; i < list.length; i++) {
+                if (list[i] && !seen[list[i]]) {
+                    seen[list[i]] = 1;
+                    out.push(list[i]);
+                }
+            }
+            return out;
+        }
+
+        function fetchAsImageBlob(url) {
+            return fetch(url, { mode: "cors", cache: "no-store", credentials: "omit" }).then(function(res) {
+                if (!res.ok) throw new Error("HTTP " + res.status);
+                return res.blob();
+            }).then(function(blob) {
+                if (!blob || blob.size < 50) throw new Error("Blob kosong");
+                return blob;
+            });
+        }
+
+        function imageElementToPngBlob(img) {
+            return new Promise(function(resolve, reject) {
+                try {
+                    var w = img.naturalWidth || img.width;
+                    var h = img.naturalHeight || img.height;
+                    if (!w || !h) return reject(new Error("Gambar belum dimuat"));
+                    var canvas = document.createElement("canvas");
+                    canvas.width = w;
+                    canvas.height = h;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0);
+                    canvas.toBlob(function(b) {
+                        if (b) resolve(b);
+                        else reject(new Error("toBlob gagal (mungkin CORS)"));
+                    }, "image/png");
+                } catch (e) {
+                    reject(e);
+                }
+            });
+        }
+
+        function urlToPngBlobViaImage(url) {
+            return new Promise(function(resolve, reject) {
+                var img = new Image();
+                img.crossOrigin = "anonymous";
+                var done = false;
+                var timer = setTimeout(function() {
+                    if (!done) {
+                        done = true;
+                        reject(new Error("Timeout muat gambar"));
+                    }
+                }, 12000);
+                img.onload = function() {
+                    if (done) return;
+                    imageElementToPngBlob(img).then(function(b) {
+                        if (done) return;
+                        done = true;
+                        clearTimeout(timer);
+                        resolve(b);
+                    }).catch(function(e) {
+                        if (done) return;
+                        done = true;
+                        clearTimeout(timer);
+                        reject(e);
+                    });
+                };
+                img.onerror = function() {
+                    if (done) return;
+                    done = true;
+                    clearTimeout(timer);
+                    reject(new Error("Gagal load img"));
+                };
+                img.src = url;
+            });
+        }
+
         function blobToPngBlob(blob) {
+            if (blob && blob.type === "image/png") return Promise.resolve(blob);
             return createImageBitmap(blob).then(function(bitmap) {
                 var canvas = document.createElement("canvas");
                 canvas.width = bitmap.width;
                 canvas.height = bitmap.height;
                 var ctx = canvas.getContext("2d");
-                if (!ctx) throw new Error("Canvas tidak tersedia");
                 ctx.drawImage(bitmap, 0, 0);
                 if (bitmap.close) bitmap.close();
                 return new Promise(function(resolve, reject) {
                     canvas.toBlob(function(png) {
                         if (png) resolve(png);
-                        else reject(new Error("Konversi PNG gagal"));
+                        else reject(new Error("PNG convert gagal"));
                     }, "image/png");
                 });
             });
         }
 
-        function loadImageAsPngBlob(url) {
-            return new Promise(function(resolve, reject) {
-                var img = new Image();
-                img.crossOrigin = "anonymous";
-                img.onload = function() {
-                    try {
-                        var canvas = document.createElement("canvas");
-                        canvas.width = img.naturalWidth || img.width;
-                        canvas.height = img.naturalHeight || img.height;
-                        if (!canvas.width || !canvas.height) {
-                            reject(new Error("Ukuran gambar tidak valid"));
-                            return;
-                        }
-                        var ctx = canvas.getContext("2d");
-                        ctx.drawImage(img, 0, 0);
-                        canvas.toBlob(function(png) {
-                            if (png) resolve(png);
-                            else reject(new Error("toBlob gagal"));
-                        }, "image/png");
-                    } catch (e) {
-                        reject(e);
-                    }
-                };
-                img.onerror = function() { reject(new Error("Gagal memuat gambar")); };
-                img.src = url;
-            });
-        }
-
-        function fetchImageBlob(url) {
-            return fetch(url, { mode: "cors", cache: "no-store" }).then(function(res) {
-                if (!res.ok) throw new Error("HTTP " + res.status);
-                return res.blob();
-            }).then(function(blob) {
-                if (!blob || !blob.type || blob.type.indexOf("image/") !== 0) {
-                    // beberapa server kirim application/octet-stream
-                    if (blob && blob.size > 0) return blob;
-                    throw new Error("Bukan file gambar");
-                }
-                return blob;
-            });
-        }
-
-        function normalizeImageFetchUrl(url) {
-            if (!url) return url;
-            var u = String(url).trim();
-            // Google Drive share link → direct view
-            var m = u.match(/drive\.google\.com\/file\/d\/([^/]+)/);
-            if (m) return "https://drive.google.com/uc?export=view&id=" + m[1];
-            m = u.match(/[?&]id=([^&]+)/);
-            if (u.indexOf("drive.google.com") !== -1 && m) return "https://drive.google.com/uc?export=view&id=" + m[1];
-            return u;
-        }
-
-        async function writePngToClipboard(pngBlob) {
-            if (!navigator.clipboard || typeof navigator.clipboard.write !== "function" || typeof ClipboardItem === "undefined") {
-                throw new Error("Clipboard gambar tidak didukung di browser ini");
+        async function writeImageBlobToClipboard(pngBlob) {
+            if (!window.isSecureContext) {
+                throw new Error("BUTUH_HTTPS");
             }
-            // Chrome butuh image/png
-            await navigator.clipboard.write([
-                new ClipboardItem({ "image/png": pngBlob })
-            ]);
+            if (!navigator.clipboard || typeof navigator.clipboard.write !== "function" || typeof ClipboardItem === "undefined") {
+                throw new Error("CLIPBOARD_TIDAK_SUPPORT");
+            }
+            var item = new ClipboardItem({ "image/png": pngBlob });
+            await navigator.clipboard.write([item]);
         }
 
-        async function copyImageToClipboard(url, title) {
-            if (!url) {
+        async function copyImageToClipboard(url, title, imgEl) {
+            if (!url && !(imgEl && imgEl.src)) {
                 showToast("Gambar tidak tersedia", "error");
                 return false;
             }
-            var src = normalizeImageFetchUrl(url);
+            var original = url || (imgEl && imgEl.src) || "";
+            var safeTitle = (title || "gambar").replace(/[^\w\u00C0-\u024f\s-]/gi, "").trim() || "gambar";
             showToast("Menyalin gambar...", "");
 
+            var pngBlob = null;
             var lastErr = null;
-            var candidates = [src];
-            // proxy CORS sebagai cadangan (hanya jika domain berbeda)
-            try {
-                if (/^https?:\/\//i.test(src)) {
-                    candidates.push("https://images.weserv.nl/?url=" + encodeURIComponent(src.replace(/^https?:\/\//i, "")) + "&output=png");
-                    candidates.push("https://corsproxy.io/?" + encodeURIComponent(src));
-                }
-            } catch (e) {}
 
-            for (var i = 0; i < candidates.length; i++) {
-                var tryUrl = candidates[i];
+            // 1) Coba dari elemen <img> yang sudah tampil di kartu
+            if (imgEl && imgEl.tagName === "IMG" && imgEl.complete && imgEl.naturalWidth) {
                 try {
-                    var blob = await fetchImageBlob(tryUrl);
-                    var pngBlob = blob.type === "image/png" ? blob : await blobToPngBlob(blob);
-                    await writePngToClipboard(pngBlob);
-                    showToast("Gambar berhasil disalin" + (title ? ": " + title : ""), "");
-                    return true;
-                } catch (err1) {
-                    lastErr = err1;
+                    pngBlob = await imageElementToPngBlob(imgEl);
+                } catch (e0) {
+                    lastErr = e0;
+                }
+            }
+
+            // 2) Ambil lewat URL + proxy CORS
+            if (!pngBlob) {
+                var candidates = buildCorsImageUrls(original);
+                for (var i = 0; i < candidates.length; i++) {
+                    var tryUrl = candidates[i];
                     try {
-                        var png2 = await loadImageAsPngBlob(tryUrl);
-                        await writePngToClipboard(png2);
-                        showToast("Gambar berhasil disalin" + (title ? ": " + title : ""), "");
-                        return true;
-                    } catch (err2) {
-                        lastErr = err2;
+                        var blob = await fetchAsImageBlob(tryUrl);
+                        pngBlob = await blobToPngBlob(blob);
+                        if (pngBlob) break;
+                    } catch (e1) {
+                        lastErr = e1;
+                        try {
+                            pngBlob = await urlToPngBlobViaImage(tryUrl);
+                            if (pngBlob) break;
+                        } catch (e2) {
+                            lastErr = e2;
+                        }
                     }
                 }
             }
 
-            // Cadangan: gambar yang sudah tampil di halaman
-            try {
-                var imgs = document.querySelectorAll('img[src="' + src.replace(/"/g, '\\"') + '"], img[src="' + String(url).replace(/"/g, '\\"') + '"]');
-                if (imgs && imgs.length) {
-                    var png3 = await loadImageAsPngBlob(imgs[0].src);
-                    await writePngToClipboard(png3);
-                    showToast("Gambar berhasil disalin" + (title ? ": " + title : ""), "");
-                    return true;
-                }
-            } catch (err3) {
-                lastErr = err3;
+            if (!pngBlob) {
+                console.warn("Gagal ambil data gambar:", lastErr);
+                showToast("Tidak bisa mengambil data gambar (CORS). Coba host file di HTTPS.", "error");
+                return false;
             }
 
-            console.warn("copyImageToClipboard gagal:", lastErr);
-            showToast("Gagal menyalin gambar. Buka situs lewat HTTPS dan izinkan clipboard.", "error");
-            return false;
+            // 3) Tulis ke clipboard sebagai IMAGE (bukan link)
+            try {
+                await writeImageBlobToClipboard(pngBlob);
+                showToast("Gambar tersalin! Tempel dengan Ctrl+V", "");
+                return true;
+            } catch (clipErr) {
+                console.warn("Clipboard image gagal:", clipErr);
+                // 4) Cadangan: unduh file gambar agar user tetap dapat file, BUKAN link
+                var ok = downloadBlobFile(pngBlob, safeTitle + ".png");
+                if (ok) {
+                    showToast("Clipboard diblokir browser. Gambar diunduh sebagai file PNG.", "");
+                    return true;
+                }
+                showToast("Gagal menyalin gambar. Jalankan lewat HTTPS (bukan file://).", "error");
+                return false;
+            }
         }
         var copyImage = copyImageToClipboard;
 
@@ -4905,8 +5244,8 @@
             gid0: { titleHTML: '<span style="color:#6ee7b7">ALL</span> PK', stripGradient: "linear-gradient(90deg,#34d399,rgba(52,211,153,.25))", emptyIcon: "fa-layer-group", emptyTitle: "Tidak ada data PK", searchPlaceholder: "Cari data PK..." },
             gid5: { titleHTML: 'Jadwal <span class="accent-word">PASARAN</span>', stripGradient: "linear-gradient(90deg,#00f0ff,rgba(0,240,255,.2))", emptyIcon: "fa-database", emptyTitle: "Tidak ada jadwal pasaran", searchPlaceholder: "Cari pasaran..." },
             gid473: { titleHTML: 'Hadiah <span class="accent-word">TOGEL</span>', stripGradient: "linear-gradient(90deg,#a78bfa,rgba(167,139,250,.2))", emptyIcon: "fa-trophy", emptyTitle: "Tidak ada hadiah", searchPlaceholder: "Cari hadiah..." },
-            qrisCombined: { titleHTML: '<span class="qris-word">QRIS Payment</span>', stripGradient: "linear-gradient(90deg,#4fc3f7,rgba(79,195,247,.2))", emptyIcon: "fa-qrcode", emptyTitle: "Tidak ada data QRIS", searchPlaceholder: "Cari QRIS..." },
-            gidProfile: { titleHTML: '<span class="accent-word">PROFILE</span> Bank & E-Wallet', stripGradient: "linear-gradient(90deg,#36d1dc,rgba(54,209,220,.2))", emptyIcon: "fa-building-columns", emptyTitle: "Belum ada data profile", searchPlaceholder: "Cari profile..." },
+            qrisCombined: { titleHTML: '<span style="color:#f472b6">QRIS Payment</span>', stripGradient: "linear-gradient(90deg,#ec4899,rgba(236,72,153,.25))", emptyIcon: "fa-qrcode", emptyTitle: "Tidak ada data QRIS", searchPlaceholder: "Cari QRIS..." },
+            gidProfile: { titleHTML: '<span style=\"color:#fb923c\">PROFILE</span> Bank & E-Wallet', stripGradient: "linear-gradient(90deg,#f97316,rgba(249,115,22,.25))", emptyIcon: "fa-building-columns", emptyTitle: "Belum ada data profile", searchPlaceholder: "Cari profile..." },
             gidBonus: { titleHTML: '<span style="color:#60a5fa">BONUS</span> LINETOGEL', stripGradient: "linear-gradient(90deg,#3b82f6,rgba(59,130,246,.25))", emptyIcon: "fa-gift", emptyTitle: "Belum ada data bonus", searchPlaceholder: "Cari bonus..." },
             gidBetting: { titleHTML: '<span style="color:#facc15">CARA BETTING</span> TOGEL', stripGradient: "linear-gradient(90deg,#eab308,rgba(234,179,8,.25))", emptyIcon: "fa-book-open", emptyTitle: "Belum ada panduan betting", searchPlaceholder: "Cari cara betting..." },
             gidEvent: { titleHTML: '<span class="event-word">EVENT</span> LINETOGEL', stripGradient: "linear-gradient(90deg,#f97316,rgba(249,115,22,.2))", emptyIcon: "fa-bolt", emptyTitle: "Belum ada event berjalan", searchPlaceholder: "Cari event..." },
@@ -4993,8 +5332,23 @@
             if (!item) return "";
             var title = item.title == null ? "" : String(item.title).trim();
             var body = item.content == null ? "" : String(item.content).trim();
+            // QRIS & PROFILE: hanya salin isi teks (tanpa judul)
+            if (currentFilter === "gidQris" || currentFilter === "gidProfile") {
+                if (body) {
+                    // buang baris judul jika content mengulang title di awal
+                    if (title) {
+                        var lines = body.split(/\r?\n/);
+                        if (lines.length && lines[0].trim().toLowerCase() === title.toLowerCase()) {
+                            body = lines.slice(1).join("\n").replace(/^\s+/, "");
+                        } else if (body.toLowerCase().indexOf(title.toLowerCase()) === 0) {
+                            body = body.slice(title.length).replace(/^[\s\-|:]+/, "");
+                        }
+                    }
+                    return body.trim();
+                }
+                return "";
+            }
             if (title && body) {
-                // hindari duplikat jika content sudah diawali title
                 if (body.toLowerCase().indexOf(title.toLowerCase()) === 0) return body;
                 return title + "\n\n" + body;
             }
@@ -5230,12 +5584,14 @@
                 compactGreen = currentFilter === "gid0",
                 compactBlue = currentFilter === "gidBonus",
                 compactYellow = currentFilter === "gidBetting",
+                compactPink = currentFilter === "gidQris",
+                compactOrange = currentFilter === "gidProfile",
                 compactPurple = currentFilter === "gid473",
                 allowTextCopy = true,
                 isGallery = currentFilter === "gidGambarLain",
-                hideOpenBtn = currentFilter === "gid0";
-            var gridClass = isGallery ? "cards-grid gallery-grid" : "cards-grid" + (compactGreen ? " compact-green-grid" : (compactBlue ? " compact-blue-grid" : (compactYellow ? " compact-yellow-grid" : (compactPurple ? " compact-purple-grid" : ""))));
-            var cardAccent = compactGreen ? "linear-gradient(90deg,#34d399,rgba(52,211,153,.25))" : (compactBlue ? "linear-gradient(90deg,#3b82f6,rgba(59,130,246,.25))" : (compactYellow ? "linear-gradient(90deg,#eab308,rgba(234,179,8,.25))" : (compactPurple ? "linear-gradient(90deg,#c084fc,rgba(192,132,252,.2))" : cfg.stripGradient)));
+                hideOpenBtn = currentFilter === "gid0" || currentFilter === "gidQris";
+            var gridClass = isGallery ? "cards-grid gallery-grid" : "cards-grid" + (compactGreen ? " compact-green-grid" : (compactBlue ? " compact-blue-grid" : (compactYellow ? " compact-yellow-grid" : (compactPink ? " compact-pink-grid" : (compactOrange ? " compact-orange-grid" : (compactPurple ? " compact-purple-grid" : ""))))));
+            var cardAccent = compactGreen ? "linear-gradient(90deg,#34d399,rgba(52,211,153,.25))" : (compactBlue ? "linear-gradient(90deg,#3b82f6,rgba(59,130,246,.25))" : (compactYellow ? "linear-gradient(90deg,#eab308,rgba(234,179,8,.25))" : (compactPink ? "linear-gradient(90deg,#ec4899,rgba(236,72,153,.25))" : (compactOrange ? "linear-gradient(90deg,#f97316,rgba(249,115,22,.25))" : (compactPurple ? "linear-gradient(90deg,#c084fc,rgba(192,132,252,.2))" : cfg.stripGradient)))));
             var html = isGallery ? '<div class="gallery-intro"><div class="gallery-intro-content"><div class="gallery-eyebrow"><span class="gallery-eyebrow-dot"></span> GALERI GAMBAR · LIVE</div><div class="gallery-intro-title">GAMBAR <span>LAIN-LAIN</span></div><p>Seluruh gambar dan detail yang tersedia pada sheet ditampilkan di galeri ini.</p></div><div class="gallery-count"><strong>' + items.length + '</strong><span>GAMBAR</span></div></div><div class="' + gridClass + '">' : '<div class="' + gridClass + '">';
             for (var i = 0; i < items.length; i++) {
                 var it = items[i],
@@ -5684,7 +6040,7 @@
             var mct = $("mCopyText");
             if (mct) mct.onclick = function() { copyText(getItemCopyText(it), "Teks") };
             var mci = $("mCopyImg");
-            if (mci) mci.onclick = function() { copyImage(it.imageUrl, it.title) };
+            if (mci) mci.onclick = function() { var mi = document.querySelector(".modal-qris-image img"); copyImage(it.imageUrl, it.title, mi); };
             $("modalOverlay").classList.add("open");
         }
 
@@ -5702,7 +6058,20 @@
             // copy text
             var ctb = e.target.closest(".copy-text-btn"); if (ctb) { var idx = parseInt(ctb.dataset.index || (ctb.closest("[data-index]") ? ctb.closest("[data-index]").dataset.index : "-1"), 10); var items = (currentFilter === "gidEvent") ? gidEventData : getFilteredData(); if (items[idx]) copyText(getItemCopyText(items[idx]), "Teks"); return; }
             // copy image
-            var cib = e.target.closest(".copy-img-btn"); if (cib) { var idx2 = parseInt(cib.closest("[data-index]") ? cib.closest("[data-index]").dataset.index : "-1"); var items2 = (currentFilter === "gidEvent") ? gidEventData : getFilteredData(); if (items2[idx2] && items2[idx2].imageUrl) copyImage(items2[idx2].imageUrl, items2[idx2].title); return; }
+            var cib = e.target.closest(".copy-img-btn"); if (cib) {
+                if (cib.disabled) return;
+                var cardEl = cib.closest("[data-index]");
+                var idx2 = parseInt(cardEl ? cardEl.dataset.index : "-1", 10);
+                var items2 = (currentFilter === "gidEvent") ? gidEventData : getFilteredData();
+                var item2 = items2[idx2];
+                if (!item2 || !item2.imageUrl) {
+                    showToast("Gambar tidak tersedia", "error");
+                    return;
+                }
+                var imgInCard = cardEl ? cardEl.querySelector("img") : null;
+                copyImage(item2.imageUrl, item2.title, imgInCard);
+                return;
+            }
             // open link button (already handled via dedicated listener)
             // card click - if has data-url, open in new tab
             var card = e.target.closest(".card[data-url]");
