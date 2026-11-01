@@ -5023,6 +5023,77 @@
             scrollbar-width: none !important;
         }
         #contentArea .j-content-preview::-webkit-scrollbar { display: none !important; width: 0 !important; }
+    
+        .j-result-box {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: .45rem !important;
+        }
+        .j-result-full {
+            font-size: .62rem;
+            line-height: 1.55;
+            color: #e0f2fe;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .j-btn-result-copy {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(14, 165, 233, .25), rgba(2, 132, 199, .15)) !important;
+            border-color: rgba(56, 189, 248, .45) !important;
+            color: #7dd3fc !important;
+        }
+        .j-btn-result-copy:hover {
+            background: linear-gradient(135deg, rgba(14, 165, 233, .4), rgba(2, 132, 199, .25)) !important;
+            color: #fff !important;
+        }
+    
+        .j-result-panel {
+            margin-top: .35rem;
+            padding: .75rem .8rem .65rem;
+            border-radius: 12px;
+            background: linear-gradient(160deg, rgba(15, 23, 42, .95), rgba(8, 12, 28, .98));
+            border: 1px solid rgba(251, 191, 36, .22);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+        }
+        .j-result-panel .j-result-full {
+            font-size: .68rem;
+            line-height: 1.65;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin-bottom: .65rem;
+            font-family: var(--font-mono), ui-monospace, monospace;
+            letter-spacing: .01em;
+        }
+        .j-btn-salin-result {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .4rem;
+            padding: .55rem .7rem;
+            border-radius: 10px;
+            border: 1px solid rgba(148, 163, 184, .2);
+            background: rgba(30, 41, 59, .85);
+            color: #cbd5e1;
+            font-family: var(--font-display);
+            font-size: .62rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        .j-btn-salin-result:hover {
+            background: rgba(51, 65, 85, .95);
+            color: #fff;
+            border-color: rgba(251, 191, 36, .35);
+        }
+        /* Saat filter Ada Hasil, kartu lebih fokus ke result */
+        .jadwal-grid-abssidian .j-card-abss .j-times-box {
+            transition: opacity .2s;
+        }
+
     </style>
 </head>
 <body>
@@ -5525,18 +5596,26 @@
         
         function fetchResultData() {
             var urls = [
-                URLS.gidResult,
-                "https://docs.google.com/spreadsheets/d/10sBZbE-o_eNpFj5z5WvSuTJhS93KP4jEZxc4YdqUkgU/export?format=csv&gid=1484856061",
-                BASE + "&gid=1484856061"
+                "https://docs.google.com/spreadsheets/d/10sBZbE-o_eNpFj5z5WvSuTJhS93KP4jEZxc4YdqUkgU/gviz/tq?tqx=out:json&gid=1484856061",
+                "https://docs.google.com/spreadsheets/d/10sBZbE-o_eNpFj5z5WvSuTJhS93KP4jEZxc4YdqUkgU/export?format=csv&gid=1484856061"
             ];
             function parseCsv(text) {
                 var lines = String(text || "").replace(/^\uFEFF/, "").split(/\r?\n/).filter(function(l) { return l.trim(); });
                 var items = [];
                 for (var i = 0; i < lines.length; i++) {
-                    // simple CSV split
-                    var cols = lines[i].split(",").map(function(x) { return x.replace(/^"|"$/g, "").trim(); });
+                    var cols = [];
+                    // parse CSV with quotes
+                    var cur = "", inQ = false;
+                    var line = lines[i];
+                    for (var j = 0; j < line.length; j++) {
+                        var ch = line[j];
+                        if (ch === '"') { inQ = !inQ; continue; }
+                        if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ""; continue; }
+                        cur += ch;
+                    }
+                    cols.push(cur.trim());
                     if (!cols.length || cols.every(function(c) { return !c; })) continue;
-                    items.push({ title: cols[0] || "", content: cols.slice(1).join(" "), imageUrl: "", raw: cols });
+                    items.push({ title: cols[3] || cols[0] || "", content: cols[6] || cols.slice(1).join(" "), imageUrl: "", raw: cols });
                 }
                 return items;
             }
@@ -5547,30 +5626,39 @@
                     if (!res.ok) throw new Error("HTTP " + res.status);
                     return res.text();
                 }).then(function(t) {
-                    if (!t || t.indexOf("<!DOCTYPE") === 0 || t.indexOf("<html") !== -1) throw new Error("Sheet privat / login");
-                    // CSV?
-                    if (url.indexOf("export?format=csv") !== -1 || (t.indexOf("google.visualization") === -1 && t.indexOf(",") !== -1)) {
+                    if (!t || t.indexOf("<!DOCTYPE") === 0 || t.indexOf("show-login-page") !== -1) throw new Error("Sheet privat");
+                    if (url.indexOf("export?format=csv") !== -1) {
                         var csvItems = parseCsv(t);
                         if (csvItems.length) return csvItems;
                     }
-                    // gviz json
                     if (t.indexOf("google.visualization") !== -1 || t.indexOf("setResponse") !== -1) {
                         var table = parseGviz(t);
                         var rows = table.rows || [];
                         var items = [];
                         for (var ri = 0; ri < rows.length; ri++) {
-                            var cells = (rows[ri].c || []).map(function(c) { return c && c.v != null ? String(c.v).trim() : ""; });
+                            var cells = (rows[ri].c || []).map(function(c) {
+                                if (!c || c.v == null) return "";
+                                // date/time objects from gviz
+                                return String(c.f != null ? c.f : c.v).trim();
+                            });
                             if (cells.every(function(v) { return !v; })) continue;
-                            items.push({ title: cells[0] || "", content: cells.slice(1).join(" "), imageUrl: "", raw: cells });
+                            items.push({
+                                title: cells[3] || cells[0] || "",
+                                content: cells[6] || "",
+                                imageUrl: "",
+                                raw: cells
+                            });
                         }
                         if (items.length) return items;
                     }
                     throw new Error("Format tidak dikenali");
-                }).catch(function() { return tryUrl(idx + 1); });
+                }).catch(function(err) {
+                    console.warn("fetchResultData try", idx, err);
+                    return tryUrl(idx + 1);
+                });
             }
             return tryUrl(0);
         }
-
         function fetchSimple(url) { return fetch(url).then(function(res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.text(); }).then(function(t) { var table = parseGviz(t); return (table.rows || []).map(function(r) { return { title: r.c[0] && r.c[0].v != null ? String(r.c[0].v).trim() : "", content: r.c[1] && r.c[1].v != null ? String(r.c[1].v).trim() : "", imageUrl: "", raw: (r.c || []).map(function(c) { return c && c.v != null ? String(c.v).trim() : ""; }) }; }); }); }
 
         function fetchRich(url) { return fetch(url).then(function(res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.text(); }).then(function(t) { var table = parseGviz(t); var rows = table.rows || []; var items = []; for (var ri = 0; ri < rows.length; ri++) { var row = rows[ri],
@@ -5945,59 +6033,132 @@
         }
         function rebuildResultMap() {
             resultByMarket = {};
+            var sheetDateLabel = "";
+            if (gidResultData.length) {
+                var headerCells = (gidResultData[0].raw || []);
+                var dateRaw = headerCells[15] || "";
+                sheetDateLabel = formatResultDateLabel(dateRaw);
+            }
             for (var i = 0; i < gidResultData.length; i++) {
                 var it = gidResultData[i];
-                var rawCells = (it.raw && it.raw.length) ? it.raw : [it.title || "", it.content || ""];
-                // Cari pasangan nama pasaran + nomor result di sel
-                var name = (it.title || "").trim();
-                var num = "";
-                for (var c = 0; c < rawCells.length; c++) {
-                    var cell = String(rawCells[c] || "").trim();
-                    if (!cell) continue;
-                    // nomor result murni
-                    if (!num && /^\d{2,6}$/.test(cell)) { num = cell; continue; }
-                    var foundNum = cell.match(/\b(\d{3,5})\b/);
-                    if (!num && foundNum && !/https?:/i.test(cell)) num = foundNum[1];
-                    // nama pasaran (bukan hanya angka)
-                    if ((!name || /^\d+$/.test(name)) && /[a-zA-Z]/.test(cell) && cell.length < 80) {
-                        name = cell.replace(/\s+/g, " ").trim();
-                    }
-                }
-                if (!name) continue;
+                var cells = (it.raw && it.raw.length) ? it.raw.slice() : [];
+                var rowJoin = cells.join(" ").toUpperCase();
+                if (rowJoin.indexOf("PASARAN") !== -1 && rowJoin.indexOf("JAM TUTUP") !== -1) continue;
+                if (String(cells[0] || "").toUpperCase() === "NO") continue;
+
+                var name = String(cells[3] || "").trim();
+                if (!name || /^\d+$/.test(name)) continue;
+
+                var r1 = String(cells[6] || "").trim();
+                var r2 = String(cells[7] || "").trim();
+                var r3 = String(cells[8] || "").trim();
+                var shio = String(cells[9] || "").trim();
+                var status = String(cells[10] || "").trim().toUpperCase();
+
+                // Angka valid saja
+                if (!/^\d{2,6}$/.test(r1)) r1 = "";
+                if (!/^\d{2,6}$/.test(r2)) r2 = "";
+                if (!/^\d{2,6}$/.test(r3)) r3 = "";
+
+                // BELUM RESULT / kosong → jangan masuk peta hasil
+                if (status.indexOf("BELUM") !== -1) continue;
+                if (!r1 && !r2 && !r3) continue;
+                // Minimal harus ada result utama (r1) agar dianggap sudah keluar
+                if (!r1) continue;
+
+                var isPrize123 = !!(r1 && r2 && r3);
+                var text = buildResultAnnouncement(name, r1, r2, r3, shio, sheetDateLabel, isPrize123);
                 var key = normalizeMarketKey(name);
-                if (!key) continue;
-                // jika content punya pola "PASARAN|1234" atau "PASARAN : 1234"
-                var blob = rawCells.join(" | ");
-                var pair = blob.match(/([A-Za-z][A-Za-z0-9 \-]{1,40}?)\s*[:|\-]\s*(\d{2,6})/);
-                if (pair) {
-                    key = normalizeMarketKey(pair[1]);
-                    num = pair[2];
-                    name = pair[1].trim();
-                }
-                if (!num) continue;
-                resultByMarket[key] = { number: num, title: name, raw: it };
-                var first = key.split(" ")[0];
-                if (first) resultByMarket[first] = resultByMarket[key];
-                // index tanpa spasi
-                resultByMarket[key.replace(/\s+/g, "")] = resultByMarket[key];
+                var payload = {
+                    number: r1,
+                    r1: r1, r2: r2, r3: r3,
+                    shio: shio,
+                    status: status,
+                    isPrize123: isPrize123,
+                    dateLabel: sheetDateLabel,
+                    text: text,
+                    title: name,
+                    raw: it
+                };
+                // Simpan HANYA key lengkap + tanpa spasi (hindari partial "kingkong" menimpa SORE/MALAM)
+                resultByMarket[key] = payload;
+                resultByMarket[key.replace(/\s+/g, "")] = payload;
             }
         }
+
+        function formatResultDateLabel(dateRaw) {
+            // Terima "01/11/2026" atau Date(...) / Date object string
+            var d = null;
+            var s = String(dateRaw || "").trim();
+            var m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+            if (m) {
+                d = new Date(parseInt(m[3], 10), parseInt(m[2], 10) - 1, parseInt(m[1], 10));
+            } else {
+                var m2 = s.match(/Date\((\d+),(\d+),(\d+)/);
+                if (m2) d = new Date(parseInt(m2[1], 10), parseInt(m2[2], 10), parseInt(m2[3], 10));
+            }
+            if (!d || isNaN(d.getTime())) {
+                // fallback: hari ini WIB
+                d = getWibNow();
+            }
+            var hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+            var bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+            return "Hari " + hari[d.getDay()] + ", " + String(d.getDate()).padStart(2, "0") + " " + bulan[d.getMonth()] + " " + d.getFullYear();
+        }
+
+        function buildResultAnnouncement(name, r1, r2, r3, shio, dateLabel, isPrize123) {
+            var lines = [];
+            lines.push("Hasil Pengeluaran " + name);
+            lines.push(dateLabel || formatResultDateLabel(""));
+            if (isPrize123) {
+                var line1 = "Result 1 : " + r1;
+                if (shio) line1 += " , SHIO : " + shio;
+                lines.push(line1);
+                if (r2) lines.push("Result 2 : " + r2);
+                if (r3) lines.push("Result 3 : " + r3);
+            } else {
+                lines.push("Result : " + (r1 || r2 || r3));
+                if (shio) lines.push("SHIO : " + shio);
+            }
+            lines.push("Selamat Kepada Pemenang, Salam JP");
+            return lines.join("\n");
+        }
+
         function findResultForMarket(title) {
             var key = normalizeMarketKey(title);
-            if (resultByMarket[key]) return resultByMarket[key];
+            if (!key) return null;
+            if (resultByMarket[key] && resultByMarket[key].number) return resultByMarket[key];
+            var nospace = key.replace(/\s+/g, "");
+            if (resultByMarket[nospace] && resultByMarket[nospace].number) return resultByMarket[nospace];
+
+            // Partial ketat: hanya jika salah satu mengandung penuh yang lain (bukan sekadar kata pertama)
+            var best = null, bestScore = 0;
             for (var k in resultByMarket) {
-                if (!resultByMarket.hasOwnProperty(k)) continue;
-                if (key.indexOf(k) !== -1 || k.indexOf(key) !== -1) return resultByMarket[k];
+                if (!Object.prototype.hasOwnProperty.call(resultByMarket, k)) continue;
+                var payload = resultByMarket[k];
+                if (!payload || !payload.number) continue;
+                // skip alias pendek
+                if (k.length < 5) continue;
+                if (key === k) return payload;
+                if (key.indexOf(k) !== -1 || k.indexOf(key) !== -1) {
+                    var score = Math.min(key.length, k.length);
+                    // tolak match terlalu lemah (mis. "macau" ke semua toto macau)
+                    if (score >= Math.max(8, Math.floor(Math.max(key.length, k.length) * 0.7)) && score > bestScore) {
+                        bestScore = score;
+                        best = payload;
+                    }
+                }
             }
-            return null;
+            return best;
         }
+
         function getJadwalBucket(item) {
             var p = parseJadwalItem(item);
             var closeM = parseHHMMtoMinutes(p.cutoffTime);
             var resultM = parseHHMMtoMinutes(p.resultTime);
             var nowM = getWibMinutesNow();
             var res = findResultForMarket(item.title || "");
-            var hasResult = !!(res && res.number);
+            var hasResult = !!(res && res.number && /^\d{2,6}$/.test(String(res.number)) && res.text);
             var bucket = "menunggu";
             if (closeM == null && resultM == null) {
                 bucket = hasResult ? "ada_hasil" : "menunggu";
@@ -6011,7 +6172,16 @@
                 else if (resultM != null && nowM < resultM) bucket = "menunggu";
                 else bucket = "lewat";
             }
-            return { bucket: bucket, hasResult: hasResult, resultNumber: hasResult ? res.number : "", parse: p };
+            return {
+                bucket: bucket,
+                hasResult: hasResult,
+                resultNumber: hasResult ? res.number : "",
+                resultText: hasResult ? (res.text || "") : "",
+                resultShio: hasResult ? (res.shio || "") : "",
+                isPrize123: hasResult ? !!res.isPrize123 : false,
+                resultPayload: hasResult ? res : null,
+                parse: p
+            };
         }
 
         function renderJadwalGrid(items) {
@@ -6020,7 +6190,14 @@
             var enriched = [];
             for (var fi = 0; fi < items.length; fi++) {
                 var meta = getJadwalBucket(items[fi]);
+                // Filter Ada Hasil: WAJIB punya nomor result valid dari sheet
+                if (jadwalStatusFilter === "ada_hasil") {
+                    if (!meta.hasResult || !meta.resultNumber || !meta.resultText) continue;
+                    enriched.push({ it: items[fi], meta: meta });
+                    continue;
+                }
                 if (jadwalStatusFilter !== "all" && meta.bucket !== jadwalStatusFilter) continue;
+                // Filter lain: jangan andalkan result
                 enriched.push({ it: items[fi], meta: meta });
             }
             var html = '';
@@ -6080,36 +6257,53 @@
                 jadwalCopyStore[i] = {
                     sub: subText,
                     isi: isiText,
-                    web: webUrl
+                    web: webUrl,
+                    result: (meta.resultText || "")
                 };
 
                 html += '<div class="j-card-abss" data-index="' + i + '">';
                 html += '<div class="j-header-abss"><div class="j-title-abss"><i class="fa-solid fa-calendar-days" style="margin-right:6px;opacity:.7"></i>' + highlightMatch(title, q) + '</div><div class="j-badge-abss ' + sc + '">' + sl + '</div></div>';
                 html += '<div class="j-body-abss">';
 
-                // Kotak jam
-                html += '<div class="j-times-box">';
-                html += '<div class="j-time-item"><span class="j-time-label"><i class="fa-solid fa-lock"></i> Jam Tutup</span><span class="j-time-val">' + bukaDisplay + (bukaDisplay !== "--:--" ? " WIB" : "") + '</span></div>';
-                html += '<div class="j-time-item"><span class="j-time-label"><i class="fa-solid fa-trophy"></i> Jam Result</span><span class="j-time-val result-val">' + resultDisplay + (resultDisplay !== "--:--" ? " WIB" : "") + '</span></div>';
-                html += '</div>';
-                if (meta.hasResult && meta.resultNumber) {
-                    html += '<div class="j-result-box"><div class="jr-label"><i class="fa-solid fa-hashtag"></i> Result</div><div class="jr-num">' + escapeHtml(meta.resultNumber) + '</div></div>';
+                // Kotak jam — tidak ditampilkan di filter Ada Hasil (fokus teks result)
+                if (jadwalStatusFilter !== "ada_hasil") {
+                    html += '<div class="j-times-box">';
+                    html += '<div class="j-time-item"><span class="j-time-label"><i class="fa-solid fa-lock"></i> Jam Tutup</span><span class="j-time-val">' + bukaDisplay + (bukaDisplay !== "--:--" ? " WIB" : "") + '</span></div>';
+                    html += '<div class="j-time-item"><span class="j-time-label"><i class="fa-solid fa-trophy"></i> Jam Result</span><span class="j-time-val result-val">' + resultDisplay + (resultDisplay !== "--:--" ? " WIB" : "") + '</span></div>';
+                    html += '</div>';
+                }
+                // Result HANYA di filter Ada Hasil — tidak muncul di Semua/Segera/Menunggu/Lewat
+                if (jadwalStatusFilter === "ada_hasil" && meta.hasResult && meta.resultText) {
+                    html += '<div class="j-result-panel">';
+                    html += '<div class="j-result-full">' + escapeHtml(meta.resultText).split(String.fromCharCode(10)).join('<br>') + '</div>';
+                    html += '<button type="button" class="j-btn-salin-result" data-idx="' + i + '"><i class="fa-regular fa-copy"></i> SALIN</button>';
+                    html += '</div>';
+                }
+                if (meta.hasResult && meta.resultText) {
+                    if (jadwalCopyStore[i]) jadwalCopyStore[i].result = meta.resultText;
+                    else jadwalCopyStore[i] = { result: meta.resultText };
                 }
 
-                // Preview agar user lihat teks yang akan disalin
-                html += '<div class="j-content-preview">';
-                html += escapeHtml(subText).replace(/\\n/g, "<br>").replace(/\n/g, "<br>") + "<br><br>";
-                html += escapeHtml(isiText).replace(/\\n/g, "<br>").replace(/\n/g, "<br>");
-                html += '</div>';
+                // Preview sub/isi — disembunyikan saat filter Ada Hasil
+                if (jadwalStatusFilter !== "ada_hasil") {
+                    html += '<div class="j-content-preview">';
+                    html += escapeHtml(subText).split(String.fromCharCode(10)).join('<br>') + '<br><br>';
+                    html += escapeHtml(isiText).split(String.fromCharCode(10)).join('<br>');
+                    html += '</div>';
+                }
 
                 html += '</div>';
 
-                // Tombol
-                html += '<div class="j-footer-abss">';
-                html += '<button class="j-btn-abss j-btn-sub" type="button" data-idx="' + i + '" title="Salin Subjudul"><i class="fa-regular fa-copy"></i> Subjudul</button>';
-                html += '<button class="j-btn-abss j-btn-isi" type="button" data-idx="' + i + '" title="Salin Isi"><i class="fa-regular fa-copy"></i> Isi</button>';
-                html += '<button class="j-btn-abss j-btn-web ' + (webUrl ? "" : "disabled") + '" type="button" data-idx="' + i + '" title="Kunjungi Website"><i class="fa-solid fa-globe"></i> Website</button>';
-                html += '</div></div>';
+                // Tombol Subjudul/Isi/Website — disembunyikan di Ada Hasil
+                if (jadwalStatusFilter !== "ada_hasil") {
+                    html += '<div class="j-footer-abss">';
+                    html += '<button class="j-btn-abss j-btn-sub" type="button" data-idx="' + i + '" title="Salin Subjudul"><i class="fa-regular fa-copy"></i> Subjudul</button>';
+                    html += '<button class="j-btn-abss j-btn-isi" type="button" data-idx="' + i + '" title="Salin Isi"><i class="fa-regular fa-copy"></i> Isi</button>';
+                    html += '<button class="j-btn-abss j-btn-web ' + (webUrl ? "" : "disabled") + '" type="button" data-idx="' + i + '" title="Kunjungi Website"><i class="fa-solid fa-globe"></i> Website</button>';
+                    html += '</div>';
+                }
+                html += '</div>';
+
             }
             html += "</div>";
             contentArea.innerHTML = html;
@@ -6163,6 +6357,16 @@
                 chip.addEventListener("click", function() {
                     jadwalStatusFilter = chip.getAttribute("data-jfilter") || "all";
                     renderContent();
+                });
+            });
+            document.querySelectorAll(".j-btn-salin-result").forEach(function(btn) {
+                btn.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var idx = parseInt(btn.getAttribute("data-idx"), 10);
+                    var data = jadwalCopyStore[idx];
+                    if (data && data.result) copyText(data.result, "Result");
+                    else showToast("Result belum tersedia", "error");
                 });
             });
         }
