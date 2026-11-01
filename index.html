@@ -1134,8 +1134,8 @@
         .sidebar-item[data-filter="gidProfile"] .icon-wrap { color: #fb923c; background: rgba(249, 115, 22, .12); }
         .sidebar-item[data-filter="gidPassword"] .label { color: var(--password-color); }
         .sidebar-item[data-filter="gidPassword"] .icon-wrap { color: var(--password-color); background: var(--password-soft); }
-        .sidebar-item[data-filter="gidGambarLain"] .label { color: var(--content-color); }
-        .sidebar-item[data-filter="gidGambarLain"] .icon-wrap { color: var(--content-color); background: rgba(125, 211, 232, .08); }
+        .sidebar-item[data-filter="gidGambarLain"] .label { color: #38bdf8; }
+        .sidebar-item[data-filter="gidGambarLain"] .icon-wrap { color: #38bdf8; background: rgba(14, 165, 233, .12); }
         .sidebar-item.active .label { color: var(--fg) !important; }
         .sidebar-item.active .icon-wrap { background: rgba(255, 255, 255, .07) !important; color: var(--fg) !important; }
 
@@ -2378,8 +2378,8 @@
             justify-items: stretch;
         }
         .cards-grid.gallery-grid {
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            grid-auto-rows: minmax(320px, auto);
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+            grid-auto-rows: 340px;
             gap: clamp(.8rem, 2vw, 1.1rem);
         }
         .gallery-intro {
@@ -2389,11 +2389,11 @@
             gap: 1rem;
             margin-bottom: 1rem;
             padding: 1.15rem 1.25rem;
-            border: 1px solid rgba(0, 240, 255, .17);
+            border: 1px solid rgba(56, 189, 248, .3);
             border-radius: 16px;
             background:
-                radial-gradient(circle at 90% 10%, rgba(167, 139, 250, .12), transparent 35%),
-                linear-gradient(120deg, rgba(0, 240, 255, .075), rgba(17, 17, 24, .92) 58%);
+                radial-gradient(circle at 90% 10%, rgba(14, 165, 233, .16), transparent 35%),
+                linear-gradient(120deg, rgba(56, 189, 248, .12), rgba(10, 24, 40, .94) 58%);
             box-shadow: inset 0 1px rgba(255, 255, 255, .025);
         }
         .gallery-intro-content {
@@ -2404,7 +2404,7 @@
             align-items: center;
             gap: .45rem;
             margin-bottom: .35rem;
-            color: var(--neon-cyan);
+            color: #38bdf8;
             font-family: var(--font-mono);
             font-size: .58rem;
             letter-spacing: .12em;
@@ -2413,8 +2413,8 @@
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: var(--neon-cyan);
-            box-shadow: 0 0 10px rgba(0, 240, 255, .7);
+            background: #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, .7);
         }
         .gallery-intro-title {
             color: var(--fg);
@@ -2424,7 +2424,7 @@
             letter-spacing: .035em;
         }
         .gallery-intro-title span {
-            color: var(--neon-cyan);
+            color: #38bdf8;
         }
         .gallery-intro p {
             margin-top: .3rem;
@@ -2437,13 +2437,13 @@
             justify-items: center;
             gap: .1rem;
             padding: .6rem .8rem;
-            border: 1px solid rgba(0, 240, 255, .17);
+            border: 1px solid rgba(56, 189, 248, .28);
             border-radius: 12px;
-            background: rgba(0, 240, 255, .055);
+            background: rgba(14, 165, 233, .08);
             flex-shrink: 0;
         }
         .gallery-count strong {
-            color: var(--neon-cyan);
+            color: #38bdf8;
             font-family: var(--font-mono);
             font-size: 1.15rem;
             line-height: 1.1;
@@ -2455,49 +2455,94 @@
             letter-spacing: .12em;
         }
         .gallery-grid .card {
+            height: 340px;
             min-height: 340px;
+            border-color: rgba(56, 189, 248, .32);
             border-radius: 15px;
-            background: linear-gradient(160deg, rgba(20, 23, 31, .96), rgba(10, 10, 16, .98));
-            box-shadow: 0 8px 28px -18px rgba(0, 0, 0, .9);
+            background:
+                radial-gradient(ellipse 90% 70% at 100% 0%, rgba(14, 165, 233, .2), transparent 50%),
+                radial-gradient(ellipse 60% 50% at 0% 100%, rgba(2, 132, 199, .1), transparent 45%),
+                linear-gradient(155deg, rgba(10, 28, 42, .98), rgba(6, 14, 24, .99));
+            box-shadow:
+                0 12px 28px -22px rgba(14, 165, 233, .45),
+                0 8px 20px -16px rgba(0, 0, 0, .85),
+                inset 0 1px 0 rgba(186, 230, 253, .08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .gallery-grid .card:hover {
+            border-color: rgba(125, 211, 252, .55);
+            box-shadow:
+                0 14px 32px -18px rgba(56, 189, 248, .45),
+                0 10px 22px -16px rgba(0, 0, 0, .9);
+            transform: translateY(-2px);
+        }
+        .gallery-grid .card .accent-strip {
+            height: 3px;
+            background: linear-gradient(90deg, #0284c7, #0ea5e9, #7dd3fc, transparent) !important;
+            flex-shrink: 0;
         }
         .gallery-grid .card-inner {
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: calc(100% - 3px);
+            box-sizing: border-box;
+            overflow: hidden;
         }
         .gallery-grid .card-title {
-            padding: .95rem 1rem .15rem;
+            padding: .7rem .85rem .25rem;
             margin: 0;
-            font-size: .86rem;
+            font-size: .78rem;
+            color: #ffffff;
             -webkit-line-clamp: 1;
+            overflow: hidden;
+            flex: 0 0 auto;
         }
         .gallery-grid .card-content {
-            padding: 0 1rem;
-            margin: .35rem 0 .15rem;
+            padding: 0 .85rem;
+            margin: .2rem 0 .15rem;
+            flex: 0 0 auto;
+            max-height: 2.4em;
+            overflow: hidden;
+            color: rgba(255, 255, 255, .88);
+            font-size: .62rem;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
         }
         .gallery-grid .qris-image-preview {
-            flex: 1;
-            min-height: 190px;
-            max-height: none;
-            margin: .55rem .75rem .75rem;
-            border-color: rgba(0, 240, 255, .16);
+            flex: 1 1 auto;
+            min-height: 140px;
+            max-height: 160px;
+            margin: .4rem .75rem .35rem;
+            border: 1px solid rgba(56, 189, 248, .25);
             border-radius: 12px;
-            background: linear-gradient(145deg, rgba(0, 240, 255, .045), rgba(0, 0, 0, .48));
+            background: linear-gradient(145deg, rgba(14, 165, 233, .08), rgba(0, 0, 0, .45));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
         .gallery-grid .qris-image-preview img {
             width: 100%;
-            height: 230px;
-            max-height: 230px;
-            object-fit: cover;
+            height: 100%;
+            max-height: 160px;
+            object-fit: contain;
+            object-position: center;
             padding: 0;
+            display: block;
         }
         .gallery-image-fallback {
             display: grid;
             width: 100%;
-            height: 230px;
+            height: 160px;
             align-content: center;
             justify-items: center;
             gap: .45rem;
             padding: 1rem;
-            color: var(--fg-muted);
+            color: rgba(186, 230, 253, .7);
             font-size: .72rem;
             text-align: center;
         }
@@ -2505,26 +2550,51 @@
             display: none !important;
         }
         .gallery-image-fallback i {
-            color: var(--neon-cyan);
+            color: #38bdf8;
             font-size: 1.5rem;
         }
         .gallery-image-fallback a {
-            color: var(--neon-cyan);
+            color: #7dd3fc;
             text-decoration: none;
         }
         .gallery-image-fallback a:hover {
             text-decoration: underline;
         }
-        .gallery-grid .card-content {
-            flex: 0 1 auto;
-            max-height: 4.5em;
-            margin-bottom: .2rem;
-        }
         .gallery-grid .qris-actions {
             margin-top: auto;
-            padding: .65rem .75rem .75rem;
-            border-top: 1px solid rgba(255, 255, 255, .055);
-            background: rgba(0, 0, 0, .12);
+            padding: .55rem .75rem .7rem;
+            border-top: 1px solid rgba(56, 189, 248, .18);
+            background: rgba(0, 0, 0, .18);
+            display: flex;
+            flex-wrap: wrap;
+            gap: .4rem;
+            flex: 0 0 auto;
+            min-height: 52px;
+            align-items: center;
+        }
+        .gallery-grid .qris-actions .btn-action {
+            flex: 1 1 calc(50% - .25rem);
+            min-width: calc(50% - .25rem);
+            justify-content: center;
+            min-height: 30px;
+            padding: .32rem .48rem;
+            border-radius: 8px;
+            background: rgba(2, 132, 199, .2);
+            border: 1px solid rgba(56, 189, 248, .4);
+            color: #bae6fd;
+            font-size: .58rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            white-space: nowrap;
+            transition: all .2s;
+        }
+        .gallery-grid .qris-actions .btn-action:hover {
+            background: rgba(14, 165, 233, .35);
+            border-color: rgba(125, 211, 252, .55);
+            color: #fff;
+            box-shadow: 0 0 12px -4px rgba(56, 189, 248, .45);
         }
         @media (max-width: 600px) {
             .gallery-intro {
@@ -4618,6 +4688,107 @@
                 grid-template-columns: 1fr;
             }
         }
+    
+        /* ===== GAMBAR LAIN-LAIN – BIRU LANGIT (force override) ===== */
+        #contentArea .cards-grid.gallery-grid {
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)) !important;
+            grid-auto-rows: 340px !important;
+            gap: .85rem !important;
+        }
+        #contentArea .cards-grid.gallery-grid .card {
+            height: 340px !important;
+            min-height: 340px !important;
+            border-color: rgba(56, 189, 248, .38) !important;
+            border-radius: 15px !important;
+            background:
+                radial-gradient(ellipse 90% 70% at 100% 0%, rgba(14, 165, 233, .22), transparent 50%),
+                radial-gradient(ellipse 60% 50% at 0% 100%, rgba(2, 132, 199, .12), transparent 45%),
+                linear-gradient(155deg, rgba(10, 28, 42, .98), rgba(6, 14, 24, .99)) !important;
+            box-shadow:
+                0 12px 28px -22px rgba(14, 165, 233, .5),
+                0 8px 20px -16px rgba(0, 0, 0, .85),
+                inset 0 1px 0 rgba(186, 230, 253, .1) !important;
+            overflow: hidden !important;
+            display: flex !important;
+            flex-direction: column !important;
+        }
+        #contentArea .cards-grid.gallery-grid .card:hover {
+            border-color: rgba(125, 211, 252, .6) !important;
+            transform: translateY(-2px);
+        }
+        #contentArea .cards-grid.gallery-grid .accent-strip {
+            height: 3px !important;
+            background: linear-gradient(90deg, #0284c7, #0ea5e9, #7dd3fc, transparent) !important;
+        }
+        #contentArea .cards-grid.gallery-grid .card-inner {
+            padding: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            height: calc(100% - 3px) !important;
+            overflow: hidden !important;
+        }
+        #contentArea .cards-grid.gallery-grid .card-title {
+            padding: .7rem .85rem .25rem !important;
+            color: #ffffff !important;
+            font-size: .78rem !important;
+            border-bottom: none !important;
+        }
+        #contentArea .cards-grid.gallery-grid .card-content {
+            padding: 0 .85rem !important;
+            max-height: 2.4em !important;
+            color: rgba(255, 255, 255, .88) !important;
+            font-size: .62rem !important;
+            -webkit-line-clamp: 2 !important;
+        }
+        #contentArea .cards-grid.gallery-grid .qris-image-preview {
+            flex: 1 1 auto !important;
+            min-height: 140px !important;
+            max-height: 160px !important;
+            margin: .4rem .75rem .35rem !important;
+            border: 1px solid rgba(56, 189, 248, .28) !important;
+            border-radius: 12px !important;
+            background: linear-gradient(145deg, rgba(14, 165, 233, .1), rgba(0, 0, 0, .45)) !important;
+        }
+        #contentArea .cards-grid.gallery-grid .qris-image-preview img {
+            width: 100% !important;
+            height: 100% !important;
+            max-height: 160px !important;
+            object-fit: contain !important;
+        }
+        #contentArea .cards-grid.gallery-grid .qris-actions {
+            margin-top: auto !important;
+            padding: .55rem .75rem .7rem !important;
+            border-top: 1px solid rgba(56, 189, 248, .2) !important;
+            background: rgba(0, 0, 0, .2) !important;
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: .4rem !important;
+            min-height: 54px !important;
+        }
+        #contentArea .cards-grid.gallery-grid .btn-action {
+            flex: 1 1 calc(50% - .25rem) !important;
+            min-width: calc(50% - .25rem) !important;
+            justify-content: center !important;
+            min-height: 30px !important;
+            background: rgba(2, 132, 199, .22) !important;
+            border: 1px solid rgba(56, 189, 248, .45) !important;
+            color: #bae6fd !important;
+            border-radius: 8px !important;
+            font-size: .58rem !important;
+            font-weight: 600 !important;
+        }
+        #contentArea .cards-grid.gallery-grid .btn-action:hover {
+            background: rgba(14, 165, 233, .4) !important;
+            border-color: rgba(125, 211, 252, .6) !important;
+            color: #fff !important;
+        }
+        #contentArea .gallery-intro {
+            border-color: rgba(56, 189, 248, .3) !important;
+            background:
+                radial-gradient(circle at 90% 10%, rgba(14, 165, 233, .16), transparent 35%),
+                linear-gradient(120deg, rgba(56, 189, 248, .12), rgba(10, 24, 40, .94) 58%) !important;
+        }
+
     </style>
 </head>
 <body>
@@ -5249,7 +5420,7 @@
             gidBonus: { titleHTML: '<span style="color:#60a5fa">BONUS</span> LINETOGEL', stripGradient: "linear-gradient(90deg,#3b82f6,rgba(59,130,246,.25))", emptyIcon: "fa-gift", emptyTitle: "Belum ada data bonus", searchPlaceholder: "Cari bonus..." },
             gidBetting: { titleHTML: '<span style="color:#facc15">CARA BETTING</span> TOGEL', stripGradient: "linear-gradient(90deg,#eab308,rgba(234,179,8,.25))", emptyIcon: "fa-book-open", emptyTitle: "Belum ada panduan betting", searchPlaceholder: "Cari cara betting..." },
             gidEvent: { titleHTML: '<span class="event-word">EVENT</span> LINETOGEL', stripGradient: "linear-gradient(90deg,#f97316,rgba(249,115,22,.2))", emptyIcon: "fa-bolt", emptyTitle: "Belum ada event berjalan", searchPlaceholder: "Cari event..." },
-            gidGambarLain: { titleHTML: '<span style="color:var(--neon-cyan)">GAMBAR</span> LAIN-LAIN', stripGradient: "linear-gradient(90deg,#00f0ff,rgba(167,139,250,.25))", emptyIcon: "fa-images", emptyTitle: "Belum ada gambar lain-lain", searchPlaceholder: "Cari gambar..." },
+            gidGambarLain: { titleHTML: '<span style="color:#38bdf8">GAMBAR</span> LAIN-LAIN', stripGradient: "linear-gradient(90deg,#0ea5e9,rgba(56,189,248,.25))", emptyIcon: "fa-images", emptyTitle: "Belum ada gambar lain-lain", searchPlaceholder: "Cari gambar..." },
             gidPassword: { titleHTML: '<span class="password-word">GENERATOR</span> PASSWORD', stripGradient: "linear-gradient(90deg,#a855f7,rgba(168,85,247,.2))", emptyIcon: "fa-key", emptyTitle: "Belum ada data password", searchPlaceholder: "Cari password..." }
         };
 
@@ -5332,10 +5503,18 @@
             if (!item) return "";
             var title = item.title == null ? "" : String(item.title).trim();
             var body = item.content == null ? "" : String(item.content).trim();
-            // QRIS & PROFILE: hanya salin isi teks (tanpa judul)
-            if (currentFilter === "gidQris" || currentFilter === "gidProfile") {
+            // Modul ini: hanya salin ISI teks (tanpa judul)
+            // ALL PK, HADIAH TOGEL, BONUS, QRIS, PROFILE, GAMBAR LAIN-LAIN
+            var contentOnlyFilters = {
+                gid0: 1,
+                gid473: 1,
+                gidBonus: 1,
+                gidQris: 1,
+                gidProfile: 1,
+                gidGambarLain: 1
+            };
+            if (contentOnlyFilters[currentFilter]) {
                 if (body) {
-                    // buang baris judul jika content mengulang title di awal
                     if (title) {
                         var lines = body.split(/\r?\n/);
                         if (lines.length && lines[0].trim().toLowerCase() === title.toLowerCase()) {
