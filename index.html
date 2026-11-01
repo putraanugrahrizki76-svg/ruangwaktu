@@ -2166,47 +2166,63 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.1rem;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+        .jadwal-grid-abssidian::-webkit-scrollbar,
+        .jadwal-grid-abssidian *::-webkit-scrollbar {
+            width: 0 !important;
+            height: 0 !important;
+            display: none !important;
+        }
+        .jadwal-grid-abssidian,
+        .jadwal-grid-abssidian * {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
         }
         .j-card-abss {
-            background: linear-gradient(165deg, rgba(12, 18, 36, .97), rgba(8, 10, 20, .99));
-            border: 1px solid rgba(79, 195, 247, .18);
-            border-radius: 14px;
+            background:
+                radial-gradient(ellipse 100% 80% at 100% 0%, rgba(56, 189, 248, .16), transparent 55%),
+                radial-gradient(ellipse 70% 50% at 0% 100%, rgba(37, 99, 235, .1), transparent 50%),
+                linear-gradient(160deg, rgba(12, 28, 48, .98), rgba(8, 14, 28, .99));
+            border: 1px solid rgba(56, 189, 248, .3);
+            border-radius: 16px;
             overflow: hidden;
             transition: all .35s cubic-bezier(.16, 1, .3, 1);
             position: relative;
             cursor: default;
-            box-shadow: 0 8px 28px -12px rgba(0, 0, 0, .55);
+            box-shadow:
+                0 10px 32px -14px rgba(0, 0, 0, .6),
+                inset 0 1px 0 rgba(186, 230, 253, .06);
         }
         .j-card-abss:hover {
-            border-color: rgba(79, 195, 247, .45);
-            box-shadow: 0 0 28px -8px rgba(79, 195, 247, .22), 0 14px 40px -14px rgba(0, 0, 0, .7);
+            border-color: rgba(125, 211, 252, .55);
+            box-shadow:
+                0 0 32px -8px rgba(56, 189, 248, .28),
+                0 16px 44px -14px rgba(0, 0, 0, .75);
             transform: translateY(-4px);
         }
         .j-card-abss::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #4fc3f7, #a78bfa, transparent);
-            opacity: .7;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #0ea5e9, #38bdf8, #7dd3fc, transparent);
+            opacity: .9;
         }
-        .j-card-abss:hover::before {
-            opacity: 1;
-        }
+        .j-card-abss:hover::before { opacity: 1; }
         .j-header-abss {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: .9rem 1rem .7rem;
-            border-bottom: 1px solid rgba(79, 195, 247, .1);
+            border-bottom: 1px solid rgba(56, 189, 248, .14);
         }
         .j-title-abss {
             font-family: var(--font-display);
             font-size: .88rem;
             font-weight: 700;
-            color: #e8f4ff;
+            color: #f0f9ff;
             letter-spacing: .04em;
             text-transform: uppercase;
             display: flex;
@@ -2223,40 +2239,40 @@
             border: 1px solid;
         }
         .j-badge-abss.active {
-            color: #39ff14;
-            background: rgba(57, 255, 20, .1);
-            border-color: rgba(57, 255, 20, .35);
-            box-shadow: 0 0 10px -2px rgba(57, 255, 20, .25);
+            color: #6ee7b7;
+            background: rgba(52, 211, 153, .12);
+            border-color: rgba(52, 211, 153, .4);
+            box-shadow: 0 0 10px -2px rgba(52, 211, 153, .3);
         }
         .j-badge-abss.passed {
-            color: #ff5c8a;
-            background: rgba(255, 60, 100, .08);
-            border-color: rgba(255, 60, 100, .3);
+            color: #f9a8d4;
+            background: rgba(236, 72, 153, .1);
+            border-color: rgba(244, 114, 182, .35);
         }
         .j-body-abss {
-            padding: .85rem 1rem  .7rem;
+            padding: .85rem 1rem .7rem;
         }
+        /* struktur waktu asli (j-times-box) – tidak mengubah HTML/teks */
         .j-times-box {
             display: flex;
-            flex-direction: column;
-            gap: .45rem;
-            margin-bottom: .75rem;
-            background: rgba(0, 240, 255, .03);
-            border: 1px solid rgba(0, 240, 255, .08);
-            border-radius: 9px;
-            padding: .55rem .7rem;
+            gap: .55rem;
+            margin-bottom: .65rem;
+            flex-wrap: wrap;
         }
         .j-time-item {
+            flex: 1;
+            min-width: 110px;
+            background: rgba(0, 0, 0, .28);
+            border: 1px solid rgba(56, 189, 248, .16);
+            border-radius: 10px;
+            padding: .5rem .6rem;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: .5rem;
+            flex-direction: column;
+            gap: .2rem;
         }
         .j-time-label {
-            font-family: var(--font-mono);
-            color: var(--fg-dim);
-            font-size: .58rem;
-            font-weight: 600;
+            font-size: .55rem;
+            color: rgba(125, 211, 252, .75);
             letter-spacing: .06em;
             text-transform: uppercase;
             display: flex;
@@ -2265,46 +2281,47 @@
         }
         .j-time-val {
             font-family: var(--font-mono);
-            color: #4fc3f7;
+            font-size: .88rem;
             font-weight: 700;
-            font-size: .82rem;
-            letter-spacing: .03em;
+            color: #e0f2fe;
         }
         .j-time-val.result-val {
-            color: #6ee7b7;
-            text-shadow: 0 0 12px rgba(110, 231, 183, .25);
+            color: #7dd3fc;
         }
+        /* Teks SUBJUDUL / ISI – tampil penuh seperti sebelumnya (scroll tanpa bilah) */
         .j-content-preview {
             font-size: .66rem;
-            color: var(--fg-muted);
+            color: rgba(224, 242, 254, .88);
             line-height: 1.5;
-            max-height: 11em;
-            overflow: auto;
-            padding: .4rem .5rem;
-            background: rgba(0,0,0,.18);
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,.04);
-            scrollbar-width: thin;
+            max-height: none;
+            overflow: hidden !important;
+            overscroll-behavior: none;
+            padding: .45rem .55rem;
+            background: rgba(0, 0, 0, .22);
+            border-radius: 10px;
+            border: 1px solid rgba(56, 189, 248, .12);
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+            touch-action: pan-x;
+            pointer-events: auto;
         }
         .j-content-preview::-webkit-scrollbar {
-            width: 4px;
-        }
-        .j-content-preview::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,.15);
-            border-radius: 4px;
+            width: 0 !important;
+            height: 0 !important;
+            display: none !important;
         }
         .j-footer-abss {
             display: flex;
             gap: .4rem;
             padding: .7rem .7rem .85rem;
-            border-top: 1px solid rgba(79, 195, 247, .08);
-            background: rgba(0, 0, 0, .28);
+            border-top: 1px solid rgba(56, 189, 248, .12);
+            background: rgba(0, 0, 0, .3);
             flex-wrap: nowrap;
         }
         .j-btn-abss {
             flex: 1;
             min-width: 0;
-            background: rgba(255, 255, 255, .03);
+            background: rgba(255, 255, 255, .04);
             border: 1px solid rgba(255, 255, 255, .1);
             color: var(--fg-muted);
             font-family: var(--font-display);
@@ -4789,6 +4806,223 @@
                 linear-gradient(120deg, rgba(56, 189, 248, .12), rgba(10, 24, 40, .94) 58%) !important;
         }
 
+    
+        /* ===== EVENT LINETOGEL – MERAH MODERN ===== */
+        #contentArea .event-view-container .event-section-card {
+            background:
+                radial-gradient(ellipse 90% 70% at 100% 0%, rgba(239, 68, 68, .18), transparent 50%),
+                linear-gradient(155deg, rgba(40, 14, 16, .98), rgba(18, 8, 10, .99)) !important;
+            border: 1px solid rgba(248, 113, 113, .35) !important;
+            border-radius: 16px !important;
+            box-shadow: 0 12px 28px -20px rgba(239, 68, 68, .4), inset 0 1px 0 rgba(254, 202, 202, .06) !important;
+        }
+        #contentArea .event-view-container .event-section-card:hover {
+            border-color: rgba(252, 165, 165, .5) !important;
+            box-shadow: 0 14px 32px -18px rgba(239, 68, 68, .45) !important;
+        }
+        #contentArea .event-view-container .event-section-card::before {
+            background: linear-gradient(180deg, #ef4444, #b91c1c) !important;
+        }
+        #contentArea .event-view-container .event-section-icon-wrap {
+            background: rgba(239, 68, 68, .15) !important;
+            color: #f87171 !important;
+            border: 1px solid rgba(248, 113, 113, .25) !important;
+        }
+        #contentArea .event-view-container .event-section-title {
+            color: #fef2f2 !important;
+        }
+        #contentArea .event-view-container .event-section-badge {
+            background: rgba(239, 68, 68, .15) !important;
+            border-color: rgba(248, 113, 113, .3) !important;
+            color: #fca5a5 !important;
+        }
+        #contentArea .event-view-container .event-section-badge .mini-dot {
+            background: #ef4444 !important;
+        }
+        #contentArea .event-view-container .event-section-content {
+            color: rgba(254, 242, 242, .9) !important;
+        }
+        #contentArea .event-view-container .event-section-content strong {
+            color: #f87171 !important;
+        }
+        #contentArea .event-view-container .event-section-image {
+            border-color: rgba(239, 68, 68, .25) !important;
+            background: rgba(0, 0, 0, .3) !important;
+        }
+        #contentArea .event-view-container .event-section-actions .btn-action {
+            background: rgba(185, 28, 28, .2) !important;
+            border: 1px solid rgba(248, 113, 113, .4) !important;
+            color: #fecaca !important;
+        }
+        #contentArea .event-view-container .event-section-actions .btn-action:hover {
+            background: rgba(239, 68, 68, .35) !important;
+            border-color: rgba(252, 165, 165, .55) !important;
+            color: #fff !important;
+        }
+        #contentArea .event-view-container .prosedur-section {
+            background:
+                radial-gradient(ellipse 90% 70% at 0% 0%, rgba(153, 27, 27, .15), transparent 50%),
+                linear-gradient(155deg, rgba(36, 14, 16, .98), rgba(16, 8, 10, .99)) !important;
+            border: 1px solid rgba(185, 28, 28, .3) !important;
+            border-radius: 16px !important;
+        }
+        #contentArea .event-view-container .prosedur-icon-wrap {
+            background: rgba(239, 68, 68, .15) !important;
+            color: #f87171 !important;
+        }
+        #contentArea .event-view-container .prosedur-title {
+            color: #fef2f2 !important;
+        }
+        #contentArea .event-view-container .event-hero-banner {
+            border-color: rgba(239, 68, 68, .3) !important;
+            background:
+                radial-gradient(circle at 80% 20%, rgba(239, 68, 68, .18), transparent 40%),
+                linear-gradient(135deg, rgba(40, 14, 16, .95), rgba(18, 8, 10, .98)) !important;
+        }
+        #contentArea .event-view-container .event-integrated-title {
+            color: #f87171 !important;
+        }
+        #contentArea .event-view-container .event-copy-all-btn {
+            background: linear-gradient(135deg, rgba(239, 68, 68, .35), rgba(185, 28, 28, .25)) !important;
+            border: 1px solid rgba(248, 113, 113, .4) !important;
+            color: #fecaca !important;
+        }
+        #contentArea .event-view-container .event-copy-all-btn:hover {
+            background: linear-gradient(135deg, rgba(239, 68, 68, .5), rgba(185, 28, 28, .4)) !important;
+            color: #fff !important;
+        }
+        #contentArea .event-view-container .event-filter-chip.active {
+            background: rgba(239, 68, 68, .25) !important;
+            border-color: rgba(248, 113, 113, .45) !important;
+            color: #fecaca !important;
+        }
+        .sidebar-item[data-filter="gidEvent"] .label { color: #f87171 !important; }
+        .sidebar-item[data-filter="gidEvent"] .icon-wrap {
+            color: #f87171 !important;
+            background: rgba(239, 68, 68, .14) !important;
+        }
+
+
+    
+        /* Sembunyikan scrollbar putih mencolok di area konten */
+        .main-content::-webkit-scrollbar,
+        #contentArea::-webkit-scrollbar,
+        .data-view::-webkit-scrollbar,
+        .dashboard-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .main-content::-webkit-scrollbar-track,
+        #contentArea::-webkit-scrollbar-track,
+        .data-view::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .main-content::-webkit-scrollbar-thumb,
+        #contentArea::-webkit-scrollbar-thumb,
+        .data-view::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .1);
+            border-radius: 6px;
+        }
+        .main-content, #contentArea, .data-view {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,.12) transparent;
+        }
+
+    
+        /* JADWAL PASARAN – no scrollbar + biru modern */
+        #contentArea .jadwal-grid-abssidian,
+        #contentArea .jadwal-grid-abssidian *,
+        #contentArea .j-content-preview {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+        #contentArea .jadwal-grid-abssidian::-webkit-scrollbar,
+        #contentArea .jadwal-grid-abssidian *::-webkit-scrollbar,
+        #contentArea .j-content-preview::-webkit-scrollbar {
+            width: 0 !important;
+            height: 0 !important;
+            display: none !important;
+            background: transparent !important;
+        }
+        .sidebar-item[data-filter="gid5"] .label { color: #38bdf8 !important; }
+        .sidebar-item[data-filter="gid5"] .icon-wrap {
+            color: #38bdf8 !important;
+            background: rgba(14, 165, 233, .14) !important;
+        }
+
+    
+        .jadwal-filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .45rem;
+            margin-bottom: 1rem;
+            padding: .55rem .65rem;
+            border-radius: 999px;
+            background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+            border: 1px solid rgba(255,255,255,.08);
+            width: fit-content;
+            max-width: 100%;
+        }
+        .jadwal-filter-chip {
+            border: 1px solid transparent;
+            background: transparent;
+            color: rgba(226, 232, 240, .75);
+            font-family: var(--font-display);
+            font-size: .62rem;
+            font-weight: 600;
+            letter-spacing: .02em;
+            padding: .42rem .85rem;
+            border-radius: 999px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            transition: all .2s;
+            white-space: nowrap;
+        }
+        .jadwal-filter-chip i { font-size: .62rem; opacity: .85; }
+        .jadwal-filter-chip:hover { background: rgba(255,255,255,.06); color: #fff; }
+        .jadwal-filter-chip.active {
+            background: #fff;
+            color: #4c1d95;
+            box-shadow: 0 4px 14px -6px rgba(0,0,0,.35);
+        }
+        .jadwal-filter-chip.active[data-jfilter="segera"] { color: #c2410c; }
+        .jadwal-filter-chip.active[data-jfilter="menunggu"] { color: #a16207; }
+        .jadwal-filter-chip.active[data-jfilter="lewat"] { color: #15803d; }
+        .jadwal-filter-chip.active[data-jfilter="ada_hasil"] { color: #0369a1; }
+        .j-result-box {
+            margin-top: .55rem;
+            padding: .45rem .55rem;
+            border-radius: 10px;
+            background: rgba(14, 165, 233, .1);
+            border: 1px solid rgba(56, 189, 248, .25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .5rem;
+        }
+        .j-result-box .jr-label {
+            font-size: .55rem;
+            color: rgba(125, 211, 252, .8);
+            letter-spacing: .06em;
+            text-transform: uppercase;
+        }
+        .j-result-box .jr-num {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            font-weight: 700;
+            color: #7dd3fc;
+            letter-spacing: .08em;
+        }
+    
+        /* Kunci teks jadwal: tidak bisa di-scroll */
+        #contentArea .j-content-preview {
+            max-height: none !important;
+            overflow: hidden !important;
+            overscroll-behavior: none !important;
+            scrollbar-width: none !important;
+        }
+        #contentArea .j-content-preview::-webkit-scrollbar { display: none !important; width: 0 !important; }
     </style>
 </head>
 <body>
@@ -4927,7 +5161,8 @@
             gidBonus: BASE + "&gid=" + GID_BONUS,
             gidBetting: BASE + "&gid=" + GID_BETTING,
             gidEvent: BASE + "&gid=" + GID_EVENT,
-            gidGambarLain: BASE + "&gid=" + GID_GAMBAR_LAIN
+            gidGambarLain: BASE + "&gid=" + GID_GAMBAR_LAIN,
+            gidResult: "https://docs.google.com/spreadsheets/d/10sBZbE-o_eNpFj5z5WvSuTJhS93KP4jEZxc4YdqUkgU/gviz/tq?tqx=out:json&gid=1484856061"
         };
 
         var gid0Data = [],
@@ -4938,10 +5173,13 @@
             gidBonusData = [],
             gidBettingData = [],
             gidEventData = [],
-            gidGambarLainData = [];
+            gidGambarLainData = [],
+            gidResultData = [],
+            resultByMarket = {};
         var currentFilter = "gidQris",
             searchQuery = "",
-            qrisTypeFilter = "all";
+            qrisTypeFilter = "all",
+            jadwalStatusFilter = "all";
         var isLoading = false,
             lastError = null;
         var lastRefreshTime = null,
@@ -5284,6 +5522,55 @@
         }
         var copyImage = copyImageToClipboard;
 
+        
+        function fetchResultData() {
+            var urls = [
+                URLS.gidResult,
+                "https://docs.google.com/spreadsheets/d/10sBZbE-o_eNpFj5z5WvSuTJhS93KP4jEZxc4YdqUkgU/export?format=csv&gid=1484856061",
+                BASE + "&gid=1484856061"
+            ];
+            function parseCsv(text) {
+                var lines = String(text || "").replace(/^\uFEFF/, "").split(/\r?\n/).filter(function(l) { return l.trim(); });
+                var items = [];
+                for (var i = 0; i < lines.length; i++) {
+                    // simple CSV split
+                    var cols = lines[i].split(",").map(function(x) { return x.replace(/^"|"$/g, "").trim(); });
+                    if (!cols.length || cols.every(function(c) { return !c; })) continue;
+                    items.push({ title: cols[0] || "", content: cols.slice(1).join(" "), imageUrl: "", raw: cols });
+                }
+                return items;
+            }
+            function tryUrl(idx) {
+                if (idx >= urls.length) return Promise.resolve([]);
+                var url = urls[idx];
+                return fetch(url, { cache: "no-store" }).then(function(res) {
+                    if (!res.ok) throw new Error("HTTP " + res.status);
+                    return res.text();
+                }).then(function(t) {
+                    if (!t || t.indexOf("<!DOCTYPE") === 0 || t.indexOf("<html") !== -1) throw new Error("Sheet privat / login");
+                    // CSV?
+                    if (url.indexOf("export?format=csv") !== -1 || (t.indexOf("google.visualization") === -1 && t.indexOf(",") !== -1)) {
+                        var csvItems = parseCsv(t);
+                        if (csvItems.length) return csvItems;
+                    }
+                    // gviz json
+                    if (t.indexOf("google.visualization") !== -1 || t.indexOf("setResponse") !== -1) {
+                        var table = parseGviz(t);
+                        var rows = table.rows || [];
+                        var items = [];
+                        for (var ri = 0; ri < rows.length; ri++) {
+                            var cells = (rows[ri].c || []).map(function(c) { return c && c.v != null ? String(c.v).trim() : ""; });
+                            if (cells.every(function(v) { return !v; })) continue;
+                            items.push({ title: cells[0] || "", content: cells.slice(1).join(" "), imageUrl: "", raw: cells });
+                        }
+                        if (items.length) return items;
+                    }
+                    throw new Error("Format tidak dikenali");
+                }).catch(function() { return tryUrl(idx + 1); });
+            }
+            return tryUrl(0);
+        }
+
         function fetchSimple(url) { return fetch(url).then(function(res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.text(); }).then(function(t) { var table = parseGviz(t); return (table.rows || []).map(function(r) { return { title: r.c[0] && r.c[0].v != null ? String(r.c[0].v).trim() : "", content: r.c[1] && r.c[1].v != null ? String(r.c[1].v).trim() : "", imageUrl: "", raw: (r.c || []).map(function(c) { return c && c.v != null ? String(c.v).trim() : ""; }) }; }); }); }
 
         function fetchRich(url) { return fetch(url).then(function(res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.text(); }).then(function(t) { var table = parseGviz(t); var rows = table.rows || []; var items = []; for (var ri = 0; ri < rows.length; ri++) { var row = rows[ri],
@@ -5342,7 +5629,7 @@
             return Promise.allSettled([
                 fetchSimple(URLS.gid0), fetchSimple(URLS.gid5), fetchSimple(URLS.gid473),
                 fetchRich(URLS.gidQris), fetchRich(URLS.gidProfile), fetchSimple(URLS.gidBonus),
-                fetchRich(URLS.gidBetting), fetchRich(URLS.gidEvent), fetchGallery(URLS.gidGambarLain)
+                fetchRich(URLS.gidBetting), fetchRich(URLS.gidEvent), fetchGallery(URLS.gidGambarLain), fetchResultData()
             ]).then(function(results) {
                 var upd = false;
                 if (results[0].status === "fulfilled") { if (hasDataChanged(gid0Data, results[0].value)) upd = true;
@@ -5363,6 +5650,11 @@
                     gidEventData = results[7].value; }
                 if (results[8].status === "fulfilled") { if (hasDataChanged(gidGambarLainData, results[8].value)) upd = true;
                     gidGambarLainData = results[8].value; }
+                if (results[9] && results[9].status === "fulfilled") {
+                    if (hasDataChanged(gidResultData, results[9].value)) upd = true;
+                    gidResultData = results[9].value || [];
+                    rebuildResultMap();
+                }
                 if (isAutoRefresh && upd) { renderContent();
                     showToast("Data diperbarui otomatis"); }
                 updateNextPasaranInfo();
@@ -5413,13 +5705,13 @@
         function getConfigKey() { if (currentFilter === "gidProfile") return "gidProfile"; if (currentFilter === "gidQris") return "qrisCombined"; if (currentFilter === "gidBonus") return "gidBonus"; if (currentFilter === "gidBetting") return "gidBetting"; if (currentFilter === "gidEvent") return "gidEvent"; if (currentFilter === "gidPassword") return "gidPassword"; return currentFilter; }
         var PAGE_CONFIGS = {
             gid0: { titleHTML: '<span style="color:#6ee7b7">ALL</span> PK', stripGradient: "linear-gradient(90deg,#34d399,rgba(52,211,153,.25))", emptyIcon: "fa-layer-group", emptyTitle: "Tidak ada data PK", searchPlaceholder: "Cari data PK..." },
-            gid5: { titleHTML: 'Jadwal <span class="accent-word">PASARAN</span>', stripGradient: "linear-gradient(90deg,#00f0ff,rgba(0,240,255,.2))", emptyIcon: "fa-database", emptyTitle: "Tidak ada jadwal pasaran", searchPlaceholder: "Cari pasaran..." },
+            gid5: { titleHTML: 'Jadwal <span class="accent-word">PASARAN</span>', stripGradient: "linear-gradient(90deg,#0ea5e9,rgba(56,189,248,.25))", emptyIcon: "fa-database", emptyTitle: "Tidak ada jadwal pasaran", searchPlaceholder: "Cari pasaran..." },
             gid473: { titleHTML: 'Hadiah <span class="accent-word">TOGEL</span>', stripGradient: "linear-gradient(90deg,#a78bfa,rgba(167,139,250,.2))", emptyIcon: "fa-trophy", emptyTitle: "Tidak ada hadiah", searchPlaceholder: "Cari hadiah..." },
             qrisCombined: { titleHTML: '<span style="color:#f472b6">QRIS Payment</span>', stripGradient: "linear-gradient(90deg,#ec4899,rgba(236,72,153,.25))", emptyIcon: "fa-qrcode", emptyTitle: "Tidak ada data QRIS", searchPlaceholder: "Cari QRIS..." },
             gidProfile: { titleHTML: '<span style=\"color:#fb923c\">PROFILE</span> Bank & E-Wallet', stripGradient: "linear-gradient(90deg,#f97316,rgba(249,115,22,.25))", emptyIcon: "fa-building-columns", emptyTitle: "Belum ada data profile", searchPlaceholder: "Cari profile..." },
             gidBonus: { titleHTML: '<span style="color:#60a5fa">BONUS</span> LINETOGEL', stripGradient: "linear-gradient(90deg,#3b82f6,rgba(59,130,246,.25))", emptyIcon: "fa-gift", emptyTitle: "Belum ada data bonus", searchPlaceholder: "Cari bonus..." },
             gidBetting: { titleHTML: '<span style="color:#facc15">CARA BETTING</span> TOGEL', stripGradient: "linear-gradient(90deg,#eab308,rgba(234,179,8,.25))", emptyIcon: "fa-book-open", emptyTitle: "Belum ada panduan betting", searchPlaceholder: "Cari cara betting..." },
-            gidEvent: { titleHTML: '<span class="event-word">EVENT</span> LINETOGEL', stripGradient: "linear-gradient(90deg,#f97316,rgba(249,115,22,.2))", emptyIcon: "fa-bolt", emptyTitle: "Belum ada event berjalan", searchPlaceholder: "Cari event..." },
+            gidEvent: { titleHTML: '<span style="color:#f87171">EVENT</span> LINETOGEL', stripGradient: "linear-gradient(90deg,#ef4444,rgba(239,68,68,.25))", emptyIcon: "fa-bolt", emptyTitle: "Belum ada event berjalan", searchPlaceholder: "Cari event..." },
             gidGambarLain: { titleHTML: '<span style="color:#38bdf8">GAMBAR</span> LAIN-LAIN', stripGradient: "linear-gradient(90deg,#0ea5e9,rgba(56,189,248,.25))", emptyIcon: "fa-images", emptyTitle: "Belum ada gambar lain-lain", searchPlaceholder: "Cari gambar..." },
             gidPassword: { titleHTML: '<span class="password-word">GENERATOR</span> PASSWORD', stripGradient: "linear-gradient(90deg,#a855f7,rgba(168,85,247,.2))", emptyIcon: "fa-key", emptyTitle: "Belum ada data password", searchPlaceholder: "Cari password..." }
         };
@@ -5430,7 +5722,7 @@
                     clockInterval = setInterval(updateClock, 1000); } np.classList.add("visible"); } else { jadwalClockEl.classList.remove("visible"); if (clockInterval) { clearInterval(clockInterval);
                     clockInterval = null; } np.classList.remove("visible"); } if (currentFilter === "gidPassword") { stickyTop.classList.add("hidden-sticky"); } else { stickyTop.classList.remove("hidden-sticky"); } }
 
-        function updateClock() { var n = new Date(); if (clockTimeEl) clockTimeEl.textContent = String(n.getHours()).padStart(2, "0") + ":" + String(n.getMinutes()).padStart(2, "0") + ":" + String(n.getSeconds()).padStart(2, "0"); }
+        function updateClock() { var n = (typeof getWibNow === "function") ? getWibNow() : new Date(); if (clockTimeEl) clockTimeEl.textContent = String(n.getHours()).padStart(2, "0") + ":" + String(n.getMinutes()).padStart(2, "0") + ":" + String(n.getSeconds()).padStart(2, "0") + " WIB"; }
 
         function showDashboard() { setTimeout(decorateModuleCards, 30); dashboardView.classList.remove("hidden");
             dataView.classList.remove("active");
@@ -5448,6 +5740,7 @@
             searchClear.classList.remove("visible");
             qrisTypeFilter = "all";
             if (filter === "gidEvent") eventCategoryFilter = "all";
+            if (filter === "gid5") jadwalStatusFilter = "all";
             document.querySelectorAll(".filter-chip").forEach(function(c) { c.classList.toggle("active", c.dataset.type === "all") });
             document.querySelectorAll(".sidebar-item").forEach(function(i) { i.classList.remove("active") });
             var target = document.querySelector('.sidebar-item[data-filter="' + filter + '"]');
@@ -5511,7 +5804,8 @@
                 gidBonus: 1,
                 gidQris: 1,
                 gidProfile: 1,
-                gidGambarLain: 1
+                gidGambarLain: 1,
+                gidEvent: 1
             };
             if (contentOnlyFilters[currentFilter]) {
                 if (body) {
@@ -5630,16 +5924,126 @@
             return m ? m[0].replace(/[.,;:!?)]+$/, "") : "";
         }
 
+
+        function getWibNow() {
+            var now = new Date();
+            var utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            return new Date(utc + (7 * 60 * 60000));
+        }
+        function getWibMinutesNow() {
+            var w = getWibNow();
+            return w.getHours() * 60 + w.getMinutes();
+        }
+        function parseHHMMtoMinutes(t) {
+            if (!t || t === "--:--") return null;
+            var m = String(t).trim().match(/^([01]?\d|2[0-3]):([0-5]\d)$/);
+            if (!m) return null;
+            return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
+        }
+        function normalizeMarketKey(name) {
+            return String(name || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+        }
+        function rebuildResultMap() {
+            resultByMarket = {};
+            for (var i = 0; i < gidResultData.length; i++) {
+                var it = gidResultData[i];
+                var rawCells = (it.raw && it.raw.length) ? it.raw : [it.title || "", it.content || ""];
+                // Cari pasangan nama pasaran + nomor result di sel
+                var name = (it.title || "").trim();
+                var num = "";
+                for (var c = 0; c < rawCells.length; c++) {
+                    var cell = String(rawCells[c] || "").trim();
+                    if (!cell) continue;
+                    // nomor result murni
+                    if (!num && /^\d{2,6}$/.test(cell)) { num = cell; continue; }
+                    var foundNum = cell.match(/\b(\d{3,5})\b/);
+                    if (!num && foundNum && !/https?:/i.test(cell)) num = foundNum[1];
+                    // nama pasaran (bukan hanya angka)
+                    if ((!name || /^\d+$/.test(name)) && /[a-zA-Z]/.test(cell) && cell.length < 80) {
+                        name = cell.replace(/\s+/g, " ").trim();
+                    }
+                }
+                if (!name) continue;
+                var key = normalizeMarketKey(name);
+                if (!key) continue;
+                // jika content punya pola "PASARAN|1234" atau "PASARAN : 1234"
+                var blob = rawCells.join(" | ");
+                var pair = blob.match(/([A-Za-z][A-Za-z0-9 \-]{1,40}?)\s*[:|\-]\s*(\d{2,6})/);
+                if (pair) {
+                    key = normalizeMarketKey(pair[1]);
+                    num = pair[2];
+                    name = pair[1].trim();
+                }
+                if (!num) continue;
+                resultByMarket[key] = { number: num, title: name, raw: it };
+                var first = key.split(" ")[0];
+                if (first) resultByMarket[first] = resultByMarket[key];
+                // index tanpa spasi
+                resultByMarket[key.replace(/\s+/g, "")] = resultByMarket[key];
+            }
+        }
+        function findResultForMarket(title) {
+            var key = normalizeMarketKey(title);
+            if (resultByMarket[key]) return resultByMarket[key];
+            for (var k in resultByMarket) {
+                if (!resultByMarket.hasOwnProperty(k)) continue;
+                if (key.indexOf(k) !== -1 || k.indexOf(key) !== -1) return resultByMarket[k];
+            }
+            return null;
+        }
+        function getJadwalBucket(item) {
+            var p = parseJadwalItem(item);
+            var closeM = parseHHMMtoMinutes(p.cutoffTime);
+            var resultM = parseHHMMtoMinutes(p.resultTime);
+            var nowM = getWibMinutesNow();
+            var res = findResultForMarket(item.title || "");
+            var hasResult = !!(res && res.number);
+            var bucket = "menunggu";
+            if (closeM == null && resultM == null) {
+                bucket = hasResult ? "ada_hasil" : "menunggu";
+            } else {
+                var close = closeM != null ? closeM : (resultM != null ? resultM : 0);
+                var diffClose = close - nowM;
+                if (diffClose < 0) diffClose += 24 * 60;
+                if (hasResult) bucket = "ada_hasil";
+                else if (closeM != null && nowM < closeM && diffClose <= 60) bucket = "segera";
+                else if (closeM != null && nowM < closeM) bucket = "menunggu";
+                else if (resultM != null && nowM < resultM) bucket = "menunggu";
+                else bucket = "lewat";
+            }
+            return { bucket: bucket, hasResult: hasResult, resultNumber: hasResult ? res.number : "", parse: p };
+        }
+
         function renderJadwalGrid(items) {
             var q = searchQuery.trim();
             jadwalCopyStore = {}; // reset setiap render
-            var html = '<div class="jadwal-grid-abssidian">';
+            var enriched = [];
+            for (var fi = 0; fi < items.length; fi++) {
+                var meta = getJadwalBucket(items[fi]);
+                if (jadwalStatusFilter !== "all" && meta.bucket !== jadwalStatusFilter) continue;
+                enriched.push({ it: items[fi], meta: meta });
+            }
+            var html = '';
+            html += '<div class="jadwal-filter-bar">';
+            html += '<button type="button" class="jadwal-filter-chip' + (jadwalStatusFilter === "all" ? " active" : "") + '" data-jfilter="all"><i class="fa-solid fa-sparkles"></i> Semua</button>';
+            html += '<button type="button" class="jadwal-filter-chip' + (jadwalStatusFilter === "segera" ? " active" : "") + '" data-jfilter="segera"><i class="fa-solid fa-bolt"></i> Segera</button>';
+            html += '<button type="button" class="jadwal-filter-chip' + (jadwalStatusFilter === "menunggu" ? " active" : "") + '" data-jfilter="menunggu"><i class="fa-solid fa-trophy"></i> Menunggu</button>';
+            html += '<button type="button" class="jadwal-filter-chip' + (jadwalStatusFilter === "lewat" ? " active" : "") + '" data-jfilter="lewat"><i class="fa-solid fa-check"></i> Lewat</button>';
+            html += '<button type="button" class="jadwal-filter-chip' + (jadwalStatusFilter === "ada_hasil" ? " active" : "") + '" data-jfilter="ada_hasil"><i class="fa-solid fa-hashtag"></i> Ada Hasil</button>';
+            var resultCount = 0;
+            try { for (var rk in resultByMarket) if (resultByMarket.hasOwnProperty(rk) && resultByMarket[rk].number) resultCount++; } catch (e) {}
+            // unique-ish
+            resultCount = gidResultData ? gidResultData.length : 0;
+            html += '<span style="margin-left:.4rem;font-size:.58rem;color:rgba(148,163,184,.85);align-self:center">Result sheet: ' + resultCount + ' baris</span>';
+            html += '</div>';
+            html += '<div class="jadwal-grid-abssidian">';
 
-            for (var i = 0; i < items.length; i++) {
-                var it = items[i],
-                    p = parseJadwalItem(it),
-                    sc = p.status,
-                    sl = p.status === "active" ? "LIVE" : "PASSED";
+            for (var i = 0; i < enriched.length; i++) {
+                var it = enriched[i].it,
+                    meta = enriched[i].meta,
+                    p = meta.parse,
+                    sc = (meta.bucket === "lewat" || meta.bucket === "ada_hasil") ? "passed" : "active",
+                    sl = meta.bucket === "segera" ? "SEGERA" : (meta.bucket === "menunggu" ? "MENUNGGU" : (meta.bucket === "ada_hasil" ? "HASIL" : (meta.bucket === "lewat" ? "LEWAT" : "LIVE")));
 
                 var title = (it.title || "").trim();
                 var fullContent = (it.content || "").trim();
@@ -5688,12 +6092,13 @@
                 html += '<div class="j-time-item"><span class="j-time-label"><i class="fa-solid fa-lock"></i> Jam Tutup</span><span class="j-time-val">' + bukaDisplay + (bukaDisplay !== "--:--" ? " WIB" : "") + '</span></div>';
                 html += '<div class="j-time-item"><span class="j-time-label"><i class="fa-solid fa-trophy"></i> Jam Result</span><span class="j-time-val result-val">' + resultDisplay + (resultDisplay !== "--:--" ? " WIB" : "") + '</span></div>';
                 html += '</div>';
+                if (meta.hasResult && meta.resultNumber) {
+                    html += '<div class="j-result-box"><div class="jr-label"><i class="fa-solid fa-hashtag"></i> Result</div><div class="jr-num">' + escapeHtml(meta.resultNumber) + '</div></div>';
+                }
 
                 // Preview agar user lihat teks yang akan disalin
                 html += '<div class="j-content-preview">';
-                html += '<div style="margin-bottom:4px;color:#c084fc;font-size:.62rem;font-weight:600;letter-spacing:.05em;">SUBJUDUL</div>';
                 html += escapeHtml(subText).replace(/\\n/g, "<br>").replace(/\n/g, "<br>") + "<br><br>";
-                html += '<div style="margin-bottom:4px;color:#fb923c;font-size:.62rem;font-weight:600;letter-spacing:.05em;">ISI</div>';
                 html += escapeHtml(isiText).replace(/\\n/g, "<br>").replace(/\n/g, "<br>");
                 html += '</div>';
 
@@ -5752,6 +6157,12 @@
                     } else {
                         showToast("Link tidak tersedia", "error");
                     }
+                });
+            });
+            document.querySelectorAll(".jadwal-filter-chip").forEach(function(chip) {
+                chip.addEventListener("click", function() {
+                    jadwalStatusFilter = chip.getAttribute("data-jfilter") || "all";
+                    renderContent();
                 });
             });
         }
@@ -5847,18 +6258,34 @@
                 var ev = filteredEventItems[ei].item,
                     evIdx = filteredEventItems[ei].idx;
                 var icon = "fa-bolt";
-                html += '<div class="event-section-card" data-index="' + evIdx + '"><div class="event-section-header"><div class="event-section-icon-wrap"><i class="fa-solid ' + icon + '"></i></div><div class="event-section-title-wrap"><div class="event-section-title">' + highlightMatch(ev.title, q) + '</div><div class="event-section-badge"><span class="mini-dot"></span> AKTIF</div></div></div><div class="event-section-body">' + (ev.content && ev.content.trim() ? '<div class="event-section-content">' + highlightMatch(ev.content, q) + '</div>' : '') + (ev.imageUrl && ev.imageUrl.trim() ? '<div class="event-section-image"><img src="' + escapeHtml(ev.imageUrl) + '" loading="lazy" alt="' + escapeHtml(ev.title) + '" onerror="this.parentElement.style.display=\'none\'"></div>' : '') + '<div class="event-section-actions">' + (ev.content && ev.content.trim() ? '<button class="btn-action copy-text-btn" data-index="' + evIdx + '"><i class="fa-regular fa-copy"></i> Salin teks</button>' : '') + (ev.imageUrl ? '<button class="btn-action copy-img-btn" data-index="' + evIdx + '"><i class="fa-regular fa-image"></i> Salin gambar</button>' : '') + '</div></div></div>';
+                html += '<div class="event-section-card" data-index="' + evIdx + '"><div class="event-section-header"><div class="event-section-icon-wrap"><i class="fa-solid ' + icon + '"></i></div><div class="event-section-title-wrap"><div class="event-section-title">' + highlightMatch(ev.title, q) + '</div><div class="event-section-badge"><span class="mini-dot"></span> AKTIF</div></div></div><div class="event-section-body">' + (ev.content && ev.content.trim() ? '<div class="event-section-content">' + highlightMatch(ev.content, q) + '</div>' : '') + (ev.imageUrl && ev.imageUrl.trim() ? '<div class="event-section-image"><img src="' + escapeHtml(ev.imageUrl) + '" loading="lazy" alt="' + escapeHtml(ev.title) + '" onerror="this.parentElement.style.display=\'none\'"></div>' : '') + '<div class="event-section-actions">' + (ev.content && ev.content.trim() ? '<button class="btn-action copy-text-btn" data-index="' + evIdx + '"><i class="fa-regular fa-copy"></i> Salin teks</button>' : '') + (ev.imageUrl ? '<button class="btn-action copy-img-btn" data-index="' + evIdx + '"><i class="fa-regular fa-image"></i> Copy gambar</button>' : '') + '</div></div></div>';
             }
             for (var pi = 0; pi < prosedurItems.length; pi++) {
                 var pr = prosedurItems[pi].item,
                     prIdx = prosedurItems[pi].idx;
-                html += '<div class="prosedur-section" data-index="' + prIdx + '"><div class="prosedur-header"><div class="prosedur-icon-wrap"><i class="fa-solid fa-clipboard-check"></i></div><div class="prosedur-title">' + highlightMatch(pr.title, q) + '</div></div><div class="prosedur-body"><div class="event-section-content">' + highlightMatch(pr.content, q) + '</div>' + (pr.imageUrl && pr.imageUrl.trim() ? '<div class="event-section-image" style="border-color:rgba(167,139,250,.12)"><img src="' + escapeHtml(pr.imageUrl) + '" loading="lazy" alt="' + escapeHtml(pr.title) + '" onerror="this.parentElement.style.display=\'none\'"></div>' : '') + '<div class="event-section-actions">' + (pr.content && pr.content.trim() ? '<button class="btn-action copy-text-btn" data-index="' + prIdx + '"><i class="fa-regular fa-copy"></i> Salin teks</button>' : '') + (pr.imageUrl ? '<button class="btn-action copy-img-btn" data-index="' + prIdx + '"><i class="fa-regular fa-image"></i> Salin gambar</button>' : '') + '</div></div></div>';
+                html += '<div class="prosedur-section" data-index="' + prIdx + '"><div class="prosedur-header"><div class="prosedur-icon-wrap"><i class="fa-solid fa-clipboard-check"></i></div><div class="prosedur-title">' + highlightMatch(pr.title, q) + '</div></div><div class="prosedur-body"><div class="event-section-content">' + highlightMatch(pr.content, q) + '</div>' + (pr.imageUrl && pr.imageUrl.trim() ? '<div class="event-section-image" style="border-color:rgba(167,139,250,.12)"><img src="' + escapeHtml(pr.imageUrl) + '" loading="lazy" alt="' + escapeHtml(pr.title) + '" onerror="this.parentElement.style.display=\'none\'"></div>' : '') + '<div class="event-section-actions">' + (pr.content && pr.content.trim() ? '<button class="btn-action copy-text-btn" data-index="' + prIdx + '"><i class="fa-regular fa-copy"></i> Salin teks</button>' : '') + (pr.imageUrl ? '<button class="btn-action copy-img-btn" data-index="' + prIdx + '"><i class="fa-regular fa-image"></i> Copy gambar</button>' : '') + '</div></div></div>';
             }
             if (filteredEventItems.length === 0 && prosedurItems.length === 0) html += '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-bolt"></i></div><div class="empty-title">Tidak ada event sesuai filter</div></div>';
             html += '</div>';
             contentArea.innerHTML = html;
             var copyAllBtn = $("eventCopyAllBtn");
-            if (copyAllBtn) copyAllBtn.addEventListener("click", function() { var allText = []; for (var ai = 0; ai < raw.length; ai++) { if (raw[ai].content && raw[ai].content.trim()) allText.push(raw[ai].content.trim()); } copyText(allText.join("\n\n"), "Semua Event"); });
+            if (copyAllBtn) copyAllBtn.addEventListener("click", function() {
+                var allText = [];
+                // Salin isi semua event yang tampil (filter aktif), TANPA judul
+                for (var ai = 0; ai < filteredEventItems.length; ai++) {
+                    var body = (filteredEventItems[ai].item.content || "").trim();
+                    if (body) allText.push(body);
+                }
+                for (var pi = 0; pi < prosedurItems.length; pi++) {
+                    var pbody = (prosedurItems[pi].item.content || "").trim();
+                    if (pbody) allText.push(pbody);
+                }
+                if (!allText.length) {
+                    showToast("Tidak ada isi event untuk disalin", "error");
+                    return;
+                }
+                copyText(allText.join("\n\n--------------------\n\n"), "Semua Event");
+            });
             document.querySelectorAll(".event-filter-chip").forEach(function(btn) { btn.addEventListener("click", function(e) { eventCategoryFilter = btn.dataset.cat;
                     renderEventViewWithFilters(); }); if ((eventCategoryFilter === "all" && btn.dataset.cat === "all") || (eventCategoryFilter === btn.dataset.cat)) btn.classList.add("active");
                 else btn.classList.remove("active"); });
