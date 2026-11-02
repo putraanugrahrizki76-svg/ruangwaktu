@@ -5630,6 +5630,225 @@
             color: #fff;
         }
 
+    
+        /* ===== BONUS LINETOGEL – cyber matrix ===== */
+        .bonus-view {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1rem 0.75rem 2rem;
+            border-radius: 18px;
+            background-color: #020617;
+            background-image:
+                linear-gradient(rgba(34, 211, 238, 0.14) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 211, 238, 0.14) 1px, transparent 1px),
+                radial-gradient(ellipse 80% 50% at 50% 0%, rgba(6, 182, 212, 0.18), transparent 55%),
+                linear-gradient(180deg, #020617 0%, #030712 100%);
+            background-size: 26px 26px, 26px 26px, auto, auto;
+            border: 1px solid rgba(34, 211, 238, 0.22);
+            box-shadow: 0 20px 50px -28px rgba(0,0,0,.8), inset 0 1px 0 rgba(34, 211, 238, 0.08);
+            overflow: hidden;
+        }
+        .bonus-view::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: .12;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 14px,
+                rgba(34, 211, 238, 0.08) 14px,
+                rgba(34, 211, 238, 0.08) 15px
+            );
+            z-index: 0;
+        }
+        .bonus-view > * { position: relative; z-index: 1; }
+
+        .bonus-hero {
+            text-align: center;
+            padding: 1.2rem 1rem 1rem;
+        }
+        .bonus-hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.35rem, 3.5vw, 1.9rem);
+            font-weight: 800;
+            letter-spacing: .1em;
+            color: #67e8f9;
+            text-shadow: 0 0 18px rgba(34, 211, 238, .7), 0 0 40px rgba(6, 182, 212, .35);
+            margin: 0 0 .35rem;
+            display: inline-flex;
+            align-items: center;
+            gap: .55rem;
+        }
+        .bonus-hero-title i { font-size: .9em; opacity: .9; }
+        .bonus-hero-sub {
+            color: rgba(165, 243, 252, .65);
+            font-size: .62rem;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .bonus-search-wrap {
+            max-width: 440px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .55rem .9rem;
+            border-radius: 10px;
+            background: rgba(2, 6, 23, .85);
+            border: 1px solid rgba(34, 211, 238, .35);
+            box-shadow: 0 0 22px -10px rgba(34, 211, 238, .4);
+        }
+        .bonus-search-wrap input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #e0f2fe;
+            font-size: .72rem;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+        }
+        .bonus-search-wrap input::placeholder { color: rgba(103, 232, 249, .4); letter-spacing: .08em; }
+        .bonus-search-wrap i { color: #22d3ee; }
+
+        .bonus-layout {
+            display: grid;
+            grid-template-columns: 210px 1fr;
+            gap: 1rem;
+            margin-top: 1.15rem;
+            padding: 0 .5rem;
+        }
+        @media (max-width: 800px) {
+            .bonus-layout { grid-template-columns: 1fr; }
+        }
+
+        .bonus-matrix {
+            background: rgba(2, 8, 20, .9);
+            border: 1px solid rgba(34, 211, 238, .28);
+            border-radius: 14px;
+            padding: .85rem .7rem;
+            box-shadow: inset 0 0 30px rgba(6, 182, 212, .05);
+            height: fit-content;
+            max-height: min(78vh, 720px);
+            overflow-y: auto;
+            position: sticky;
+            top: .5rem;
+            scrollbar-width: thin;
+        }
+        .bonus-matrix-title {
+            color: #67e8f9;
+            font-size: .62rem;
+            font-weight: 800;
+            letter-spacing: .14em;
+            margin-bottom: .7rem;
+            padding: 0 .25rem;
+        }
+        .bonus-matrix-btn {
+            width: 100%;
+            text-align: left;
+            border: 1px solid transparent;
+            background: transparent;
+            color: rgba(186, 230, 253, .8);
+            font-size: .62rem;
+            font-weight: 650;
+            letter-spacing: .04em;
+            padding: .48rem .6rem;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: .45rem;
+            margin-bottom: .28rem;
+            transition: .18s;
+        }
+        .bonus-matrix-btn i { width: 14px; text-align: center; opacity: .85; font-size: .7rem; }
+        .bonus-matrix-btn:hover {
+            background: rgba(34, 211, 238, .08);
+            color: #fff;
+        }
+        .bonus-matrix-btn.active {
+            background: rgba(6, 182, 212, .14);
+            border-color: rgba(34, 211, 238, .55);
+            color: #a5f3fc;
+            box-shadow: 0 0 16px -8px rgba(34, 211, 238, .55);
+        }
+
+        .bonus-cards { display: flex; flex-direction: column; gap: .85rem; min-width: 0; }
+        .bonus-card {
+            background: rgba(3, 10, 24, .92);
+            border: 1px solid rgba(34, 211, 238, .28);
+            border-radius: 14px;
+            padding: 1rem 1.05rem .95rem;
+            box-shadow: 0 12px 30px -20px rgba(0,0,0,.7), 0 0 0 1px rgba(34, 211, 238, .05);
+        }
+        .bonus-card-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: .7rem;
+            margin-bottom: .65rem;
+        }
+        .bonus-card-title {
+            margin: 0;
+            font-family: var(--font-display);
+            font-size: .88rem;
+            font-weight: 800;
+            letter-spacing: .04em;
+            color: #e2e8f0;
+            line-height: 1.35;
+        }
+        .bonus-card-actions {
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            flex-shrink: 0;
+        }
+        .bonus-tag {
+            font-size: .55rem;
+            font-weight: 800;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            padding: .28rem .55rem;
+            border-radius: 8px;
+            color: #fff;
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+        }
+        .bonus-tag.cashback { background: linear-gradient(135deg, #22d3ee, #0284c7); }
+        .bonus-tag.turnover { background: linear-gradient(135deg, #e879f9, #c026d3); }
+        .bonus-tag.referral { background: linear-gradient(135deg, #34d399, #059669); }
+        .bonus-tag.slot { background: linear-gradient(135deg, #60a5fa, #2563eb); }
+        .bonus-tag.live { background: linear-gradient(135deg, #f472b6, #db2777); }
+        .bonus-tag.other { background: linear-gradient(135deg, #94a3b8, #475569); }
+        .bonus-copy-btn {
+            width: 34px; height: 34px;
+            border-radius: 10px;
+            border: 1px solid rgba(34, 211, 238, .35);
+            background: rgba(6, 182, 212, .1);
+            color: #67e8f9;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .bonus-copy-btn:hover { background: rgba(6, 182, 212, .28); color: #fff; }
+        .bonus-card-body {
+            font-size: .72rem;
+            color: rgba(226, 232, 240, .88);
+            line-height: 1.7;
+            white-space: pre-wrap;
+            letter-spacing: .01em;
+        }
+        .bonus-card-body .syarat-label {
+            color: #22d3ee;
+            font-weight: 700;
+            display: block;
+            margin-bottom: .35rem;
+        }
+
     </style>
 </head>
 <body>
@@ -5804,6 +6023,7 @@
         var firedAlarms = {};
         var eventCategoryFilter = "all";
         var hadiahCatFilter = "all";
+        var bonusCatFilter = "all";
 
         // ===== GENERATOR PASSWORD STATE =====
         var pwdLength = 16;
@@ -6359,7 +6579,7 @@
 
         function updatePageHeader() { var cfg = getCfg(); pageTitleEl.innerHTML = cfg.titleHTML; searchInput.placeholder = cfg.searchPlaceholder; $("qrisTypeFilterWrapper").style.display = currentFilter === "gidQris" ? "flex" : "none"; var np = $("nextPasaranBadge"); if (currentFilter === "gid5") { jadwalClockEl.classList.add("visible"); if (!clockInterval) { updateClock();
                     clockInterval = setInterval(updateClock, 1000); } np.classList.add("visible"); } else { jadwalClockEl.classList.remove("visible"); if (clockInterval) { clearInterval(clockInterval);
-                    clockInterval = null; } np.classList.remove("visible"); } if (currentFilter === "gidPassword" || currentFilter === "gid473" || (currentFilter === "gid5" && jadwalStatusFilter === "ada_hasil")) { stickyTop.classList.add("hidden-sticky"); } else { stickyTop.classList.remove("hidden-sticky"); } }
+                    clockInterval = null; } np.classList.remove("visible"); } if (currentFilter === "gidPassword" || currentFilter === "gid473" || currentFilter === "gidBonus" || (currentFilter === "gid5" && jadwalStatusFilter === "ada_hasil")) { stickyTop.classList.add("hidden-sticky"); } else { stickyTop.classList.remove("hidden-sticky"); } }
 
         function updateClock() { var n = (typeof getWibNow === "function") ? getWibNow() : new Date(); if (clockTimeEl) clockTimeEl.textContent = String(n.getHours()).padStart(2, "0") + ":" + String(n.getMinutes()).padStart(2, "0") + ":" + String(n.getSeconds()).padStart(2, "0") + " WIB"; }
 
@@ -6380,6 +6600,7 @@
             qrisTypeFilter = "all";
             if (filter === "gidEvent") eventCategoryFilter = "all";
             if (filter === "gid473") { hadiahCatFilter = "all"; searchQuery = ""; }
+            if (filter === "gidBonus") { bonusCatFilter = "all"; searchQuery = ""; }
             if (filter === "gid5") { jadwalStatusFilter = "all"; hasilSearchQuery = ""; hasilTypeFilter = "biasa"; hasilSortOrder = "newest"; }
             document.querySelectorAll(".filter-chip").forEach(function(c) { c.classList.toggle("active", c.dataset.type === "all") });
             document.querySelectorAll(".sidebar-item").forEach(function(i) { i.classList.remove("active") });
@@ -7706,6 +7927,275 @@
         }
 
 
+
+
+        var BONUS_EXTRA_DATA = [
+            {
+                title: "BONUS SENIN SELESAI BAGI",
+                content: "BONUS SENIN SELESAI BAGI\n\nStatus: Bonus Senin telah selesai dibagikan.\nSilakan cek riwayat bonus / inbox member untuk konfirmasi penerimaan."
+            },
+            {
+                title: "BONUS SELASA SELESAI BAGI",
+                content: "BONUS SELASA SELESAI BAGI\n\nStatus: Bonus Selasa telah selesai dibagikan.\nSilakan cek riwayat bonus / inbox member untuk konfirmasi penerimaan."
+            },
+            {
+                title: "BONUS KAMIS SELESAI BAGI",
+                content: "BONUS KAMIS SELESAI BAGI\n\nStatus: Bonus Kamis telah selesai dibagikan.\nSilakan cek riwayat bonus / inbox member untuk konfirmasi penerimaan."
+            }
+        ];
+
+        function mergeBonusItems(items) {
+            var list = (items || []).slice();
+            var have = {};
+            for (var i = 0; i < list.length; i++) {
+                var k = String(list[i].title || "").toUpperCase().replace(/\s+/g, " ").trim();
+                have[k] = true;
+            }
+            for (var e = 0; e < BONUS_EXTRA_DATA.length; e++) {
+                var ex = BONUS_EXTRA_DATA[e];
+                var ek = String(ex.title || "").toUpperCase().replace(/\s+/g, " ").trim();
+                if (!have[ek]) {
+                    list.push({
+                        title: ex.title,
+                        content: ex.content,
+                        imageUrl: "",
+                        raw: [ex.title, ex.content]
+                    });
+                    have[ek] = true;
+                }
+            }
+            return list;
+        }
+
+        function detectBonusCategory(title, content) {
+            var raw
+            function normTitle(s) {
+                return String(s || "").toUpperCase().replace(/\s+/g, " ").trim();
+            }
+            var raw = String(title || "").replace(/\s+/g, " ").trim();
+            if (!raw) {
+                var first = String(content || "").split(String.fromCharCode(10))[0] || "";
+                raw = first.replace(/\s+/g, " ").trim();
+            }
+            var t = normTitle(raw);
+
+            // STATUS MATRIX dulu (agar SYARAT BONUS SENIN/SELASA/KAMIS tidak masuk STATUS BONUS)
+            var statusMatrixExact = [
+                "SYARAT ALL BONUS",
+                "SYARAT BONUS SENIN",
+                "SYARAT BONUS SELASA",
+                "SYARAT BONUS KAMIS",
+                "BONUS OTOMATIS 1",
+                "BONUS OTOMATIS 2",
+                "BONUS OTOMATIS 3",
+                "GAK DAPAT BONUS 1",
+                "GAK DAPAT BONUS 2",
+                "GAK DAPAT BONUS 3",
+                "TIDAK DAPAT BONUS 1",
+                "TIDAK DAPAT BONUS 2",
+                "TIDAK DAPAT BONUS 3",
+                "ESTIMASI PEMBAGIAN BONUS",
+                "BONUS SEDANG DIBAGI",
+                "BONUS SELESAI DIBAGI",
+                "BONUS SEDIKIT"
+            ];
+            for (var si = 0; si < statusMatrixExact.length; si++) {
+                if (t === statusMatrixExact[si]) return "STATUS MATRIX";
+            }
+            if (t.indexOf("SYARAT") === 0) return "STATUS MATRIX";
+            if (t.indexOf("BONUS OTOMATIS") === 0) return "STATUS MATRIX";
+            if (t.indexOf("GAK DAPAT BONUS") === 0 || t.indexOf("TIDAK DAPAT BONUS") === 0) return "STATUS MATRIX";
+            if (t.indexOf("ESTIMASI PEMBAGIAN") === 0) return "STATUS MATRIX";
+            if (t === "BONUS SEDANG DIBAGI" || t === "BONUS SELESAI DIBAGI" || t === "BONUS SEDIKIT") return "STATUS MATRIX";
+
+            // STATUS BONUS — hanya item hari/tanggal (bukan SYARAT ...)
+            var statusBonusExact = [
+                "BONUS SENIN SELESAI BAGI",
+                "BONUS SELASA SELESAI BAGI",
+                "BONUS KAMIS SELESAI BAGI",
+                "BONUS TANGGAL TERTENTU",
+                "BONUS SENIN",
+                "BONUS SELASA",
+                "BONUS KAMIS"
+            ];
+            for (var bi = 0; bi < statusBonusExact.length; bi++) {
+                if (t === statusBonusExact[bi]) return "STATUS BONUS";
+            }
+            // pola selesai bagi harian (tanpa SYARAT)
+            if (t.indexOf("SYARAT") === -1 && t.indexOf("SELESAI BAGI") !== -1 &&
+                (t.indexOf("SENIN") !== -1 || t.indexOf("SELASA") !== -1 || t.indexOf("KAMIS") !== -1)) {
+                return "STATUS BONUS";
+            }
+
+            return raw || "LAINNYA";
+        }
+
+        function detectBonusTag(title, content) {
+            var t = (String(title || "") + " " + String(content || "")).toUpperCase();
+            if (t.indexOf("CASHBACK") !== -1 || t.indexOf("KEKALAHAN") !== -1) return { label: "CASHBACK", cls: "cashback" };
+            if (t.indexOf("ROLLINGAN") !== -1 || t.indexOf("TURNOVER") !== -1) return { label: "TURNOVER", cls: "turnover" };
+            if (t.indexOf("REFFERAL") !== -1 || t.indexOf("REFERRAL") !== -1) return { label: "REFERRAL", cls: "referral" };
+            if (t.indexOf("SLOT") !== -1) return { label: "SLOT", cls: "slot" };
+            if (t.indexOf("LIVE") !== -1) return { label: "LIVE", cls: "live" };
+            if (t.indexOf("VIP") !== -1) return { label: "VIP", cls: "other" };
+            if (t.indexOf("SELESAI BAGI") !== -1) return { label: "SELESAI", cls: "other" };
+            if (t.indexOf("SENIN") !== -1 || t.indexOf("SELASA") !== -1 || t.indexOf("KAMIS") !== -1 || t.indexOf("TANGGAL") !== -1) return { label: "HARIAN", cls: "other" };
+            return { label: "BONUS", cls: "other" };
+        }
+
+        function formatBonusBodyHtml(text) {
+            var raw = String(text || "");
+            // Jangan ubah isi kata — hanya escape + spasi baris, highlight label syarat jika ada
+            var lines = raw.replace(/\r/g, "").split("\n");
+            var html = "";
+            for (var i = 0; i < lines.length; i++) {
+                var ln = lines[i];
+                var trim = ln.trim();
+                if (!trim) { html += "<br>"; continue; }
+                if (/^syarat/i.test(trim) || /syarat\s*&\s*ketentuan/i.test(trim)) {
+                    html += '<span class="syarat-label">' + escapeHtml(trim) + "</span>";
+                } else {
+                    html += escapeHtml(ln) + "\n";
+                }
+            }
+            return html;
+        }
+
+        function renderBonusLinetogel(items) {
+            try { if (stickyTop) stickyTop.classList.add("hidden-sticky"); } catch (e) {}
+
+            // Gabung data sheet + data tambahan STATUS BONUS
+            items = mergeBonusItems(items);
+
+            var q = (searchQuery || "").trim().toLowerCase();
+
+            // Kategori dari data sheet (nama judul unik, urutan sesuai sheet)
+            var catOrder = [];
+            var cats = {};
+            for (var i = 0; i < items.length; i++) {
+                var it = items[i];
+                var cat = detectBonusCategory(it.title, it.content);
+                if (!cats[cat]) {
+                    cats[cat] = 0;
+                    catOrder.push(cat);
+                }
+                cats[cat]++;
+            }
+            // STATUS BONUS & STATUS MATRIX di bagian bawah daftar kategori
+            catOrder = catOrder.filter(function(c) { return c !== "STATUS BONUS" && c !== "STATUS MATRIX"; });
+            if (cats["STATUS BONUS"]) catOrder.push("STATUS BONUS");
+            if (cats["STATUS MATRIX"]) catOrder.push("STATUS MATRIX");
+
+            var cards = [];
+            for (var i = 0; i < items.length; i++) {
+                var it = items[i];
+                var title = (it.title || "").trim();
+                var body = (it.content || "").trim();
+                var cat = detectBonusCategory(title, body);
+                if (bonusCatFilter !== "all" && cat !== bonusCatFilter) continue;
+                if (q) {
+                    var blob = (title + " " + body).toLowerCase();
+                    if (blob.indexOf(q) === -1) continue;
+                }
+                cards.push({ title: title, content: body, cat: cat, idx: i, tag: detectBonusTag(title, body) });
+            }
+
+            function catIcon(name) {
+                var u = String(name || "").toUpperCase();
+                if (u.indexOf("SLOT") !== -1) return "fa-dice";
+                if (u.indexOf("LIVE") !== -1) return "fa-tv";
+                if (u.indexOf("ARCADE") !== -1) return "fa-gamepad";
+                if (u.indexOf("LOTTERY") !== -1) return "fa-ticket";
+                if (u.indexOf("REFFERAL") !== -1 || u.indexOf("REFERRAL") !== -1) return "fa-users";
+                if (u.indexOf("CASHBACK") !== -1) return "fa-coins";
+                if (u.indexOf("ROLLINGAN") !== -1) return "fa-rotate";
+                if (u.indexOf("VIP") !== -1) return "fa-crown";
+                if (u.indexOf("SYARAT") !== -1) return "fa-clipboard-list";
+                if (u.indexOf("OTOMATIS") !== -1) return "fa-robot";
+                if (u.indexOf("GAK DAPAT") !== -1) return "fa-ban";
+                if (u.indexOf("STATUS BONUS") !== -1) return "fa-calendar-check";
+                if (u.indexOf("STATUS MATRIX") !== -1) return "fa-rotate";
+                if (u.indexOf("ESTIMASI") !== -1 || u.indexOf("DIBAGI") !== -1) return "fa-clock";
+                if (u.indexOf("MINGGUAN") !== -1 || u.indexOf("SENIN") !== -1 || u.indexOf("SELASA") !== -1 || u.indexOf("KAMIS") !== -1 || u.indexOf("TANGGAL") !== -1) return "fa-calendar";
+                if (u.indexOf("ALL") !== -1) return "fa-layer-group";
+                return "fa-gift";
+            }
+
+            var html = '<div class="bonus-view">';
+            html += '<div class="bonus-hero">';
+            html += '<h1 class="bonus-hero-title"><i class="fa-solid fa-bolt"></i> LINETOGEL CYBER BONUS</h1>';
+            html += '<div class="bonus-hero-sub">Sistem Bonus Terdepan Dengan Teknologi Cybernetic</div>';
+            html += '<div class="bonus-search-wrap"><input type="text" id="bonusSearchInput" placeholder="SCAN BONUS DATABASE..." value="' + escapeHtml(searchQuery || "") + '"><i class="fa-solid fa-magnifying-glass"></i></div>';
+            html += '</div>';
+
+            html += '<div class="bonus-layout">';
+            html += '<aside class="bonus-matrix">';
+            html += '<div class="bonus-matrix-title">KATEGORI MATRIX</div>';
+            html += '<button type="button" class="bonus-matrix-btn' + (bonusCatFilter === "all" ? " active" : "") + '" data-bonus-cat="all"><i class="fa-solid fa-star"></i> SEMUA BONUS</button>';
+            for (var oi = 0; oi < catOrder.length; oi++) {
+                var cn = catOrder[oi];
+                var ic = catIcon(cn);
+                html += '<button type="button" class="bonus-matrix-btn' + (bonusCatFilter === cn ? " active" : "") + '" data-bonus-cat="' + escapeHtml(cn) + '"><i class="fa-solid ' + ic + '"></i> ' + escapeHtml(cn) + '</button>';
+            }
+            html += '</aside>';
+
+            html += '<div class="bonus-cards">';
+            if (!cards.length) {
+                html += '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-gift"></i></div><div class="empty-title">Tidak ada data bonus</div></div>';
+            } else {
+                for (var ci = 0; ci < cards.length; ci++) {
+                    var c = cards[ci];
+                    html += '<article class="bonus-card">';
+                    html += '<div class="bonus-card-head"><h3 class="bonus-card-title">' + escapeHtml(c.title) + '</h3>';
+                    html += '<div class="bonus-card-actions">';
+                    html += '<button type="button" class="bonus-copy-btn" data-bonus-copy="' + c.idx + '" title="Salin isi"><i class="fa-regular fa-copy"></i></button></div></div>';
+                    html += '<div class="bonus-card-body">' + formatBonusBodyHtml(c.content) + '</div>';
+                    html += '</article>';
+                }
+            }
+            html += '</div></div></div>';
+            contentArea.innerHTML = html;
+
+            var bsi = document.getElementById("bonusSearchInput");
+            if (bsi) {
+                bsi.addEventListener("input", function() {
+                    searchQuery = bsi.value || "";
+                    clearTimeout(window._bonusSearchTimer);
+                    window._bonusSearchTimer = setTimeout(function() { renderContent(); }, 200);
+                });
+            }
+            document.querySelectorAll("[data-bonus-cat]").forEach(function(btn) {
+                btn.addEventListener("click", function() {
+                    bonusCatFilter = btn.getAttribute("data-bonus-cat") || "all";
+                    renderContent();
+                });
+            });
+            document.querySelectorAll("[data-bonus-copy]").forEach(function(btn) {
+                btn.addEventListener("click", function() {
+                    var idx = parseInt(btn.getAttribute("data-bonus-copy"), 10);
+                    var it = items[idx];
+                    if (!it) return;
+                    // Hanya isi data — tanpa judul
+                    var body = (it.content || "").trim();
+                    if (!body) {
+                        showToast("Isi data kosong", "error");
+                        return;
+                    }
+                    // Jika baris pertama sama dengan judul, buang baris judul
+                    var title = (it.title || "").trim();
+                    if (title) {
+                        var lines = body.split(/\r?\n/);
+                        if (lines.length && lines[0].trim().toUpperCase() === title.toUpperCase()) {
+                            lines.shift();
+                            while (lines.length && !lines[0].trim()) lines.shift();
+                            body = lines.join("\n").trim();
+                        }
+                    }
+                    copyText(body || (it.content || "").trim(), "Isi Bonus");
+                });
+            });
+        }
+
         function renderContent() {
             if (isLoading && !lastRefreshTime) { contentArea.innerHTML = '<div class="loading-state"><div class="loader-ring"></div><span>Memuat data...</span></div>'; return; }
             if (lastError && !isLoading) { contentArea.innerHTML = '<div class="error-state"><div class="error-icon"><i class="fa-solid fa-triangle-exclamation"></i></div><span>' + escapeHtml(lastError) + '</span></div>'; return; }
@@ -7722,6 +8212,7 @@
             if (items.length === 0) { contentArea.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fa-solid ' + cfg.emptyIcon + '"></i></div><div class="empty-title">' + cfg.emptyTitle + "</div></div>"; return; }
             if (currentFilter === "gid5") renderJadwalGrid(items);
             else if (currentFilter === "gid473") renderHadiahTogel(items);
+            else if (currentFilter === "gidBonus") renderBonusLinetogel(items);
             else renderDefaultGrid(items);
         }
 
