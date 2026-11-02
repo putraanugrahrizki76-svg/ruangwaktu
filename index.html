@@ -5378,6 +5378,258 @@
             border: 1px solid rgba(99, 102, 241, .22);
             box-shadow: 0 8px 22px -16px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.04);
         }
+    
+        /* ===== HADIAH TOGEL – portal premium (dark + purple grid) ===== */
+        .hadiah-view {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 1.1rem 1rem 2.2rem;
+            position: relative;
+            border-radius: 22px;
+            background-color: #070b1a;
+            background-image:
+                linear-gradient(rgba(139, 92, 246, 0.14) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139, 92, 246, 0.14) 1px, transparent 1px),
+                radial-gradient(ellipse 90% 55% at 15% 0%, rgba(124, 58, 237, 0.2), transparent 55%),
+                radial-gradient(ellipse 70% 50% at 100% 10%, rgba(91, 33, 182, 0.16), transparent 52%),
+                linear-gradient(180deg, #0a1024 0%, #070b1a 50%, #090614 100%);
+            background-size: 28px 28px, 28px 28px, auto, auto, auto;
+            box-shadow:
+                0 18px 50px -28px rgba(0, 0, 0, 0.75),
+                inset 0 1px 0 rgba(167, 139, 250, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.28);
+            overflow: hidden;
+        }
+        .hadiah-view::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(135deg, transparent 40%, rgba(139, 92, 246, 0.06) 50%, transparent 60%),
+                linear-gradient(45deg, transparent 30%, rgba(167, 139, 250, 0.05) 50%, transparent 70%);
+            z-index: 0;
+        }
+        .hadiah-view > * { position: relative; z-index: 1; }
+
+        .hadiah-hero {
+            text-align: center;
+            padding: 1.4rem 1rem 1.1rem;
+            position: relative;
+        }
+        .hadiah-hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 800;
+            letter-spacing: .12em;
+            color: #fff;
+            text-shadow:
+                0 0 18px rgba(167, 139, 250, .85),
+                0 0 42px rgba(124, 58, 237, .45),
+                0 0 2px rgba(221, 214, 254, .9);
+            margin: 0 0 .35rem;
+        }
+        .hadiah-hero-sub {
+            color: rgba(196, 181, 253, .8);
+            font-size: .72rem;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .hadiah-search-wrap {
+            max-width: 420px;
+            margin: 0 auto 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .55rem 1rem;
+            border-radius: 999px;
+            background: rgba(8, 12, 28, .85);
+            border: 1px solid rgba(139, 92, 246, .45);
+            box-shadow: 0 0 20px -8px rgba(139, 92, 246, .45), inset 0 1px 0 rgba(255,255,255,.04);
+        }
+        .hadiah-search-wrap i { color: rgba(167, 139, 250, .85); font-size: .75rem; }
+        .hadiah-search-wrap input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #f8fafc;
+            font-size: .78rem;
+        }
+        .hadiah-search-wrap input::placeholder { color: rgba(167, 139, 250, .55); }
+
+        .hadiah-cat-bar {
+            display: flex;
+            align-items: center;
+            gap: .55rem;
+            padding: .65rem .75rem;
+            margin-bottom: 1rem;
+            border-radius: 14px;
+            background: linear-gradient(90deg, rgba(15, 23, 42, .95), rgba(24, 16, 40, .92));
+            border: 1px solid rgba(139, 92, 246, .25);
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+        .hadiah-cat-label {
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            color: #c4b5fd;
+            font-size: .62rem;
+            font-weight: 800;
+            letter-spacing: .08em;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .hadiah-cat-chip {
+            border: 1px solid rgba(71, 85, 105, .5);
+            background: rgba(15, 23, 42, .85);
+            color: #cbd5e1;
+            font-size: .6rem;
+            font-weight: 700;
+            letter-spacing: .04em;
+            padding: .4rem .7rem;
+            border-radius: 999px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            white-space: nowrap;
+            transition: .2s;
+            flex-shrink: 0;
+        }
+        .hadiah-cat-chip .cnt {
+            background: rgba(124, 58, 237, .55);
+            color: #fff;
+            font-size: .52rem;
+            padding: .08rem .35rem;
+            border-radius: 999px;
+            min-width: 1.2rem;
+            text-align: center;
+        }
+        .hadiah-cat-chip:hover { border-color: rgba(167, 139, 250, .45); color: #fff; }
+        .hadiah-cat-chip.active {
+            background: linear-gradient(135deg, rgba(139, 92, 246, .45), rgba(109, 40, 217, .35));
+            border-color: rgba(167, 139, 250, .75);
+            color: #fff;
+            box-shadow: 0 0 16px -6px rgba(139, 92, 246, .55);
+        }
+
+        .hadiah-ambil-wrap {
+            margin-bottom: 1.1rem;
+            padding: .55rem;
+            border-radius: 16px;
+            border: 1px solid rgba(139, 92, 246, .4);
+            background: rgba(8, 12, 24, .7);
+        }
+        .hadiah-ambil-btn {
+            width: 100%;
+            border: none;
+            border-radius: 999px;
+            padding: .7rem 1rem;
+            font-family: var(--font-display);
+            font-size: .72rem;
+            font-weight: 800;
+            letter-spacing: .08em;
+            color: #fff;
+            cursor: pointer;
+            background: linear-gradient(90deg, #8b5cf6, #7c3aed 55%, #6d28d9);
+            box-shadow: 0 8px 24px -10px rgba(139, 92, 246, .7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .45rem;
+            transition: .2s;
+        }
+        .hadiah-ambil-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+        .hadiah-card {
+            position: relative;
+            margin-bottom: 1rem;
+            padding: 1.1rem 1.15rem 1rem;
+            border-radius: 16px;
+            background:
+                radial-gradient(ellipse 80% 60% at 100% 0%, rgba(139, 92, 246, .1), transparent 50%),
+                linear-gradient(160deg, rgba(15, 18, 36, .98), rgba(8, 10, 22, .99));
+            border: 1px solid rgba(139, 92, 246, .28);
+            box-shadow: 0 14px 36px -20px rgba(0,0,0,.7);
+            overflow: hidden;
+        }
+        .hadiah-card::before {
+            content: "";
+            position: absolute;
+            left: 0; top: 12px; bottom: 12px;
+            width: 3px;
+            border-radius: 4px;
+            background: linear-gradient(180deg, #c4b5fd, #8b5cf6, #6d28d9);
+        }
+        .hadiah-card-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: .75rem;
+            margin-bottom: .55rem;
+            padding-left: .55rem;
+        }
+        .hadiah-card-title {
+            font-family: var(--font-display);
+            font-size: .95rem;
+            font-weight: 800;
+            letter-spacing: .04em;
+            color: #c4b5fd;
+            text-shadow: 0 0 14px rgba(167, 139, 250, .35);
+            margin: 0;
+            line-height: 1.35;
+        }
+        .hadiah-card-note {
+            padding-left: .55rem;
+            font-size: .68rem;
+            color: rgba(203, 213, 225, .78);
+            line-height: 1.55;
+            margin-bottom: .65rem;
+        }
+        .hadiah-card-body {
+            padding-left: .55rem;
+            font-size: .72rem;
+            color: #e2e8f0;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            letter-spacing: .015em;
+        }
+        .hadiah-card-body .hl-line {
+            display: block;
+            padding: .15rem 0 .15rem .65rem;
+            border-left: 2px solid rgba(167, 139, 250, .5);
+            margin: .15rem 0;
+            color: #f1f5f9;
+        }
+        .hadiah-card-body .hl-sub {
+            display: block;
+            margin-top: .65rem;
+            margin-bottom: .25rem;
+            color: #c4b5fd;
+            font-weight: 700;
+            letter-spacing: .03em;
+        }
+        .hadiah-copy-btn {
+            flex-shrink: 0;
+            width: 38px; height: 38px;
+            border-radius: 12px;
+            border: 1px solid rgba(139, 92, 246, .45);
+            background: rgba(139, 92, 246, .12);
+            color: #c4b5fd;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: .2s;
+        }
+        .hadiah-copy-btn:hover {
+            background: rgba(139, 92, 246, .35);
+            color: #fff;
+        }
+
     </style>
 </head>
 <body>
@@ -5551,6 +5803,7 @@
             alarmAutoTimer = null;
         var firedAlarms = {};
         var eventCategoryFilter = "all";
+        var hadiahCatFilter = "all";
 
         // ===== GENERATOR PASSWORD STATE =====
         var pwdLength = 16;
@@ -6106,7 +6359,7 @@
 
         function updatePageHeader() { var cfg = getCfg(); pageTitleEl.innerHTML = cfg.titleHTML; searchInput.placeholder = cfg.searchPlaceholder; $("qrisTypeFilterWrapper").style.display = currentFilter === "gidQris" ? "flex" : "none"; var np = $("nextPasaranBadge"); if (currentFilter === "gid5") { jadwalClockEl.classList.add("visible"); if (!clockInterval) { updateClock();
                     clockInterval = setInterval(updateClock, 1000); } np.classList.add("visible"); } else { jadwalClockEl.classList.remove("visible"); if (clockInterval) { clearInterval(clockInterval);
-                    clockInterval = null; } np.classList.remove("visible"); } if (currentFilter === "gidPassword" || (currentFilter === "gid5" && jadwalStatusFilter === "ada_hasil")) { stickyTop.classList.add("hidden-sticky"); } else { stickyTop.classList.remove("hidden-sticky"); } }
+                    clockInterval = null; } np.classList.remove("visible"); } if (currentFilter === "gidPassword" || currentFilter === "gid473" || (currentFilter === "gid5" && jadwalStatusFilter === "ada_hasil")) { stickyTop.classList.add("hidden-sticky"); } else { stickyTop.classList.remove("hidden-sticky"); } }
 
         function updateClock() { var n = (typeof getWibNow === "function") ? getWibNow() : new Date(); if (clockTimeEl) clockTimeEl.textContent = String(n.getHours()).padStart(2, "0") + ":" + String(n.getMinutes()).padStart(2, "0") + ":" + String(n.getSeconds()).padStart(2, "0") + " WIB"; }
 
@@ -6126,6 +6379,7 @@
             searchClear.classList.remove("visible");
             qrisTypeFilter = "all";
             if (filter === "gidEvent") eventCategoryFilter = "all";
+            if (filter === "gid473") { hadiahCatFilter = "all"; searchQuery = ""; }
             if (filter === "gid5") { jadwalStatusFilter = "all"; hasilSearchQuery = ""; hasilTypeFilter = "biasa"; hasilSortOrder = "newest"; }
             document.querySelectorAll(".filter-chip").forEach(function(c) { c.classList.toggle("active", c.dataset.type === "all") });
             document.querySelectorAll(".sidebar-item").forEach(function(i) { i.classList.remove("active") });
@@ -7251,6 +7505,189 @@
         }
 
         // ===== RENDER CONTENT =====
+
+        function detectHadiahCategory(title, content) {
+            // Kategori = nama hadiah di sheet (kolom judul), dibersihkan
+            var raw = String(title || "").replace(/^\*\s*/, "").replace(/\s+/g, " ").trim();
+            if (!raw) {
+                // fallback dari baris pertama content
+                var first = String(content || "").split(/\n/)[0] || "";
+                raw = first.replace(/^\*\s*/, "").replace(/\s+/g, " ").trim();
+            }
+            var t = raw.toUpperCase();
+
+            // Normalisasi label kategori yang rapi
+            if (t.indexOf("SUPER DISCOUNT") !== -1) return "SUPER DISCOUNT";
+            if (t.indexOf("BET FULL") !== -1) return "BET FULL";
+            if (t.indexOf("BET DISC") !== -1 || t.indexOf("BET DISCOUNT") !== -1) return "BET DISC";
+            if (t.indexOf("BET BB") !== -1) return "BET BB";
+            if (t.indexOf("COLOK BEBAS 2D") !== -1) return "COLOK BEBAS 2D";
+            if (t.indexOf("COLOK BEBAS 4D") !== -1) return "COLOK BEBAS 4D";
+            if (t.indexOf("COLOK BEBAS") !== -1) return "COLOK BEBAS";
+            if (t.indexOf("COLOK NAGA") !== -1) return "COLOK NAGA";
+            if (t.indexOf("COLOK JITU") !== -1) return "COLOK JITU";
+            if (t.indexOf("MACAU SHIO") !== -1) return "MACAU SHIO";
+            if (t.indexOf("KEMBANG KEMPIS") !== -1) return "KEMBANG KEMPIS";
+            if (t.indexOf("KOMBINASI") !== -1) return "KOMBINASI";
+            if (t.indexOf("TEPI TENGAH") !== -1) return "TEPI TENGAH";
+            if (t.indexOf("SILANG HOMO") !== -1) return "SILANG HOMO";
+            if (t.indexOf("DISKON KHUSUS") !== -1 && t.indexOf("HOKIDRAW") !== -1) return "DISKON HOKIDRAW";
+            if (t.indexOf("DISKON SEGALA") !== -1 || t.indexOf("SEGALA JENIS BET") !== -1) return "DISKON COLOK & DLL";
+            if (t.indexOf("SISTEM PRIZE") !== -1) return "SISTEM PRIZE";
+            if (t.indexOf("DASAR") !== -1) return "DASAR";
+            if (t.indexOf("50") !== -1 && (t.indexOf("-") !== -1 || t.indexOf("–") !== -1 || t.indexOf("50 - 50") !== -1 || t.indexOf("50-50") !== -1)) return "50-50";
+            if (t === "SHIO" || t.indexOf("SHIO") === 0) return "SHIO";
+            // fallback: pakai judul bersih (max 22 char untuk chip)
+            var label = raw.replace(/^\*\s*/, "").trim();
+            if (label.length > 22) label = label.substring(0, 20) + "…";
+            return label || "LAINNYA";
+        }
+
+        function formatHadiahBodyHtml(text) {
+            var lines = String(text || "").replace(/\r/g, "").split("\n");
+            var html = "";
+            for (var i = 0; i < lines.length; i++) {
+                var ln = lines[i].trim();
+                if (!ln) { html += "<br>"; continue; }
+                // skip duplicate title line if starts with HADIAH and all caps-ish
+                if (/^[•\-\*]\s*/.test(ln) || /^HADIAH\s+\d/i.test(ln) || /x\d+/i.test(ln)) {
+                    html += '<span class="hl-line">' + escapeHtml(ln.replace(/^[•\-\*]\s*/, "• ")) + "</span>";
+                } else if (/^\-\s*HADIAH/i.test(ln) || /^HADIAH\s+/i.test(ln)) {
+                    html += '<span class="hl-sub">' + escapeHtml(ln.replace(/^\-\s*/, "")) + "</span>";
+                } else {
+                    html += '<div style="margin:.25rem 0;color:rgba(203,213,225,.85)">' + escapeHtml(ln) + "</div>";
+                }
+            }
+            return html;
+        }
+
+        function buildHadiahCopyText(title, content) {
+            var t = (title || "").replace(/^\*\s*/, "").trim();
+            var body = (content || "").trim();
+            if (body.toLowerCase().indexOf(t.toLowerCase()) === 0) return body;
+            return t + "\n\n" + body;
+        }
+
+        function renderHadiahTogel(items) {
+            // Hide sticky search – hadiah punya search sendiri
+            try { if (stickyTop) stickyTop.classList.add("hidden-sticky"); } catch (e) {}
+
+            var q = (searchQuery || "").trim().toLowerCase();
+            var cats = {};
+            var cards = [];
+            for (var i = 0; i < items.length; i++) {
+                var it = items[i];
+                var title = (it.title || "").replace(/^\*\s*/, "").trim();
+                var content = (it.content || "").trim();
+                var cat = detectHadiahCategory(title, content);
+                if (!cats[cat]) cats[cat] = 0;
+                cats[cat]++;
+                if (hadiahCatFilter !== "all" && cat !== hadiahCatFilter) continue;
+                if (q) {
+                    var blob = (title + " " + content).toLowerCase();
+                    if (blob.indexOf(q) === -1) continue;
+                }
+                cards.push({ title: title, content: content, cat: cat, idx: i, raw: it });
+            }
+
+            var order = [
+                "BET FULL", "BET DISC", "BET BB", "SUPER DISCOUNT",
+                "COLOK BEBAS", "COLOK BEBAS 2D", "COLOK BEBAS 4D", "COLOK NAGA", "COLOK JITU",
+                "SHIO", "MACAU SHIO", "KOMBINASI", "TEPI TENGAH", "SILANG HOMO",
+                "DASAR", "50-50", "KEMBANG KEMPIS",
+                "DISKON COLOK & DLL", "DISKON HOKIDRAW", "SISTEM PRIZE", "LAINNYA"
+            ];
+            var html = '<div class="hadiah-view">';
+            html += '<div class="hadiah-hero">';
+            html += '<h1 class="hadiah-hero-title">HADIAH TOGEL</h1>';
+            html += '<div class="hadiah-hero-sub">Portal Premium</div>';
+            html += '<div class="hadiah-search-wrap"><i class="fa-solid fa-magnifying-glass"></i>';
+            html += '<input type="text" id="hadiahSearchInput" placeholder="Cari hadiah..." value="' + escapeHtml(searchQuery || "") + '">';
+            html += '</div></div>';
+
+            html += '<div class="hadiah-cat-bar">';
+            html += '<div class="hadiah-cat-label"><i class="fa-solid fa-table-cells-large"></i> KATEGORI HADIAH</div>';
+            var totalAll = items.length;
+            html += '<button type="button" class="hadiah-cat-chip' + (hadiahCatFilter === "all" ? " active" : "") + '" data-hadiah-cat="all"><i class="fa-solid fa-border-all"></i> SEMUA <span class="cnt">' + totalAll + '</span></button>';
+            // Kategori dari data + urutan prioritas
+            var seen = {};
+            var catList = [];
+            for (var oi = 0; oi < order.length; oi++) {
+                if (cats[order[oi]]) { catList.push(order[oi]); seen[order[oi]] = 1; }
+            }
+            for (var ck in cats) {
+                if (!Object.prototype.hasOwnProperty.call(cats, ck)) continue;
+                if (!seen[ck]) catList.push(ck);
+            }
+            for (var oi = 0; oi < catList.length; oi++) {
+                var cname = catList[oi];
+                var cnt = cats[cname] || 0;
+                html += '<button type="button" class="hadiah-cat-chip' + (hadiahCatFilter === cname ? " active" : "") + '" data-hadiah-cat="' + escapeHtml(cname) + '">' + escapeHtml(cname) + ' <span class="cnt">' + cnt + '</span></button>';
+            }
+            html += '</div>';
+
+            html += '<div class="hadiah-ambil-wrap"><button type="button" class="hadiah-ambil-btn" id="hadiahCopyAllBtn"><i class="fa-regular fa-copy"></i> AMBIL SEMUA DATA</button></div>';
+
+            if (!cards.length) {
+                html += '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-trophy"></i></div><div class="empty-title">Tidak ada data hadiah</div></div>';
+            } else {
+                for (var ci = 0; ci < cards.length; ci++) {
+                    var card = cards[ci];
+                    // Ambil note = baris pertama non-bullet setelah title
+                    var bodyText = card.content;
+                    html += '<div class="hadiah-card" data-hadiah-idx="' + card.idx + '">';
+                    html += '<div class="hadiah-card-head">';
+                    html += '<h3 class="hadiah-card-title">' + escapeHtml(card.title) + '</h3>';
+                    html += '<button type="button" class="hadiah-copy-btn" data-hadiah-copy="' + card.idx + '" title="Salin"><i class="fa-regular fa-copy"></i></button>';
+                    html += '</div>';
+                    html += '<div class="hadiah-card-body">' + formatHadiahBodyHtml(bodyText) + '</div>';
+                    html += '</div>';
+                }
+            }
+            html += '</div>';
+            contentArea.innerHTML = html;
+
+            // binds
+            var hsi = document.getElementById("hadiahSearchInput");
+            if (hsi) {
+                hsi.addEventListener("input", function() {
+                    searchQuery = hsi.value || "";
+                    clearTimeout(window._hadiahSearchTimer);
+                    window._hadiahSearchTimer = setTimeout(function() { renderContent(); }, 200);
+                });
+            }
+            document.querySelectorAll("[data-hadiah-cat]").forEach(function(btn) {
+                btn.addEventListener("click", function() {
+                    hadiahCatFilter = btn.getAttribute("data-hadiah-cat") || "all";
+                    renderContent();
+                });
+            });
+            document.querySelectorAll("[data-hadiah-copy]").forEach(function(btn) {
+                btn.addEventListener("click", function() {
+                    var idx = parseInt(btn.getAttribute("data-hadiah-copy"), 10);
+                    var it = items[idx];
+                    if (!it) return;
+                    var text = buildHadiahCopyText(it.title, it.content);
+                    copyText(text, "Hadiah");
+                });
+            });
+            var allBtn = document.getElementById("hadiahCopyAllBtn");
+            if (allBtn) {
+                allBtn.addEventListener("click", function() {
+                    var chunks = [];
+                    for (var i = 0; i < cards.length; i++) {
+                        chunks.push(buildHadiahCopyText(cards[i].title, cards[i].content));
+                    }
+                    if (!chunks.length) {
+                        showToast("Tidak ada data untuk disalin", "error");
+                        return;
+                    }
+                    copyText(chunks.join("\n\n────────────────\n\n"), "Semua Hadiah");
+                });
+            }
+        }
+
+
         function renderContent() {
             if (isLoading && !lastRefreshTime) { contentArea.innerHTML = '<div class="loading-state"><div class="loader-ring"></div><span>Memuat data...</span></div>'; return; }
             if (lastError && !isLoading) { contentArea.innerHTML = '<div class="error-state"><div class="error-icon"><i class="fa-solid fa-triangle-exclamation"></i></div><span>' + escapeHtml(lastError) + '</span></div>'; return; }
@@ -7266,6 +7703,7 @@
             $("searchResultCount").innerHTML = q ? 'Ditemukan <strong>' + items.length + '</strong> dari ' + total + " data" : "";
             if (items.length === 0) { contentArea.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fa-solid ' + cfg.emptyIcon + '"></i></div><div class="empty-title">' + cfg.emptyTitle + "</div></div>"; return; }
             if (currentFilter === "gid5") renderJadwalGrid(items);
+            else if (currentFilter === "gid473") renderHadiahTogel(items);
             else renderDefaultGrid(items);
         }
 
