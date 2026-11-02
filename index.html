@@ -6802,7 +6802,12 @@
             return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
         }
         function normalizeMarketKey(name) {
-            return String(name || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+            var s = String(name || "").toLowerCase();
+            // seragamkan pemisah waktu 00.00 / 00-00 → 0000
+            s = s.replace(/(\d{1,2})[.:\-](\d{2})/g, "$1$2");
+            s = s.replace(/[^a-z0-9]+/g, " ").trim();
+            s = s.replace(/\s+/g, " ");
+            return s;
         }
         function rebuildResultMap() {
             resultByMarket = {};
@@ -6910,29 +6915,26 @@
         function findResultForMarket(title) {
             var key = normalizeMarketKey(title);
             if (!key) return null;
+
+            // 1) exact key
             if (resultByMarket[key] && resultByMarket[key].number) return resultByMarket[key];
+
+            // 2) tanpa spasi
             var nospace = key.replace(/\s+/g, "");
             if (resultByMarket[nospace] && resultByMarket[nospace].number) return resultByMarket[nospace];
 
-            // Partial ketat: hanya jika salah satu mengandung penuh yang lain (bukan sekadar kata pertama)
-            var best = null, bestScore = 0;
+            // 3) exact terhadap title asli di payload (setelah normalize)
             for (var k in resultByMarket) {
                 if (!Object.prototype.hasOwnProperty.call(resultByMarket, k)) continue;
                 var payload = resultByMarket[k];
                 if (!payload || !payload.number) continue;
-                // skip alias pendek
-                if (k.length < 5) continue;
-                if (key === k) return payload;
-                if (key.indexOf(k) !== -1 || k.indexOf(key) !== -1) {
-                    var score = Math.min(key.length, k.length);
-                    // tolak match terlalu lemah (mis. "macau" ke semua toto macau)
-                    if (score >= Math.max(8, Math.floor(Math.max(key.length, k.length) * 0.7)) && score > bestScore) {
-                        bestScore = score;
-                        best = payload;
-                    }
-                }
+                var pt = normalizeMarketKey(payload.title || "");
+                if (pt && pt === key) return payload;
+                if (pt && pt.replace(/\s+/g, "") === nospace) return payload;
             }
-            return best;
+
+            // TIDAK ada partial match (mencegah pasaran belum result ikut hasil pasaran lain)
+            return null;
         }
 
         function getJadwalBucket(item) {
@@ -6984,6 +6986,9 @@
                 var meta = getJadwalBucket(items[fi]);
                 if (jadwalStatusFilter === "ada_hasil") {
                     if (!meta.hasResult || !meta.resultNumber || !meta.resultText) continue;
+                    // pastikan result benar-benar milik pasaran ini (bukan partial)
+                    var chk = findResultForMarket(items[fi].title || "");
+                    if (!chk || !chk.number || String(chk.number) !== String(meta.resultNumber)) continue;
                     var tname = String(items[fi].title || "").toLowerCase();
                     var isHoki = tname.indexOf("hokidraw") !== -1 || tname.indexOf("hoki draw") !== -1;
                     if (isHoki) hasilHokiCount++; else hasilBiasaCount++;
