@@ -7507,20 +7507,37 @@
         // ===== RENDER CONTENT =====
 
         function detectHadiahCategory(title, content) {
-            // Kategori = nama hadiah di sheet (kolom judul), dibersihkan
             var raw = String(title || "").replace(/^\*\s*/, "").replace(/\s+/g, " ").trim();
             if (!raw) {
-                // fallback dari baris pertama content
                 var first = String(content || "").split(/\n/)[0] || "";
                 raw = first.replace(/^\*\s*/, "").replace(/\s+/g, " ").trim();
             }
             var t = raw.toUpperCase();
 
-            // Normalisasi label kategori yang rapi
+            // --- mapping khusus (prioritas tertinggi) ---
+            // HADIAH BB HOKIDRAW → BET BB
+            if (t.indexOf("BB HOKIDRAW") !== -1 || t.indexOf("HADIAH BB HOKI") !== -1) return "BET BB";
+            // Sub-hadiah diskon spesifik → BET DISC
+            if (t.indexOf("DISKON JAKARTA") !== -1 || t.indexOf("JAKARTA POOLS") !== -1) return "BET DISC";
+            if (t.indexOf("TOTOMALI") !== -1 && (t.indexOf("DISCOUNT") !== -1 || t.indexOf("DISKON") !== -1)) return "BET DISC";
+            if (t.indexOf("HOKIDRAW") !== -1 && (t.indexOf("DISCOUNT") !== -1 || t.indexOf("(DISCOUNT)") !== -1) && t.indexOf("BB") === -1) return "BET DISC";
+
+            // --- kategori utama ---
             if (t.indexOf("SUPER DISCOUNT") !== -1) return "SUPER DISCOUNT";
             if (t.indexOf("BET FULL") !== -1) return "BET FULL";
             if (t.indexOf("BET DISC") !== -1 || t.indexOf("BET DISCOUNT") !== -1) return "BET DISC";
             if (t.indexOf("BET BB") !== -1) return "BET BB";
+            // pola "HADIAH BB ..." atau "BB:" tanpa discount
+            if (/\bBB\b/.test(t) && t.indexOf("DISCOUNT") === -1 && t.indexOf("DISKON") === -1) return "BET BB";
+            // diskon umum pasaran (bukan colok segala / khusus label terpisah)
+            if ((t.indexOf("DISCOUNT") !== -1 || t.indexOf("DISKON") !== -1) &&
+                t.indexOf("SEGALA JENIS") === -1 &&
+                t.indexOf("DISKON KHUSUS") === -1 &&
+                t.indexOf("COLOK") === -1 &&
+                t.indexOf("SUPER DISCOUNT") === -1) {
+                return "BET DISC";
+            }
+
             if (t.indexOf("COLOK BEBAS 2D") !== -1) return "COLOK BEBAS 2D";
             if (t.indexOf("COLOK BEBAS 4D") !== -1) return "COLOK BEBAS 4D";
             if (t.indexOf("COLOK BEBAS") !== -1) return "COLOK BEBAS";
@@ -7531,13 +7548,13 @@
             if (t.indexOf("KOMBINASI") !== -1) return "KOMBINASI";
             if (t.indexOf("TEPI TENGAH") !== -1) return "TEPI TENGAH";
             if (t.indexOf("SILANG HOMO") !== -1) return "SILANG HOMO";
-            if (t.indexOf("DISKON KHUSUS") !== -1 && t.indexOf("HOKIDRAW") !== -1) return "DISKON HOKIDRAW";
+            if (t.indexOf("DISKON KHUSUS") !== -1 && t.indexOf("HOKIDRAW") !== -1) return "BET DISC";
             if (t.indexOf("DISKON SEGALA") !== -1 || t.indexOf("SEGALA JENIS BET") !== -1) return "DISKON COLOK & DLL";
             if (t.indexOf("SISTEM PRIZE") !== -1) return "SISTEM PRIZE";
             if (t.indexOf("DASAR") !== -1) return "DASAR";
             if (t.indexOf("50") !== -1 && (t.indexOf("-") !== -1 || t.indexOf("–") !== -1 || t.indexOf("50 - 50") !== -1 || t.indexOf("50-50") !== -1)) return "50-50";
-            if (t === "SHIO" || t.indexOf("SHIO") === 0) return "SHIO";
-            // fallback: pakai judul bersih (max 22 char untuk chip)
+            if (t === "SHIO" || (t.indexOf("SHIO") !== -1 && t.indexOf("MACAU") === -1)) return "SHIO";
+
             var label = raw.replace(/^\*\s*/, "").trim();
             if (label.length > 22) label = label.substring(0, 20) + "…";
             return label || "LAINNYA";
@@ -7595,7 +7612,7 @@
                 "COLOK BEBAS", "COLOK BEBAS 2D", "COLOK BEBAS 4D", "COLOK NAGA", "COLOK JITU",
                 "SHIO", "MACAU SHIO", "KOMBINASI", "TEPI TENGAH", "SILANG HOMO",
                 "DASAR", "50-50", "KEMBANG KEMPIS",
-                "DISKON COLOK & DLL", "DISKON HOKIDRAW", "SISTEM PRIZE", "LAINNYA"
+                "DISKON COLOK & DLL", "SISTEM PRIZE", "LAINNYA"
             ];
             var html = '<div class="hadiah-view">';
             html += '<div class="hadiah-hero">';
@@ -7617,6 +7634,7 @@
             }
             for (var ck in cats) {
                 if (!Object.prototype.hasOwnProperty.call(cats, ck)) continue;
+                if (ck === "DISKON HOKIDRAW") continue; // kategori dihapus, data digabung ke BET DISC
                 if (!seen[ck]) catList.push(ck);
             }
             for (var oi = 0; oi < catList.length; oi++) {
