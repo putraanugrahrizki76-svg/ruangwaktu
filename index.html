@@ -2052,6 +2052,11 @@
         }
         .sticky-top.hidden-sticky {
             display: none !important;
+            height: 0 !important;
+            overflow: hidden !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
         }
         .search-bar {
             position: relative;
@@ -4953,43 +4958,111 @@
         .jadwal-filter-bar {
             display: flex;
             flex-wrap: wrap;
-            gap: .45rem;
+            gap: .4rem;
             margin-bottom: 1rem;
-            padding: .55rem .65rem;
-            border-radius: 999px;
-            background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-            border: 1px solid rgba(255,255,255,.08);
+            padding: .55rem .6rem;
+            border-radius: 14px;
             width: fit-content;
             max-width: 100%;
+            position: relative;
+            background:
+                linear-gradient(145deg, rgba(15, 23, 42, .92), rgba(8, 12, 28, .96));
+            border: 1px solid rgba(99, 102, 241, .28);
+            box-shadow:
+                0 10px 28px -18px rgba(0,0,0,.75),
+                inset 0 1px 0 rgba(255,255,255,.04);
+        }
+        /* grafik garis sudut */
+        .jadwal-filter-bar::before,
+        .jadwal-filter-bar::after {
+            content: "";
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .jadwal-filter-bar::before {
+            top: -1px; left: -1px;
+            border-top: 2px solid #38bdf8;
+            border-left: 2px solid #38bdf8;
+            border-top-left-radius: 6px;
+            box-shadow: -2px -2px 12px rgba(56, 189, 248, .25);
+        }
+        .jadwal-filter-bar::after {
+            bottom: -1px; right: -1px;
+            border-bottom: 2px solid #a78bfa;
+            border-right: 2px solid #a78bfa;
+            border-bottom-right-radius: 6px;
+            box-shadow: 2px 2px 12px rgba(167, 139, 250, .25);
         }
         .jadwal-filter-chip {
-            border: 1px solid transparent;
-            background: transparent;
-            color: rgba(226, 232, 240, .75);
+            border: 1px solid rgba(71, 85, 105, .45);
+            background: rgba(15, 23, 42, .75);
+            color: rgba(203, 213, 225, .85);
             font-family: var(--font-display);
             font-size: .62rem;
-            font-weight: 600;
-            letter-spacing: .02em;
-            padding: .42rem .85rem;
-            border-radius: 999px;
+            font-weight: 650;
+            letter-spacing: .03em;
+            padding: .45rem .9rem;
+            border-radius: 10px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: .35rem;
-            transition: all .2s;
+            gap: .38rem;
+            transition: all .22s;
             white-space: nowrap;
+            position: relative;
+            z-index: 5;
+            pointer-events: auto;
+            -webkit-user-select: none;
+            user-select: none;
+            overflow: hidden;
         }
-        .jadwal-filter-chip i { font-size: .62rem; opacity: .85; }
-        .jadwal-filter-chip:hover { background: rgba(255,255,255,.06); color: #fff; }
+        .jadwal-filter-chip::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,.04), transparent);
+            opacity: 0;
+            transition: .25s;
+        }
+        .jadwal-filter-chip:hover::before { opacity: 1; }
+        .jadwal-filter-chip i { font-size: .62rem; opacity: .9; }
+        .jadwal-filter-chip:hover {
+            border-color: rgba(148, 163, 184, .45);
+            color: #fff;
+            transform: translateY(-1px);
+        }
         .jadwal-filter-chip.active {
-            background: #fff;
-            color: #4c1d95;
-            box-shadow: 0 4px 14px -6px rgba(0,0,0,.35);
+            color: #fff;
+            border-color: rgba(56, 189, 248, .55);
+            background:
+                linear-gradient(135deg, rgba(14, 165, 233, .35), rgba(99, 102, 241, .28));
+            box-shadow:
+                0 0 0 1px rgba(56, 189, 248, .15),
+                0 8px 18px -10px rgba(56, 189, 248, .55);
         }
-        .jadwal-filter-chip.active[data-jfilter="segera"] { color: #c2410c; }
-        .jadwal-filter-chip.active[data-jfilter="menunggu"] { color: #a16207; }
-        .jadwal-filter-chip.active[data-jfilter="lewat"] { color: #15803d; }
-        .jadwal-filter-chip.active[data-jfilter="ada_hasil"] { color: #0369a1; }
+        .jadwal-filter-chip.active[data-jfilter="segera"] {
+            border-color: rgba(251, 146, 60, .55);
+            background: linear-gradient(135deg, rgba(249, 115, 22, .35), rgba(234, 88, 12, .22));
+            box-shadow: 0 8px 18px -10px rgba(249, 115, 22, .5);
+        }
+        .jadwal-filter-chip.active[data-jfilter="menunggu"] {
+            border-color: rgba(250, 204, 21, .5);
+            background: linear-gradient(135deg, rgba(234, 179, 8, .32), rgba(202, 138, 4, .2));
+            box-shadow: 0 8px 18px -10px rgba(234, 179, 8, .45);
+        }
+        .jadwal-filter-chip.active[data-jfilter="lewat"] {
+            border-color: rgba(52, 211, 153, .5);
+            background: linear-gradient(135deg, rgba(16, 185, 129, .32), rgba(5, 150, 105, .2));
+            box-shadow: 0 8px 18px -10px rgba(16, 185, 129, .45);
+        }
+        .jadwal-filter-chip.active[data-jfilter="ada_hasil"] {
+            border-color: rgba(129, 140, 248, .55);
+            background: linear-gradient(135deg, rgba(99, 102, 241, .4), rgba(79, 70, 229, .28));
+            box-shadow: 0 8px 18px -10px rgba(99, 102, 241, .55);
+        }
         .j-result-box {
             margin-top: .55rem;
             padding: .45rem .55rem;
@@ -5094,6 +5167,217 @@
             transition: opacity .2s;
         }
 
+    
+        /* ===== ADA HASIL – toolbar modern ===== */
+        .hasil-command-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: .75rem 1rem;
+            margin-bottom: .85rem;
+            padding: .85rem 1.1rem;
+            border-radius: 16px;
+            background:
+                linear-gradient(100deg, rgba(76, 29, 149, .35), rgba(15, 23, 42, .92) 42%, rgba(12, 28, 55, .95)),
+                radial-gradient(ellipse 80% 120% at 100% 0%, rgba(56, 189, 248, .15), transparent 50%);
+            border: 1px solid rgba(129, 140, 248, .28);
+            box-shadow: 0 12px 32px -18px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.05);
+        }
+        .hasil-command-left {
+            display: flex;
+            align-items: center;
+            gap: .7rem;
+            min-width: 0;
+        }
+        .hasil-aktif-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            padding: .28rem .55rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(190, 24, 93, .55), rgba(127, 29, 29, .45));
+            border: 1px solid rgba(251, 113, 133, .4);
+            color: #fecdd3;
+            font-size: .55rem;
+            font-weight: 800;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+        .hasil-aktif-badge i {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: #fb7185;
+            box-shadow: 0 0 8px #fb7185;
+            display: inline-block;
+        }
+        .hasil-title {
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: .06em;
+            color: #f8fafc;
+            text-shadow: 0 0 20px rgba(167, 139, 250, .35);
+        }
+        .hasil-command-right {
+            display: flex;
+            align-items: center;
+            gap: .45rem;
+            flex-wrap: wrap;
+        }
+        .hasil-date-box {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .4rem .7rem;
+            border-radius: 999px;
+            background: rgba(2, 6, 23, .65);
+            border: 1px solid rgba(148, 163, 184, .2);
+            color: #e2e8f0;
+            font-size: .65rem;
+            font-weight: 600;
+        }
+        .hasil-date-box input[type="date"] {
+            background: transparent;
+            border: none;
+            color: #e2e8f0;
+            font-size: .65rem;
+            font-family: var(--font-mono);
+            outline: none;
+            color-scheme: dark;
+        }
+        .hasil-btn-pill {
+            border: 1px solid rgba(56, 189, 248, .35);
+            background: linear-gradient(135deg, rgba(14, 165, 233, .85), rgba(37, 99, 235, .75));
+            color: #fff;
+            font-size: .62rem;
+            font-weight: 700;
+            letter-spacing: .04em;
+            padding: .42rem .85rem;
+            border-radius: 999px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            transition: .2s;
+        }
+        .hasil-btn-pill:hover { filter: brightness(1.08); }
+        .hasil-btn-icon {
+            width: 32px; height: 32px;
+            border-radius: 10px;
+            border: 1px solid rgba(148, 163, 184, .25);
+            background: rgba(15, 23, 42, .8);
+            color: #94a3b8;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .hasil-btn-icon:hover { color: #fff; border-color: rgba(56,189,248,.4); }
+
+        .hasil-tools-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: .55rem;
+            margin-bottom: 1rem;
+            padding: .55rem .65rem;
+            border-radius: 14px;
+            background: rgba(8, 12, 28, .85);
+            border: 1px solid rgba(51, 65, 85, .55);
+        }
+        .hasil-search-wrap {
+            flex: 1 1 200px;
+            min-width: 160px;
+            display: flex;
+            align-items: center;
+            gap: .45rem;
+            padding: .45rem .75rem;
+            border-radius: 10px;
+            background: rgba(2, 6, 23, .7);
+            border: 1px solid rgba(71, 85, 105, .5);
+        }
+        .hasil-search-wrap i { color: #64748b; font-size: .7rem; }
+        .hasil-search-wrap input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #e2e8f0;
+            font-size: .72rem;
+        }
+        .hasil-search-wrap input::placeholder { color: #64748b; }
+        .hasil-type-chip {
+            border: 1px solid transparent;
+            background: rgba(15, 23, 42, .9);
+            color: #94a3b8;
+            font-size: .65rem;
+            font-weight: 700;
+            padding: .42rem .85rem;
+            border-radius: 999px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            transition: .2s;
+        }
+        .hasil-type-chip .cnt {
+            background: rgba(99, 102, 241, .35);
+            color: #c7d2fe;
+            font-size: .55rem;
+            padding: .1rem .4rem;
+            border-radius: 999px;
+            min-width: 1.4rem;
+            text-align: center;
+        }
+        .hasil-type-chip.active {
+            background: linear-gradient(135deg, rgba(124, 58, 237, .9), rgba(79, 70, 229, .85));
+            color: #fff;
+            border-color: rgba(167, 139, 250, .4);
+            box-shadow: 0 6px 16px -8px rgba(124, 58, 237, .6);
+        }
+        .hasil-type-chip.active .cnt {
+            background: rgba(255,255,255,.2);
+            color: #fff;
+        }
+        .hasil-sort-chip {
+            border: 1px solid rgba(51, 65, 85, .7);
+            background: rgba(15, 23, 42, .9);
+            color: #94a3b8;
+            font-size: .62rem;
+            font-weight: 700;
+            padding: .4rem .75rem;
+            border-radius: 999px;
+            cursor: pointer;
+        }
+        .hasil-sort-chip.active {
+            background: #0f172a;
+            color: #e2e8f0;
+            border-color: rgba(148, 163, 184, .35);
+        }
+
+    
+        /* Spasi teks lebih rapi di kartu jadwal */
+        #contentArea .j-content-preview {
+            line-height: 1.7 !important;
+            letter-spacing: .02em;
+            word-spacing: .04em;
+        }
+        #contentArea .j-result-full {
+            line-height: 1.75 !important;
+            letter-spacing: .02em;
+            word-spacing: .05em;
+        }
+        #contentArea .j-title-abss {
+            letter-spacing: .06em;
+        }
+        #contentArea .j-time-label {
+            letter-spacing: .08em;
+        }
+        /* Sticky search tetap modern di Semua/Segera/Menunggu/Lewat */
+        #dataView:not(.hidden) .sticky-top:not(.hidden-sticky) .search-bar {
+            border: 1px solid rgba(99, 102, 241, .22);
+            box-shadow: 0 8px 22px -16px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.04);
+        }
     </style>
 </head>
 <body>
@@ -5233,7 +5517,7 @@
             gidBetting: BASE + "&gid=" + GID_BETTING,
             gidEvent: BASE + "&gid=" + GID_EVENT,
             gidGambarLain: BASE + "&gid=" + GID_GAMBAR_LAIN,
-            gidResult: "https://docs.google.com/spreadsheets/d/10sBZbE-o_eNpFj5z5WvSuTJhS93KP4jEZxc4YdqUkgU/gviz/tq?tqx=out:json&gid=1484856061"
+            gidResult: "https://docs.google.com/spreadsheets/d/1xFp4rk_meBmOSeG36AHNW9ULzKqGDchX4Hb3XzVlUR0/gviz/tq?tqx=out:json&gid=4756916"
         };
 
         var gid0Data = [],
@@ -5251,6 +5535,10 @@
             searchQuery = "",
             qrisTypeFilter = "all",
             jadwalStatusFilter = "all";
+        var hasilTypeFilter = "all";
+        var hasilSortOrder = "newest";
+        var hasilSearchQuery = "";
+        var hasilDateFilter = "";
         var isLoading = false,
             lastError = null;
         var lastRefreshTime = null,
@@ -5595,30 +5883,12 @@
 
         
         function fetchResultData() {
+            // Sumber sama dengan https://hasil-result-tgl.vercel.app/
+            // (sheet publik yang dipakai situs tersebut)
             var urls = [
-                "https://docs.google.com/spreadsheets/d/10sBZbE-o_eNpFj5z5WvSuTJhS93KP4jEZxc4YdqUkgU/gviz/tq?tqx=out:json&gid=1484856061",
-                "https://docs.google.com/spreadsheets/d/10sBZbE-o_eNpFj5z5WvSuTJhS93KP4jEZxc4YdqUkgU/export?format=csv&gid=1484856061"
+                "https://docs.google.com/spreadsheets/d/1xFp4rk_meBmOSeG36AHNW9ULzKqGDchX4Hb3XzVlUR0/gviz/tq?tqx=out:json&gid=4756916",
+                URLS.gidResult
             ];
-            function parseCsv(text) {
-                var lines = String(text || "").replace(/^\uFEFF/, "").split(/\r?\n/).filter(function(l) { return l.trim(); });
-                var items = [];
-                for (var i = 0; i < lines.length; i++) {
-                    var cols = [];
-                    // parse CSV with quotes
-                    var cur = "", inQ = false;
-                    var line = lines[i];
-                    for (var j = 0; j < line.length; j++) {
-                        var ch = line[j];
-                        if (ch === '"') { inQ = !inQ; continue; }
-                        if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ""; continue; }
-                        cur += ch;
-                    }
-                    cols.push(cur.trim());
-                    if (!cols.length || cols.every(function(c) { return !c; })) continue;
-                    items.push({ title: cols[3] || cols[0] || "", content: cols[6] || cols.slice(1).join(" "), imageUrl: "", raw: cols });
-                }
-                return items;
-            }
             function tryUrl(idx) {
                 if (idx >= urls.length) return Promise.resolve([]);
                 var url = urls[idx];
@@ -5626,34 +5896,62 @@
                     if (!res.ok) throw new Error("HTTP " + res.status);
                     return res.text();
                 }).then(function(t) {
-                    if (!t || t.indexOf("<!DOCTYPE") === 0 || t.indexOf("show-login-page") !== -1) throw new Error("Sheet privat");
-                    if (url.indexOf("export?format=csv") !== -1) {
-                        var csvItems = parseCsv(t);
-                        if (csvItems.length) return csvItems;
+                    if (!t || t.indexOf("setResponse") === -1) throw new Error("bukan gviz");
+                    var table = parseGviz(t);
+                    var rows = table.rows || [];
+                    var lines = [];
+                    for (var ri = 0; ri < rows.length; ri++) {
+                        var cells = rows[ri].c || [];
+                        // kolom B (index 1) berisi baris teks result
+                        var line = "";
+                        if (cells[1] && cells[1].v != null) line = String(cells[1].v).trim();
+                        else if (cells[0] && cells[0].v != null) line = String(cells[0].v).trim();
+                        if (line) lines.push(line);
                     }
-                    if (t.indexOf("google.visualization") !== -1 || t.indexOf("setResponse") !== -1) {
-                        var table = parseGviz(t);
-                        var rows = table.rows || [];
-                        var items = [];
-                        for (var ri = 0; ri < rows.length; ri++) {
-                            var cells = (rows[ri].c || []).map(function(c) {
-                                if (!c || c.v == null) return "";
-                                // date/time objects from gviz
-                                return String(c.f != null ? c.f : c.v).trim();
-                            });
-                            if (cells.every(function(v) { return !v; })) continue;
+                    // parse blok: mulai "Hasil Pengeluaran ..." sampai sebelum blok berikutnya / akhir
+                    var items = [];
+                    var i = 0;
+                    while (i < lines.length) {
+                        if (/^Hasil Pengeluaran\s+/i.test(lines[i])) {
+                            var block = [lines[i]];
+                            var name = lines[i].replace(/^Hasil Pengeluaran\s+/i, "").trim();
+                            i++;
+                            while (i < lines.length && !/^Hasil Pengeluaran\s+/i.test(lines[i])) {
+                                block.push(lines[i]);
+                                i++;
+                            }
+                            var text = block.join("\n");
+                            // ekstrak nomor
+                            var r1 = "", r2 = "", r3 = "", shio = "";
+                            for (var bi = 0; bi < block.length; bi++) {
+                                var ln = block[bi];
+                                var m1 = ln.match(/^Result\s*1\s*:\s*(\d{2,6})/i);
+                                var mR = ln.match(/^Result\s*:\s*(\d{2,6})/i);
+                                var m2 = ln.match(/^Result\s*2\s*:\s*(\d{2,6})/i);
+                                var m3 = ln.match(/^Result\s*3\s*:\s*(\d{2,6})/i);
+                                var mS = ln.match(/SHIO\s*:\s*([A-Za-z]+)/i);
+                                if (m1) r1 = m1[1];
+                                else if (mR) r1 = mR[1];
+                                if (m2) r2 = m2[1];
+                                if (m3) r3 = m3[1];
+                                if (mS) shio = mS[1].toUpperCase();
+                            }
+                            if (!r1) continue; // belum ada result → skip
                             items.push({
-                                title: cells[3] || cells[0] || "",
-                                content: cells[6] || "",
+                                title: name,
+                                content: text,
                                 imageUrl: "",
-                                raw: cells
+                                raw: block,
+                                r1: r1, r2: r2, r3: r3, shio: shio,
+                                text: text
                             });
+                        } else {
+                            i++;
                         }
-                        if (items.length) return items;
                     }
-                    throw new Error("Format tidak dikenali");
+                    return items;
                 }).catch(function(err) {
-                    console.warn("fetchResultData try", idx, err);
+                    console.warn("fetchResultData", idx, err);
                     return tryUrl(idx + 1);
                 });
             }
@@ -5808,7 +6106,7 @@
 
         function updatePageHeader() { var cfg = getCfg(); pageTitleEl.innerHTML = cfg.titleHTML; searchInput.placeholder = cfg.searchPlaceholder; $("qrisTypeFilterWrapper").style.display = currentFilter === "gidQris" ? "flex" : "none"; var np = $("nextPasaranBadge"); if (currentFilter === "gid5") { jadwalClockEl.classList.add("visible"); if (!clockInterval) { updateClock();
                     clockInterval = setInterval(updateClock, 1000); } np.classList.add("visible"); } else { jadwalClockEl.classList.remove("visible"); if (clockInterval) { clearInterval(clockInterval);
-                    clockInterval = null; } np.classList.remove("visible"); } if (currentFilter === "gidPassword") { stickyTop.classList.add("hidden-sticky"); } else { stickyTop.classList.remove("hidden-sticky"); } }
+                    clockInterval = null; } np.classList.remove("visible"); } if (currentFilter === "gidPassword" || (currentFilter === "gid5" && jadwalStatusFilter === "ada_hasil")) { stickyTop.classList.add("hidden-sticky"); } else { stickyTop.classList.remove("hidden-sticky"); } }
 
         function updateClock() { var n = (typeof getWibNow === "function") ? getWibNow() : new Date(); if (clockTimeEl) clockTimeEl.textContent = String(n.getHours()).padStart(2, "0") + ":" + String(n.getMinutes()).padStart(2, "0") + ":" + String(n.getSeconds()).padStart(2, "0") + " WIB"; }
 
@@ -5828,7 +6126,7 @@
             searchClear.classList.remove("visible");
             qrisTypeFilter = "all";
             if (filter === "gidEvent") eventCategoryFilter = "all";
-            if (filter === "gid5") jadwalStatusFilter = "all";
+            if (filter === "gid5") { jadwalStatusFilter = "all"; hasilSearchQuery = ""; hasilTypeFilter = "biasa"; hasilSortOrder = "newest"; }
             document.querySelectorAll(".filter-chip").forEach(function(c) { c.classList.toggle("active", c.dataset.type === "all") });
             document.querySelectorAll(".sidebar-item").forEach(function(i) { i.classList.remove("active") });
             var target = document.querySelector('.sidebar-item[data-filter="' + filter + '"]');
@@ -6033,54 +6331,61 @@
         }
         function rebuildResultMap() {
             resultByMarket = {};
-            var sheetDateLabel = "";
-            if (gidResultData.length) {
-                var headerCells = (gidResultData[0].raw || []);
-                var dateRaw = headerCells[15] || "";
-                sheetDateLabel = formatResultDateLabel(dateRaw);
-            }
             for (var i = 0; i < gidResultData.length; i++) {
                 var it = gidResultData[i];
-                var cells = (it.raw && it.raw.length) ? it.raw.slice() : [];
-                var rowJoin = cells.join(" ").toUpperCase();
-                if (rowJoin.indexOf("PASARAN") !== -1 && rowJoin.indexOf("JAM TUTUP") !== -1) continue;
-                if (String(cells[0] || "").toUpperCase() === "NO") continue;
-
-                var name = String(cells[3] || "").trim();
-                if (!name || /^\d+$/.test(name)) continue;
-
-                var r1 = String(cells[6] || "").trim();
-                var r2 = String(cells[7] || "").trim();
-                var r3 = String(cells[8] || "").trim();
-                var shio = String(cells[9] || "").trim();
-                var status = String(cells[10] || "").trim().toUpperCase();
-
-                // Angka valid saja
-                if (!/^\d{2,6}$/.test(r1)) r1 = "";
-                if (!/^\d{2,6}$/.test(r2)) r2 = "";
-                if (!/^\d{2,6}$/.test(r3)) r3 = "";
-
-                // BELUM RESULT / kosong → jangan masuk peta hasil
-                if (status.indexOf("BELUM") !== -1) continue;
-                if (!r1 && !r2 && !r3) continue;
-                // Minimal harus ada result utama (r1) agar dianggap sudah keluar
-                if (!r1) continue;
-
-                var isPrize123 = !!(r1 && r2 && r3);
-                var text = buildResultAnnouncement(name, r1, r2, r3, shio, sheetDateLabel, isPrize123);
+                var name = (it.title || "").trim();
+                if (!name) continue;
+                var text = (it.text || it.content || "").trim();
+                var r1 = it.r1 || "";
+                var r2 = it.r2 || "";
+                var r3 = it.r3 || "";
+                var shio = it.shio || "";
+                // fallback parse dari teks
+                if (!r1 && text) {
+                    var lines = text.split(/\n/);
+                    for (var li = 0; li < lines.length; li++) {
+                        var ln = lines[li];
+                        var m1 = ln.match(/^Result\s*1\s*:\s*(\d{2,6})/i);
+                        var mR = ln.match(/^Result\s*:\s*(\d{2,6})/i);
+                        var m2 = ln.match(/^Result\s*2\s*:\s*(\d{2,6})/i);
+                        var m3 = ln.match(/^Result\s*3\s*:\s*(\d{2,6})/i);
+                        var mS = ln.match(/SHIO\s*:\s*([A-Za-z]+)/i);
+                        if (m1) r1 = m1[1];
+                        else if (mR) r1 = mR[1];
+                        if (m2) r2 = m2[1];
+                        if (m3) r3 = m3[1];
+                        if (mS) shio = mS[1].toUpperCase();
+                    }
+                }
+                if (!r1 || !/^\d{2,6}$/.test(r1)) continue;
+                if (!text) {
+                    var isPrize123 = !!(r1 && r2 && r3);
+                    text = buildResultAnnouncement(name, r1, r2, r3, shio, "", isPrize123);
+                } else {
+                    var tl = String(text).replace(/\r/g, "").split("\n");
+                    var spaced = [];
+                    for (var ti = 0; ti < tl.length; ti++) {
+                        var line = (tl[ti] || "").trim();
+                        if (!line) continue;
+                        if (/^Selamat Kepada/i.test(line) && spaced.length && spaced[spaced.length - 1] !== "") spaced.push("");
+                        spaced.push(line);
+                        if (/^Hasil Pengeluaran/i.test(line)) spaced.push("");
+                        else if (/^Hari /i.test(line)) spaced.push("");
+                    }
+                    text = spaced.join("\n");
+                }
                 var key = normalizeMarketKey(name);
                 var payload = {
                     number: r1,
                     r1: r1, r2: r2, r3: r3,
                     shio: shio,
-                    status: status,
-                    isPrize123: isPrize123,
-                    dateLabel: sheetDateLabel,
+                    status: "DONE",
+                    isPrize123: !!(r1 && r2 && r3),
+                    dateLabel: "",
                     text: text,
                     title: name,
                     raw: it
                 };
-                // Simpan HANYA key lengkap + tanpa spasi (hindari partial "kingkong" menimpa SORE/MALAM)
                 resultByMarket[key] = payload;
                 resultByMarket[key.replace(/\s+/g, "")] = payload;
             }
@@ -6109,7 +6414,9 @@
         function buildResultAnnouncement(name, r1, r2, r3, shio, dateLabel, isPrize123) {
             var lines = [];
             lines.push("Hasil Pengeluaran " + name);
+            lines.push("");
             lines.push(dateLabel || formatResultDateLabel(""));
+            lines.push("");
             if (isPrize123) {
                 var line1 = "Result 1 : " + r1;
                 if (shio) line1 += " , SHIO : " + shio;
@@ -6120,6 +6427,7 @@
                 lines.push("Result : " + (r1 || r2 || r3));
                 if (shio) lines.push("SHIO : " + shio);
             }
+            lines.push("");
             lines.push("Selamat Kepada Pemenang, Salam JP");
             return lines.join("\n");
         }
@@ -6185,20 +6493,67 @@
         }
 
         function renderJadwalGrid(items) {
+            // Sinkronkan visibility search bar (tampil kecuali filter Ada Hasil)
+            try {
+                if (stickyTop) {
+                    if (jadwalStatusFilter === "ada_hasil") stickyTop.classList.add("hidden-sticky");
+                    else stickyTop.classList.remove("hidden-sticky");
+                }
+            } catch (e) {}
+
             var q = searchQuery.trim();
             jadwalCopyStore = {}; // reset setiap render
             var enriched = [];
+            var hasilBiasaCount = 0, hasilHokiCount = 0;
             for (var fi = 0; fi < items.length; fi++) {
                 var meta = getJadwalBucket(items[fi]);
-                // Filter Ada Hasil: WAJIB punya nomor result valid dari sheet
                 if (jadwalStatusFilter === "ada_hasil") {
                     if (!meta.hasResult || !meta.resultNumber || !meta.resultText) continue;
-                    enriched.push({ it: items[fi], meta: meta });
+                    var tname = String(items[fi].title || "").toLowerCase();
+                    var isHoki = tname.indexOf("hokidraw") !== -1 || tname.indexOf("hoki draw") !== -1;
+                    if (isHoki) hasilHokiCount++; else hasilBiasaCount++;
+                    // filter tipe
+                    if (hasilTypeFilter === "hokidraw" && !isHoki) continue;
+                    if (hasilTypeFilter === "biasa" && isHoki) continue;
+                    // search khusus hasil
+                    var hq = (hasilSearchQuery || "").trim().toLowerCase();
+                    if (hq && tname.indexOf(hq) === -1 && String(meta.resultText || "").toLowerCase().indexOf(hq) === -1) continue;
+                    enriched.push({ it: items[fi], meta: meta, isHoki: isHoki });
                     continue;
                 }
                 if (jadwalStatusFilter !== "all" && meta.bucket !== jadwalStatusFilter) continue;
-                // Filter lain: jangan andalkan result
                 enriched.push({ it: items[fi], meta: meta });
+            }
+            // urutkan hasil
+            if (jadwalStatusFilter === "ada_hasil") {
+                enriched.sort(function(a, b) {
+                    // Urut berdasarkan JAM RESULT (WIB minutes)
+                    function resultMinutes(meta, item) {
+                        var p = meta && meta.parse ? meta.parse : parseJadwalItem(item);
+                        var m = parseHHMMtoMinutes(p.resultTime);
+                        if (m == null) m = parseHHMMtoMinutes(p.cutoffTime);
+                        if (m == null) return -1;
+                        return m;
+                    }
+                    var ma = resultMinutes(a.meta, a.it);
+                    var mb = resultMinutes(b.meta, b.it);
+                    // fallback: posisi di sheet result
+                    if (ma === mb) {
+                        var ia = -1, ib = -1;
+                        var ka = normalizeMarketKey(a.it.title), kb = normalizeMarketKey(b.it.title);
+                        for (var gi = 0; gi < gidResultData.length; gi++) {
+                            var gk = normalizeMarketKey(gidResultData[gi].title);
+                            if (gk === ka) ia = gi;
+                            if (gk === kb) ib = gi;
+                        }
+                        if (hasilSortOrder === "newest") return ib - ia;
+                        return ia - ib;
+                    }
+                    // Terbaru = jam result paling dekat/terakhir (nilai menit lebih besar)
+                    // Terlama = jam result lebih awal (nilai menit lebih kecil)
+                    if (hasilSortOrder === "newest") return mb - ma;
+                    return ma - mb;
+                });
             }
             var html = '';
             html += '<div class="jadwal-filter-bar">';
@@ -6207,12 +6562,40 @@
             html += '<button type="button" class="jadwal-filter-chip' + (jadwalStatusFilter === "menunggu" ? " active" : "") + '" data-jfilter="menunggu"><i class="fa-solid fa-trophy"></i> Menunggu</button>';
             html += '<button type="button" class="jadwal-filter-chip' + (jadwalStatusFilter === "lewat" ? " active" : "") + '" data-jfilter="lewat"><i class="fa-solid fa-check"></i> Lewat</button>';
             html += '<button type="button" class="jadwal-filter-chip' + (jadwalStatusFilter === "ada_hasil" ? " active" : "") + '" data-jfilter="ada_hasil"><i class="fa-solid fa-hashtag"></i> Ada Hasil</button>';
-            var resultCount = 0;
-            try { for (var rk in resultByMarket) if (resultByMarket.hasOwnProperty(rk) && resultByMarket[rk].number) resultCount++; } catch (e) {}
-            // unique-ish
-            resultCount = gidResultData ? gidResultData.length : 0;
-            html += '<span style="margin-left:.4rem;font-size:.58rem;color:rgba(148,163,184,.85);align-self:center">Result sheet: ' + resultCount + ' baris</span>';
             html += '</div>';
+
+            // Toolbar modern khusus filter Ada Hasil
+            if (jadwalStatusFilter === "ada_hasil") {
+                var wib = getWibNow();
+                var yyyy = wib.getFullYear();
+                var mm = String(wib.getMonth() + 1).padStart(2, "0");
+                var dd = String(wib.getDate()).padStart(2, "0");
+                var todayStr = yyyy + "-" + mm + "-" + dd;
+                var dateVal = hasilDateFilter || todayStr;
+                // tampilan tanggal singkat
+                var bulanPendek = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+                var dp = dateVal.split("-");
+                var dateLabel = (dp.length === 3) ? (dp[2] + "-" + bulanPendek[parseInt(dp[1],10)-1] + "-" + dp[0]) : dateVal;
+
+                html += '<div class="hasil-command-bar">';
+                html += '<div class="hasil-command-left"><span class="hasil-aktif-badge"><i></i> AKTIF</span><div class="hasil-title">HASIL RESULT</div></div>';
+                html += '<div class="hasil-command-right">';
+                html += '<label class="hasil-date-box"><i class="fa-regular fa-calendar"></i><input type="date" id="hasilDateInput" value="' + dateVal + '"></label>';
+                html += '<button type="button" class="hasil-btn-pill" id="hasilHariIniBtn"><i class="fa-solid fa-circle" style="font-size:.45rem"></i> HARI INI</button>';
+                html += '<button type="button" class="hasil-btn-icon" id="hasilRefreshBtn" title="Refresh result"><i class="fa-solid fa-rotate"></i></button>';
+                html += '</div></div>';
+
+                html += '<div class="hasil-tools-bar">';
+                html += '<div class="hasil-search-wrap"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="hasilSearchInput" placeholder="Cari nama pasaran..." value="' + escapeHtml(hasilSearchQuery || "") + '"></div>';
+                html += '<button type="button" class="hasil-type-chip' + (hasilTypeFilter === "biasa" ? " active" : "") + '" data-hasil-type="biasa">Pasaran Biasa <span class="cnt">' + hasilBiasaCount + '</span></button>';
+                html += '<button type="button" class="hasil-type-chip' + (hasilTypeFilter === "hokidraw" ? " active" : "") + '" data-hasil-type="hokidraw">Hokidraw <span class="cnt">' + hasilHokiCount + '</span></button>';
+                // jika all, highlight biasa as default visual for "all biasa+hoki" - user image shows Pasaran Biasa selected
+                // Better: three states - use active on selected only
+                html += '<button type="button" class="hasil-sort-chip' + (hasilSortOrder === "newest" ? " active" : "") + '" data-hasil-sort="newest">Terbaru</button>';
+                html += '<button type="button" class="hasil-sort-chip' + (hasilSortOrder === "oldest" ? " active" : "") + '" data-hasil-sort="oldest">Terlama</button>';
+                html += '</div>';
+            }
+
             html += '<div class="jadwal-grid-abssidian">';
 
             for (var i = 0; i < enriched.length; i++) {
@@ -6354,10 +6737,64 @@
                 });
             });
             document.querySelectorAll(".jadwal-filter-chip").forEach(function(chip) {
-                chip.addEventListener("click", function() {
-                    jadwalStatusFilter = chip.getAttribute("data-jfilter") || "all";
+                chip.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var next = chip.getAttribute("data-jfilter") || "all";
+                    jadwalStatusFilter = next;
+                    if (next === "ada_hasil") {
+                        if (!hasilTypeFilter || hasilTypeFilter === "") hasilTypeFilter = "all";
+                    }
+                    try {
+                        renderContent();
+                    } catch (err) {
+                        console.error("render jadwal filter", err);
+                        showToast("Gagal memuat filter: " + (err && err.message ? err.message : err), "error");
+                    }
+                });
+            });
+            var hsi = document.getElementById("hasilSearchInput");
+            if (hsi) {
+                hsi.addEventListener("input", function() {
+                    hasilSearchQuery = hsi.value || "";
+                    clearTimeout(window._hasilSearchTimer);
+                    window._hasilSearchTimer = setTimeout(function() { renderContent(); }, 220);
+                });
+            }
+            document.querySelectorAll("[data-hasil-type]").forEach(function(btn) {
+                btn.addEventListener("click", function() {
+                    var t = btn.getAttribute("data-hasil-type");
+                    hasilTypeFilter = (hasilTypeFilter === t) ? "all" : t;
                     renderContent();
                 });
+            });
+            document.querySelectorAll("[data-hasil-sort]").forEach(function(btn) {
+                btn.addEventListener("click", function() {
+                    hasilSortOrder = btn.getAttribute("data-hasil-sort") || "newest";
+                    renderContent();
+                });
+            });
+            var hdi = document.getElementById("hasilDateInput");
+            if (hdi) hdi.addEventListener("change", function() {
+                hasilDateFilter = hdi.value || "";
+                renderContent();
+            });
+            var hhi = document.getElementById("hasilHariIniBtn");
+            if (hhi) hhi.addEventListener("click", function() {
+                hasilDateFilter = "";
+                renderContent();
+            });
+            var hrb = document.getElementById("hasilRefreshBtn");
+            if (hrb) hrb.addEventListener("click", function() {
+                hrb.disabled = true;
+                fetchResultData().then(function(rows) {
+                    gidResultData = rows || [];
+                    rebuildResultMap();
+                    renderContent();
+                    showToast("Result diperbarui");
+                }).catch(function() {
+                    showToast("Gagal refresh result", "error");
+                }).finally(function() { hrb.disabled = false; });
             });
             document.querySelectorAll(".j-btn-salin-result").forEach(function(btn) {
                 btn.addEventListener("click", function(e) {
