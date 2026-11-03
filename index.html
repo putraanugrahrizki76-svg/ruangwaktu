@@ -6935,25 +6935,35 @@
                          "KERBAU", "TIKUS", "BABI", "ANJING", "AYAM", "MONYET"];
             return names[Number(lastTwo) % 12] || "";
         }
+        function compactResultText(text) {
+            return String(text || "")
+                .replace(/\r/g, "")
+                .split("\n")
+                .map(function(l) { return l.replace(/\s+$/g, ""); })
+                .filter(function(l) { return l !== ""; })
+                .join("\n");
+        }
+        function formatResultTextHtml(text) {
+            return escapeHtml(String(text || "").replace(/\r/g, "").split("\n").map(function(l) {
+                return l.replace(/\s+$/g, "");
+            }).filter(function(l) { return l !== ""; }).join("\n")).split(String.fromCharCode(10)).join("<br>");
+        }
         function buildResultAnnouncement(name, r1, r2, r3, shio, dateLabel, isPrize123) {
+            // Format rapat tanpa baris kosong antar kalimat
             var lines = [];
             lines.push("Hasil Pengeluaran " + name);
-            lines.push("");
             lines.push(dateLabel || formatResultDateLabel(""));
-            lines.push("");
             if (isPrize123) {
-                var line1 = "Result 1 : " + r1;
-                if (shio) line1 += " , SHIO : " + shio;
-                lines.push(line1);
+                lines.push("Result 1 : " + (r1 || ""));
                 if (r2) lines.push("Result 2 : " + r2);
                 if (r3) lines.push("Result 3 : " + r3);
             } else {
-                lines.push("Result : " + (r1 || r2 || r3));
-                if (shio) lines.push("SHIO : " + shio);
+                lines.push("Result : " + (r1 || r2 || r3 || ""));
             }
-            lines.push("");
+            if (shio) lines.push("SHIO : " + shio);
             lines.push("Selamat Kepada Pemenang, Salam JP");
-            return lines.join("\n");
+            // pastikan tidak ada baris kosong
+            return lines.filter(function(ln) { return String(ln).trim() !== ""; }).join("\n");
         }
 
         function findResultForMarket(title) {
@@ -7182,13 +7192,14 @@
                 // Result HANYA di filter Ada Hasil — tidak muncul di Semua/Segera/Menunggu/Lewat
                 if (jadwalStatusFilter === "ada_hasil" && meta.hasResult && meta.resultText) {
                     html += '<div class="j-result-panel">';
-                    html += '<div class="j-result-full">' + escapeHtml(meta.resultText).split(String.fromCharCode(10)).join('<br>') + '</div>';
+                    html += '<div class="j-result-full">' + formatResultTextHtml(meta.resultText) + '</div>';
                     html += '<button type="button" class="j-btn-salin-result" data-idx="' + i + '"><i class="fa-regular fa-copy"></i> SALIN</button>';
                     html += '</div>';
                 }
                 if (meta.hasResult && meta.resultText) {
-                    if (jadwalCopyStore[i]) jadwalCopyStore[i].result = meta.resultText;
-                    else jadwalCopyStore[i] = { result: meta.resultText };
+                    var compactRes = compactResultText(meta.resultText);
+                    if (jadwalCopyStore[i]) jadwalCopyStore[i].result = compactRes;
+                    else jadwalCopyStore[i] = { result: compactRes };
                 }
 
                 // Preview sub/isi — disembunyikan saat filter Ada Hasil
@@ -7326,7 +7337,7 @@
                     e.stopPropagation();
                     var idx = parseInt(btn.getAttribute("data-idx"), 10);
                     var data = jadwalCopyStore[idx];
-                    if (data && data.result) copyText(data.result, "Result");
+                    if (data && data.result) copyText(compactResultText(data.result), "Result");
                     else showToast("Result belum tersedia", "error");
                 });
             });
