@@ -5884,6 +5884,67 @@
             pointer-events: none;
         }
 
+    
+        .hasil-archive-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: .4rem;
+            margin: .55rem 0 .35rem;
+            padding: .45rem .55rem;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, .75);
+            border: 1px solid rgba(56, 189, 248, .2);
+        }
+        .hasil-archive-label {
+            font-size: .58rem;
+            font-weight: 800;
+            letter-spacing: .08em;
+            color: #7dd3fc;
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            margin-right: .25rem;
+        }
+        .hasil-archive-chip {
+            border: 1px solid rgba(71, 85, 105, .55);
+            background: rgba(30, 41, 59, .85);
+            color: #cbd5e1;
+            font-size: .58rem;
+            font-weight: 700;
+            padding: .28rem .5rem;
+            border-radius: 999px;
+            cursor: pointer;
+        }
+        .hasil-archive-chip.active {
+            background: rgba(14, 165, 233, .25);
+            border-color: rgba(56, 189, 248, .55);
+            color: #e0f2fe;
+        }
+        .hasil-archive-note {
+            font-size: .62rem;
+            color: rgba(148, 163, 184, .95);
+            margin: .25rem 0 .5rem;
+            line-height: 1.45;
+        }
+
+    
+        .hasil-archive-empty {
+            margin: .35rem 0 .55rem;
+            padding: .65rem .75rem;
+            border-radius: 12px;
+            background: rgba(245, 158, 11, .1);
+            border: 1px solid rgba(245, 158, 11, .35);
+            color: #fde68a;
+            font-size: .65rem;
+            line-height: 1.5;
+        }
+        .hasil-archive-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .4rem;
+            margin: .35rem 0 .6rem;
+        }
     </style>
 </head>
 <body>
@@ -6440,6 +6501,11 @@
                         dateLabel: dateLabel
                     });
                 }
+                // Simpan ke arsip per tanggal (untuk lihat tanggal sebelumnya)
+                if (items.length) {
+                    var dk = toISODateKey(json.date || (items[0] && items[0].raw && items[0].raw[4]) || getWibTodayISO());
+                    mergeResultsIntoArchive(items, dk);
+                }
                 return items;
             }).catch(function(err) {
                 console.warn("fetchResultData symphony failed", err);
@@ -6624,7 +6690,7 @@
             if (filter === "gidEvent") eventCategoryFilter = "all";
             if (filter === "gid473") { hadiahCatFilter = "all"; searchQuery = ""; }
             if (filter === "gidBonus") { bonusCatFilter = "all"; searchQuery = ""; }
-            if (filter === "gid5") { jadwalStatusFilter = "all"; hasilSearchQuery = ""; hasilTypeFilter = "biasa"; hasilSortOrder = "newest"; }
+            if (filter === "gid5") { jadwalStatusFilter = "all"; hasilSearchQuery = ""; hasilTypeFilter = "all"; hasilSortOrder = "newest"; }
             document.querySelectorAll(".filter-chip").forEach(function(c) { c.classList.toggle("active", c.dataset.type === "all") });
             document.querySelectorAll(".sidebar-item").forEach(function(i) { i.classList.remove("active") });
             var target = document.querySelector('.sidebar-item[data-filter="' + filter + '"]');
@@ -6832,7 +6898,92 @@
             if (!m) return null;
             return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
         }
-        function normalizeMarketKey(name) {
+        
+        // ===== Arsip lokal + helper tanggal WIB =====
+        var RESULT_ARCHIVE_KEY = "rw_result_archive_v1";
+        var resultArchiveCache = null;
+
+        function getWibTodayISO() {
+            var now = new Date();
+            var wib = new Date(now.getTime() + (7 * 60 - now.getTimezoneOffset()) * 60000);
+            return wib.getFullYear() + "-" + String(wib.getMonth() + 1).padStart(2, "0") + "-" + String(wib.getDate()).padStart(2, "0");
+        }
+
+        function toISODateKey(dateRaw) {
+            var s = String(dateRaw || "").trim();
+            var m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+            if (m) return m[1] + "-" + m[2] + "-" + m[3];
+            m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+            if (m) return m[3] + "-" + String(m[2]).padStart(2, "0") + "-" + String(m[1]).padStart(2, "0");
+            var d = new Date(s);
+            if (!isNaN(d.getTime())) {
+                return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+            }
+            return getWibTodayISO();
+        }
+
+        function loadResultArchive() {
+            if (resultArchiveCache) return resultArchiveCache;
+            try {
+                resultArchiveCache = JSON.parse(localStorage.getItem(RESULT_ARCHIVE_KEY) || "{}") || {};
+            } catch (e) {
+                resultArchiveCache = {};
+            }
+            return resultArchiveCache;
+        }
+
+        function saveResultArchive() {
+            try {
+                localStorage.setItem(RESULT_ARCHIVE_KEY, JSON.stringify(resultArchiveCache || {}));
+            } catch (e) {}
+        }
+
+        function mergeResultsIntoArchive(items, dateKey) {
+            if (!items || !items.length) return;
+            var arch = loadResultArchive();
+            var key = dateKey || toISODateKey((items[0] && items[0].raw && items[0].raw[4]) || "") || getWibTodayISO();
+            var map = {};
+            var prev = arch[key] || [];
+            for (var i = 0; i < prev.length; i++) {
+                var pk = normalizeMarketKey(prev[i].title || "");
+                if (pk) map[pk] = prev[i];
+            }
+            for (var j = 0; j < items.length; j++) {
+                var it = items[j];
+                var nk = normalizeMarketKey(it.title || "");
+                if (!nk || !(it.r1 || (it.raw && it.raw[1]))) continue;
+                map[nk] = {
+                    title: it.title,
+                    content: it.content || it.text || "",
+                    text: it.text || it.content || "",
+                    r1: it.r1 || "",
+                    r2: it.r2 || "",
+                    r3: it.r3 || "",
+                    shio: it.shio || "",
+                    dateLabel: it.dateLabel || "",
+                    raw: it.raw || []
+                };
+            }
+            var merged = [];
+            for (var k in map) {
+                if (Object.prototype.hasOwnProperty.call(map, k)) merged.push(map[k]);
+            }
+            arch[key] = merged;
+            resultArchiveCache = arch;
+            saveResultArchive();
+        }
+
+        function getArchiveItemsForDate(isoDate) {
+            var arch = loadResultArchive();
+            return (arch && arch[isoDate]) ? arch[isoDate].slice() : [];
+        }
+
+        function listArchiveDates() {
+            var arch = loadResultArchive();
+            return Object.keys(arch || {}).sort().reverse();
+        }
+
+function normalizeMarketKey(name) {
             var s = String(name || "").toLowerCase();
             // seragamkan pemisah waktu 00.00 / 00-00 → 0000
             s = s.replace(/(\d{1,2})[.:\-](\d{2})/g, "$1$2");
@@ -6900,6 +7051,12 @@
                 resultByMarket[key] = payload;
                 resultByMarket[key.replace(/\s+/g, "")] = payload;
             }
+            // Auto-arsip result hari ini agar bisa dibuka di kemudian hari
+            try {
+                if (gidResultData && gidResultData.length) {
+                    mergeResultsIntoArchive(gidResultData, getWibTodayISO());
+                }
+            } catch (eArch) {}
         }
 
         function formatResultDateLabel(dateRaw) {
@@ -6964,6 +7121,191 @@
             lines.push("Selamat Kepada Pemenang, Salam JP");
             // pastikan tidak ada baris kosong
             return lines.filter(function(ln) { return String(ln).trim() !== ""; }).join("\n");
+        }
+
+        
+        
+        // Arsip history dari https://hasil-result-tgl.vercel.app/ (Apps Script snapshot)
+        // TIDAK mengubah sumber live symphony.
+        var HASIL_RESULT_ARCHIVE_API = "https://script.google.com/macros/s/AKfycbz18iPjvQ7QPflBoIJfepYsF447GAUfB8oJxmXl3XhB8zn-ZL5lqtcKXtIDYoZpnkR2/exec";
+        var remoteArchiveCache = {};
+        var remoteArchiveLoading = {};
+
+        function normalizeSnapshotDateKey(value) {
+            var clean = String(value || "").trim();
+            if (!clean) return "";
+            if (/^\d{4}-\d{2}-\d{2}$/.test(clean)) return clean;
+            var m = clean.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+            if (m) return m[3] + "-" + m[2] + "-" + m[1];
+            m = clean.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+            if (m) return m[3] + "-" + m[2] + "-" + m[1];
+            return toISODateKey(clean);
+        }
+
+        function parseArchiveCellsToItems(cells, dateKey) {
+            var lines = Array.isArray(cells) ? cells : [];
+            var items = [];
+            var i = 0;
+            while (i < lines.length) {
+                var line = String(lines[i] || "").trim();
+                if (/^Hasil Pengeluaran\s+/i.test(line)) {
+                    var name = line.replace(/^Hasil Pengeluaran\s+/i, "").trim();
+                    var block = [];
+                    i++;
+                    while (i < lines.length && !/^Hasil Pengeluaran\s+/i.test(String(lines[i] || "").trim())) {
+                        block.push(String(lines[i] || "").trim());
+                        i++;
+                    }
+                    var r1 = "", r2 = "", r3 = "", shio = "", dateLabel = "";
+                    for (var bi = 0; bi < block.length; bi++) {
+                        var ln = block[bi];
+                        var m1 = ln.match(/^Result\s*1\s*:\s*(\d{2,6})/i);
+                        var m0 = ln.match(/^Result\s*:\s*(\d{2,6})/i);
+                        var m2 = ln.match(/^Result\s*2\s*:\s*(\d{2,6})/i);
+                        var m3 = ln.match(/^Result\s*3\s*:\s*(\d{2,6})/i);
+                        var ms = ln.match(/SHIO\s*:\s*([A-Za-z]+)/i);
+                        if (m1) r1 = m1[1];
+                        else if (m0) r1 = m0[1];
+                        if (m2) r2 = m2[1];
+                        if (m3) r3 = m3[1];
+                        if (ms) shio = ms[1].toUpperCase();
+                        if (/^Hari\s+/i.test(ln)) dateLabel = ln;
+                    }
+                    if (!r1 || !/^\d{2,6}$/.test(r1)) continue;
+                    if (!shio && typeof shioFromPrize1 === "function") shio = shioFromPrize1(r1);
+                    var isPrize123 = !!(r1 && r2 && r3);
+                    if (!dateLabel) dateLabel = formatResultDateLabel(dateKey);
+                    var text = buildResultAnnouncement(name, r1, r2, r3, shio, dateLabel, isPrize123);
+                    if (typeof compactResultText === "function") text = compactResultText(text);
+                    items.push({
+                        title: name,
+                        content: text,
+                        text: text,
+                        r1: r1, r2: r2 || "", r3: r3 || "",
+                        shio: shio,
+                        dateLabel: dateLabel,
+                        raw: [name, r1, r2 || "", r3 || "", dateKey]
+                    });
+                } else {
+                    i++;
+                }
+            }
+            return items;
+        }
+
+        function fetchRemoteArchiveSnapshot(dateKey) {
+            dateKey = normalizeSnapshotDateKey(dateKey);
+            if (!dateKey) return Promise.resolve([]);
+            if (remoteArchiveCache[dateKey]) return Promise.resolve(remoteArchiveCache[dateKey]);
+            if (remoteArchiveLoading[dateKey]) return remoteArchiveLoading[dateKey];
+
+            remoteArchiveLoading[dateKey] = new Promise(function(resolve) {
+                var callbackName = "hasilArchiveCb_" + Date.now() + "_" + Math.floor(Math.random() * 1e6);
+                var settled = false;
+                var script = document.createElement("script");
+                var timer = setTimeout(function() { finish([]); }, 22000);
+
+                function finish(items) {
+                    if (settled) return;
+                    settled = true;
+                    clearTimeout(timer);
+                    try { delete window[callbackName]; } catch (e) { window[callbackName] = undefined; }
+                    if (script.parentNode) script.parentNode.removeChild(script);
+                    remoteArchiveCache[dateKey] = items || [];
+                    try { if (items && items.length) mergeResultsIntoArchive(items, dateKey); } catch (e2) {}
+                    delete remoteArchiveLoading[dateKey];
+                    resolve(items || []);
+                }
+
+                window[callbackName] = function(response) {
+                    try {
+                        if (!response || response.ok === false || !response.found) {
+                            finish([]);
+                            return;
+                        }
+                        var items = parseArchiveCellsToItems(response.cells || [], dateKey);
+                        finish(items);
+                    } catch (err) {
+                        finish([]);
+                    }
+                };
+
+                var q = "api=1&action=getStoredSnapshot&dateKey=" + encodeURIComponent(dateKey) +
+                    "&callback=" + encodeURIComponent(callbackName) +
+                    "&cacheBust=" + Date.now();
+                script.src = HASIL_RESULT_ARCHIVE_API + "?" + q;
+                script.async = true;
+                script.onerror = function() { finish([]); };
+                document.head.appendChild(script);
+            });
+
+            return remoteArchiveLoading[dateKey];
+        }
+
+function applyResultSourceForDate(isoDate) {
+            var today = (typeof getWibTodayISO === "function") ? getWibTodayISO() : "";
+            var useDate = "";
+            try {
+                useDate = (typeof normalizeSnapshotDateKey === "function")
+                    ? (normalizeSnapshotDateKey(isoDate || today) || today)
+                    : (isoDate || today);
+            } catch (e) {
+                useDate = today || "";
+            }
+            try {
+                if (!useDate || useDate === today) {
+                    // LIVE symphony
+                    rebuildResultMap();
+                    return;
+                }
+                // Tanggal lama
+                var sourceItems = [];
+                if (typeof remoteArchiveCache !== "undefined" && remoteArchiveCache[useDate] && remoteArchiveCache[useDate].length) {
+                    sourceItems = remoteArchiveCache[useDate];
+                } else if (typeof getArchiveItemsForDate === "function") {
+                    sourceItems = getArchiveItemsForDate(useDate) || [];
+                }
+                if ((!sourceItems || !sourceItems.length) && typeof fetchRemoteArchiveSnapshot === "function") {
+                    fetchRemoteArchiveSnapshot(useDate).then(function(items) {
+                        if (items && items.length) {
+                            if ((hasilDateFilter || today) === useDate) {
+                                try { renderContent(); } catch (e3) {}
+                            }
+                        }
+                    });
+                }
+                resultByMarket = {};
+                for (var i = 0; i < (sourceItems || []).length; i++) {
+                    var it = sourceItems[i] || {};
+                    var name = String(it.title || "").trim();
+                    var r1 = String(it.r1 || "").trim();
+                    var r2 = String(it.r2 || "").trim();
+                    var r3 = String(it.r3 || "").trim();
+                    if (!name || !/^\d{2,6}$/.test(r1)) continue;
+                    var shio = it.shio || (typeof shioFromPrize1 === "function" ? shioFromPrize1(r1) : "");
+                    var text = it.text || it.content || "";
+                    if (!text && typeof buildResultAnnouncement === "function") {
+                        text = buildResultAnnouncement(name, r1, r2, r3, shio, it.dateLabel || "", !!(r2 && r3));
+                    }
+                    if (typeof compactResultText === "function") text = compactResultText(text);
+                    var key = normalizeMarketKey(name);
+                    if (!key) continue;
+                    var payload = {
+                        title: name,
+                        number: r1,
+                        r1: r1, r2: r2, r3: r3,
+                        shio: shio,
+                        text: text,
+                        isPrize123: !!(r2 && r3),
+                        dateLabel: it.dateLabel || ""
+                    };
+                    resultByMarket[key] = payload;
+                    resultByMarket[key.replace(/\s+/g, "")] = payload;
+                }
+            } catch (err) {
+                console.warn("applyResultSourceForDate", err);
+                try { rebuildResultMap(); } catch (e2) {}
+            }
         }
 
         function findResultForMarket(title) {
@@ -7032,32 +7374,77 @@
                 }
             } catch (e) {}
 
+            // Terapkan sumber result: hari ini (live) atau arsip tanggal lain
+            try {
+                applyResultSourceForDate(hasilDateFilter || getWibTodayISO());
+                // fallback: jika map kosong tapi ada data live, rebuild dari symphony
+                var mapEmpty = true;
+                for (var _k in resultByMarket) { if (Object.prototype.hasOwnProperty.call(resultByMarket, _k)) { mapEmpty = false; break; } }
+                if (mapEmpty && gidResultData && gidResultData.length) {
+                    rebuildResultMap();
+                }
+            } catch (eApply) {
+                console.warn(eApply);
+                try { rebuildResultMap(); } catch (e2) {}
+            }
+
             var q = searchQuery.trim();
             jadwalCopyStore = {}; // reset setiap render
             var enriched = [];
             var hasilBiasaCount = 0, hasilHokiCount = 0;
-            for (var fi = 0; fi < items.length; fi++) {
-                var meta = getJadwalBucket(items[fi]);
-                if (jadwalStatusFilter === "ada_hasil") {
-                    if (!meta.hasResult || !meta.resultNumber || !meta.resultText) continue;
-                    // pastikan result benar-benar milik pasaran ini (bukan partial)
-                    var chk = findResultForMarket(items[fi].title || "");
-                    if (!chk || !chk.number || String(chk.number) !== String(meta.resultNumber)) continue;
-                    var tname = String(items[fi].title || "").toLowerCase();
+
+            // ===== Mode HASIL RESULT: bangun dari resultByMarket (lebih stabil) =====
+            if (jadwalStatusFilter === "ada_hasil") {
+                try { rebuildResultMap(); } catch (eR) {}
+                try { applyResultSourceForDate(hasilDateFilter || getWibTodayISO()); } catch (eA) {}
+                var seenKeys = {};
+                var hq = (hasilSearchQuery || "").trim().toLowerCase();
+                // index jadwal by key for parse/times
+                var jadwalByKey = {};
+                for (var ji = 0; ji < items.length; ji++) {
+                    var jk = normalizeMarketKey(items[ji].title || "");
+                    if (jk) jadwalByKey[jk] = items[ji];
+                }
+                for (var rk in resultByMarket) {
+                    if (!Object.prototype.hasOwnProperty.call(resultByMarket, rk)) continue;
+                    var payload = resultByMarket[rk];
+                    if (!payload || !payload.number || !payload.text) continue;
+                    var ptitle = payload.title || rk;
+                    var pkey = normalizeMarketKey(ptitle);
+                    if (!pkey || seenKeys[pkey]) continue;
+                    // skip nospace duplicate keys
+                    if (rk.replace(/\s+/g, "") === rk && resultByMarket[pkey] && rk !== pkey) continue;
+                    seenKeys[pkey] = 1;
+                    var tname = String(ptitle).toLowerCase();
                     var isHoki = tname.indexOf("hokidraw") !== -1 || tname.indexOf("hoki draw") !== -1;
-                    if (isHoki) hasilHokiCount++; else hasilBiasaCount++;
-                    // filter tipe
                     if (hasilTypeFilter === "hokidraw" && !isHoki) continue;
                     if (hasilTypeFilter === "biasa" && isHoki) continue;
-                    // search khusus hasil
-                    var hq = (hasilSearchQuery || "").trim().toLowerCase();
-                    if (hq && tname.indexOf(hq) === -1 && String(meta.resultText || "").toLowerCase().indexOf(hq) === -1) continue;
-                    enriched.push({ it: items[fi], meta: meta, isHoki: isHoki });
-                    continue;
+                    if (hq && tname.indexOf(hq) === -1 && String(payload.text || "").toLowerCase().indexOf(hq) === -1) continue;
+                    if (isHoki) hasilHokiCount++; else hasilBiasaCount++;
+                    var baseItem = jadwalByKey[pkey] || { title: ptitle, content: "", raw: [ptitle] };
+                    var parse = parseJadwalItem(baseItem);
+                    enriched.push({
+                        it: baseItem,
+                        meta: {
+                            bucket: "ada_hasil",
+                            hasResult: true,
+                            resultNumber: payload.number,
+                            resultText: payload.text,
+                            resultShio: payload.shio || "",
+                            isPrize123: !!payload.isPrize123,
+                            resultPayload: payload,
+                            parse: parse
+                        },
+                        isHoki: isHoki
+                    });
                 }
+            } else {
+            for (var fi = 0; fi < items.length; fi++) {
+                var meta = getJadwalBucket(items[fi]);
                 if (jadwalStatusFilter !== "all" && meta.bucket !== jadwalStatusFilter) continue;
                 enriched.push({ it: items[fi], meta: meta });
             }
+            } // end else non-ada_hasil
             // urutkan hasil
             if (jadwalStatusFilter === "ada_hasil") {
                 enriched.sort(function(a, b) {
@@ -7278,7 +7665,8 @@
                     var next = chip.getAttribute("data-jfilter") || "all";
                     jadwalStatusFilter = next;
                     if (next === "ada_hasil") {
-                        if (!hasilTypeFilter || hasilTypeFilter === "") hasilTypeFilter = "all";
+                        hasilTypeFilter = "all";
+                        hasilDateFilter = hasilDateFilter || "";
                     }
                     try {
                         renderContent();
@@ -7312,12 +7700,18 @@
             var hdi = document.getElementById("hasilDateInput");
             if (hdi) hdi.addEventListener("change", function() {
                 hasilDateFilter = hdi.value || "";
-                renderContent();
-            });
-            var hhi = document.getElementById("hasilHariIniBtn");
-            if (hhi) hhi.addEventListener("click", function() {
-                hasilDateFilter = "";
-                renderContent();
+                var today = (typeof getWibTodayISO === "function") ? getWibTodayISO() : "";
+                var dk = hasilDateFilter || today;
+                if (dk && today && dk !== today && typeof fetchRemoteArchiveSnapshot === "function") {
+                    // Ambil snapshot tanggal dari hasil-result-tgl lalu tampilkan
+                    fetchRemoteArchiveSnapshot(dk).then(function() {
+                        renderContent();
+                    });
+                    // render loading state segera
+                    renderContent();
+                } else {
+                    renderContent();
+                }
             });
             var hrb = document.getElementById("hasilRefreshBtn");
             if (hrb) hrb.addEventListener("click", function() {
