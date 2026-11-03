@@ -6037,6 +6037,7 @@
             gidGambarLainData = [],
             gidResultData = [],
             resultByMarket = {};
+        var pendingModule = null;
         var currentFilter = "gidQris",
             searchQuery = "",
             qrisTypeFilter = "all",
@@ -6619,7 +6620,15 @@
             renderContent();
         }
         $("backBtn").addEventListener("click", showDashboard);
-        document.querySelectorAll(".module-card").forEach(function(c) { c.addEventListener("click", function() { navigateToModule(c.dataset.filter) }) });
+        document.querySelectorAll(".module-card").forEach(function(c) {
+            c.addEventListener("click", function(e) {
+                e.preventDefault();
+                var filter = c.dataset.filter;
+                if (!filter) return;
+                if (typeof openModuleInNewTab === "function") openModuleInNewTab(filter);
+                else navigateToModule(filter);
+            });
+        });
 
         function copyText(text, label, silent) {
             var value = text == null ? "" : String(text);
@@ -8324,14 +8333,31 @@
 
         function openModuleInNewTab(filter) {
             if (!filter) return;
+            var href = "";
             try {
                 var url = new URL(window.location.href);
                 url.searchParams.set("module", filter);
-                // jaga login state di tab baru via localStorage yang sama
-                window.open(url.toString(), "_blank");
+                // hapus hash lama agar tidak bentrok
+                url.hash = "";
+                href = url.toString();
             } catch (e) {
-                var href = window.location.href.split("?")[0].split("#")[0] + "?module=" + encodeURIComponent(filter);
-                window.open(href, "_blank");
+                var base = String(window.location.href || "").split("#")[0];
+                if (base.indexOf("?") !== -1) {
+                    // replace or append module param
+                    if (/[?&]module=/.test(base)) {
+                        base = base.replace(/([?&])module=[^&]*/, "$1module=" + encodeURIComponent(filter));
+                    } else {
+                        base = base + "&module=" + encodeURIComponent(filter);
+                    }
+                } else {
+                    base = base + "?module=" + encodeURIComponent(filter);
+                }
+                href = base;
+            }
+            var w = window.open(href, "_blank");
+            if (!w) {
+                // popup diblokir → buka di tab yang sama
+                navigateToModule(filter);
             }
         }
         function initSidebar() {
@@ -8340,7 +8366,8 @@
                     e.preventDefault();
                     var filter = i.dataset.filter;
                     if (!filter) return;
-                    openModuleInNewTab(filter);
+                    // Sidebar: buka di tab yang sama (bukan tab baru)
+                    navigateToModule(filter);
                 });
             });
             var toggle = document.getElementById("dataSheetToggle");
@@ -8413,14 +8440,29 @@
                 renderContent(); }); }
         refreshBtn.addEventListener("click", manualRefresh);
 
-        function loadData() { isLoading = true;
+        function loadData() {
+            isLoading = true;
             updatePageHeader();
             renderContent();
-            fetchSheetData(false).then(function() { lastError = null;
+            return fetchSheetData(false).then(function() {
+                lastError = null;
                 lastRefreshTime = new Date();
-                updateLastRefreshLabel() }).catch(function(err) { lastError = err.message }).finally(function() { isLoading = false;
-                renderContent();
-                startTimer() }); }
+                updateLastRefreshLabel();
+            }).catch(function(err) {
+                lastError = err && err.message ? err.message : String(err);
+            }).finally(function() {
+                isLoading = false;
+                // Jika tab baru meminta modul tertentu, buka setelah data siap
+                if (pendingModule) {
+                    var mod = pendingModule;
+                    pendingModule = null;
+                    try { navigateToModule(mod); } catch (e) { console.error(e); renderContent(); }
+                } else {
+                    renderContent();
+                }
+                startTimer();
+            });
+        }
 
         var audioCtx = null;
 
@@ -8611,20 +8653,25 @@
             });
         }
 
-        function bootstrapApp() { decorateModuleCards(); loadData();
+        function bootstrapApp() {
+            decorateModuleCards();
             initSidebar();
             initQrisTypeFilter();
             showDashboard();
             startAlarmCheck();
             updateNotifUI();
-            // Tab baru: ?module=gid5 → langsung buka modul
+            // Tab baru: ?module=... → tunggu data selesai baru tampilkan
             try {
-                var params = new URLSearchParams(window.location.search);
+                var params = new URLSearchParams(window.location.search || "");
                 var mod = params.get("module");
-                if (mod) {
-                    setTimeout(function() { navigateToModule(mod); }, 80);
+                if (!mod && window.location.hash) {
+                    var h = window.location.hash.replace(/^#/, "");
+                    if (h.indexOf("module=") === 0) mod = decodeURIComponent(h.split("=")[1] || "");
+                    else if (h) mod = decodeURIComponent(h);
                 }
+                if (mod) pendingModule = mod;
             } catch (e) {}
+            loadData();
         }
         window.bootstrapApp = bootstrapApp;
         function isLoggedIn() {
@@ -8739,14 +8786,12 @@
                 sidebarItem.innerHTML = '<div class="icon-wrap"><i class="fa-solid fa-images"></i></div><div class="label">GAMBAR LAIN-LAIN</div>';
                 sidebarItem.addEventListener("click", function(e) {
                     e.preventDefault();
-                    if (typeof openModuleInNewTab === "function") openModuleInNewTab("gidGambarLain");
-                    else navigateToModule("gidGambarLain");
+                    navigateToModule("gidGambarLain");
                 });
                 sidebarItem.addEventListener("keydown", function(e) {
                     if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
-                        if (typeof openModuleInNewTab === "function") openModuleInNewTab("gidGambarLain");
-                        else navigateToModule("gidGambarLain");
+                        navigateToModule("gidGambarLain");
                     }
                 });
                 sheetItems.appendChild(sidebarItem);
@@ -8761,7 +8806,11 @@
                 moduleCard.setAttribute("tabindex", "0");
                 moduleCard.setAttribute("aria-label", "Buka galeri GAMBAR LAIN-LAIN");
                 moduleCard.innerHTML = '<div class="module-card-top"><div class="module-card-icon"><i class="fa-solid fa-images"></i></div><div class="module-card-status"><span class="status-dot"></span> LIVE</div></div><div class="module-card-name">GAMBAR LAIN-LAIN</div><div class="module-card-desc">Galeri lengkap gambar dan informasi visual dari Google Sheets.</div><div class="module-card-access">BUKA GALERI <i class="fa-solid fa-arrow-right"></i></div>';
-                moduleCard.addEventListener("click", function() { navigateToModule("gidGambarLain"); });
+                moduleCard.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    if (typeof openModuleInNewTab === "function") openModuleInNewTab("gidGambarLain");
+                    else navigateToModule("gidGambarLain");
+                });
                 moduleCard.addEventListener("keydown", function(e) {
                     if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
@@ -8788,3 +8837,4 @@
     </script>
 </body>
 </html>
+  
