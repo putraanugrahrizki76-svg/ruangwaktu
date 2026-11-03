@@ -7445,35 +7445,100 @@ function applyResultSourceForDate(isoDate) {
                 enriched.push({ it: items[fi], meta: meta });
             }
             } // end else non-ada_hasil
-            // urutkan hasil
+            // urutkan hasil berdasarkan JAM RESULT (WIB)
             if (jadwalStatusFilter === "ada_hasil") {
-                enriched.sort(function(a, b) {
-                    // Urut berdasarkan JAM RESULT (WIB minutes)
-                    function resultMinutes(meta, item) {
-                        var p = meta && meta.parse ? meta.parse : parseJadwalItem(item);
-                        var m = parseHHMMtoMinutes(p.resultTime);
-                        if (m == null) m = parseHHMMtoMinutes(p.cutoffTime);
-                        if (m == null) return -1;
-                        return m;
+                // cache lookup jadwal → jam result dari sheet
+                function extractMinutesFromTitle(title) {
+                    var t = String(title || "").trim();
+                    var u = t.toUpperCase();
+                    var m1 = t.match(/\b([01]?\d|2[0-3]):([0-5]\d)\b/);
+                    if (m1) return parseInt(m1[1], 10) * 60 + parseInt(m1[2], 10);
+                    var m2 = t.match(/(?:^|\s|[^0-9])([01]\d|2[0-3])([0-5]\d)(?:\s|$|[^0-9])/);
+                    if (m2) return parseInt(m2[1], 10) * 60 + parseInt(m2[2], 10);
+                    var m3 = u.match(/(?:POIPET|OREGON|CHELSEA|SYDNEY|HONGKONG|HONG\s*KONG|BRUNEI|HUAHIN|BANGKOK|NEVADA|KENTUCKY|FLORIDA|CAROLINA|YORK|MACAU|TOTOMACAU|TOTO\s*MACAU)\s*([01]?\d|2[0-3])\b/);
+                    if (m3) return parseInt(m3[1], 10) * 60;
+                    var m4 = u.match(/\b(?:POIPET|OREGON)(\d{1,2})$/);
+                    if (m4) {
+                        var hh = parseInt(m4[1], 10);
+                        if (hh >= 0 && hh <= 23) return hh * 60;
                     }
-                    var ma = resultMinutes(a.meta, a.it);
-                    var mb = resultMinutes(b.meta, b.it);
-                    // fallback: posisi di sheet result
-                    if (ma === mb) {
-                        var ia = -1, ib = -1;
-                        var ka = normalizeMarketKey(a.it.title), kb = normalizeMarketKey(b.it.title);
-                        for (var gi = 0; gi < gidResultData.length; gi++) {
-                            var gk = normalizeMarketKey(gidResultData[gi].title);
-                            if (gk === ka) ia = gi;
-                            if (gk === kb) ib = gi;
+                    var m5 = t.match(/hokidraw\s*([01]?\d|2[0-3])(?:\s*:\s*([0-5]\d))?\b/i);
+                    if (m5) return parseInt(m5[1], 10) * 60 + (m5[2] ? parseInt(m5[2], 10) : 0);
+                    return null;
+                }
+
+                var scheduleMinutes = {};
+                try {
+                    for (var si = 0; si < (items || []).length; si++) {
+                        var sp = parseJadwalItem(items[si]);
+                        var sk = normalizeMarketKey(items[si].title || "");
+                        if (!sk) continue;
+                        var sm = parseHHMMtoMinutes(sp.resultTime);
+                        if (sm == null) sm = parseHHMMtoMinutes(sp.cutoffTime);
+                        if (sm == null) sm = extractMinutesFromTitle(items[si].title || "");
+                        if (sm != null) {
+                            scheduleMinutes[sk] = sm;
+                            scheduleMinutes[sk.replace(/\s+/g, "")] = sm;
                         }
-                        if (hasilSortOrder === "newest") return ib - ia;
-                        return ia - ib;
                     }
-                    // Terbaru = jam result paling dekat/terakhir (nilai menit lebih besar)
-                    // Terlama = jam result lebih awal (nilai menit lebih kecil)
-                    if (hasilSortOrder === "newest") return mb - ma;
-                    return ma - mb;
+                } catch (eSch) {}
+
+                function resultMinutesOf(entry) {
+                    var item = entry.it || {};
+                    var meta = entry.meta || {};
+                    var p = meta.parse || parseJadwalItem(item);
+                    var m = parseHHMMtoMinutes(p && p.resultTime);
+                    if (m == null) m = parseHHMMtoMinutes(p && p.cutoffTime);
+                    // dari jadwal sheet (items)
+                    if (m == null) {
+                        var k = normalizeMarketKey(item.title || (meta.resultPayload && meta.resultPayload.title) || "");
+                        if (k && scheduleMinutes[k] != null) m = scheduleMinutes[k];
+                        else if (k) {
+                            var kn = k.replace(/\s+/g, "");
+                            if (scheduleMinutes[kn] != null) m = scheduleMinutes[kn];
+                        }
+                    }
+                    // dari nama pasaran
+                    if (m == null) m = extractMinutesFromTitle(item.title || "");
+                    if (m == null && meta.resultPayload) m = extractMinutesFromTitle(meta.resultPayload.title || "");
+                    // unknown → taruh di akhir (besar)
+                    if (m == null || m < 0) return 9999;
+                    return m;
+                }
+
+                enriched.sort(function(a, b) {
+                    var ma = resultMinutesOf(a);
+                    var mb = resultMinutesOf(b);
+
+                    // TERLAMA: biarkan seperti semula (jam result naik: pagi → malam)
+                    if (hasilSortOrder !== "newest") {
+                        if (ma !== mb) return ma - mb;
+                        var na1 = String((a.it && a.it.title) || "").toLowerCase();
+                        var nb1 = String((b.it && b.it.title) || "").toLowerCase();
+                        if (na1 < nb1) return -1;
+                        if (na1 > nb1) return 1;
+                        return 0;
+                    }
+
+                    // TERBARU: yang baru saja result (paling dekat ke jam sekarang WIB) di atas
+                    // unknown (9999) tetap di bawah
+                    function minutesAgo(m) {
+                        if (m == null || m >= 9999) return 100000;
+                        var now = getWibMinutesNow();
+                        var d = now - m;
+                        if (d < 0) d += 24 * 60; // jika jam result di masa depan relatif hari ini
+                        return d;
+                    }
+                    var da = minutesAgo(ma);
+                    var db = minutesAgo(mb);
+                    if (da !== db) return da - db; // kecil = baru saja → di atas
+                    // tie-break: jam result lebih besar dulu, lalu nama
+                    if (ma !== mb) return mb - ma;
+                    var na2 = String((a.it && a.it.title) || "").toLowerCase();
+                    var nb2 = String((b.it && b.it.title) || "").toLowerCase();
+                    if (na2 < nb2) return -1;
+                    if (na2 > nb2) return 1;
+                    return 0;
                 });
             }
             var html = '';
