@@ -6166,7 +6166,14 @@
 
         function isImageUrl(v) { if (!v || typeof v !== "string") return false; return /\.(jpg|jpeg|png|webp|gif|avif|bmp|svg)([?#].*)?$/i.test(v) || /drive\.google\.com\/(?:file\/d\/|open\?|uc\?)/i.test(v) || /googleusercontent\.com\//i.test(v) || v.indexOf("data:image") === 0; }
 
-        function detectQrisType(item) { var t = ((item.title || "") + " " + (item.content || "")).toLowerCase(); if (["bca", "mandiri", "bri", "bni", "cimb", "permata", "bsi", "danamon", "ocbc", "btn", "panin", "maybank", "mega", "bukopin", "bank", "jago", "seabank"].some(function(k) { return t.indexOf(k) !== -1; })) return "bank"; if (["ovo", "gopay", "dana", "linkaja", "shopeepay", "spay", "ewallet", "dompet digital", "paylater", "doku", "sakuku", "kredivo", "akulaku", "atome", "flip"].some(function(k) { return t.indexOf(k) !== -1; })) return "ewallet"; return "all"; }
+        function detectQrisType(item) {
+            var t = ((item.title || "") + " " + (item.content || "")).toLowerCase();
+            var banks = ["bca", "mandiri", "bri", "bni", "cimb", "permata", "bsi", "danamon", "ocbc", "btn", "panin", "maybank", "mega", "bukopin", "bank", "jago", "seabank", "neo", "blu", "jenius", "line bank", "dibca", "bank syariah", "bii", "hsbc", "citibank", "uob", "commonweath", "commonwealth", "nobu", "sbi", "victoria", "muamalat", "btpn"];
+            var wallets = ["ovo", "gopay", "go-pay", "dana", "linkaja", "link aja", "shopeepay", "shopee pay", "spay", "ewallet", "e-wallet", "dompet digital", "paylater", "doku", "sakuku", "kredivo", "akulaku", "atome", "flip", "isaku", "paypal", "qris", "gopay", "jenius pay"];
+            if (banks.some(function(k) { return t.indexOf(k) !== -1; })) return "bank";
+            if (wallets.some(function(k) { return t.indexOf(k) !== -1; })) return "ewallet";
+            return "all";
+        }
 
         function showToast(msg, type) { var t = document.createElement("div"); t.className = "toast"; var ic = type === "error" ? "fa-circle-xmark" : "fa-circle-check"; var clr = type === "error" ? "var(--coral)" : "var(--sage)"; t.innerHTML = '<i class="fa-solid ' + ic + '" style="color:' + clr + '"></i> ' + escapeHtml(msg); document.body.appendChild(t); setTimeout(function() { t.remove() }, 1800); }
 
@@ -6544,7 +6551,11 @@
                 case "gid473":
                     return gid473Data;
                 case "gidProfile":
-                    return gidProfileData;
+                    var pd = gidProfileData.slice();
+                    if (qrisTypeFilter !== "all") {
+                        pd = pd.filter(function(i) { return detectQrisType(i) === qrisTypeFilter; });
+                    }
+                    return pd;
                 case "gidBonus":
                     return gidBonusData;
                 case "gidBetting":
@@ -6586,7 +6597,7 @@
 
         function getCfg() { return PAGE_CONFIGS[getConfigKey()] || PAGE_CONFIGS.qrisCombined; }
 
-        function updatePageHeader() { var cfg = getCfg(); pageTitleEl.innerHTML = cfg.titleHTML; searchInput.placeholder = cfg.searchPlaceholder; $("qrisTypeFilterWrapper").style.display = currentFilter === "gidQris" ? "flex" : "none"; var np = $("nextPasaranBadge"); if (currentFilter === "gid5") { jadwalClockEl.classList.add("visible"); if (!clockInterval) { updateClock();
+        function updatePageHeader() { var cfg = getCfg(); pageTitleEl.innerHTML = cfg.titleHTML; searchInput.placeholder = cfg.searchPlaceholder; $("qrisTypeFilterWrapper").style.display = (currentFilter === "gidQris" || currentFilter === "gidProfile") ? "flex" : "none"; var np = $("nextPasaranBadge"); if (currentFilter === "gid5") { jadwalClockEl.classList.add("visible"); if (!clockInterval) { updateClock();
                     clockInterval = setInterval(updateClock, 1000); } np.classList.add("visible"); } else { jadwalClockEl.classList.remove("visible"); if (clockInterval) { clearInterval(clockInterval);
                     clockInterval = null; } np.classList.remove("visible"); } if (currentFilter === "gidPassword" || currentFilter === "gid473" || currentFilter === "gidBonus" || (currentFilter === "gid5" && jadwalStatusFilter === "ada_hasil")) { stickyTop.classList.add("hidden-sticky"); } else { stickyTop.classList.remove("hidden-sticky"); } }
 
@@ -6607,6 +6618,9 @@
             searchInput.value = "";
             searchClear.classList.remove("visible");
             qrisTypeFilter = "all";
+            document.querySelectorAll("#qrisTypeFilterWrapper .filter-chip").forEach(function(x) {
+                x.classList.toggle("active", (x.dataset.type || "") === "all");
+            });
             if (filter === "gidEvent") eventCategoryFilter = "all";
             if (filter === "gid473") { hadiahCatFilter = "all"; searchQuery = ""; }
             if (filter === "gidBonus") { bonusCatFilter = "all"; searchQuery = ""; }
@@ -7071,7 +7085,7 @@
             html += '<button type="button" class="jadwal-filter-chip' + (jadwalStatusFilter === "segera" ? " active" : "") + '" data-jfilter="segera"><i class="fa-solid fa-bolt"></i> Segera</button>';
             html += '<button type="button" class="jadwal-filter-chip' + (jadwalStatusFilter === "menunggu" ? " active" : "") + '" data-jfilter="menunggu"><i class="fa-solid fa-trophy"></i> Menunggu</button>';
             html += '<button type="button" class="jadwal-filter-chip' + (jadwalStatusFilter === "lewat" ? " active" : "") + '" data-jfilter="lewat"><i class="fa-solid fa-check"></i> Lewat</button>';
-            html += '<button type="button" class="jadwal-filter-chip' + (jadwalStatusFilter === "ada_hasil" ? " active" : "") + '" data-jfilter="ada_hasil"><i class="fa-solid fa-hashtag"></i> Ada Hasil</button>';
+            html += '<button type="button" class="jadwal-filter-chip' + (jadwalStatusFilter === "ada_hasil" ? " active" : "") + '" data-jfilter="ada_hasil"><i class="fa-solid fa-hashtag"></i> Hasil Result</button>';
             html += '</div>';
 
             // Toolbar modern khusus filter Ada Hasil
@@ -7158,7 +7172,7 @@
                 html += '<div class="j-header-abss"><div class="j-title-abss"><i class="fa-solid fa-calendar-days" style="margin-right:6px;opacity:.7"></i>' + highlightMatch(title, q) + '</div><div class="j-badge-abss ' + sc + '">' + sl + '</div></div>';
                 html += '<div class="j-body-abss">';
 
-                // Kotak jam — tidak ditampilkan di filter Ada Hasil (fokus teks result)
+                // Kotak jam — tidak ditampilkan di filter Hasil Result (fokus teks result)
                 if (jadwalStatusFilter !== "ada_hasil") {
                     html += '<div class="j-times-box">';
                     html += '<div class="j-time-item"><span class="j-time-label"><i class="fa-solid fa-lock"></i> Jam Tutup</span><span class="j-time-val">' + bukaDisplay + (bukaDisplay !== "--:--" ? " WIB" : "") + '</span></div>';
@@ -8387,11 +8401,17 @@
             }
         }
 
-        function initQrisTypeFilter() { document.querySelectorAll(".filter-chip").forEach(function(c) { c.addEventListener("click", function() { if (currentFilter !== "gidQris") return;
-                    document.querySelectorAll(".filter-chip").forEach(function(x) { x.classList.remove("active") });
+        function initQrisTypeFilter() {
+            document.querySelectorAll("#qrisTypeFilterWrapper .filter-chip").forEach(function(c) {
+                c.addEventListener("click", function() {
+                    if (currentFilter !== "gidQris" && currentFilter !== "gidProfile") return;
+                    document.querySelectorAll("#qrisTypeFilterWrapper .filter-chip").forEach(function(x) { x.classList.remove("active"); });
                     c.classList.add("active");
-                    qrisTypeFilter = c.dataset.type;
-                    renderContent() }) }); }
+                    qrisTypeFilter = c.dataset.type || "all";
+                    renderContent();
+                });
+            });
+        }
 
         searchInput.addEventListener("input", function() {
             searchQuery = searchInput.value;
