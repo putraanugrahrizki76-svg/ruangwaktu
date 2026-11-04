@@ -5945,6 +5945,151 @@
             gap: .4rem;
             margin: .35rem 0 .6rem;
         }
+    
+        /* ===== AI ASSISTANT ===== */
+        .ai-fab {
+            position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 99980;
+            width: 54px; height: 54px; border-radius: 50%;
+            border: 1px solid rgba(56, 189, 248, .45);
+            background: linear-gradient(135deg, #0ea5e9, #6366f1 55%, #a855f7);
+            color: #fff; box-shadow: 0 12px 30px -10px rgba(14, 165, 233, .55), 0 0 0 4px rgba(14,165,233,.12);
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; transition: transform .2s ease;
+        }
+        .ai-fab:hover { transform: translateY(-2px) scale(1.04); }
+        .ai-panel {
+            position: fixed; right: 1.1rem; bottom: 4.6rem;
+            width: min(390px, calc(100vw - 1.4rem));
+            height: min(540px, calc(100vh - 6rem));
+            z-index: 99990; display: none; flex-direction: column;
+            border-radius: 18px; overflow: hidden;
+            border: 1px solid rgba(125, 211, 252, .28);
+            background: linear-gradient(160deg, rgba(15,23,42,.98), rgba(2,6,23,.98));
+            box-shadow: 0 24px 60px -20px rgba(0,0,0,.75);
+        }
+        .ai-panel.open { display: flex; }
+        .ai-head {
+            display: flex; align-items: center; gap: .55rem;
+            padding: .75rem .9rem; border-bottom: 1px solid rgba(51,65,85,.7);
+            background: linear-gradient(90deg, rgba(14,165,233,.15), rgba(99,102,241,.12));
+        }
+        .ai-head-icon {
+            width: 32px; height: 32px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(14,165,233,.2); color: #7dd3fc;
+        }
+        .ai-head-title { font-size: .78rem; font-weight: 800; color: #e2e8f0; }
+        .ai-head-sub { font-size: .58rem; color: #94a3b8; }
+        .ai-head-actions { margin-left: auto; display: flex; gap: .3rem; }
+        .ai-head-actions button {
+            border: none; background: rgba(30,41,59,.8); color: #cbd5e1;
+            width: 28px; height: 28px; border-radius: 8px; cursor: pointer;
+        }
+        .ai-chips { display: flex; flex-wrap: wrap; gap: .35rem; padding: .55rem .75rem; border-bottom: 1px solid rgba(51,65,85,.5); }
+        .ai-chip {
+            border: 1px solid rgba(56,189,248,.3); background: rgba(14,165,233,.08);
+            color: #bae6fd; font-size: .58rem; font-weight: 700;
+            padding: .28rem .5rem; border-radius: 999px; cursor: pointer;
+        }
+        .ai-chip:hover { background: rgba(14,165,233,.18); }
+        .ai-messages { flex: 1; overflow-y: auto; padding: .75rem; display: flex; flex-direction: column; gap: .55rem; }
+        .ai-msg { max-width: 92%; padding: .55rem .7rem; border-radius: 12px; font-size: .68rem; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+        .ai-msg.bot { align-self: flex-start; background: rgba(30,41,59,.9); border: 1px solid rgba(71,85,105,.55); color: #e2e8f0; }
+        .ai-msg.user { align-self: flex-end; background: linear-gradient(135deg, rgba(14,165,233,.35), rgba(99,102,241,.3)); border: 1px solid rgba(125,211,252,.3); color: #f8fafc; }
+        .ai-input-row { display: flex; gap: .4rem; padding: .65rem .7rem .75rem; border-top: 1px solid rgba(51,65,85,.7); background: rgba(2,6,23,.9); }
+        .ai-input-row input {
+            flex: 1; border-radius: 11px; border: 1px solid rgba(71,85,105,.8);
+            background: rgba(15,23,42,.95); color: #e2e8f0; padding: .55rem .7rem; font-size: .68rem; outline: none;
+        }
+        .ai-input-row input:focus { border-color: rgba(56,189,248,.55); }
+        .ai-input-row button {
+            border: none; border-radius: 11px; padding: 0 .85rem;
+            background: linear-gradient(135deg, #0ea5e9, #6366f1); color: #fff; font-weight: 800; font-size: .65rem; cursor: pointer;
+        }
+
+        .ai-attach-preview {
+            display: none; gap: .4rem; align-items: center;
+            padding: .35rem .75rem 0; font-size: .58rem; color: #94a3b8;
+        }
+        .ai-attach-preview.show { display: flex; }
+        .ai-attach-preview img {
+            width: 42px; height: 42px; object-fit: cover; border-radius: 8px;
+            border: 1px solid rgba(148,163,184,.35);
+        }
+        .ai-attach-preview .ai-att-name { max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .ai-attach-clear {
+            border: none; background: rgba(239,68,68,.15); color: #fca5a5;
+            border-radius: 6px; padding: .15rem .4rem; cursor: pointer; font-size: .55rem;
+        }
+        .ai-input-row {
+            display: flex;
+            align-items: center;
+            gap: .35rem;
+            padding: .55rem .7rem .7rem;
+            border-top: 1px solid rgba(51,65,85,.7);
+            background: rgba(2,6,23,.9);
+        }
+        .ai-input-shell {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: .25rem;
+            min-height: 40px;
+            padding: .15rem .35rem .15rem .25rem;
+            border-radius: 12px;
+            border: 1px solid rgba(71,85,105,.85);
+            background: rgba(15,23,42,.95);
+        }
+        .ai-input-shell:focus-within {
+            border-color: rgba(56,189,248,.55);
+            box-shadow: 0 0 0 3px rgba(14,165,233,.12);
+        }
+        .ai-attach-icon-btn {
+            flex: 0 0 auto;
+            width: 34px;
+            height: 34px;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+            color: #94a3b8;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: .95rem;
+            transition: color .15s ease, background .15s ease;
+        }
+        .ai-attach-icon-btn:hover {
+            color: #e2e8f0;
+            background: rgba(148,163,184,.12);
+        }
+        .ai-input-shell input {
+            flex: 1;
+            border: none !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            outline: none !important;
+            color: #e2e8f0;
+            padding: .45rem .35rem;
+            font-size: .68rem;
+            min-width: 0;
+        }
+        .ai-input-shell input::placeholder { color: #64748b; }
+        .ai-input-row > #aiSendBtn {
+            flex: 0 0 auto;
+            border: none;
+            border-radius: 11px;
+            padding: 0 .85rem;
+            height: 40px;
+            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            color: #fff;
+            font-weight: 800;
+            font-size: .65rem;
+            cursor: pointer;
+        }
+
+        .ai-foot { font-size: .52rem; color: #64748b; text-align: center; padding: 0 .7rem .55rem; }
+
     </style>
 </head>
 <body>
@@ -9342,5 +9487,521 @@ function applyResultSourceForDate(isoDate) {
             showLogin();
         }
     </script>
+
+<!-- AI Assistant -->
+<button type="button" class="ai-fab" id="aiFab" title="Asisten AI"><i class="fa-solid fa-robot"></i></button>
+<div class="ai-panel" id="aiPanel" aria-hidden="true">
+  <div class="ai-head">
+    <div class="ai-head-icon"><i class="fa-solid fa-sparkles"></i></div>
+    <div>
+      <div class="ai-head-title">Asisten Project</div>
+      <div class="ai-head-sub">Gratis · jalankan perintah · opsional Groq API</div>
+    </div>
+    <div class="ai-head-actions">
+      <button type="button" id="aiClearBtn" title="Bersihkan"><i class="fa-solid fa-eraser"></i></button>
+      <button type="button" id="aiCloseBtn" title="Tutup"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ai-chips" id="aiChips">
+    <button type="button" class="ai-chip" data-ai-q="bantuan">Bantuan</button>
+    <button type="button" class="ai-chip" data-ai-q="buka hasil result">Hasil Result</button>
+    <button type="button" class="ai-chip" data-ai-q="ringkas hasil">Ringkas</button>
+    <button type="button" class="ai-chip" data-ai-q="buka all pk">ALL PK</button>
+    <button type="button" class="ai-chip" data-ai-q="buka hadiah togel">Hadiah</button>
+    <button type="button" class="ai-chip" data-ai-q="buka bonus">Bonus</button>
+    <button type="button" class="ai-chip" data-ai-q="refresh data">Refresh</button>
+    <button type="button" class="ai-chip" data-ai-q="status api">Status API</button>
+  </div>
+  <div class="ai-messages" id="aiMessages"></div>
+  <div class="ai-attach-preview" id="aiAttachPreview">
+    <img id="aiAttachImg" alt="">
+    <span class="ai-att-name" id="aiAttachName"></span>
+    <button type="button" class="ai-attach-clear" id="aiAttachClear">hapus</button>
+  </div>
+  <div class="ai-input-row">
+    <div class="ai-input-shell">
+      <button type="button" class="ai-attach-icon-btn" id="aiAttachBtn" title="Lampirkan file atau gambar">
+        <i class="fa-solid fa-paperclip"></i>
+      </button>
+      <input type="text" id="aiInput" placeholder="Tulis pesan..." autocomplete="off">
+      <input type="file" id="aiFileInput" accept="image/*,.txt,.json,.csv,.md,.log,.html,.css,.js" style="display:none">
+    </div>
+    <button type="button" id="aiSendBtn">KIRIM</button>
+  </div>
+  <div class="ai-foot">Lampirkan gambar/file · set api key gsk_xxx · ketik bantuan</div>
+</div>
+
+
+<script>
+(function(){
+  var AI_KEY_STORE = "rw_ai_groq_key_v1";
+  var aiAttachment = null;
+
+  function ai$(id){ return document.getElementById(id); }
+  function aiAdd(role, text){
+    var box = ai$("aiMessages"); if(!box) return;
+    var div = document.createElement("div");
+    div.className = "ai-msg " + (role === "user" ? "user" : "bot");
+    div.textContent = text;
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+  }
+  function aiAddImage(dataUrl, caption){
+    var box = ai$("aiMessages"); if(!box) return;
+    var wrap = document.createElement("div");
+    wrap.className = "ai-msg user";
+    if (caption) {
+      var t = document.createElement("div");
+      t.textContent = caption;
+      t.style.marginBottom = "6px";
+      wrap.appendChild(t);
+    }
+    var img = document.createElement("img");
+    img.src = dataUrl;
+    img.alt = "lampiran";
+    img.style.maxWidth = "100%";
+    img.style.borderRadius = "8px";
+    img.style.display = "block";
+    wrap.appendChild(img);
+    box.appendChild(wrap);
+    box.scrollTop = box.scrollHeight;
+  }
+  function aiGetKey(){ try { return localStorage.getItem(AI_KEY_STORE) || ""; } catch(e){ return ""; } }
+  function aiSetKey(k){ try { localStorage.setItem(AI_KEY_STORE, String(k||"").trim()); } catch(e){} }
+  function aiExtractKey(text){
+    var s = String(text||"").replace(/["'`]/g, " ");
+    var m = s.match(/gsk_[A-Za-z0-9_\-]{20,}/);
+    if (m) return m[0];
+    m = s.replace(/\s+/g,"").match(/gsk_[A-Za-z0-9_\-]{20,}/);
+    return m ? m[0] : "";
+  }
+  function aiOpen(filter, after){
+    try {
+      if (typeof navigateToModule === "function") navigateToModule(filter);
+      else {
+        var el = document.querySelector('.sidebar-item[data-filter="'+filter+'"]');
+        if (el) el.click();
+      }
+      if (typeof after === "function") setTimeout(after, 300);
+      return true;
+    } catch(e){ return false; }
+  }
+  function aiToday(){
+    if (typeof getWibTodayISO==="function") return getWibTodayISO();
+    var n=new Date();
+    return n.getFullYear()+"-"+String(n.getMonth()+1).padStart(2,"0")+"-"+String(n.getDate()).padStart(2,"0");
+  }
+  function aiCountResults(){
+    var n=0, map={};
+    try {
+      if (typeof resultByMarket !== "object" || !resultByMarket) return 0;
+      for (var k in resultByMarket) {
+        if (!Object.prototype.hasOwnProperty.call(resultByMarket,k)) continue;
+        var p=resultByMarket[k];
+        if (!p||!p.number||!p.title) continue;
+        var key = (typeof normalizeMarketKey==="function") ? normalizeMarketKey(p.title) : String(p.title).toLowerCase();
+        if (map[key]) continue; map[key]=1; n++;
+      }
+    } catch(e){}
+    return n;
+  }
+  function aiListResults(limit){
+    limit = limit||15; var out=[], map={};
+    try {
+      for (var k in resultByMarket) {
+        if (!Object.prototype.hasOwnProperty.call(resultByMarket,k)) continue;
+        var p=resultByMarket[k];
+        if (!p||!p.number||!p.title) continue;
+        var key = (typeof normalizeMarketKey==="function") ? normalizeMarketKey(p.title) : String(p.title).toLowerCase();
+        if (map[key]) continue; map[key]=1;
+        out.push(p.title+" → "+p.number+(p.shio?(" ("+p.shio+")"):""));
+        if (out.length>=limit) break;
+      }
+    } catch(e){}
+    return out;
+  }
+  function aiShio(num){
+    if (typeof shioFromPrize1==="function") return shioFromPrize1(num)||"-";
+    var raw=String(num||"").replace(/\D/g,""); if(!raw) return "-";
+    var last=raw.slice(-2); if(last==="00") return "KELINCI";
+    var names=["KAMBING","KUDA","ULAR","NAGA","KELINCI","HARIMAU","KERBAU","TIKUS","BABI","ANJING","AYAM","MONYET"];
+    return names[Number(last)%12]||"-";
+  }
+  function aiCopyText(text){
+    text = String(text||"");
+    if (!text) return false;
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text); return true; }
+    } catch(e){}
+    try {
+      var ta=document.createElement("textarea");
+      ta.value=text; document.body.appendChild(ta); ta.select();
+      document.execCommand("copy"); document.body.removeChild(ta);
+      return true;
+    } catch(e2){ return false; }
+  }
+  function aiClearAttach(){
+    aiAttachment = null;
+    var prev = ai$("aiAttachPreview");
+    var img = ai$("aiAttachImg");
+    var name = ai$("aiAttachName");
+    var fin = ai$("aiFileInput");
+    if (prev) prev.classList.remove("show");
+    if (img) { img.removeAttribute("src"); img.style.display = "none"; }
+    if (name) name.textContent = "";
+    if (fin) fin.value = "";
+  }
+  function aiShowAttach(){
+    var prev = ai$("aiAttachPreview");
+    var img = ai$("aiAttachImg");
+    var name = ai$("aiAttachName");
+    if (!aiAttachment || !prev) return;
+    prev.classList.add("show");
+    if (name) name.textContent = aiAttachment.name + (aiAttachment.isImage ? " (gambar)" : " (file)");
+    if (img) {
+      if (aiAttachment.isImage && aiAttachment.dataUrl) {
+        img.src = aiAttachment.dataUrl;
+        img.style.display = "block";
+      } else {
+        img.removeAttribute("src");
+        img.style.display = "none";
+      }
+    }
+  }
+  function aiReadFile(file){
+    return new Promise(function(resolve, reject){
+      if (!file) return reject(new Error("no file"));
+      var isImage = /^image\//i.test(file.type);
+      var reader = new FileReader();
+      reader.onerror = function(){ reject(new Error("gagal baca file")); };
+      if (isImage) {
+        reader.onload = function(){
+          resolve({ name: file.name, type: file.type, isImage: true, dataUrl: String(reader.result||""), text: "" });
+        };
+        reader.readAsDataURL(file);
+      } else {
+        reader.onload = function(){
+          var text = String(reader.result||"");
+          if (text.length > 120000) text = text.slice(0, 120000) + "\n\n[...terpotong...]";
+          resolve({ name: file.name, type: file.type||"text", isImage: false, dataUrl: "", text: text });
+        };
+        reader.readAsText(file);
+      }
+    });
+  }
+
+  // Cocokkan perintah navigasi HANYA jika eksplisit (hindari salah jawab)
+  function aiMatchNav(low){
+    var explicit = /^(buka|pergi ke|tampilkan|bukakan|ke menu|menu)\b/.test(low) || /^(hasil result|jadwal pasaran|all pk|hadiah togel|bonus linetogel|cara betting|event linetogel|qris|profile bank|generator password|gambar lain-lain|dashboard|beranda)$/.test(low);
+    if (!explicit && !/^(buka|pergi)\s+/.test(low)) return null;
+
+    var map = [
+      { re: /\b(hasil result|# hasil|ada hasil)\b/, f:"gid5", after:function(){ try{ jadwalStatusFilter="ada_hasil"; hasilTypeFilter="all"; renderContent(); }catch(e){} }, m:"Membuka # Hasil Result." },
+      { re: /\b(jadwal pasaran|jadwal)\b/, f:"gid5", m:"Membuka JADWAL PASARAN." },
+      { re: /\b(all pk|semua pk)\b/, f:"gid0", m:"Membuka ALL PK." },
+      { re: /\b(hadiah togel|hadiah)\b/, f:"gid473", m:"Membuka HADIAH TOGEL." },
+      { re: /\b(bonus linetogel|bonus)\b/, f:"gidBonus", m:"Membuka BONUS." },
+      { re: /\b(cara betting|betting)\b/, f:"gidBetting", m:"Membuka CARA BETTING." },
+      { re: /\b(event linetogel|event)\b/, f:"gidEvent", m:"Membuka EVENT." },
+      { re: /\bqris\b/, f:"gidQris", m:"Membuka QRIS." },
+      { re: /\b(profile bank|profile|e-wallet|ewallet)\b/, f:"gidProfile", m:"Membuka PROFILE BANK." },
+      { re: /\b(generator password|password)\b/, f:"gidPassword", m:"Membuka GENERATOR PASSWORD." },
+      { re: /\b(gambar lain|gambar lain-lain)\b/, f:"gidGambarLain", m:"Membuka GAMBAR LAIN-LAIN." },
+      { re: /\b(dashboard|menu utama|beranda)\b/, f:null, m:"dashboard" }
+    ];
+    for (var i=0;i<map.length;i++){
+      if (map[i].re.test(low)) return map[i];
+    }
+    return null;
+  }
+
+  function aiRunLocal(q){
+    var raw=String(q||"").trim();
+    var low=raw.toLowerCase().replace(/\s+/g," ").trim();
+    if(!low && !aiAttachment) return "Tulis pertanyaan atau perintah dengan jelas.";
+
+    // API key
+    if (/^(set|simpan)\s+(api\s*)?key/.test(low) || low.indexOf("set api key")===0) {
+      var k=aiExtractKey(raw);
+      if(!k) return "Key tidak terbaca. Format SATU BARIS:\nset api key gsk_xxx";
+      aiSetKey(k); return "API key tersimpan. Ketik: status api";
+    }
+    if (aiExtractKey(raw) && /gsk_/.test(raw) && raw.length<220) {
+      aiSetKey(aiExtractKey(raw)); return "API key tersimpan. Ketik: status api";
+    }
+    if (low==="hapus api key"||low==="clear api key"){ aiSetKey(""); return "API key dihapus."; }
+    if (low==="status api"||low==="cek api"){
+      var kk=aiGetKey();
+      if(!kk) return "API key belum diset. Buat di console.groq.com lalu:\nset api key gsk_xxx";
+      return "API key aktif (..."+kk.slice(-6)+"), panjang "+kk.length+" karakter.";
+    }
+
+    // Navigasi hanya jika eksplisit
+    var nav = aiMatchNav(low);
+    if (nav) {
+      if (nav.m==="dashboard"){ try{ if(typeof showDashboard==="function") showDashboard(); }catch(e){} return "Kembali ke dashboard."; }
+      aiOpen(nav.f, nav.after||null);
+      return nav.m;
+    }
+
+    // Filter/result commands - exact-ish
+    if (/^(pasaran biasa|filter pasaran biasa|tampilkan pasaran biasa)$/.test(low) || low==="pasaran biasa"){
+      aiOpen("gid5", function(){ try{ jadwalStatusFilter="ada_hasil"; hasilTypeFilter="biasa"; renderContent(); }catch(e){} });
+      return "Filter: Pasaran Biasa.";
+    }
+    if (/^(filter hokidraw|pasaran hokidraw|tampilkan hokidraw)$/.test(low) || (low.indexOf("hokidraw")!==-1 && /filter|tampil|buka hasil/.test(low))){
+      aiOpen("gid5", function(){ try{ jadwalStatusFilter="ada_hasil"; hasilTypeFilter="hokidraw"; renderContent(); }catch(e){} });
+      return "Filter: Hokidraw.";
+    }
+    if (low==="terlama" || low==="urut terlama" || low==="urutan terlama"){
+      try{ hasilSortOrder="oldest"; if(typeof renderContent==="function") renderContent(); }catch(e){}
+      return "Urutan diset TERLAMA.";
+    }
+    if (low==="terbaru" || low==="urut terbaru" || low==="urutan terbaru"){
+      try{ hasilSortOrder="newest"; if(typeof renderContent==="function") renderContent(); }catch(e){}
+      return "Urutan diset TERBARU.";
+    }
+
+    var tgl = low.match(/^(?:tanggal|tgl|date)\s+(\d{4}-\d{2}-\d{2})$/);
+    if (tgl){
+      var iso=tgl[1];
+      aiOpen("gid5", function(){
+        try{
+          jadwalStatusFilter="ada_hasil"; hasilDateFilter=iso; hasilSortOrder="oldest";
+          if (typeof fetchRemoteArchiveSnapshot==="function") fetchRemoteArchiveSnapshot(iso).then(function(){ renderContent(); });
+          renderContent();
+        }catch(e){}
+      });
+      return "Memuat result tanggal "+iso+".";
+    }
+
+    if (low==="refresh" || low==="refresh data" || low==="muat ulang"){
+      try{ if(typeof loadData==="function"){ loadData(); return "Refresh data dijalankan."; } }catch(e){}
+      return "Refresh diminta.";
+    }
+    if (low==="logout" || low==="keluar akun"){ try{ if(typeof logout==="function") logout(); }catch(e){} return "Logout dijalankan."; }
+
+    if (low==="ringkas hasil" || low==="ringkas hasil hari ini" || low==="hasil hari ini" || low==="berapa result"){
+      try{
+        if (typeof rebuildResultMap==="function") rebuildResultMap();
+        if (typeof applyResultSourceForDate==="function") applyResultSourceForDate((typeof hasilDateFilter!=="undefined"&&hasilDateFilter)||aiToday());
+      }catch(e){}
+      var n=aiCountResults(); var sample=aiListResults(15);
+      var tgl2=(typeof hasilDateFilter!=="undefined"&&hasilDateFilter)||aiToday();
+      return "Tanggal: "+tgl2+"\nJumlah result: "+n+(sample.length?("\n\n• "+sample.join("\n• ")):"\n\nData kosong — buka # Hasil Result dulu.");
+    }
+
+    // SHIO hanya jika jelas minta shio / hanya nomor
+    var sm=low.match(/^(?:shio|hitung shio|siho)\s*(?:dari|untuk)?\s*(\d{2,6})$/);
+    if (sm) return "Nomor: "+sm[1]+"\nSHIO: "+aiShio(sm[1]);
+    if (/^\d{2,6}$/.test(low)) return "Nomor: "+low+"\nSHIO: "+aiShio(low);
+
+    // cari pasaran: harus diawali "cari "
+    if (/^cari\s+/.test(low)){
+      var name=raw.replace(/^cari\s+/i,"").trim();
+      if (name.length>=2){
+        var found=[], map={};
+        try{
+          for (var k in resultByMarket){
+            if(!Object.prototype.hasOwnProperty.call(resultByMarket,k)) continue;
+            var p=resultByMarket[k];
+            if(!p||!p.title||!p.number) continue;
+            if(String(p.title).toLowerCase().indexOf(name.toLowerCase())===-1) continue;
+            var kk3=String(p.title).toLowerCase(); if(map[kk3]) continue; map[kk3]=1;
+            found.push(p.title+" → "+p.number+(p.shio?" / "+p.shio:""));
+          }
+        }catch(e){}
+        if(found.length) return "Ditemukan:\n• "+found.slice(0,20).join("\n• ");
+        return "Tidak ditemukan: "+name;
+      }
+    }
+
+    if (/^format result\s+/i.test(raw)){
+      var parts=raw.replace(/^format\s+result\s+/i,"").trim().split(/\s+/);
+      if(parts.length>=2){
+        var nm=parts[0], r1=parts[1], r2=parts[2]||"", r3=parts[3]||"", sh=aiShio(r1);
+        var txt = (typeof buildResultAnnouncement==="function")
+          ? ((typeof compactResultText==="function")?compactResultText(buildResultAnnouncement(nm,r1,r2,r3,sh,"",!!(r2&&r3))):buildResultAnnouncement(nm,r1,r2,r3,sh,"",!!(r2&&r3)))
+          : ("Hasil Pengeluaran "+nm+"\nResult : "+r1+"\nSHIO : "+sh+"\nSelamat Kepada Pemenang, Salam JP");
+        aiCopyText(txt);
+        return "Disalin ke clipboard:\n\n"+txt;
+      }
+    }
+
+    if (low==="bantuan"||low==="help"||low==="?"||low==="perintah"){
+      return "Perintah yang dikenali:\n• buka hasil result / all pk / hadiah / bonus / ...\n• ringkas hasil\n• cari NAMA_PASARAN\n• tanggal YYYY-MM-DD\n• hitung shio 1234\n• refresh data\n• set api key gsk_xxx\n\nPertanyaan lain dijawab sesuai permintaan (perlu API key).";
+    }
+
+    // Bukan perintah lokal → LLM harus jawab sesuai pertanyaan user
+    return { needLlm: true, text: raw };
+  }
+
+  function aiBuildMessages(userText){
+    var context = "";
+    try {
+      context += "\nTanggal aktif dashboard: "+aiToday();
+      context += "\nJumlah result terdata: "+aiCountResults();
+    } catch(e){}
+
+    var sys =
+      "Anda asisten dashboard Ruang Waktu.\n"+
+      "ATURAN WAJIB:\n"+
+      "1. Jawab HANYA sesuai pertanyaan/perintah user. Jangan mengarang topik lain.\n"+
+      "2. Jika data tidak ada, katakan tidak ada — jangan mengisi jawaban asal.\n"+
+      "3. Jangan menambahkan saran yang tidak diminta.\n"+
+      "4. Bahasa Indonesia, singkat, jelas.\n"+
+      "5. Jika user melampirkan file/gambar, bahas isinya sesuai permintaan user saja.\n"+
+      "Konteks ringkas:"+context;
+
+    var textPart = userText || "";
+    var userContent = [];
+    if (aiAttachment) {
+      if (aiAttachment.isImage && aiAttachment.dataUrl) {
+        textPart = (textPart ? textPart+"\n\n" : "") + "[Lampiran gambar: "+aiAttachment.name+"]";
+        userContent.push({ type: "text", text: textPart });
+        userContent.push({ type: "image_url", image_url: { url: aiAttachment.dataUrl } });
+      } else if (aiAttachment.text) {
+        textPart = (textPart ? textPart+"\n\n" : "") + "Isi file \""+aiAttachment.name+"\":\n"+aiAttachment.text;
+        userContent.push({ type: "text", text: textPart });
+      } else {
+        userContent.push({ type: "text", text: textPart || "(lampiran)" });
+      }
+    } else {
+      userContent.push({ type: "text", text: textPart });
+    }
+    return {
+      sys: sys,
+      userContent: userContent,
+      simple: textPart,
+      hasImage: !!(aiAttachment && aiAttachment.isImage && aiAttachment.dataUrl)
+    };
+  }
+
+  function aiGroq(userText){
+    var key=aiGetKey(); if(!key) return Promise.resolve(null);
+    var built = aiBuildMessages(userText);
+    var models = [
+      "openai/gpt-oss-20b",
+      "openai/gpt-oss-120b",
+      "qwen/qwen3.8-27b",
+      "llama-3.1-8b-instant",
+      "llama-3.3-70b-versatile"
+    ];
+
+    function callModel(idx, forceTextOnly){
+      if (idx >= models.length) return Promise.resolve("Gagal memproses. Cek status api atau kuota Groq.");
+      var model = models[idx];
+      var messages = (!forceTextOnly && built.hasImage)
+        ? [ {role:"system", content: built.sys}, {role:"user", content: built.userContent} ]
+        : [ {role:"system", content: built.sys}, {role:"user", content: built.simple} ];
+
+      return fetch("https://api.groq.com/openai/v1/chat/completions", {
+        method: "POST",
+        headers: { "Content-Type":"application/json", "Authorization":"Bearer "+key },
+        body: JSON.stringify({
+          model: model,
+          temperature: 0.15,
+          max_tokens: 900,
+          messages: messages
+        })
+      }).then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
+      .then(function(res){
+        var j = res.j || {};
+        var t = j && j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content;
+        if (t) return String(t).trim();
+        var em = (j.error && j.error.message) ? String(j.error.message) : "";
+        if (/invalid api key/i.test(em)) return "API key tidak valid. Buat key baru lalu set api key gsk_...";
+        if (!forceTextOnly && built.hasImage && /image|vision|content|invalid/i.test(em)) return callModel(idx, true);
+        if (/does not exist|do not have access|model/i.test(em) && idx+1 < models.length) return callModel(idx+1, forceTextOnly);
+        if (em && idx+1 < models.length) return callModel(idx+1, forceTextOnly);
+        if (em) return "API error: "+em;
+        return callModel(idx+1, forceTextOnly);
+      }).catch(function(e){
+        if (idx+1 < models.length) return callModel(idx+1, forceTextOnly);
+        return "Gagal API: "+(e.message||e);
+      });
+    }
+    return callModel(0, false);
+  }
+
+  function aiSend(){
+    var input=ai$("aiInput"); if(!input) return;
+    var q=input.value.trim();
+    if(!q && !aiAttachment) return;
+
+    if (aiAttachment && aiAttachment.isImage && aiAttachment.dataUrl) {
+      aiAddImage(aiAttachment.dataUrl, q || ("Kirim gambar: "+aiAttachment.name));
+    } else if (aiAttachment && !aiAttachment.isImage) {
+      aiAdd("user", (q? q+"\n\n" : "") + "File: "+aiAttachment.name);
+    } else {
+      aiAdd("user", q);
+    }
+    input.value = "";
+
+    var res;
+    try { res = aiRunLocal(q); } catch(err){ aiAdd("bot","Error: "+(err.message||err)); return; }
+
+    // Lampiran + ada key → analisis sesuai teks user
+    if (aiAttachment && aiGetKey()) {
+      res = { needLlm: true, text: q || ("Jelaskan isi lampiran "+aiAttachment.name+" sesuai apa yang terlihat/terbaca. Jangan menambah topik lain.") };
+    }
+
+    if (res && typeof res === "object" && res.needLlm) {
+      if (!aiGetKey()) {
+        aiAdd("bot", aiAttachment
+          ? ("Lampiran diterima: "+aiAttachment.name+"\nUntuk menganalisis sesuai pertanyaan Anda, set API key:\nset api key gsk_xxx")
+          : "Pertanyaan ini perlu API key agar dijawab sesuai permintaan.\nset api key gsk_xxx\nAtau ketik: bantuan");
+        return;
+      }
+      aiAdd("bot", "Memproses sesuai pertanyaan Anda...");
+      aiGroq(res.text || q).then(function(a){
+        aiAdd("bot", a || "Tidak ada jawaban.");
+        aiClearAttach();
+      });
+      return;
+    }
+    aiAdd("bot", String(res));
+    if (aiAttachment) aiClearAttach();
+  }
+
+  function aiBind(){
+    var fab=ai$("aiFab"), panel=ai$("aiPanel"); if(!fab||!panel) return;
+    fab.addEventListener("click", function(){
+      panel.classList.toggle("open");
+      if(panel.classList.contains("open") && ai$("aiMessages") && !ai$("aiMessages").children.length){
+        aiAdd("bot", "Siap. Tulis pertanyaan/perintah dengan jelas — saya jawab sesuai permintaan Anda.\nKetik: bantuan");
+      }
+    });
+    if(ai$("aiCloseBtn")) ai$("aiCloseBtn").addEventListener("click", function(){ panel.classList.remove("open"); });
+    if(ai$("aiClearBtn")) ai$("aiClearBtn").addEventListener("click", function(){ if(ai$("aiMessages")) ai$("aiMessages").innerHTML=""; aiClearAttach(); aiAdd("bot","Chat dibersihkan."); });
+    if(ai$("aiSendBtn")) ai$("aiSendBtn").addEventListener("click", aiSend);
+    if(ai$("aiInput")) ai$("aiInput").addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); aiSend(); } });
+    document.querySelectorAll("[data-ai-q]").forEach(function(ch){
+      ch.addEventListener("click", function(){ if(ai$("aiInput")) ai$("aiInput").value=ch.getAttribute("data-ai-q")||""; aiSend(); });
+    });
+
+    var attachBtn = ai$("aiAttachBtn");
+    var fileInput = ai$("aiFileInput");
+    var clearBtn = ai$("aiAttachClear");
+    if (attachBtn && fileInput) {
+      attachBtn.addEventListener("click", function(){ fileInput.click(); });
+      fileInput.addEventListener("change", function(){
+        var f = fileInput.files && fileInput.files[0];
+        if (!f) return;
+        if (f.size > 8 * 1024 * 1024) { aiAdd("bot", "File terlalu besar (maks 8MB)."); fileInput.value=""; return; }
+        aiReadFile(f).then(function(att){
+          aiAttachment = att;
+          aiShowAttach();
+          aiAdd("bot", "Lampiran siap: "+att.name+". Tulis pertanyaan tentang file ini, lalu KIRIM.");
+        }).catch(function(err){ aiAdd("bot", "Gagal membaca file: "+(err.message||err)); });
+      });
+    }
+    if (clearBtn) clearBtn.addEventListener("click", function(){ aiClearAttach(); aiAdd("bot","Lampiran dihapus."); });
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", aiBind);
+  else aiBind();
+})();
+</script>
+
 </body>
 </html>
