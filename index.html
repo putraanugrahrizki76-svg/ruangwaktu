@@ -5946,149 +5946,263 @@
             margin: .35rem 0 .6rem;
         }
     
-        /* ===== AI ASSISTANT ===== */
+        /* ===== AI ASSISTANT (MemoDash-style) ===== */
         .ai-fab {
             position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 99980;
-            width: 54px; height: 54px; border-radius: 50%;
-            border: 1px solid rgba(56, 189, 248, .45);
-            background: linear-gradient(135deg, #0ea5e9, #6366f1 55%, #a855f7);
-            color: #fff; box-shadow: 0 12px 30px -10px rgba(14, 165, 233, .55), 0 0 0 4px rgba(14,165,233,.12);
+            width: 64px; height: 64px; border-radius: 50%;
+            border: none;
+            background: #ffffff;
+            box-shadow: 0 12px 30px -8px rgba(37,99,235,.45), 0 0 0 4px rgba(37,99,235,.12);
             cursor: pointer; display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; transition: transform .2s ease;
+            padding: 0; transition: transform .22s ease, box-shadow .22s ease;
+            animation: aiFabPulse 2.8s ease-in-out infinite;
         }
-        .ai-fab:hover { transform: translateY(-2px) scale(1.04); }
+        .ai-fab:hover { transform: translateY(-3px) scale(1.06); box-shadow: 0 16px 36px -8px rgba(37,99,235,.55), 0 0 0 5px rgba(37,99,235,.18); }
+        @keyframes aiFabPulse {
+            0%, 100% { box-shadow: 0 12px 30px -8px rgba(37,99,235,.4), 0 0 0 4px rgba(37,99,235,.1); }
+            50% { box-shadow: 0 12px 30px -8px rgba(37,99,235,.55), 0 0 0 7px rgba(37,99,235,.18); }
+        }
+        .ai-fab-bubble {
+            position: relative;
+            width: 42px; height: 36px;
+            background: #0b1b4a;
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .ai-fab-bubble::after {
+            content: "";
+            position: absolute;
+            left: 9px; bottom: -6px;
+            width: 12px; height: 12px;
+            background: #0b1b4a;
+            border-radius: 0 0 0 10px;
+            transform: rotate(35deg);
+        }
+        .ai-fab-face {
+            width: 28px; height: 22px;
+            border: 2.4px solid #ffffff;
+            border-radius: 9px 9px 11px 11px;
+            position: relative;
+            background: transparent;
+            box-sizing: border-box;
+        }
+        .ai-fab-face::before,
+        .ai-fab-face::after {
+            content: "";
+            position: absolute;
+            top: 5px;
+            width: 4.5px; height: 4.5px;
+            border-radius: 50%;
+            background: #ffffff;
+        }
+        .ai-fab-face::before { left: 4px; }
+        .ai-fab-face::after { right: 4px; }
+        .ai-fab-smile {
+            position: absolute;
+            left: 50%; bottom: 3px;
+            width: 11px; height: 6px;
+            border: 2px solid #ffffff;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            transform: translateX(-50%);
+            box-sizing: border-box;
+        }
+        .ai-fab-ant {
+            position: absolute;
+            top: -5px;
+            width: 2px; height: 5px;
+            background: #ffffff;
+            border-radius: 2px;
+        }
+        .ai-fab-ant.l { left: 6px; transform: rotate(-28deg); }
+        .ai-fab-ant.r { right: 6px; transform: rotate(28deg); }
+        .ai-fab-ant.l::after,
+        .ai-fab-ant.r::after {
+            content: "";
+            position: absolute;
+            top: -3px; left: 50%;
+            width: 4px; height: 4px;
+            margin-left: -2px;
+            border-radius: 50%;
+            background: #ffffff;
+        }
         .ai-panel {
-            position: fixed; right: 1.1rem; bottom: 4.6rem;
-            width: min(390px, calc(100vw - 1.4rem));
-            height: min(540px, calc(100vh - 6rem));
+            position: fixed; right: 1.1rem; bottom: 5.15rem;
+            width: min(350px, calc(100vw - 1.4rem));
+            height: min(500px, calc(100vh - 6.2rem));
             z-index: 99990; display: none; flex-direction: column;
-            border-radius: 18px; overflow: hidden;
-            border: 1px solid rgba(125, 211, 252, .28);
-            background: linear-gradient(160deg, rgba(15,23,42,.98), rgba(2,6,23,.98));
-            box-shadow: 0 24px 60px -20px rgba(0,0,0,.75);
+            border-radius: 22px; overflow: hidden;
+            border: 1px solid rgba(99,102,241,.28);
+            background: linear-gradient(165deg, #0f172a 0%, #0b1220 45%, #070b14 100%);
+            box-shadow: 0 24px 60px -14px rgba(0,0,0,.8), 0 0 0 1px rgba(56,189,248,.06) inset;
         }
-        .ai-panel.open { display: flex; }
+        .ai-panel.open { display: flex; animation: aiPanelIn .22s ease; }
+        @keyframes aiPanelIn {
+            from { opacity: 0; transform: translateY(10px) scale(.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
         .ai-head {
-            display: flex; align-items: center; gap: .55rem;
-            padding: .75rem .9rem; border-bottom: 1px solid rgba(51,65,85,.7);
-            background: linear-gradient(90deg, rgba(14,165,233,.15), rgba(99,102,241,.12));
+            display: flex; align-items: center; gap: .65rem;
+            padding: .82rem .95rem;
+            border-bottom: 1px solid rgba(99,102,241,.18);
+            background: linear-gradient(105deg, rgba(37,99,235,.22), rgba(124,58,237,.16) 55%, rgba(14,165,233,.1));
         }
         .ai-head-icon {
-            width: 32px; height: 32px; border-radius: 10px;
+            width: 34px; height: 34px; border-radius: 11px;
             display: flex; align-items: center; justify-content: center;
-            background: rgba(14,165,233,.2); color: #7dd3fc;
+            background: linear-gradient(135deg, rgba(37,99,235,.35), rgba(14,165,233,.25));
+            color: #bfdbfe;
+            font-size: .9rem;
+            box-shadow: 0 0 16px rgba(37,99,235,.25);
         }
-        .ai-head-title { font-size: .78rem; font-weight: 800; color: #e2e8f0; }
-        .ai-head-sub { font-size: .58rem; color: #94a3b8; }
-        .ai-head-actions { margin-left: auto; display: flex; gap: .3rem; }
+        .ai-head-title {
+            font-size: .8rem; font-weight: 800; color: #f8fafc;
+            letter-spacing: .02em;
+            text-shadow: 0 0 18px rgba(147,197,253,.25);
+        }
+        .ai-head-sub { font-size: .56rem; color: #93c5fd; margin-top: 1px; opacity: .9; }
+        .ai-head-actions { margin-left: auto; display: flex; gap: .28rem; }
         .ai-head-actions button {
-            border: none; background: rgba(30,41,59,.8); color: #cbd5e1;
+            border: none; background: rgba(15,23,42,.45); color: #cbd5e1;
             width: 28px; height: 28px; border-radius: 8px; cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center;
+            border: 1px solid rgba(148,163,184,.12);
         }
-        .ai-chips { display: flex; flex-wrap: wrap; gap: .35rem; padding: .55rem .75rem; border-bottom: 1px solid rgba(51,65,85,.5); }
+        .ai-head-actions button:hover { color: #fff; background: rgba(37,99,235,.35); }
+        .ai-chips {
+            display: flex; flex-wrap: wrap; gap: .32rem;
+            padding: .55rem .85rem;
+            border-bottom: 1px solid rgba(51,65,85,.4);
+            background: rgba(15,23,42,.55);
+        }
         .ai-chip {
-            border: 1px solid rgba(56,189,248,.3); background: rgba(14,165,233,.08);
-            color: #bae6fd; font-size: .58rem; font-weight: 700;
-            padding: .28rem .5rem; border-radius: 999px; cursor: pointer;
+            border: 1px solid rgba(96,165,250,.28);
+            background: linear-gradient(135deg, rgba(37,99,235,.16), rgba(14,165,233,.1));
+            color: #dbeafe; font-size: .56rem; font-weight: 700;
+            padding: .28rem .55rem; border-radius: 999px; cursor: pointer;
+            transition: transform .15s ease, background .15s ease;
         }
-        .ai-chip:hover { background: rgba(14,165,233,.18); }
-        .ai-messages { flex: 1; overflow-y: auto; padding: .75rem; display: flex; flex-direction: column; gap: .55rem; }
-        .ai-msg { max-width: 92%; padding: .55rem .7rem; border-radius: 12px; font-size: .68rem; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
-        .ai-msg.bot { align-self: flex-start; background: rgba(30,41,59,.9); border: 1px solid rgba(71,85,105,.55); color: #e2e8f0; }
-        .ai-msg.user { align-self: flex-end; background: linear-gradient(135deg, rgba(14,165,233,.35), rgba(99,102,241,.3)); border: 1px solid rgba(125,211,252,.3); color: #f8fafc; }
-        .ai-input-row { display: flex; gap: .4rem; padding: .65rem .7rem .75rem; border-top: 1px solid rgba(51,65,85,.7); background: rgba(2,6,23,.9); }
-        .ai-input-row input {
-            flex: 1; border-radius: 11px; border: 1px solid rgba(71,85,105,.8);
-            background: rgba(15,23,42,.95); color: #e2e8f0; padding: .55rem .7rem; font-size: .68rem; outline: none;
+        .ai-chip:hover {
+            transform: translateY(-1px);
+            background: linear-gradient(135deg, rgba(37,99,235,.28), rgba(14,165,233,.18));
+            border-color: rgba(147,197,253,.45);
         }
-        .ai-input-row input:focus { border-color: rgba(56,189,248,.55); }
-        .ai-input-row button {
-            border: none; border-radius: 11px; padding: 0 .85rem;
-            background: linear-gradient(135deg, #0ea5e9, #6366f1); color: #fff; font-weight: 800; font-size: .65rem; cursor: pointer;
+        .ai-messages {
+            flex: 1; overflow-y: auto; padding: .9rem .8rem;
+            display: flex; flex-direction: column; gap: .55rem;
+            background:
+              radial-gradient(ellipse 70% 40% at 50% -10%, rgba(37,99,235,.1), transparent 60%),
+              #0b1220;
         }
-
+        .ai-messages::-webkit-scrollbar { width: 5px; }
+        .ai-messages::-webkit-scrollbar-thumb { background: rgba(99,102,241,.35); border-radius: 8px; }
+        .ai-msg {
+            max-width: 88%; padding: .72rem .88rem; border-radius: 15px;
+            font-size: .73rem; line-height: 1.55; word-break: break-word;
+            animation: aiMsgIn .2s ease;
+        }
+        @keyframes aiMsgIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .ai-msg.bot {
+            align-self: flex-start;
+            background: linear-gradient(160deg, rgba(30,41,59,.98), rgba(15,23,42,.96));
+            border: 1px solid rgba(99,102,241,.22);
+            color: #e2e8f0;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 8px 18px -12px rgba(0,0,0,.5);
+        }
+        .ai-msg.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #2563eb, #0ea5e9);
+            border: 1px solid rgba(147,197,253,.25);
+            color: #f8fafc;
+            border-bottom-right-radius: 5px;
+            box-shadow: 0 8px 18px -10px rgba(37,99,235,.55);
+        }
+        .ai-msg.bot .ai-p { margin: 0 0 .4rem 0; }
+        .ai-msg.bot .ai-p:last-child { margin-bottom: 0; }
         .ai-attach-preview {
             display: none; gap: .4rem; align-items: center;
-            padding: .35rem .75rem 0; font-size: .58rem; color: #94a3b8;
+            padding: .4rem .85rem 0; font-size: .56rem; color: #94a3b8;
         }
         .ai-attach-preview.show { display: flex; }
         .ai-attach-preview img {
-            width: 42px; height: 42px; object-fit: cover; border-radius: 8px;
-            border: 1px solid rgba(148,163,184,.35);
+            width: 38px; height: 38px; object-fit: cover; border-radius: 8px;
+            border: 1px solid rgba(148,163,184,.3);
         }
-        .ai-attach-preview .ai-att-name { max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .ai-attach-preview .ai-att-name { max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .ai-attach-clear {
-            border: none; background: rgba(239,68,68,.15); color: #fca5a5;
-            border-radius: 6px; padding: .15rem .4rem; cursor: pointer; font-size: .55rem;
+            border: none; background: rgba(239,68,68,.14); color: #fca5a5;
+            border-radius: 6px; padding: .14rem .38rem; cursor: pointer; font-size: .52rem;
         }
         .ai-input-row {
-            display: flex;
-            align-items: center;
-            gap: .35rem;
-            padding: .55rem .7rem .7rem;
-            border-top: 1px solid rgba(51,65,85,.7);
-            background: rgba(2,6,23,.9);
+            display: flex; align-items: center; gap: .4rem;
+            padding: .65rem .75rem .75rem;
+            border-top: 1px solid rgba(99,102,241,.15);
+            background: linear-gradient(180deg, rgba(15,23,42,.9), rgba(11,18,32,.98));
         }
         .ai-input-shell {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: .25rem;
-            min-height: 40px;
-            padding: .15rem .35rem .15rem .25rem;
-            border-radius: 12px;
-            border: 1px solid rgba(71,85,105,.85);
-            background: rgba(15,23,42,.95);
+            flex: 1; display: flex; align-items: center; gap: .15rem;
+            min-height: 42px; padding: .1rem .3rem .1rem .2rem;
+            border-radius: 13px; border: 1px solid rgba(71,85,105,.65);
+            background: rgba(11,18,32,.95);
+            transition: border-color .15s ease, box-shadow .15s ease;
         }
         .ai-input-shell:focus-within {
-            border-color: rgba(56,189,248,.55);
-            box-shadow: 0 0 0 3px rgba(14,165,233,.12);
+            border-color: rgba(59,130,246,.6);
+            box-shadow: 0 0 0 3px rgba(59,130,246,.14);
         }
         .ai-attach-icon-btn {
-            flex: 0 0 auto;
-            width: 34px;
-            height: 34px;
-            border: none;
-            border-radius: 10px;
-            background: transparent;
-            color: #94a3b8;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: .95rem;
-            transition: color .15s ease, background .15s ease;
+            flex: 0 0 auto; width: 32px; height: 32px; border: none; border-radius: 8px;
+            background: transparent; color: #94a3b8;
+            display: inline-flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: .9rem;
         }
-        .ai-attach-icon-btn:hover {
-            color: #e2e8f0;
-            background: rgba(148,163,184,.12);
-        }
+        .ai-attach-icon-btn:hover { color: #e2e8f0; background: rgba(148,163,184,.1); }
         .ai-input-shell input {
-            flex: 1;
-            border: none !important;
-            background: transparent !important;
-            box-shadow: none !important;
-            outline: none !important;
-            color: #e2e8f0;
-            padding: .45rem .35rem;
-            font-size: .68rem;
-            min-width: 0;
+            flex: 1; border: none !important; background: transparent !important;
+            box-shadow: none !important; outline: none !important;
+            color: #e2e8f0; padding: .42rem .3rem; font-size: .7rem; min-width: 0;
         }
         .ai-input-shell input::placeholder { color: #64748b; }
         .ai-input-row > #aiSendBtn {
-            flex: 0 0 auto;
-            border: none;
-            border-radius: 11px;
-            padding: 0 .85rem;
-            height: 40px;
-            background: linear-gradient(135deg, #0ea5e9, #6366f1);
-            color: #fff;
-            font-weight: 800;
-            font-size: .65rem;
-            cursor: pointer;
+            flex: 0 0 auto; border: none; border-radius: 12px; padding: 0 .9rem; height: 42px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: #fff; font-weight: 800; font-size: .64rem; cursor: pointer;
+            box-shadow: 0 8px 18px -8px rgba(37,99,235,.55);
         }
+        .ai-input-row > #aiSendBtn:hover { filter: brightness(1.07); }
 
-        .ai-foot { font-size: .52rem; color: #64748b; text-align: center; padding: 0 .7rem .55rem; }
+        .ai-typing {
+            align-self: flex-start;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: .7rem .95rem;
+            border-radius: 15px;
+            border-bottom-left-radius: 5px;
+            background: linear-gradient(160deg, rgba(30,41,59,.98), rgba(15,23,42,.96));
+            border: 1px solid rgba(99,102,241,.22);
+            box-shadow: 0 8px 18px -12px rgba(0,0,0,.5);
+        }
+        .ai-typing span {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: #93c5fd;
+            opacity: .35;
+            animation: aiTypingDot 1.2s ease-in-out infinite;
+        }
+        .ai-typing span:nth-child(2) { animation-delay: .15s; }
+        .ai-typing span:nth-child(3) { animation-delay: .3s; }
+        @keyframes aiTypingDot {
+            0%, 80%, 100% { transform: translateY(0); opacity: .3; }
+            40% { transform: translateY(-4px); opacity: 1; }
+        }
+        .ai-foot { display: none; }
+
+
+
 
     </style>
 </head>
@@ -9489,13 +9603,21 @@ function applyResultSourceForDate(isoDate) {
     </script>
 
 <!-- AI Assistant -->
-<button type="button" class="ai-fab" id="aiFab" title="Asisten AI"><i class="fa-solid fa-robot"></i></button>
+<button type="button" class="ai-fab" id="aiFab" title="Chat AI" aria-label="Buka chat AI">
+  <span class="ai-fab-bubble">
+    <span class="ai-fab-face">
+      <span class="ai-fab-ant l"></span>
+      <span class="ai-fab-ant r"></span>
+      <span class="ai-fab-smile"></span>
+    </span>
+  </span>
+</button>
 <div class="ai-panel" id="aiPanel" aria-hidden="true">
   <div class="ai-head">
     <div class="ai-head-icon"><i class="fa-solid fa-sparkles"></i></div>
     <div>
       <div class="ai-head-title">Asisten Project</div>
-      <div class="ai-head-sub">Gratis · jalankan perintah · opsional Groq API</div>
+      <div class="ai-head-sub">Chat AI · dashboard + pertanyaan umum</div>
     </div>
     <div class="ai-head-actions">
       <button type="button" id="aiClearBtn" title="Bersihkan"><i class="fa-solid fa-eraser"></i></button>
@@ -9538,11 +9660,24 @@ function applyResultSourceForDate(isoDate) {
   var aiAttachment = null;
 
   function ai$(id){ return document.getElementById(id); }
-  function aiAdd(role, text){
+  function aiEscape(s){
+    return String(s??'').replace(/[&<>"']/g, function(ch){
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[ch];
+    });
+  }
+  function aiFormatBotHtml(text){
+    var n = String(text||'').replace(/\r\n?/g,'\n').trim();
+    if(!n) return '<p class="ai-p">Maaf, jawaban kosong. Coba ulangi.</p>';
+    return n.split(/\n+/).filter(Boolean).map(function(line){
+      return '<p class="ai-p">'+aiEscape(line)+'</p>';
+    }).join('');
+  }
+  function aiAdd(role, text, asHtml){
     var box = ai$("aiMessages"); if(!box) return;
     var div = document.createElement("div");
     div.className = "ai-msg " + (role === "user" ? "user" : "bot");
-    div.textContent = text;
+    if (role === "bot" && asHtml) div.innerHTML = aiFormatBotHtml(text);
+    else div.textContent = text;
     box.appendChild(div);
     box.scrollTop = box.scrollHeight;
   }
@@ -9557,14 +9692,25 @@ function applyResultSourceForDate(isoDate) {
       wrap.appendChild(t);
     }
     var img = document.createElement("img");
-    img.src = dataUrl;
-    img.alt = "lampiran";
-    img.style.maxWidth = "100%";
-    img.style.borderRadius = "8px";
-    img.style.display = "block";
+    img.src = dataUrl; img.alt = "lampiran";
+    img.style.maxWidth = "100%"; img.style.borderRadius = "8px"; img.style.display = "block";
     wrap.appendChild(img);
     box.appendChild(wrap);
     box.scrollTop = box.scrollHeight;
+  }
+  function aiShowTyping(){
+    var box = ai$("aiMessages"); if(!box) return;
+    aiHideTyping();
+    var div = document.createElement("div");
+    div.className = "ai-typing";
+    div.id = "aiTyping";
+    div.innerHTML = "<span></span><span></span><span></span>";
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+  }
+  function aiHideTyping(){
+    var el = ai$("aiTyping");
+    if (el && el.parentNode) el.parentNode.removeChild(el);
   }
   function aiGetKey(){ try { return localStorage.getItem(AI_KEY_STORE) || ""; } catch(e){ return ""; } }
   function aiSetKey(k){ try { localStorage.setItem(AI_KEY_STORE, String(k||"").trim()); } catch(e){} }
@@ -9586,10 +9732,61 @@ function applyResultSourceForDate(isoDate) {
       return true;
     } catch(e){ return false; }
   }
+  function aiNowWib(){
+    // Waktu sekarang dalam zona Indonesia Barat (UTC+7)
+    var now = new Date();
+    var utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    return new Date(utc + (7 * 60 * 60000));
+  }
   function aiToday(){
-    if (typeof getWibTodayISO==="function") return getWibTodayISO();
-    var n=new Date();
+    if (typeof getWibTodayISO==="function") {
+      try {
+        var iso = getWibTodayISO();
+        if (iso && /^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso;
+      } catch(e){}
+    }
+    var n = aiNowWib();
     return n.getFullYear()+"-"+String(n.getMonth()+1).padStart(2,"0")+"-"+String(n.getDate()).padStart(2,"0");
+  }
+  function aiDayNameId(d){
+    var names = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+    return names[d.getDay()] || "-";
+  }
+  function aiMonthNameId(m){
+    var names = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+    return names[m] || "-";
+  }
+  function aiFormatDateLong(d){
+    return d.getDate() + " " + aiMonthNameId(d.getMonth()) + " " + d.getFullYear();
+  }
+  function aiAnswerDateQuestion(low){
+    // Hanya untuk pertanyaan tanggal/hari — dijawab lokal agar akurat
+    var isDateQ = /(hari ini|tanggal|hari apa|jam berapa|sekarang)/i.test(low);
+    if (!isDateQ) return null;
+    // hindari tabrakan dengan perintah dashboard
+    if (/^(buka|ringkas|cari|hitung|set |status |refresh|logout)/.test(low)) return null;
+    if (/result|pasaran|shio|bonus|hadiah/.test(low) && !/hari ini/.test(low)) return null;
+
+    var d = aiNowWib();
+    var iso = aiToday();
+    var day = aiDayNameId(d);
+    var long = aiFormatDateLong(d);
+    var hh = String(d.getHours()).padStart(2,"0");
+    var mm = String(d.getMinutes()).padStart(2,"0");
+
+    if (/jam/.test(low)) {
+      return "Sekarang pukul " + hh + ":" + mm + " WIB.\nTanggal: " + long + " (" + day + ").";
+    }
+    if (/tanggal/.test(low) && /hari/.test(low)) {
+      return long + ", hari " + day + ".";
+    }
+    if (/tanggal/.test(low)) {
+      return "Tanggal hari ini: " + long + ".";
+    }
+    if (/hari apa|hari ini/.test(low)) {
+      return "Hari ini " + long + ", hari " + day + ".";
+    }
+    return "Hari ini " + long + ", hari " + day + ".\nPukul " + hh + ":" + mm + " WIB.";
   }
   function aiCountResults(){
     var n=0, map={};
@@ -9606,7 +9803,7 @@ function applyResultSourceForDate(isoDate) {
     return n;
   }
   function aiListResults(limit){
-    limit = limit||15; var out=[], map={};
+    limit = limit||12; var out=[], map={};
     try {
       for (var k in resultByMarket) {
         if (!Object.prototype.hasOwnProperty.call(resultByMarket,k)) continue;
@@ -9630,9 +9827,7 @@ function applyResultSourceForDate(isoDate) {
   function aiCopyText(text){
     text = String(text||"");
     if (!text) return false;
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text); return true; }
-    } catch(e){}
+    try { if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text); return true; } } catch(e){}
     try {
       var ta=document.createElement("textarea");
       ta.value=text; document.body.appendChild(ta); ta.select();
@@ -9659,13 +9854,8 @@ function applyResultSourceForDate(isoDate) {
     prev.classList.add("show");
     if (name) name.textContent = aiAttachment.name + (aiAttachment.isImage ? " (gambar)" : " (file)");
     if (img) {
-      if (aiAttachment.isImage && aiAttachment.dataUrl) {
-        img.src = aiAttachment.dataUrl;
-        img.style.display = "block";
-      } else {
-        img.removeAttribute("src");
-        img.style.display = "none";
-      }
+      if (aiAttachment.isImage && aiAttachment.dataUrl) { img.src = aiAttachment.dataUrl; img.style.display = "block"; }
+      else { img.removeAttribute("src"); img.style.display = "none"; }
     }
   }
   function aiReadFile(file){
@@ -9675,43 +9865,37 @@ function applyResultSourceForDate(isoDate) {
       var reader = new FileReader();
       reader.onerror = function(){ reject(new Error("gagal baca file")); };
       if (isImage) {
-        reader.onload = function(){
-          resolve({ name: file.name, type: file.type, isImage: true, dataUrl: String(reader.result||""), text: "" });
-        };
+        reader.onload = function(){ resolve({ name:file.name, type:file.type, isImage:true, dataUrl:String(reader.result||""), text:"" }); };
         reader.readAsDataURL(file);
       } else {
         reader.onload = function(){
           var text = String(reader.result||"");
-          if (text.length > 120000) text = text.slice(0, 120000) + "\n\n[...terpotong...]";
-          resolve({ name: file.name, type: file.type||"text", isImage: false, dataUrl: "", text: text });
+          if (text.length > 120000) text = text.slice(0,120000)+"\n\n[...terpotong...]";
+          resolve({ name:file.name, type:file.type||"text", isImage:false, dataUrl:"", text:text });
         };
         reader.readAsText(file);
       }
     });
   }
 
-  // Cocokkan perintah navigasi HANYA jika eksplisit (hindari salah jawab)
   function aiMatchNav(low){
     var explicit = /^(buka|pergi ke|tampilkan|bukakan|ke menu|menu)\b/.test(low) || /^(hasil result|jadwal pasaran|all pk|hadiah togel|bonus linetogel|cara betting|event linetogel|qris|profile bank|generator password|gambar lain-lain|dashboard|beranda)$/.test(low);
     if (!explicit && !/^(buka|pergi)\s+/.test(low)) return null;
-
     var map = [
-      { re: /\b(hasil result|# hasil|ada hasil)\b/, f:"gid5", after:function(){ try{ jadwalStatusFilter="ada_hasil"; hasilTypeFilter="all"; renderContent(); }catch(e){} }, m:"Membuka # Hasil Result." },
-      { re: /\b(jadwal pasaran|jadwal)\b/, f:"gid5", m:"Membuka JADWAL PASARAN." },
-      { re: /\b(all pk|semua pk)\b/, f:"gid0", m:"Membuka ALL PK." },
-      { re: /\b(hadiah togel|hadiah)\b/, f:"gid473", m:"Membuka HADIAH TOGEL." },
-      { re: /\b(bonus linetogel|bonus)\b/, f:"gidBonus", m:"Membuka BONUS." },
-      { re: /\b(cara betting|betting)\b/, f:"gidBetting", m:"Membuka CARA BETTING." },
-      { re: /\b(event linetogel|event)\b/, f:"gidEvent", m:"Membuka EVENT." },
-      { re: /\bqris\b/, f:"gidQris", m:"Membuka QRIS." },
-      { re: /\b(profile bank|profile|e-wallet|ewallet)\b/, f:"gidProfile", m:"Membuka PROFILE BANK." },
-      { re: /\b(generator password|password)\b/, f:"gidPassword", m:"Membuka GENERATOR PASSWORD." },
-      { re: /\b(gambar lain|gambar lain-lain)\b/, f:"gidGambarLain", m:"Membuka GAMBAR LAIN-LAIN." },
-      { re: /\b(dashboard|menu utama|beranda)\b/, f:null, m:"dashboard" }
+      { re:/\b(hasil result|# hasil|ada hasil)\b/, f:"gid5", after:function(){ try{ jadwalStatusFilter="ada_hasil"; hasilTypeFilter="all"; renderContent(); }catch(e){} }, m:"Membuka # Hasil Result." },
+      { re:/\b(jadwal pasaran|jadwal)\b/, f:"gid5", m:"Membuka JADWAL PASARAN." },
+      { re:/\b(all pk|semua pk)\b/, f:"gid0", m:"Membuka ALL PK." },
+      { re:/\b(hadiah togel|hadiah)\b/, f:"gid473", m:"Membuka HADIAH TOGEL." },
+      { re:/\b(bonus linetogel|bonus)\b/, f:"gidBonus", m:"Membuka BONUS." },
+      { re:/\b(cara betting|betting)\b/, f:"gidBetting", m:"Membuka CARA BETTING." },
+      { re:/\b(event linetogel|event)\b/, f:"gidEvent", m:"Membuka EVENT." },
+      { re:/\bqris\b/, f:"gidQris", m:"Membuka QRIS." },
+      { re:/\b(profile bank|profile|e-wallet|ewallet)\b/, f:"gidProfile", m:"Membuka PROFILE BANK." },
+      { re:/\b(generator password|password)\b/, f:"gidPassword", m:"Membuka GENERATOR PASSWORD." },
+      { re:/\b(gambar lain|gambar lain-lain)\b/, f:"gidGambarLain", m:"Membuka GAMBAR LAIN-LAIN." },
+      { re:/\b(dashboard|menu utama|beranda)\b/, f:null, m:"dashboard" }
     ];
-    for (var i=0;i<map.length;i++){
-      if (map[i].re.test(low)) return map[i];
-    }
+    for (var i=0;i<map.length;i++) if (map[i].re.test(low)) return map[i];
     return null;
   }
 
@@ -9720,47 +9904,35 @@ function applyResultSourceForDate(isoDate) {
     var low=raw.toLowerCase().replace(/\s+/g," ").trim();
     if(!low && !aiAttachment) return "Tulis pertanyaan atau perintah dengan jelas.";
 
-    // API key
     if (/^(set|simpan)\s+(api\s*)?key/.test(low) || low.indexOf("set api key")===0) {
       var k=aiExtractKey(raw);
       if(!k) return "Key tidak terbaca. Format SATU BARIS:\nset api key gsk_xxx";
-      aiSetKey(k); return "API key tersimpan. Ketik: status api";
+      aiSetKey(k);
+      return "API key tersimpan permanen di browser ini.\nTidak perlu diganti setiap hari.\nKetik: status api";
     }
     if (aiExtractKey(raw) && /gsk_/.test(raw) && raw.length<220) {
-      aiSetKey(aiExtractKey(raw)); return "API key tersimpan. Ketik: status api";
+      aiSetKey(aiExtractKey(raw));
+      return "API key tersimpan permanen di browser ini.\nKetik: status api";
     }
     if (low==="hapus api key"||low==="clear api key"){ aiSetKey(""); return "API key dihapus."; }
     if (low==="status api"||low==="cek api"){
       var kk=aiGetKey();
-      if(!kk) return "API key belum diset. Buat di console.groq.com lalu:\nset api key gsk_xxx";
-      return "API key aktif (..."+kk.slice(-6)+"), panjang "+kk.length+" karakter.";
+      if(!kk) return "API key belum diset.\n1) console.groq.com → Create API Key (No expiration)\n2) set api key gsk_xxx\nKey cukup sekali — tidak perlu ganti tiap hari.";
+      return "API key aktif (..."+kk.slice(-6)+").\nTersimpan permanen di browser ini — tidak perlu input ulang setiap hari.";
     }
 
-    // Navigasi hanya jika eksplisit
     var nav = aiMatchNav(low);
     if (nav) {
       if (nav.m==="dashboard"){ try{ if(typeof showDashboard==="function") showDashboard(); }catch(e){} return "Kembali ke dashboard."; }
-      aiOpen(nav.f, nav.after||null);
-      return nav.m;
+      aiOpen(nav.f, nav.after||null); return nav.m;
     }
 
-    // Filter/result commands - exact-ish
-    if (/^(pasaran biasa|filter pasaran biasa|tampilkan pasaran biasa)$/.test(low) || low==="pasaran biasa"){
+    if (low==="pasaran biasa"){
       aiOpen("gid5", function(){ try{ jadwalStatusFilter="ada_hasil"; hasilTypeFilter="biasa"; renderContent(); }catch(e){} });
       return "Filter: Pasaran Biasa.";
     }
-    if (/^(filter hokidraw|pasaran hokidraw|tampilkan hokidraw)$/.test(low) || (low.indexOf("hokidraw")!==-1 && /filter|tampil|buka hasil/.test(low))){
-      aiOpen("gid5", function(){ try{ jadwalStatusFilter="ada_hasil"; hasilTypeFilter="hokidraw"; renderContent(); }catch(e){} });
-      return "Filter: Hokidraw.";
-    }
-    if (low==="terlama" || low==="urut terlama" || low==="urutan terlama"){
-      try{ hasilSortOrder="oldest"; if(typeof renderContent==="function") renderContent(); }catch(e){}
-      return "Urutan diset TERLAMA.";
-    }
-    if (low==="terbaru" || low==="urut terbaru" || low==="urutan terbaru"){
-      try{ hasilSortOrder="newest"; if(typeof renderContent==="function") renderContent(); }catch(e){}
-      return "Urutan diset TERBARU.";
-    }
+    if (low==="terlama" || low==="urut terlama"){ try{ hasilSortOrder="oldest"; renderContent(); }catch(e){} return "Urutan: TERLAMA."; }
+    if (low==="terbaru" || low==="urut terbaru"){ try{ hasilSortOrder="newest"; renderContent(); }catch(e){} return "Urutan: TERBARU."; }
 
     var tgl = low.match(/^(?:tanggal|tgl|date)\s+(\d{4}-\d{2}-\d{2})$/);
     if (tgl){
@@ -9786,17 +9958,15 @@ function applyResultSourceForDate(isoDate) {
         if (typeof rebuildResultMap==="function") rebuildResultMap();
         if (typeof applyResultSourceForDate==="function") applyResultSourceForDate((typeof hasilDateFilter!=="undefined"&&hasilDateFilter)||aiToday());
       }catch(e){}
-      var n=aiCountResults(); var sample=aiListResults(15);
+      var n=aiCountResults(); var sample=aiListResults(12);
       var tgl2=(typeof hasilDateFilter!=="undefined"&&hasilDateFilter)||aiToday();
       return "Tanggal: "+tgl2+"\nJumlah result: "+n+(sample.length?("\n\n• "+sample.join("\n• ")):"\n\nData kosong — buka # Hasil Result dulu.");
     }
 
-    // SHIO hanya jika jelas minta shio / hanya nomor
     var sm=low.match(/^(?:shio|hitung shio|siho)\s*(?:dari|untuk)?\s*(\d{2,6})$/);
     if (sm) return "Nomor: "+sm[1]+"\nSHIO: "+aiShio(sm[1]);
     if (/^\d{2,6}$/.test(low)) return "Nomor: "+low+"\nSHIO: "+aiShio(low);
 
-    // cari pasaran: harus diawali "cari "
     if (/^cari\s+/.test(low)){
       var name=raw.replace(/^cari\s+/i,"").trim();
       if (name.length>=2){
@@ -9816,23 +9986,19 @@ function applyResultSourceForDate(isoDate) {
       }
     }
 
-    if (/^format result\s+/i.test(raw)){
-      var parts=raw.replace(/^format\s+result\s+/i,"").trim().split(/\s+/);
-      if(parts.length>=2){
-        var nm=parts[0], r1=parts[1], r2=parts[2]||"", r3=parts[3]||"", sh=aiShio(r1);
-        var txt = (typeof buildResultAnnouncement==="function")
-          ? ((typeof compactResultText==="function")?compactResultText(buildResultAnnouncement(nm,r1,r2,r3,sh,"",!!(r2&&r3))):buildResultAnnouncement(nm,r1,r2,r3,sh,"",!!(r2&&r3)))
-          : ("Hasil Pengeluaran "+nm+"\nResult : "+r1+"\nSHIO : "+sh+"\nSelamat Kepada Pemenang, Salam JP");
-        aiCopyText(txt);
-        return "Disalin ke clipboard:\n\n"+txt;
-      }
-    }
-
     if (low==="bantuan"||low==="help"||low==="?"||low==="perintah"){
-      return "Perintah yang dikenali:\n• buka hasil result / all pk / hadiah / bonus / ...\n• ringkas hasil\n• cari NAMA_PASARAN\n• tanggal YYYY-MM-DD\n• hitung shio 1234\n• refresh data\n• set api key gsk_xxx\n\nPertanyaan lain dijawab sesuai permintaan (perlu API key).";
+      return "Perintah dashboard:\n• buka hasil result / all pk / hadiah / bonus\n• ringkas hasil · cari NAMA · hitung shio 1234\n• refresh data\n\nChat umum: tanya saja (perlu API key sekali).\nAPI key: set api key gsk_xxx (tersimpan permanen)";
     }
 
-    // Bukan perintah lokal → LLM harus jawab sesuai pertanyaan user
+    // Pertanyaan tanggal/hari — lokal & akurat (WIB)
+    var dateAns = aiAnswerDateQuestion(low);
+    if (dateAns) return dateAns;
+
+    // Sapaan lokal (tanpa API key)
+    if (/^(hallo|halo|hello|hai|hi|hey|selamat\s+(pagi|siang|sore|malam)|apa\s*kabar|pagi|siang|sore|malam)([!?.\s]*)$/i.test(low)) {
+      return "Halo! 👋 Ada yang bisa saya bantu hari ini?\n\nKalau kamu punya pertanyaan umum, tanya saja ya. Kalau yang membahas dashboard Ruang Waktu, ceritakan fitur atau masalahnya, nanti saya bantu jelasin.";
+    }
+
     return { needLlm: true, text: raw };
   }
 
@@ -9843,31 +10009,37 @@ function applyResultSourceForDate(isoDate) {
       context += "\nJumlah result terdata: "+aiCountResults();
     } catch(e){}
 
+    var nowD = aiNowWib();
+    var factualNow = aiFormatDateLong(nowD) + ", hari " + aiDayNameId(nowD) + ", pukul " +
+      String(nowD.getHours()).padStart(2,"0") + ":" + String(nowD.getMinutes()).padStart(2,"0") + " WIB";
     var sys =
-      "Anda asisten dashboard Ruang Waktu.\n"+
+      "Kamu asisten yang teliti seperti Grok: akurat, langsung, tidak mengarang.\n"+
+      "Waktu sekarang (SUMBER BENAR): " + factualNow + "\n"+
+      "Tanggal ISO: " + aiToday() + "\n"+
+      "Bisa menjawab pertanyaan UMUM dan pertanyaan dashboard Ruang Waktu.\n"+
       "ATURAN WAJIB:\n"+
-      "1. Jawab HANYA sesuai pertanyaan/perintah user. Jangan mengarang topik lain.\n"+
-      "2. Jika data tidak ada, katakan tidak ada — jangan mengisi jawaban asal.\n"+
-      "3. Jangan menambahkan saran yang tidak diminta.\n"+
-      "4. Bahasa Indonesia, singkat, jelas.\n"+
-      "5. Jika user melampirkan file/gambar, bahas isinya sesuai permintaan user saja.\n"+
-      "Konteks ringkas:"+context;
+      "1. Jawab sesuai pertanyaan. Jangan menambah topik yang tidak diminta.\n"+
+      "2. JANGAN mengarang fakta (tanggal, hari, angka, nama). Jika tidak yakin, katakan tidak yakin.\n"+
+      "3. Untuk tanggal/hari/jam, WAJIB pakai waktu di atas (WIB), jangan menebak.\n"+
+      "4. JANGAN membuka jawaban dengan Halo/Hallo/Hai kecuali user hanya menyapa.\n"+
+      "5. Bahasa Indonesia, singkat, jelas, natural.\n"+
+      "Konteks dashboard:"+context;
 
     var textPart = userText || "";
     var userContent = [];
     if (aiAttachment) {
       if (aiAttachment.isImage && aiAttachment.dataUrl) {
         textPart = (textPart ? textPart+"\n\n" : "") + "[Lampiran gambar: "+aiAttachment.name+"]";
-        userContent.push({ type: "text", text: textPart });
-        userContent.push({ type: "image_url", image_url: { url: aiAttachment.dataUrl } });
+        userContent.push({ type:"text", text:textPart });
+        userContent.push({ type:"image_url", image_url:{ url: aiAttachment.dataUrl } });
       } else if (aiAttachment.text) {
         textPart = (textPart ? textPart+"\n\n" : "") + "Isi file \""+aiAttachment.name+"\":\n"+aiAttachment.text;
-        userContent.push({ type: "text", text: textPart });
+        userContent.push({ type:"text", text:textPart });
       } else {
-        userContent.push({ type: "text", text: textPart || "(lampiran)" });
+        userContent.push({ type:"text", text:textPart||"(lampiran)" });
       }
     } else {
-      userContent.push({ type: "text", text: textPart });
+      userContent.push({ type:"text", text:textPart });
     }
     return {
       sys: sys,
@@ -9880,48 +10052,37 @@ function applyResultSourceForDate(isoDate) {
   function aiGroq(userText){
     var key=aiGetKey(); if(!key) return Promise.resolve(null);
     var built = aiBuildMessages(userText);
-    var models = [
-      "openai/gpt-oss-20b",
-      "openai/gpt-oss-120b",
-      "qwen/qwen3.8-27b",
-      "llama-3.1-8b-instant",
-      "llama-3.3-70b-versatile"
-    ];
+    var models = ["openai/gpt-oss-20b","openai/gpt-oss-120b","qwen/qwen3.8-27b","llama-3.1-8b-instant","llama-3.3-70b-versatile"];
 
     function callModel(idx, forceTextOnly){
       if (idx >= models.length) return Promise.resolve("Gagal memproses. Cek status api atau kuota Groq.");
       var model = models[idx];
       var messages = (!forceTextOnly && built.hasImage)
-        ? [ {role:"system", content: built.sys}, {role:"user", content: built.userContent} ]
-        : [ {role:"system", content: built.sys}, {role:"user", content: built.simple} ];
+        ? [{role:"system",content:built.sys},{role:"user",content:built.userContent}]
+        : [{role:"system",content:built.sys},{role:"user",content:built.simple}];
 
       return fetch("https://api.groq.com/openai/v1/chat/completions", {
-        method: "POST",
-        headers: { "Content-Type":"application/json", "Authorization":"Bearer "+key },
-        body: JSON.stringify({
-          model: model,
-          temperature: 0.15,
-          max_tokens: 900,
-          messages: messages
-        })
-      }).then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
+        method:"POST",
+        headers:{"Content-Type":"application/json","Authorization":"Bearer "+key},
+        body: JSON.stringify({ model:model, temperature:0.2, max_tokens:1000, messages:messages })
+      }).then(function(r){ return r.json().then(function(j){ return {ok:r.ok,j:j}; }); })
       .then(function(res){
-        var j = res.j || {};
-        var t = j && j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content;
+        var j=res.j||{};
+        var t=j&&j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content;
         if (t) return String(t).trim();
-        var em = (j.error && j.error.message) ? String(j.error.message) : "";
-        if (/invalid api key/i.test(em)) return "API key tidak valid. Buat key baru lalu set api key gsk_...";
-        if (!forceTextOnly && built.hasImage && /image|vision|content|invalid/i.test(em)) return callModel(idx, true);
-        if (/does not exist|do not have access|model/i.test(em) && idx+1 < models.length) return callModel(idx+1, forceTextOnly);
-        if (em && idx+1 < models.length) return callModel(idx+1, forceTextOnly);
+        var em=(j.error&&j.error.message)?String(j.error.message):"";
+        if (/invalid api key/i.test(em)) return "API key tidak valid. Buat key baru (No expiration) lalu: set api key gsk_...";
+        if (!forceTextOnly && built.hasImage && /image|vision|content|invalid/i.test(em)) return callModel(idx,true);
+        if (/does not exist|do not have access|model/i.test(em) && idx+1<models.length) return callModel(idx+1,forceTextOnly);
+        if (em && idx+1<models.length) return callModel(idx+1,forceTextOnly);
         if (em) return "API error: "+em;
-        return callModel(idx+1, forceTextOnly);
+        return callModel(idx+1,forceTextOnly);
       }).catch(function(e){
-        if (idx+1 < models.length) return callModel(idx+1, forceTextOnly);
+        if (idx+1<models.length) return callModel(idx+1,forceTextOnly);
         return "Gagal API: "+(e.message||e);
       });
     }
-    return callModel(0, false);
+    return callModel(0,false);
   }
 
   function aiSend(){
@@ -9939,28 +10100,42 @@ function applyResultSourceForDate(isoDate) {
     input.value = "";
 
     var res;
-    try { res = aiRunLocal(q); } catch(err){ aiAdd("bot","Error: "+(err.message||err)); return; }
+    try { res = aiRunLocal(q); } catch(err){ aiAdd("bot","Error: "+(err.message||err), false); return; }
 
-    // Lampiran + ada key → analisis sesuai teks user
     if (aiAttachment && aiGetKey()) {
-      res = { needLlm: true, text: q || ("Jelaskan isi lampiran "+aiAttachment.name+" sesuai apa yang terlihat/terbaca. Jangan menambah topik lain.") };
+      res = { needLlm:true, text: q || ("Jelaskan isi lampiran "+aiAttachment.name+" sesuai permintaan. Jangan menambah topik lain.") };
     }
 
     if (res && typeof res === "object" && res.needLlm) {
       if (!aiGetKey()) {
-        aiAdd("bot", aiAttachment
-          ? ("Lampiran diterima: "+aiAttachment.name+"\nUntuk menganalisis sesuai pertanyaan Anda, set API key:\nset api key gsk_xxx")
-          : "Pertanyaan ini perlu API key agar dijawab sesuai permintaan.\nset api key gsk_xxx\nAtau ketik: bantuan");
+        aiAdd("bot",
+          aiAttachment
+            ? ("Lampiran diterima: "+aiAttachment.name+"\nUntuk analisis, set API key sekali saja:\nset api key gsk_xxx")
+            : ("Untuk menjawab pertanyaan umum, aktifkan API key sekali saja (tidak perlu ganti tiap hari):\n\n1) console.groq.com → Create API Key → No expiration\n2) set api key gsk_xxx\n3) status api\n\nPerintah dashboard tetap bisa tanpa key (ketik: bantuan)."),
+          false
+        );
         return;
       }
-      aiAdd("bot", "Memproses sesuai pertanyaan Anda...");
+      aiShowTyping();
       aiGroq(res.text || q).then(function(a){
-        aiAdd("bot", a || "Tidak ada jawaban.");
+        aiHideTyping();
+        var ans = String(a || "Tidak ada jawaban.");
+        var qLow = String(q||"").toLowerCase().replace(/\s+/g," ").trim();
+        var isGreeting = /^(hallo|halo|hello|hai|hi|hey|selamat\s+(pagi|siang|sore|malam)|apa\s*kabar)([!?.\s]*)$/i.test(qLow);
+        if (!isGreeting) {
+          ans = ans.replace(/^\s*(halo|hallo|hello|hai|hi|hey)[\s!?,.👋🙏😊]*\s*/i, "");
+          ans = ans.replace(/^\s*(halo|hallo|hello|hai)\s*![^\n]*\n+/i, "");
+        }
+        ans = ans.trim() || "Tidak ada jawaban.";
+        aiAdd("bot", ans, true);
         aiClearAttach();
+      }).catch(function(){
+        aiHideTyping();
+        aiAdd("bot", "Gagal memproses jawaban.", false);
       });
       return;
     }
-    aiAdd("bot", String(res));
+    aiAdd("bot", String(res), true);
     if (aiAttachment) aiClearAttach();
   }
 
@@ -9969,11 +10144,16 @@ function applyResultSourceForDate(isoDate) {
     fab.addEventListener("click", function(){
       panel.classList.toggle("open");
       if(panel.classList.contains("open") && ai$("aiMessages") && !ai$("aiMessages").children.length){
-        aiAdd("bot", "Siap. Tulis pertanyaan/perintah dengan jelas — saya jawab sesuai permintaan Anda.\nKetik: bantuan");
+        var k = aiGetKey();
+        if (k) {
+          aiAdd("bot", "Halo! 👋 Ada yang bisa saya bantu hari ini?\n\nKalau kamu punya pertanyaan umum, tanya saja ya. Kalau yang membahas dashboard Ruang Waktu, ceritakan fiturnya, nanti saya bantu jelasin.", true);
+        } else {
+          aiAdd("bot", "Halo! 👋 Ada yang bisa saya bantu?\n\nPerintah dashboard: ketik bantuan\nChat umum: set api key sekali (No expiration) — tidak perlu ganti tiap hari.", true);
+        }
       }
     });
     if(ai$("aiCloseBtn")) ai$("aiCloseBtn").addEventListener("click", function(){ panel.classList.remove("open"); });
-    if(ai$("aiClearBtn")) ai$("aiClearBtn").addEventListener("click", function(){ if(ai$("aiMessages")) ai$("aiMessages").innerHTML=""; aiClearAttach(); aiAdd("bot","Chat dibersihkan."); });
+    if(ai$("aiClearBtn")) ai$("aiClearBtn").addEventListener("click", function(){ if(ai$("aiMessages")) ai$("aiMessages").innerHTML=""; aiClearAttach(); aiAdd("bot","Chat dibersihkan.", true); });
     if(ai$("aiSendBtn")) ai$("aiSendBtn").addEventListener("click", aiSend);
     if(ai$("aiInput")) ai$("aiInput").addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); aiSend(); } });
     document.querySelectorAll("[data-ai-q]").forEach(function(ch){
@@ -9988,15 +10168,14 @@ function applyResultSourceForDate(isoDate) {
       fileInput.addEventListener("change", function(){
         var f = fileInput.files && fileInput.files[0];
         if (!f) return;
-        if (f.size > 8 * 1024 * 1024) { aiAdd("bot", "File terlalu besar (maks 8MB)."); fileInput.value=""; return; }
+        if (f.size > 8*1024*1024) { aiAdd("bot","File terlalu besar (maks 8MB).", false); fileInput.value=""; return; }
         aiReadFile(f).then(function(att){
-          aiAttachment = att;
-          aiShowAttach();
-          aiAdd("bot", "Lampiran siap: "+att.name+". Tulis pertanyaan tentang file ini, lalu KIRIM.");
-        }).catch(function(err){ aiAdd("bot", "Gagal membaca file: "+(err.message||err)); });
+          aiAttachment = att; aiShowAttach();
+          aiAdd("bot", "Lampiran siap: "+att.name+". Tulis pertanyaan, lalu KIRIM.", true);
+        }).catch(function(err){ aiAdd("bot","Gagal membaca file: "+(err.message||err), false); });
       });
     }
-    if (clearBtn) clearBtn.addEventListener("click", function(){ aiClearAttach(); aiAdd("bot","Lampiran dihapus."); });
+    if (clearBtn) clearBtn.addEventListener("click", function(){ aiClearAttach(); aiAdd("bot","Lampiran dihapus.", true); });
   }
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", aiBind);
   else aiBind();
