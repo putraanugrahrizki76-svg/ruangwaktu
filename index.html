@@ -10151,16 +10151,41 @@ function applyResultSourceForDate(isoDate) {
     }
 
     if (low==="bantuan"||low==="help"||low==="?"||low==="perintah"){
-      return "Perintah dashboard:\n• buka hasil result / all pk / hadiah / bonus\n• ringkas hasil · cari NAMA · hitung shio 1234\n• refresh data\n\nChat umum: tanya saja (perlu API key sekali).\nAPI key: set api key gsk_xxx (tersimpan permanen)";
+      return "Perintah dashboard:\n• buka hasil result / all pk / hadiah / bonus\n• ringkas hasil · cari NAMA · hitung shio 1234\n• refresh data\n\nChat umum: tanya saja (perlu API key Groq, sekali saja).\nAPI key: set api key gsk_xxx (tersimpan permanen)\n\nCatatan: AI memakai Groq API (bukan Grok xAI).";
     }
 
     // Pertanyaan tanggal/hari — lokal & akurat (WIB)
     var dateAns = aiAnswerDateQuestion(low);
     if (dateAns) return dateAns;
 
+    // Negara asal pasaran — fakta publik yang relatif mapan
+    if (/(negara|asal|berasal|dari mana)/i.test(low) && /(pasaran|togel|bullseye|hongkong|sydney|singapore|singapura|macau|macao|beijing|tokyo|seoul|bangkok|taiwan)/i.test(low)) {
+      if (/bull\s*seye|bullseye/i.test(low)) {
+        return "Pasaran togel BULLSEYE (Bulls Eye) berasal dari Selandia Baru (New Zealand).\n\nIni merujuk pada permainan lotere Lotto NZ (New Zealand Lotteries). Hasilnya diundi di Selandia Baru, lalu sering dipakai situs togel untuk format 4D/3D/2D.";
+      }
+      if (/hong\s*kong|hongkong/i.test(low)) {
+        return "Pasaran Hongkong merujuk pada Hong Kong.\nHasil keluaran biasanya dikaitkan dengan undian Hong Kong pools.";
+      }
+      if (/sydney|sdy/i.test(low)) {
+        return "Pasaran Sydney merujuk pada Sydney, Australia.";
+      }
+      if (/singapore|singapura|sgp/i.test(low)) {
+        return "Pasaran Singapore/Singapura merujuk pada Singapura.";
+      }
+      if (/macau|macao|toto\s*macau/i.test(low)) {
+        return "Pasaran Macau merujuk pada Makau.";
+      }
+      if (/beijing|beijing/i.test(low)) return "Pasaran Beijing merujuk pada Beijing, Tiongkok.";
+      if (/tokyo/i.test(low)) return "Pasaran Tokyo merujuk pada Tokyo, Jepang.";
+      if (/seoul/i.test(low)) return "Pasaran Seoul merujuk pada Seoul, Korea Selatan.";
+      if (/bangkok/i.test(low)) return "Pasaran Bangkok merujuk pada Bangkok, Thailand.";
+      if (/taiwan/i.test(low)) return "Pasaran Taiwan merujuk pada Taiwan.";
+      return "Untuk pasaran itu, negara asal resminya tidak tercatat di data dashboard. Jika nama pasaran mengikuti nama kota/negara, biasanya merujuk ke lokasi tersebut — tapi pastikan dari sumber result resmi.";
+    }
+
     // Sapaan lokal (tanpa API key)
     if (/^(hallo|halo|hello|hai|hi|hey|selamat\s+(pagi|siang|sore|malam)|apa\s*kabar|pagi|siang|sore|malam)([!?.\s]*)$/i.test(low)) {
-      return "Halo! 👋 Ada yang bisa saya bantu hari ini?\n\nKalau kamu punya pertanyaan umum, tanya saja ya. Kalau yang membahas dashboard Ruang Waktu, ceritakan fitur atau masalahnya, nanti saya bantu jelasin.";
+      return "Halo! 👋 Ada yang bisa saya bantu?\n\nSaya bisa jawab pertanyaan umum maupun seputar dashboard Ruang Waktu.";
     }
 
     return { needLlm: true, text: raw };
@@ -10177,16 +10202,26 @@ function applyResultSourceForDate(isoDate) {
     var factualNow = aiFormatDateLong(nowD) + ", hari " + aiDayNameId(nowD) + ", pukul " +
       String(nowD.getHours()).padStart(2,"0") + ":" + String(nowD.getMinutes()).padStart(2,"0") + " WIB";
     var sys =
-      "Kamu asisten yang teliti seperti Grok: akurat, langsung, tidak mengarang.\n"+
-      "Waktu sekarang (SUMBER BENAR): " + factualNow + "\n"+
+      "Kamu asisten AI dashboard Ruang Waktu. Gaya jawaban: akurat, konsisten, langsung ke inti (seperti asisten profesional).\n"+
+      "Waktu sekarang (SUMBER BENAR, WIB): " + factualNow + "\n"+
       "Tanggal ISO: " + aiToday() + "\n"+
-      "Bisa menjawab pertanyaan UMUM dan pertanyaan dashboard Ruang Waktu.\n"+
-      "ATURAN WAJIB:\n"+
-      "1. Jawab sesuai pertanyaan. Jangan menambah topik yang tidak diminta.\n"+
-      "2. JANGAN mengarang fakta (tanggal, hari, angka, nama). Jika tidak yakin, katakan tidak yakin.\n"+
-      "3. Untuk tanggal/hari/jam, WAJIB pakai waktu di atas (WIB), jangan menebak.\n"+
-      "4. JANGAN membuka jawaban dengan Halo/Hallo/Hai kecuali user hanya menyapa.\n"+
-      "5. Bahasa Indonesia, singkat, jelas, natural.\n"+
+      "KEMAMPUAN:\n"+
+      "- Pertanyaan umum (pengetahuan, penjelasan, fakta)\n"+
+      "- Dashboard Ruang Waktu (jadwal, result, SHIO, bonus, hadiah, qris, profile)\n"+
+      "ATURAN WAJIB UNTUK SEMUA JAWABAN:\n"+
+      "1. Jawab sesuai pertanyaan user saja. Jangan mengalihkan topik.\n"+
+      "2. Prioritas kebenaran. Jangan mengarang. Jika tidak yakin, katakan tidak yakin.\n"+
+      "3. Jawaban harus konsisten: fakta yang sama tidak boleh dijawab berbeda-beda.\n"+
+      "4. Fakta pasaran yang sudah mapan:\n"+
+      "   - BULLSEYE = Selandia Baru (New Zealand / Lotto NZ)\n"+
+      "   - Hongkong = Hong Kong\n"+
+      "   - Sydney = Australia\n"+
+      "   - Singapore = Singapura\n"+
+      "   - Macau / Toto Macau = Makau\n"+
+      "5. Tanggal/hari/jam WAJIB mengikuti waktu WIB di atas.\n"+
+      "6. Jangan membuka jawaban dengan Halo/Hai kecuali user hanya menyapa.\n"+
+      "7. Bahasa Indonesia, natural, singkat, jelas. 1-3 paragraf cukup.\n"+
+      "8. Jangan menampilkan status 'Memproses' atau meta-komentar.\n"+
       "Konteks dashboard:"+context;
 
     var textPart = userText || "";
@@ -10228,7 +10263,7 @@ function applyResultSourceForDate(isoDate) {
       return fetch("https://api.groq.com/openai/v1/chat/completions", {
         method:"POST",
         headers:{"Content-Type":"application/json","Authorization":"Bearer "+key},
-        body: JSON.stringify({ model:model, temperature:0.2, max_tokens:1000, messages:messages })
+        body: JSON.stringify({ model:model, temperature:0.15, max_tokens:1000, messages:messages })
       }).then(function(r){ return r.json().then(function(j){ return {ok:r.ok,j:j}; }); })
       .then(function(res){
         var j=res.j||{};
@@ -10310,7 +10345,7 @@ function applyResultSourceForDate(isoDate) {
       if(panel.classList.contains("open") && ai$("aiMessages") && !ai$("aiMessages").children.length){
         var k = aiGetKey();
         if (k) {
-          aiAdd("bot", "Halo! 👋 Ada yang bisa saya bantu hari ini?\n\nKalau kamu punya pertanyaan umum, tanya saja ya. Kalau yang membahas dashboard Ruang Waktu, ceritakan fiturnya, nanti saya bantu jelasin.", true);
+          aiAdd("bot", "Halo! 👋 Ada yang bisa saya bantu?\n\nSaya bisa jawab pertanyaan umum maupun seputar dashboard Ruang Waktu.", true);
         } else {
           aiAdd("bot", "Halo! 👋 Ada yang bisa saya bantu?\n\nPerintah dashboard: ketik bantuan\nChat umum: set api key sekali (No expiration) — tidak perlu ganti tiap hari.", true);
         }
@@ -10348,4 +10383,3 @@ function applyResultSourceForDate(isoDate) {
 
 </body>
 </html>
-  
